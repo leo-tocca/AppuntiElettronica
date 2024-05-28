@@ -1,0 +1,156 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{circuitikz}
+\usepackage{geometry}
+    \geometry{
+        a4paper,
+        total={170mm,257mm},
+        left=20mm,
+        top=20mm,
+    }
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Appunti Elettronica generale},
+  pdfsubject={Elettronica},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Appunti Elettronica generale}
+\author{}
+\date{2024-04-12}
+
+\begin{document}
+\maketitle
+
+\section{Semiconduttori}\label{semiconduttori}
+
+Sono, come suggerisce il nome, materiali in cui il flusso di corrente
+\emph{non è libero} (non è un conduttore), ma è \textbf{presente} (non è
+un'isolante).
+
+In particolare, conducono in particolari situazioni. Quali sono però i
+materiali con queste condizioni? - Silicio (Si), Germanio (Ge) (Carbonio
+(C), ma composto) - GaAs, GaN (Gallio-Arsenico/Azoto) In generale sono
+gli elementi della \(4°\) colonna della tavola periodica o composti a
+numero medio di elettroni liberi pari a 4.
+
+Per far condurre un materiale va \emph{``drogato''}, ossia aggiungere,
+in piccole dosi, materiali della \(5°\) colonna (drogaggio di tipo N),
+che cedono \emph{elettroni}, o elementi della \(3°\) colonna (tipo P),
+che acquistano elettroni. La qualità del semiconduttore è influenzata
+dal materiale usato (per esempio Ge è meglio del Si, ma è più raro), che
+è a sua volta influenzato dal goal\footnote{(penso voglia dire
+  ``obiettivo perseguito'')}(elettronica digitale usa Si, l'elettronica
+di potenza il GaN o SiC).
+
+Vediamo ora degli elementi in silicio.
+
+\subsection{Giunzione p-n}\label{giunzione-p-n}
+
+Il drogaggio di un materiale è quantificato con le grandezze \[
+N_A = \frac{\# acceptors}{vol. unit} \text{ e } N_d=\frac{\# donors}{vol. unit}
+\] dove \(N_a\) è tipo p:`positivo', mentre \(N_d\) è di tipo
+n:`negativo'.
+
+\begin{quote}
+Memo: il silicio puro ha una struttura cristallina matriciale, che
+blocca il passaggio di carica.
+\end{quote}
+
+Collegando un blocco drogato tipo ? ed uno tipo ? abbiamo (ideale)
+
+\begin{quote}
+Inserire immagine
+\end{quote}
+
+L'abbondanza di lacune in \(p\) è considerabile come una carenza di
+elettroni, di cui \(n\) \emph{abbonda}. Ciò genera una
+\textbf{migrazione} di elettroni da n verso p.
+
+\begin{quote}
+Inserire immagine
+\end{quote}
+
+Tale fenomeno carica in modo \emph{positivo} n (meno elettroni), e in
+modo \emph{negativo} p (più elettroni).
+
+Tali cariche generano dei campi elettrici (positivo su n e negativo su
+p), che impedisce un ulteriore passaggio di carica, si ha allora un
+\textbf{equilibrio}.
+
+\begin{quote}
+Inserire immagine
+\end{quote}
+
+Nel punto di contatto si crea così una zona in cui tutte le lacune (di
+cosa?) sono state riempite, e tutti gli elettroni extra di ? ceduti.
+Tale zona è detta \textbf{depletion layer} (regione di svuotamento a
+carica spaziale).
+
+\begin{quote}
+Inserire immagine
+\end{quote}
+
+In genere il dp non è simmetrico: deve valere: \[
+x_p N_A = x_n N_D
+\] Ricordando che \(E=\int Q\), e che \(V=\int E\), si vede come il
+potenziale \textbf{impedisca} il moto \(p\rightarrow n\) (delle lacune)
+e \(n\rightarrow p\) (degli elettroni).
+
+Il simbolo circuitale della giunzione pn, detta \textbf{diodo} è
+
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) to[diode] (2,0); 
+\end{circuitikz}
+\end{center}
+
+dove a sinistra abbiamo un \textbf{anodo} A (dal greco \emph{salita}), e
+a destra un \textbf{catodo} (dal greco \emph{discesa}).
+
+\end{document}
