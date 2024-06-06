@@ -1,8 +1,4 @@
-[MISSING_PAGE_EMPTY:1]
-
-[MISSING_PAGE_EMPTY:2]
-
-## Index
+# Index
 
 * 1 Dispositivi elettronici
     * 1.1 Giunzione P-N
