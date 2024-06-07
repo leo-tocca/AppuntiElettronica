@@ -21,7 +21,7 @@
    	 * 2.1.1 Parametri statici
    	 * 2.1.2 Parametri dinamici
     * 2.2 Famiglie logiche
-   	 * 2.2.1 RTL (resistor-transistor logic
+   	 * 2.2.1 RTL (resistor-transistor logic)
    	 * 2.2.2 TTL (transistor-transistor)
    	 * 2.2.3 MOS logic cells
    	 * 2.2.4 BiCMOS
@@ -147,14 +147,14 @@ $W /m^2$) che incide sul fotodiodo.
 I led (light emitting diode) sono anch'essi diodi la cui giunzione è impacchettata in un
 involucro trasparente. La loro barriera non si trova a $0.7V$ ma bensì a **$1.5V$**.
 
-$$
+
 \begin{align*}
 E&=h\cdot\nu\ (E = \text{energia emessa}, h = \text{costante di Plank}, \nu = \text{frequenza
 dell'onda luminosa})\\
 \nu&=\frac{E}{h}\ \Longrightarrow\ \nu\propto E \\
 \lambda\nu&=c, \quad \lambda\propto\frac{1}{E}
 \end{align*}
-$$
+
 
 Colori diversi di luce richiedono differenze di potenziale diverse: si va da un 1.5V per un led
 rosso (possiamo avere anche meno con un led IR) a un 3.0V per un led viola (e poi sale nel caso
@@ -203,20 +203,18 @@ e quindi $I_{b}>0,\ I_{c}=h_{fe}I_{b}$, ($h_{fe}$ è una funzione di guadagno).
 Figura 1.8
 
 - **Saturazione** 
-$$
 \begin{gather*}
 V_{be}>V_{th},\ V_{ce}<V_{ce-sat}\ \Longrightarrow\ V_{bc}>V_{th} \\
 I_{b}>0,I_{c}<h_{fe}I_{b}\
 \end{gather*}
-$$
+
 
 - **Attiva inversa** 
-$$
 \begin{gather*}
 V_{be}<0,\ V_{bc}>V_{th} \\
 I_{e} =-I_{b}\ (\text{il gain è }\leq 1)
 \end{gather*}
-$$
+
 Figure 1.9: Grafico un po’ più realistico di un bjt
 
 ### 1.5 Sonda 10x
@@ -229,12 +227,12 @@ Figure 1.10: Schema di una sonda 10x
 
 Questo tipo di diodo lavora in breakdown. Se lo metto in polarizzazione diretta funziona come un
 diodo normale, se però lo metto in polarizzazione inversa faccio si che la tensione di breakdown
-sia molto precisa e quindi se \(V_{G}<V_{Z}\) non succede nulla (\(V_{G}=V_{0}\)). Se invece
-\(V_{G}\geq V_{Z}\) allora il diodo va in breakdown e inizia a scorrere corrente in esso. Di
-preciso scorre \(V_{0}=V_{Z}\) (e quindi ho una tensione in uscita stabilizzata).
+sia molto precisa e quindi se $V_{G}<V_{Z}$ non succede nulla ($V_{G}=V_{0}$). Se invece
+$V_{G}\geq V_{Z}$ allora il diodo va in breakdown e inizia a scorrere corrente in esso. Di
+preciso scorre $V_{0}=V_{Z}$ (e quindi ho una tensione in uscita stabilizzata).
 
 Nel circuito in figura 1.11 la resistenza e importante perché se non ci fosse avrei
-\(\frac{V_{G}-V_{i}}{R}=i_{r}\) ma \(R\to 0\) e quindi \(i_{r}\to\infty\).
+$\frac{V_{G}-V_{i}}{R}=i_{r}$ ma $R\to 0$ e quindi $i_{r}\to\infty$.
 
 ### 1.7 BJT pnp
 
@@ -250,11 +248,11 @@ peggio (per questo motivo, quando e possibile, si utilizzano gli npn), ovvero sc
 La corrente di base viene generata quando è esposto alla luce, per il resto è un transistor
 normale.
 
-\(I_{C}=k\cdot P_{L}\)
+$I_{C}=k\cdot P_{L}$
 
-\(P_{L}\) e la potenza luminosa.
+$P_{L}$ e la potenza luminosa.
 
-E importante che il dispositivo sia in regione attiva e quindi inserisco un resistor dal lato
+È importante che il dispositivo sia in regione attiva e quindi inserisco un resistore dal lato
 del collettore per evitare di andare in saturazione.
 
 Figure 1.12: Schema di un transistor pnp
@@ -273,7 +271,7 @@ Figure 1.13: Schema di un fototransistor Questo dispositivo ha tre terminali: so
 drain. Se siamo in corrente continua allora la corrente che scorre nel gate e 0, altrimenti,
 data la forma a condensatore, scorre una piccola quantità di corrente.
 
-Quando la tensione \(V_{GS}\) e poca il dispositivo e come se fosse spento e quindi tra la parte
+Quando la tensione $V_{GS}$ e poca il dispositivo e come se fosse spento e quindi tra la parte
 p e sia il source che il drain e come se ci fosse un diodo (con capo positivo in p e negativo
 nei terminali) che impedisce il passaggio di corrente. Poi, via via che aumento la tensione sul
 gate, gli elettroni presenti nella parte p vengono attirati vicino all'ossido (perché è così
@@ -285,20 +283,20 @@ strato isolante.
 
 **Regioni di lavoro**
 
-* cutoff: \(V_{GS}<V_{t}\), in questa regione il dispositivo e come spento
+* cutoff: $V_{GS}<V_{t}$, in questa regione il dispositivo e come spento
 perché non ho il canale di conduzione * regione lineare: questa regione, nei bjt,
 corrisponde alla regione di saturazione. In questa regione ho poca corrente e il
-dispositivo lavora come un resistore controllato in tensione. \(V_{GS}>V_{t},\
-I_{D}=\frac{V_{DS}}{R_{DS}}<I_{D-SAT}\). \(\frac{1}{R_{DS}}\propto V_{GS}\).
-* regione di saturazione: in questa regione la corrente e costante \[I_{D}
-= K[2(V_{GS}-V_{t})V_{DS}-V_{DS}^{2}]\] \[I_{D-SAT} = K(V_{GS}-V_{t})^{2}\ \text{quando}\
-V_{DS}\leq V_{GS}-V_{t}\] \[K = \frac{1}{2}\mu C_{ox}\frac{W}{L}\] dove \(\mu\) dovrebbe essere la
-mobilita del materiale (quindi quanto facilmente scorrono le cariche al suo interno), \(C_{ox}\)
+dispositivo lavora come un resistore controllato in tensione. $V_{GS}>V_{t},\
+I_{D}=\frac{V_{DS}}{R_{DS}}<I_{D-SAT}$. $\frac{1}{R_{DS}}\propto V_{GS}$.
+* regione di saturazione: in questa regione la corrente e costante $$I_{D}
+= K[2(V_{GS}-V_{t})V_{DS}-V_{DS}^{2}]$$ $$I_{D-SAT} = K(V_{GS}-V_{t})^{2}\ \text{quando}\
+V_{DS}\leq V_{GS}-V_{t}$$ $$K = \frac{1}{2}\mu C_{ox}\frac{W}{L}$$ dove $\mu$ dovrebbe essere la
+mobilita del materiale (quindi quanto facilmente scorrono le cariche al suo interno), $C_{ox}$
 la capacità dell'ossido per unita di carica, W la larghezza della zona che va a costituire il
 canale e L la sua lunghezza.
 
 All'aumentare della corrente il N-MOS si comporta come un resistore la cui resistenza è data
-da \(R=\frac{\rho\cdot L}{s}\) (s non so cosa sia).
+da $R=\frac{\rho\cdot L}{s}$ (s non so cosa sia).
 
 Non posso realizzare dispositivi troppo piccoli perché canali di dimensioni ridotte supportano
 tensioni più basse (o meglio posso ma devo utilizzare tensioni minori).
@@ -306,7 +304,7 @@ tensioni più basse (o meglio posso ma devo utilizzare tensioni minori).
 #### P-MOS
 
 Al contrario dell'N-MOS qui devo attirare le lacune. Le equazioni sono le stesse, solo tensioni e
-correnti hanno il segno invertito (\(V_{GS}<0,V_{DS}>0,V_{t}<0\)). Solitamente questo dispositivo
+correnti hanno il segno invertito ($V_{GS}<0,V_{DS}>0,V_{t}<0$). Solitamente questo dispositivo
 ha un gain minore perché le lacune hanno mobilità ridotta del 50% rispetto agli elettroni
 dei N-MOS.
 
@@ -315,11 +313,13 @@ così che "venga scavallato" il **body diode** che c'èra prima. Adesso l'unico 
 rimanente è quello da p al drain.
 
 Per valutare K date delle curve e possibile risolvere il seguente sistema:
-
-\[\begin{cases}I_{D1}=K(V_{G1}-V_{t})^{2}\\
-I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\quad\longrightarrow\begin{cases}\sqrt{I_{D1
-}}=\sqrt{K}(V_{G1}-V_{t})\\ \sqrt{I_{D2}}=\sqrt{K}(V_{G2}-V_{t})\end{cases}\]
-
+$$
+\begin{cases}
+I_{D1}=K(V_{G1}-V_{t})^{2}\\
+I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\quad\longrightarrow\begin{cases}\sqrt{I_{D1}}=\sqrt{K}(V_{G1}-V_{t})\\
+\sqrt{I_{D2}}=\sqrt{K}(V_{G2}-V_{t})
+\end{cases}
+$$\
 Figure 15: Schema di un P-MOS
 
 ## Chapter 1 Dispositivi Elektronic
@@ -340,36 +340,36 @@ della porta lo stesso ingresso, l'uscita e un _banale_ not.
 
 Ogni famiglia logica ha dei parametri statici:
 
-* \(\mathbf{V_{iH}},\ \mathbf{V_{iL}}\) sono tensioni di ingresso, \(V_{iH}\) e il minimo
-valore della tensione tale per cui la famiglia percepisca il livello logico "alto". \(V_{iL}\)
+* $\mathbf{V_{iH}},\ \mathbf{V_{iL}}$ sono tensioni di ingresso, $V_{iH}$ e il minimo
+valore della tensione tale per cui la famiglia percepisca il livello logico "alto". $V_{iL}$
 e invece il valore massimo della tensione affinché la famiglia percepisca il livello logico
 "basso". Spesso questi due valori sono diversi e quindi nel mezzo c'è una zona dove il produttore
-non ci garantisse se il circuito segnerà alto o basso.  * \(\mathbf{V_{oH}},\ \mathbf{V_{oL}}\)
+non ci garantisse se il circuito segnerà alto o basso.  * $\mathbf{V_{oH}},\ \mathbf{V_{oL}}$
 sono rispettivamente il minimo valore di output che si ha quando viene generato un livello logico
 alto e il massimo valore di output che si ha quando viene generato un livello logico basso.
-* \(\mathbf{I_{iH}},\ \mathbf{I_{iL}}\) sono rispettivamente la corrente assorbita dalla porta
+* $\mathbf{I_{iH}},\ \mathbf{I_{iL}}$ sono rispettivamente la corrente assorbita dalla porta
 quando gli viene presentato in ingresso un input alto e quando l'input e ad un livello logico
-basso.	* **Noise margin** e la quantità cui il segnale eccede la soglia minima \(V_{iH}\) e
-\(V_{iL}\). Come noise margin si prende il minimo tra il noise margin relativo al livello alto e
-a quello basso: \[NM_{H} =V_{oH}-V_{iH}\] \[NM_{L} =V_{iL}-V_{oH}\] \[NM =min(NM_{L},NM_{h})\]
+basso.	* **Noise margin** e la quantità cui il segnale eccede la soglia minima $V_{iH}$ e
+$V_{iL}$. Come noise margin si prende il minimo tra il noise margin relativo al livello alto e
+a quello basso: $$NM_{H} =V_{oH}-V_{iH}$$ $$NM_{L} =V_{iL}-V_{oH}$$ $$NM =min(NM_{L},NM_{h})$$
 più NM è alto, meglio è perché vuol dire che il sistema e meno sensibile al rumore.  *
 **Fan out** e il numero massimo di porte a cui può essere connesso una certa porta mantenendo
 il livello logico corretto.  * **Static power** e la potenza dissipata in condizioni statiche:
-\(P=(P_{H}+P_{L})/2\), \(P_{H}=V_{cc}\cdot i_{H}\) (e la corrente che entra dal terminale
-attaccato all'alimentazione), \(P_{L}=V_{cc}\cdot i_{L}\).
+$P=(P_{H}+P_{L})/2$, $P_{H}=V_{cc}\cdot i_{H}$ (e la corrente che entra dal terminale
+attaccato all'alimentazione), $P_{L}=V_{cc}\cdot i_{L}$.
 
 #### Parametri dinamici
 
 Questi invece sono parametri che riguardano la famiglia logica durante la commutazione.
 
-* **Ritardo di propagazione** sono due tempi \(tp_{HL}\) e \(tp_{LH}\) che indicano rispettivamente
+* **Ritardo di propagazione** sono due tempi $tp_{HL}$ e $tp_{LH}$ che indicano rispettivamente
 il tempo necessario per passare dallo stato alto a quello basso e viceversa. Normalmente non sono
 uguali e quindi si considera come "delay" il tempo maggiore.  * **Delay-power product** solitamente
 data una certa tecnologia questo prodotto è costante e quindi è possibile aumentare la potenza
 per ridurre il delay. Questo e possibile perché normalmente il delay e causato dai condensatori,
 che necessitano che passi loro attraverso una certa quantità di carica prima di commutare(?),
 e quindi aumentando la potenza aumento anche la quantità di corrente che passa nel condensatore
-e quindi si scarica/carica più velocemente. \[\text{Delay}\cdot\text{Potenza}=DP\] * **Energia
+e quindi si scarica/carica più velocemente. $$\text{Delay}\cdot\text{Potenza}=DP$$ * **Energia
 di commutazione** e la quantità di energia necessaria per eseguire una commutazione. Grazie
 a questo valore e possibile il consumo di potenza di un certo dispositivo.
 
@@ -377,21 +377,21 @@ a questo valore e possibile il consumo di potenza di un certo dispositivo.
 
 #### RTL (resistor-transistor logic
 
-Se su 2.1 viene messa una corrente \(I_{N}=0\) allora ho il transistor in interdizione, quindi
-non passa corrente e quindi \(I_{C}=0\). Conseguentemente \(V_{out}=5V-R_{C}\cdot I=5V\).
+Se su 2.1 viene messa una corrente $I_{N}=0$ allora ho il transistor in interdizione, quindi
+non passa corrente e quindi $I_{C}=0$. Conseguentemente $V_{out}=5V-R_{C}\cdot I=5V$.
 
 Se invece viene applicata una tensione di 5V riesco a mandare in saturazione il transistor e
-quindi in \(V_{out}\) ho una tensione molto bassa, tipo 0.2V.
+quindi in $V_{out}$ ho una tensione molto bassa, tipo 0.2V.
 
 Il circuito del RTL completo prevede anche un'altra parte:
 
 La cui relativa tabella di verità e
 
 Figure 2.1: Questa famiglia logica funziona come una porta NOT. Tuttavia i suoi parametri non
-sono ottimali e infatti non viene piï¿½ usata(?).
+sono ottimali e infatti non viene più usata(?).
 
 Se entrambi gli ingressi sono 0 allora entrambi i transistor sono interdetti e quindi l'uscita
-\(V_{out}\) e altra. Se invece almeno uno è in saturazione la famiglia logica ha come uscita
+$V_{out}$ e altra. Se invece almeno uno è in saturazione la famiglia logica ha come uscita
 un livello basso perché la corrente a questo punto score anche nel transistor.
 
 #### TTL (transistor-transistor)
@@ -400,7 +400,7 @@ Se l'ingresso e 5V vado in regione attiva inversa (conseguentemente ho un guadag
 quindi nel collettore passa praticamente solo la corrente di base. Il problema dell'assorbimento,
 con questa famiglia logica, si presenta quando il transistor viene acceso (pero e di grandezza
 minore perché qui il transistor è già in saturazione, inoltre la porta funziona in modo più
-predicibile). Un altro vantaggio è che \(Q_{1}\) rimuove le minority carriers da \(Q_{2}\) durante
+predicibile). Un altro vantaggio è che $Q_{1}$ rimuove le minority carriers da $Q_{2}$ durante
 la transizione LH. Di contro resta una resistenza di pullup che serve per attirare tanta corrente.
 
 Quindi è stata pensata una versione **enhanced** del not (in realtà poi c'è la versione
@@ -412,9 +412,9 @@ Figure 2.3: Porta NOT (base)
 
 La caratteristica di questa porta è che c'è un invertitore che permette di funzionare bene sia
 quando l'uscita è alta che quando è bassa. Il **phase splitter** serve a creare due segnali
-"opposti" che spengono/accendono \(Q_{4}/Q_{2}\).
+"opposti" che spengono/accendono $Q_{4}/Q_{2}$.
 
-\(Q_{2}\) viene spendo grazie alla resistenza da 1k.
+$Q_{2}$ viene spendo grazie alla resistenza da 1k.
 
 Il problema di questa porta è che l'uscita HL è poco ripida, quindi è possibile aggiungere
 un altro transistor.
@@ -423,12 +423,12 @@ Questa porta (ma anche le altre) sono fatte con transistor NPN. L'**active**
 
 Figure 2.4: Porta enhanced NOT
 
-Figure 2.5: Porta enhanced\({}^{2}\) NOT
+Figure 2.5: Porta enhanced${}^{2}$ NOT
 
-**pull down** e un dispositivo che serve a svuotare \(Q_{2}\) rapidamente. Con questa porta
-viene sincronizzata l'accensione di \(Q_{2}-Q_{3}\) e quindi la pendenza della funzione di
-transizione aumenta (questo è merito di aver aggiunto \(Q_{5}\)). La resistenza RC da 130 serve
-per ridurre la corrente che passa quando, durante la commutazione, sia \(Q_{2}\) che \(Q_{4}\)
+**pull down** e un dispositivo che serve a svuotare $Q_{2}$ rapidamente. Con questa porta
+viene sincronizzata l'accensione di $Q_{2}-Q_{3}$ e quindi la pendenza della funzione di
+transizione aumenta (questo è merito di aver aggiunto $Q_{5}$). La resistenza RC da 130 serve
+per ridurre la corrente che passa quando, durante la commutazione, sia $Q_{2}$ che $Q_{4}$
 sono chiusi e quindi la corrente va verso la massa. Aggiungere un nuovo transistor e stata una
 scelta molto buona perché questa porta e sia più veloce dell'altra ma consuma anche meno
 (questo accade perché nell'intervallo di tempo tra l'input che e andato a 0 e l'output che
@@ -439,14 +439,14 @@ Con TTL e più facile implementare un NAND:
 
 Il funzionamento della porta è il seguente: il primo dei due emettitori che collego alla terra
 spegne il circuito a destra e quindi passa la corrente "da sopra". Se invece sono entrambi su
-\(Q_{3},Q_{5},Q_{2}\) sono accesi e quindi l'uscita e giu.
+$Q_{3},Q_{5},Q_{2}$ sono accesi e quindi l'uscita e giu.
 
-Durante le commutazioni del not, in quella HL passo da avere \(Q_{4}\) e \(Q_{1}\) accesi
-(rispettivamente attivo e saturato) ad avere accesi \(Q_{2},Q_{3},Q_{5}\), in quella LH il
-contrario, ovvero ho \(Q_{2},Q_{3},Q_{5}\) in saturazione e passo ad avere accesi \(Q_{1}\)
-e \(Q_{4}\).
+Durante le commutazioni del not, in quella HL passo da avere $Q_{4}$ e $Q_{1}$ accesi
+(rispettivamente attivo e saturato) ad avere accesi $Q_{2},Q_{3},Q_{5}$, in quella LH il
+contrario, ovvero ho $Q_{2},Q_{3},Q_{5}$ in saturazione e passo ad avere accesi $Q_{1}$
+e $Q_{4}$.
 
-Figure 2.6: Porta NAND. In pratica è un NOT ma dove \(Q_{1}\) ha due o più emettitori.
+Figure 2.6: Porta NAND. In pratica è un NOT ma dove $Q_{1}$ ha due o più emettitori.
 
 #### MOS logic cells
 
@@ -468,7 +468,7 @@ ottimizzo le risorse della porta logica.
 
 Figure 2.7: Invertitore CMOS.
 
-Figure 2.8: Come varia lâ€™uscita \(V_{o}\) al variare dellâ€™ingresso \(V_{i}\).
+Figure 2.8: Come varia lâ€™uscita $V_{o}$ al variare dellâ€™ingresso $V_{i}$.
 
 Figure 2.9: NOR fatto con tecnologia CMOS.
 
@@ -477,11 +477,11 @@ Figure 2.9: NOR fatto con tecnologia CMOS.
 Ecco un confronto tra TTL e CMOS:
 
 \begin{tabular}{c|c} TTL & CMOS \\ \hline \hline  & Alimentazione variabile \\ Alimentazione 5V &
-(la porta può essere alimentata \\  & con tensioni diverse) \\ \hline \(V_{i}:0.9V-1.4V\) &
-\\ (i valori commercial sono & \(V_{i}:\frac{1}{3}V_{DD}-\frac{2}{3}V_{DD}\) \\ \(0.8V-2V\))
-& \\ \hline \(V_{oL}:0.2V\) trans. in saturazione & \(V_{oL}:\) resistenza del canale NMOS \\
-\(V_{oH}:3.6V\) diodo, trans. e resistenza in serie & \(V_{oH}\) resistenza del canale PMOS \\
-& (circa 10\(\Omega\) ciascuna) \\ \hline bias currents e input currents & corrente assorbita
+(la porta può essere alimentata \\  & con tensioni diverse) \\ \hline $V_{i}:0.9V-1.4V$ &
+\\ (i valori commercial sono & $V_{i}:\frac{1}{3}V_{DD}-\frac{2}{3}V_{DD}$ \\ $0.8V-2V$)
+& \\ \hline $V_{oL}:0.2V$ trans. in saturazione & $V_{oL}:$ resistenza del canale NMOS \\
+$V_{oH}:3.6V$ diodo, trans. e resistenza in serie & $V_{oH}$ resistenza del canale PMOS \\
+& (circa 10$\Omega$ ciascuna) \\ \hline bias currents e input currents & corrente assorbita
 pari a 0 (in condizione statica) \\ contribuiscono alla dissipazione & (a volte capita di avere
 consumo statico purtroppo) \\ della potenza & \\ \end{tabular}
 
@@ -497,10 +497,10 @@ TTL la cosa migliore da fare è utilizzare input TTL compatibili (e in uscita un
 
 ### 2.3 Logica combinatoria e sequenziale
 
-Logica combinatoria una funzione logica e statica nel tempo e non ha memoria. \(y=f(x)\).
+Logica combinatoria una funzione logica e statica nel tempo e non ha memoria. $y=f(x)$.
 
-Logica sequenziale può essere descritta da due funzioni combinatorie: \(y_{n}=f_{1}(x,M_{n})\)
-e \(M_{n+1}=f_{2}(x_{n},M_{n})\). \(M_{n}\) e la memoria del sistema allo stato n.
+Logica sequenziale può essere descritta da due funzioni combinatorie: $y_{n}=f_{1}(x,M_{n})$
+e $M_{n+1}=f_{2}(x_{n},M_{n})$. $M_{n}$ e la memoria del sistema allo stato n.
 
 Il segnale con cui il sistema passa da n a n+1 e il **clock**. Una caratteristica della logica
 sequenziale e che a ingressi uguali (in istanti di tempo diversi) possono corrispondere uscite
@@ -516,7 +516,7 @@ L'ultima combinazione e necessario evitarla per due motivi:
 
 1. perché nel passaggio da 00 a 11 lo stato che avrà il latch dipenderà dallo stato in cui
 transita (e praticamente impossibile cambiare due bit insieme) 2. se costruisco il circuito
-considerando Q e \(\overline{Q}\) con valori opposti e hanno entrambe 1 si introduce un error
+considerando Q e $\overline{Q}$ con valori opposti e hanno entrambe 1 si introduce un error
 
 (se ho un ingresso ad 1 sulla porta NAND allora viene fatto il not dell'altro ingresso, se
 invece ho uno 0 l'uscita e per forza 1).
@@ -529,7 +529,7 @@ Figure 2.12: Latch Set-Reset. Gli ingressi sono "bassi attivi" (se messi a 0 son
 
 Nel momento in cui il clock sale si presenta una configurazione che dipende dal dato.
 
-Per vedere nello schema come funziona la transizione, ad esempio \(\uparrow\) con D=0, prima
+Per vedere nello schema come funziona la transizione, ad esempio $\uparrow$ con D=0, prima
 calcolo C=0 e D=0, poi metto C=1 e vedo come cambia l'output.
 
 ### 2.6 Circuiti integrati commerciali
@@ -565,13 +565,13 @@ parassiti ci sono.
 
 Il primo packaging inventato era il **DIP** (dual in line): corpo in resina con a destra e a
 sinistra dei piedini (through-hole, ovvero che passano attraverso la scheda). La distanza tra
-un piedino e l'altro e di \(\frac{1}{10}\)in (2.54cm). Sono così grandi perché le macchine
+un piedino e l'altro e di $\frac{1}{10}$in (2.54cm). Sono così grandi perché le macchine
 che assemblavano i circuiti integrati non potevano lavorare con oggetti più piccoli di questi.
 
 Successivamente sono stati sostituiti dai **SMD** (surface mounted device), che nella forma
 sono simili ai DIP solo che la distanza tra i piedini e massimo massimo 50mils (1 mils = 0.001
 in) (50mils = 1.27mm) ma se no è meno. Questo vuol dire che sono più piccoli e quindi hanno
-meno induttanza e conduttanza parasite. Inoltre a parità di piedini occupano \(\frac{1}{4}\)
+meno induttanza e conduttanza parasite. Inoltre a parità di piedini occupano $\frac{1}{4}$
 volte l'area che occuperebbe un DIP. I piedini dei SMD sono da appoggiare sulla superficie del
 circuito e saldarli.
 
@@ -634,8 +634,8 @@ logica 4. funzione che svolge (e quindi e possibile sapere anche che porte ci so
 
 Esempio:
 
-\[\underbrace{SN}_{1}\underbrace{74}_{2}\underbrace{AC}_{3}\underbrace{00}_{4}-
-\underbrace{xxx}_{5}\]
+$$\underbrace{SN}_{1}\underbrace{74}_{2}\underbrace{AC}_{3}\underbrace{00}_{4}-
+\underbrace{xxx}_{5}$$
 
 #### Comparazione tra famiglie logiche
 
@@ -653,18 +653,18 @@ elevata corrente d'uscita).
 
 ### 2.8 Come si imposta l'input
 
-Figure 2.18: Il circuito A, quando è accesa l’uscita e a 0V, quando e spento e a \(V_{CC}\). Il
+Figure 2.18: Il circuito A, quando è accesa l’uscita e a 0V, quando e spento e a $V_{CC}$. Il
 circuito B è il contrario
 
-Queste due configurazioni sono uguali solo quando \(I_{iH}\) e \(I_{iL}\) sono uguali (e quindi
+Queste due configurazioni sono uguali solo quando $I_{iH}$ e $I_{iL}$ sono uguali (e quindi
 nei CMOS). Per i circuiti TTL è meglio utilizzare il circuito A perché così non ho cadute
-di tensione dovute a \(I_{iL}\).
+di tensione dovute a $I_{iL}$.
 
 ### 2.9 Cosa fare con i piedini non utilizzati
 
 I piedini CMOS non utilizzati sono un bel problema perché hanno un'impedenza molto alta
 (siccome sono isolati) e quando sono sconnessi possono caricarsi con della tensione variabile
-tra 0 e quella di alimentazione \(V_{dd}\) (infatti, data la resistenza molto alta, basta una
+tra 0 e quella di alimentazione $V_{dd}$ (infatti, data la resistenza molto alta, basta una
 corrente bassissima per avere una tensione interessante). Questo causa la rottura del circuito
 perché PMOS e NMOS sono in conduzione e quindi passa corrente per tanto tempo.
 
@@ -683,7 +683,7 @@ perché, se si rompe un pin, la funzione smette di essere eseguita.
 
 Ogni output deve garantire livelli "basso" e "alto" corretti:
 
-\[V_{OHmin} >V_{iHmin}\] \[V_{OLmax} <V_{iLmax}\]
+$$V_{OHmin} >V_{iHmin}$$ $$V_{OLmax} <V_{iLmax}$$
 
 Quando uno legge i dati relativi al circuito potrebbe leggere i valori tipici (che sono la
 media del processo in condizioni controllate), il valore massimo e il valore minimo: le cose
@@ -692,17 +692,17 @@ interessanti e importanti sono solo le ultime due.
 Quando progetto devo utilizzare il **worst case design**: devo progettare considerando i valori
 peggiori.
 
-Per rendere compatibili CMOS 5V e TTL si può introdurre un pull-up come in figura 2.21. \(R_{p}\)
+Per rendere compatibili CMOS 5V e TTL si può introdurre un pull-up come in figura 2.21. $R_{p}$
 deve essere tale da non superare un certo limite imposto dalla porta quando ha uscita bassa.
 
 Figure 2.20: Questo è il grafico 2.19 ma messo in verticale. Il TTL e il CMOS 3.3V sono molto
 simili. Questa cosa è intenzionale così che sono compatibili tra di loro.
 
-Figure 2.19: I range di I/O dipendono dal processo di produzione, temperatura attuale e \(V_{CC}\).
+Figure 2.19: I range di I/O dipendono dal processo di produzione, temperatura attuale e $V_{CC}$.
 
 Figure 2.21
 
-Se \(R_{p}\) è grande allora la porta "si beve" molta corrente; tuttavia più è grande la
+Se $R_{p}$ è grande allora la porta "si beve" molta corrente; tuttavia più è grande la
 resistenza, minore è il consumo di potenza in condizioni statiche.
 
 Però c'è anche il problema che più prendo grande la resistenza più ci mette il circuito
@@ -732,10 +732,10 @@ Figure 2.24: I TTL sono asimmetrici in correnti di uscita mentre i CMOS hanno ou
 
 * absolute maximum ratings (limiti entro i quali il dispositivo e garantito che non si
 rompa) * recommended operating conditions (i limiti entro i quali il dispositivo funziona
-correttamente) * specifiche elettriche (valori tipo \(V_{OH}\) in relazione a \(I_{OH}\) e
-\(V_{CC}\) * caratteristiche dinamiche (tipo \(t_{pd}\) (=t\({}_{\text{propagation delay}}\))
-che e espresso da un range e dipende molto dalla \(V_{CC}\), quindi se aumento \(V_{CC}\) il
-\(t_{pd}\) diminuisce; se nel foglio non sembra così probabilmente e diverso il carico con cui
+correttamente) * specifiche elettriche (valori tipo $V_{OH}$ in relazione a $I_{OH}$ e
+$V_{CC}$ * caratteristiche dinamiche (tipo $t_{pd}$ (=t${}_{\text{propagation delay}}$)
+che e espresso da un range e dipende molto dalla $V_{CC}$, quindi se aumento $V_{CC}$ il
+$t_{pd}$ diminuisce; se nel foglio non sembra così probabilmente e diverso il carico con cui
 sono stati svolti gli esperimenti e magari con tensioni maggiori sono stati usati condensatori
 maggiori per simulare dispositivi più vecchi)
 
@@ -743,9 +743,9 @@ Nella prima pagina dello sheet ci sono le informazioni più importanti (però di
 leggere anche le pagine dopo). Input transition rate con max a 5ns/V vuol dire che se ci metto
 più di 5ns per V a fare la commutazione friggo il circuito.
 
-\(C_{i}\) e la capacità dell'ingresso (più nello specifico del gate). Tale capacità influenza
-anche la resistenza di pullup che posso mettere: il \(\tau\) relativo al condensatore è pari
-al transmission rate \(\times V_{CC}\), se faccio \(\tau/C\) ottengo il valore massimo della
+$C_{i}$ e la capacità dell'ingresso (più nello specifico del gate). Tale capacità influenza
+anche la resistenza di pullup che posso mettere: il $\tau$ relativo al condensatore è pari
+al transmission rate $\times V_{CC}$, se faccio $\tau/C$ ottengo il valore massimo della
 resistenza di pullup che posso utilizzare senza avere problemi.
 
 ### 2.11 Scariche elettrostatiche
@@ -764,7 +764,7 @@ modelli dell'uomo, delle macchine industriali e di altri dispositivi carichi.
 Figure 2.25: Human body model
 
 Il costruttore poi potrebbe utilizzare dei diodi in modo tale da evitare che le scariche effettuate
-sul componente siano fatali o potrebbe utilizzare transistor con \(V_{\text{breakdown}}\) maggiore.
+sul componente siano fatali o potrebbe utilizzare transistor con $V_{\text{breakdown}}$ maggiore.
 
 Noi invece siamo tenuti a maneggiare correttamente i dispositivi, mettersi il braccialetto
 antistatico, usare una superficie di lavoro debolmente conduttiva che scarica a terra e evitare
@@ -779,12 +779,12 @@ famiglie più veloci assorbono più potenza.
 
 Nei TTL il consumo e dato da:
 
-* statico \(\rightarrow\) bias current * dinamico \(\rightarrow\) cross-conduzione (quando i
+* statico $\rightarrow$ bias current * dinamico $\rightarrow$ cross-conduzione (quando i
 transistor del totem pole sono entrambi in conduzione)
 
 Nei CMOS invece e dato da:
 
-* statico \(\rightarrow\approx 0\) * dinamico \(\rightarrow\) capacità parassita del circuito
+* statico $\rightarrow\approx 0$ * dinamico $\rightarrow$ capacità parassita del circuito
 integrato, capacità dei circuiti che ci metto fuori e in minor parte (tipo che le altre cause
 consumano dalle 3 alle 5 volte più potenza rispetto a questa) la cross conduzione
 
@@ -792,24 +792,24 @@ Nelle famiglie low voltage logic circuit il consumo è molto minore.
 
 La **potenza dissipata da una capacità alla frequenza di clock** e:
 
-\[P=\frac{1}{T}\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt\]
+$$P=\frac{1}{T}\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt$$
 
-Per l'onda quadra vale \(i_{0}=i_{p}=C_{L}\cdot\frac{dV}{dt}\) e quindi l'integrale diventa
+Per l'onda quadra vale $i_{0}=i_{p}=C_{L}\cdot\frac{dV}{dt}$ e quindi l'integrale diventa
 facilmente
 
-\[\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt =\int_{0}^{T}C_{L}\cdot\frac{dV}{dt}\cdot V_{o}(t)dt\]
-\[=\int_{0}^{V_{DD}}C_{L}\cdot V_{0}dV\] \[=\frac{1}{2}V_{DD}^{2}C_{L}\]
+$$\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt =\int_{0}^{T}C_{L}\cdot\frac{dV}{dt}\cdot V_{o}(t)dt$$
+$$=\int_{0}^{V_{DD}}C_{L}\cdot V_{0}dV$$ $$=\frac{1}{2}V_{DD}^{2}C_{L}$$
 
 Che poi (facendo delle magie e delle considerazioni che posso considerare il circuito come una
 resistenza e una capacità(??)) diventa
 
-\[P=C_{L}V_{DD}^{2}f_{0}\]
+$$P=C_{L}V_{DD}^{2}f_{0}$$
 
 ## Chapter 2 Algebra Booleana
 
 #### Principali formati digitali
 
-\(V_{fs}\) e il range di valori ammissibili. E importante che questo valore sia dello stesso
+$V_{fs}$ e il range di valori ammissibili. E importante che questo valore sia dello stesso
 ordine di grandezza del segnale che vogliamo convertire perché se è più piccolo chiaramente
 non possiamo convertirlo per bene, mentre se è più grande abbiamo dei problemi perché è
 come se sfruttassimo meno bit e quindi otteniamo meno precisione.
@@ -817,37 +817,37 @@ come se sfruttassimo meno bit e quindi otteniamo meno precisione.
 #### Convertitori D/A
 
 Il convertitore in figura 2.26 sfrutta un amplificatore invertente e il principio
-di sovrapposizione: \(V_{out}\) e \(-\frac{R_{F}}{R_{G}}\cdot V_{in}\) dove \(R_{F}\) e la
-resistenza in parallelo all'amplificatore e \(R_{G}\) e quella dopo l'ingresso a 5V, posso poi
-calcolare i \(V_{out}\) per tutte
+di sovrapposizione: $V_{out}$ e $-\frac{R_{F}}{R_{G}}\cdot V_{in}$ dove $R_{F}$ e la
+resistenza in parallelo all'amplificatore e $R_{G}$ e quella dopo l'ingresso a 5V, posso poi
+calcolare i $V_{out}$ per tutte
 
 Figure 2.26: Questo D/A converter non e ottimale perché richiede che i valori delle resistenze
 siano precisi e questi solitamente non lo sono.
 
-\begin{table} \begin{tabular}{c|c|c|c} \(V_{in}\) & Binary & Offset binary & 2â€™s compl. \\
-\hline \(V_{fs}/2\) & 111111 & 111111 & 011111 \\ +dV & 000001 & 100001 & 000001 \\ 0 & 000000
-& 100000 & 000000 \\ -dV & / & 011111 & 111111 \\ \(-V_{fs}/2\) & / & 000000 & 100000 \\
+\begin{table} \begin{tabular}{c|c|c|c} $V_{in}$ & Binary & Offset binary & 2â€™s compl. \\
+\hline $V_{fs}/2$ & 111111 & 111111 & 011111 \\ +dV & 000001 & 100001 & 000001 \\ 0 & 000000
+& 100000 & 000000 \\ -dV & / & 011111 & 111111 \\ $-V_{fs}/2$ & / & 000000 & 100000 \\
 \end{tabular} \end{table} Table 2.3: L’_offset binary_ non è compatibile con i calcoli che
 utilizzano il complemento a 2.
 
 le resistenze e trovare la tensione di uscita totale facendone la combinazione lineare
 
-\[V_{out}=-V_{in}\cdot\left(\frac{R_{F}}{R_{G_{1}}}+\frac{R_{F}}{R_{G_{2}}}+...+
-\frac{R_{F}}{R_{G_{n}}}\right)\]
+$$V_{out}=-V_{in}\cdot\left(\frac{R_{F}}{R_{G_{1}}}+\frac{R_{F}}{R_{G_{2}}}+...+
+\frac{R_{F}}{R_{G_{n}}}\right)$$
 
 Una soluzione migliore e il **R-2R converter**.
 
 Nel convertitore in figura 2.27 vengono utilizzate solo due tipologie di resistenze: una con
 valore R e una che vale 2R.
 
-Guardando ad ogni nodo da destra\({}^{(\gamma)}\), è possibile vedere due resistenze da 2R in
+Guardando ad ogni nodo da destra${}^{(\gamma)}$, è possibile vedere due resistenze da 2R in
 parallelo, che quindi fanno una resistenza R. Inoltre è possibile notare che la corrente si
 dimezzi ad ogni nodo.
 
 La precisione di un DAC si misura con:
 
 * **full scale error**, ovvero la differenza massima tra il valore di output ideale e quello
-reale (si misura in % di \(V_{fs}\) * **linearity error**, ovvero la differenza massima tra
+reale (si misura in % di $V_{fs}$ * **linearity error**, ovvero la differenza massima tra
 l'ampiezza di uno "step" reale e uno ideale
 
 Il **tempo di campionamento** corrisponde al tempo in cui è iniziata la conversione da digitale
@@ -872,7 +872,7 @@ avviene gradualmente fino ad un certo punto dove il segnale in uscita diventa 0,
 la conversione è completata.
 
 Il principale problema di questo convertitore è che per completare una conversione richiede
-fino a \(2^{N}\) colpi di clock.
+fino a $2^{N}$ colpi di clock.
 
 ### Successive approx. ADC
 
@@ -884,7 +884,7 @@ passo. Il numero di colpi di clock per completare una conversione e N.
 
 Questo convertitore è molto bello perché produce l'output in un colpo di clock. Questa cosa
 è possibile perché vengono messe in parallelo le varie informazioni. Tuttavia ho bisogno di
-\(2^{N}\) comparatori e questi occupano diverso spazio sul silicio e quindi posso lavorare solo
+$2^{N}$ comparatori e questi occupano diverso spazio sul silicio e quindi posso lavorare solo
 con pochi bit di uscita.
 
 Nel ADC flash il campionamento avviene quando metto il dato nel registro. Nel SAR tale momento si
@@ -973,7 +973,7 @@ e poi si rompono).
 
 Cortex-M4 (F4)e il microcontroller installato sulle schede che abbiamo in laboratorio.
 
-Utilizza architettura Harvard, e CISC, ha molte periferiche, consuma pochino (100\(\mu\)A/MHz)
+Utilizza architettura Harvard, e CISC, ha molte periferiche, consuma pochino (100$\mu$A/MHz)
 e ha l'unità floating point (FPU).
 
 La FPU è un modulo della CPU che permette di eseguire operazioni in virgola mobile senza
@@ -1034,7 +1034,7 @@ Gli usi tipici dell'interrupt controller sono:
 tot specifico di tempo. I timer possono essere utilizzati per produrre segnali periodici utili
 per i sistemi di controllo (tipo PWM).
 
-Figure 3.4: Il duty cycle è dato da \(\frac{D}{T}=\delta\). Maggiore è la soglia, più tempo
+Figure 3.4: Il duty cycle è dato da $\frac{D}{T}=\delta$. Maggiore è la soglia, più tempo
 sta alta l’onda.
 
 Il contatore del timer non si ferma quando fermo l'esecuzione del programma (tipo con il debugger).
@@ -1045,19 +1045,19 @@ NON SI FA DEBUG DI CIRCUITI DI POTENZA.
 
 ### 4.1 Parametri RTL
 
-* \(V_{iH}\) = 0.75V, \(V_{iL}\) = 0.6V * \(I_{iH}\) @ \(V_{iH}\) = 150 \(\mu A\), \(I_{iH}\) @ 5V
-= 9.5mA * \(I_{iL}\) = 0 * \(V_{oH}\) = 5V (no load condition) * \(V_{oL}\) = 0.2V * \(NM_{H}\)
-= 4.25V, \(NM_{L}\) = 0.4V \(\to NM\) = 0.4V * Fan-out: 33 * \(P_{L}\) = 5V\(\times\)7.5mA
-(Rc) = 37.5mW, \(P_{H}\) = 0, \(P\) =18mW * \(t_{pHL}\) e \(t_{pH}\) veloci per merito della
-resistenza in base (qualche nS) * \(DP\) = 5nS\(\times\)18mW = 90pJ
+* $V_{iH}$ = 0.75V, $V_{iL}$ = 0.6V * $I_{iH}$ @ $V_{iH}$ = 150 $\mu A$, $I_{iH}$ @ 5V
+= 9.5mA * $I_{iL}$ = 0 * $V_{oH}$ = 5V (no load condition) * $V_{oL}$ = 0.2V * $NM_{H}$
+= 4.25V, $NM_{L}$ = 0.4V $\to NM$ = 0.4V * Fan-out: 33 * $P_{L}$ = 5V$\times$7.5mA
+(Rc) = 37.5mW, $P_{H}$ = 0, $P$ =18mW * $t_{pHL}$ e $t_{pH}$ veloci per merito della
+resistenza in base (qualche nS) * $DP$ = 5nS$\times$18mW = 90pJ
 
-Il fanout si calcola facendo: \((V_{CC}-V_{iH})/R_{C}=n\times I_{iH}(\)@\(V_{iH})\).
+Il fanout si calcola facendo: $(V_{CC}-V_{iH})/R_{C}=n\times I_{iH}($@$V_{iH})$.
 
 ### 4.2 Parametri TTL (credo il not standard con 5 transistor)
 
-* \(V_{iH}\) = 1.35V, \(V_{iL}\) = 1.1V * \(I_{iH}\) = 15 \(\mu A\) * \(I_{iL}\) = 1mA * \(V_{oH}\)
-= 3.75V* \(V_{oL}\) = 0.2V * \(NM_{H}\) = 2.4V, \(NM_{L}\) = 0.9V \(\to NM\) = 0.9V * \(P_{L}\)
-= 5V\(\times\)(0.7mA (Rpu)+2.5mA (Rpu1)) = 16mW, \(P_{H}\) = 5V\(\times\)1mA (Rpu) = 5mW, \(P\)
-=11.5mW * \(t_{pHL}\) e \(t_{pH}\) veloci per merito di Q5 e dei transistor vari(?) (circa 5 nS)
-* \(DP\) = 5nS\(\times\)11.5mW = 57.5pJ
+* $V_{iH}$ = 1.35V, $V_{iL}$ = 1.1V * $I_{iH}$ = 15 $\mu A$ * $I_{iL}$ = 1mA * $V_{oH}$
+= 3.75V* $V_{oL}$ = 0.2V * $NM_{H}$ = 2.4V, $NM_{L}$ = 0.9V $\to NM$ = 0.9V * $P_{L}$
+= 5V$\times$(0.7mA (Rpu)+2.5mA (Rpu1)) = 16mW, $P_{H}$ = 5V$\times$1mA (Rpu) = 5mW, $P$
+=11.5mW * $t_{pHL}$ e $t_{pH}$ veloci per merito di Q5 e dei transistor vari(?) (circa 5 nS)
+* $DP$ = 5nS$\times$11.5mW = 57.5pJ
 
