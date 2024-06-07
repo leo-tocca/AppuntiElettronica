@@ -3,6 +3,7 @@ header-includes: |
             \usepackage{cancel}
             \usepackage{steinmetz}
             \usepackage{derivative}
+            \usepackage{tabularray}
             \usepackage{mathtools}
             \usepackage{siunitx}
             \usepackage{geometry}
@@ -523,36 +524,34 @@ statica basso) con quelli dei circuiti bipolari.
 
 Figure 2.11: Invertitore fatto con tecnologia BiCMOS.
 
-Questo sopra ha un'uscita compatibile con i CMOS ma nel caso volessimo avere un'uscita compatibile
+Questo sopra ha un'uscita compatibile con i CMOS, ma nel caso volessimo avere un'uscita compatibile
 TTL la cosa migliore da fare è utilizzare input TTL compatibili (e in uscita un totem pole).
 
 ### 2.3 Logica combinatoria e sequenziale
 
-Logica combinatoria una funzione logica e statica nel tempo e non ha memoria. $y=f(x)$.
-
-Logica sequenziale può essere descritta da due funzioni combinatorie: $y_{n}=f_{1}(x,M_{n})$
-e $M_{n+1}=f_{2}(x_{n},M_{n})$. $M_{n}$ e la memoria del sistema allo stato n.
-
-Il segnale con cui il sistema passa da n a n+1 e il **clock**. Una caratteristica della logica
-sequenziale e che a ingressi uguali (in istanti di tempo diversi) possono corrispondere uscite
+- Logica combinatoria: una funzione logica è statica nel tempo e non ha memoria. $y=f(x)$.
+- Logica sequenziale: può essere descritta da due funzioni combinatorie: $y_{n}=f_{1}(x,M_{n})$
+e $M_{n+1}=f_{2}(x_{n},M_{n})$. $M_{n}$ e la memoria del sistema allo stato $n$. \newline Il segnale con cui il sistema passa da $n$ a $n+1$ e il **clock**. Una caratteristica della logica
+sequenziale è che a ingressi uguali (in istanti di tempo diversi) possono corrispondere uscite
 diverse.
 
-L'elemento di memoria utilizzato e il flip-flop D.
+L'elemento di memoria utilizzato è il flip-flop D.
 
-### 2.4 Latch SR
+### 2.4 Latch SR 
 
-L'ultima combinazione e necessario evitarla per due motivi:
+Figure 2.12: Latch Set-Reset. Gli ingressi sono "bassi attivi" (se messi a 0 sono accesi).
+
+L'ultima combinazione è necessario evitarla per due motivi:
 
 1. perché nel passaggio da 00 a 11 lo stato che avrà il latch dipenderà dallo stato in cui
-transita (e praticamente impossibile cambiare due bit insieme) 2. se costruisco il circuito
-considerando Q e $\overline{Q}$ con valori opposti e hanno entrambe 1 si introduce un error
+transita (e praticamente impossibile cambiare due bit insieme)
+2. se costruisco il circuito considerando Q e $\overline{Q}$ con valori opposti e
+hanno entrambe 1 si introduce un errore
 
 (se ho un ingresso ad 1 sulla porta NAND allora viene fatto il not dell'altro ingresso, se
 invece ho uno 0 l'uscita e per forza 1).
 
 Nelle FPGA è proibito sintetizzare la funzione logica dei latch.
-
-Figure 2.12: Latch Set-Reset. Gli ingressi sono "bassi attivi" (se messi a 0 sono accesi).
 
 ### 2.5 Positive edge triggered flip flop (DFF, flip flop di tipo D)
 
