@@ -6,6 +6,8 @@ header-includes: |
             \usepackage{mathtools}
             \usepackage{siunitx}
             \usepackage{geometry}
+            \usepackage{array}
+            \usepackage{hhline}
 				\geometry{
 					a4paper,
 					total={170mm,257mm},
@@ -498,21 +500,28 @@ Figure 2.10: NAND fatto con tecnologia CMOS.
 
 Ecco un confronto tra TTL e CMOS:
 
-\begin{center}
-\begin{tabular}{c|c} TTL & CMOS \\ \hline \hline  & Alimentazione variabile \\ Alimentazione 5V &
-(la porta può essere alimentata \\  & con tensioni diverse) \\ \hline $V_{i}:0.9V-1.4V$ &
-\\ (i valori commercial sono & $V_{i}:\frac{1}{3}V_{DD}-\frac{2}{3}V_{DD}$ \\ $0.8V-2V$)
-& \\ \hline $V_{oL}:0.2V$ trans. in saturazione & $V_{oL}:$ resistenza del canale NMOS \\
-$V_{oH}:3.6V$ diodo, trans. e resistenza in serie & $V_{oH}$ resistenza del canale PMOS \\
-& (circa 10$\Omega$ ciascuna) \\ \hline bias currents e input currents & corrente assorbita
-pari a 0 (in condizione statica) \\ contribuiscono alla dissipazione & (a volte capita di avere
-consumo statico purtroppo) \\ della potenza & \\ \end{tabular}
-\end{center}
+\begin{table}
+\centering
+\begin{tabular}{|>{\centering\hspace{0pt}}m{0.444\linewidth}|>{\centering\arraybackslash\hspace{0pt}}m{0.458\linewidth}|}
+\multicolumn{1}{>{\centering\hspace{0pt}}m{0.444\linewidth}|}{TTL}                      & \multicolumn{1}{>{\centering\arraybackslash\hspace{0pt}}m{0.458\linewidth}}{CMOS}                              \\ 
+\hhline{|==|}
+Alimentazione 5V                                                                        & Alimentazione variabile \par{}(la porta può essere alimentata con tensioni diverse)                            \\ 
+\hline
+$V_i:0.9V-1.4V$\par{}~(i valori commerciali sono $0.8V-2V$)                             & $V_i:\frac{1}{3}V_DD-\frac{2}{3}V_DD$                                                                          \\ 
+\hline
+$V_oL:0.2V$ trans. in saturazione \par{}$V_oH:3.6V$ diodo, trans. e resistenza in serie & $V_oL:$ resistenza del canale NMOS \par{}$V_oH$ resistenza del canale PMOS \par{}(circa 10$\Omega$ ciascuna)   \\ 
+\hline
+bias currents e input currents \par{}contribuiscono alla dissipazione della potenza     & corrente assorbita pari a 0 (in condizione statica)\par{}~(a volte capita di avere consumo statico purtroppo)  \\
+\hline
+\end{tabular}
+\end{table}
 
 #### BiCMOS
 
 A volte vogliamo poter combinare sia i vantaggi di CMOS (alta integrazione e consumo di potenza
 statica basso) con quelli dei circuiti bipolari.
+
+Figure 2.11: Invertitore fatto con tecnologia BiCMOS.
 
 Questo sopra ha un'uscita compatibile con i CMOS ma nel caso volessimo avere un'uscita compatibile
 TTL la cosa migliore da fare è utilizzare input TTL compatibili (e in uscita un totem pole).
@@ -529,8 +538,6 @@ sequenziale e che a ingressi uguali (in istanti di tempo diversi) possono corris
 diverse.
 
 L'elemento di memoria utilizzato e il flip-flop D.
-
-Figure 2.11: Invertitore fatto con tecnologia BiCMOS.
 
 ### 2.4 Latch SR
 
