@@ -1,3 +1,18 @@
+---
+header-includes: |
+            \usepackage{cancel}
+            \usepackage{steinmetz}
+            \usepackage{derivative}
+            \usepackage{mathtools}
+            \usepackage{siunitx}
+            \usepackage{geometry}
+				\geometry{
+					a4paper,
+					total={170mm,257mm},
+					left=20mm,
+					top=20mm,
+				}
+---
 # Index
 
 * 1 Dispositivi elettronici
@@ -218,13 +233,13 @@ I_{e} =-I_{b}\ (\text{il gain è }\leq 1)
 Figure 1.9: Grafico un po’ più realistico di un bjt
 
 ### 1.5 Sonda 10x
+Figura 1.10: Schema di una sonda 10x
+*Bandwidth limit*: un tastino sull'oscilloscopio che taglia le frequenze sopra i 20MHz.
 
-Bandwidth limite un tastino sull'oscilloscopio che taglia le frequenze sopra i 20MHz.
-
-Figure 1.10: Schema di una sonda 10x
 
 ### 1.6 Diodo Zener
 
+Figure 1.11: Schema di un diodo zener
 Questo tipo di diodo lavora in breakdown. Se lo metto in polarizzazione diretta funziona come un
 diodo normale, se però lo metto in polarizzazione inversa faccio si che la tensione di breakdown
 sia molto precisa e quindi se $V_{G}<V_{Z}$ non succede nulla ($V_{G}=V_{0}$). Se invece
@@ -239,7 +254,9 @@ $\frac{V_{G}-V_{i}}{R}=i_{r}$ ma $R\to 0$ e quindi $i_{r}\to\infty$.
 Questo dispositivo è complementare al npn: le equazioni sono le medesime ma il verso delle
 correnti e delle tensioni è inverso.
 
-Figure 1.11: Schema di un diodo zener Rispetto al npn, il pnp ha un gain minore e quindi funziona
+Figure 1.12: Schema di un transistor pnp
+
+Rispetto al npn, il pnp ha un gain minore e quindi funziona
 peggio (per questo motivo, quando e possibile, si utilizzano gli npn), ovvero scorre meno corrente
 (ha un'efficienza di circa la metà degli elettroni).
 
@@ -254,12 +271,11 @@ $P_{L}$ e la potenza luminosa.
 
 È importante che il dispositivo sia in regione attiva e quindi inserisco un resistore dal lato
 del collettore per evitare di andare in saturazione.
-
-Figure 1.12: Schema di un transistor pnp
+Figure 1.13: Schema di un fototransistor
 
 ### 1.9 Mos
 
-MOS e una sigla che sta per **metallo**, **ossido** e **semiconduttore** e sono indica dei
+MOS è una sigla che sta per **metallo**, **ossido** e **semiconduttore** e sono indica dei
 dispositivi controllati dalla differenza di potenziale presente tra due suoi terminali. Una
 particolarità di questa tecnologia è il non utilizzo della giunzione.
 
@@ -267,33 +283,38 @@ particolarità di questa tecnologia è il non utilizzo della giunzione.
 
 Figure 1.14: Schema di un N-MOS
 
-Figure 1.13: Schema di un fototransistor Questo dispositivo ha tre terminali: source, gate e
-drain. Se siamo in corrente continua allora la corrente che scorre nel gate e 0, altrimenti,
+Questo dispositivo ha tre terminali: source, gate e
+drain. Se siamo in corrente continua allora la corrente che scorre nel gate è 0, altrimenti,
 data la forma a condensatore, scorre una piccola quantità di corrente.
 
-Quando la tensione $V_{GS}$ e poca il dispositivo e come se fosse spento e quindi tra la parte
-p e sia il source che il drain e come se ci fosse un diodo (con capo positivo in p e negativo
+Quando la tensione $V_{GS}$ è poca il dispositivo è come se fosse spento e quindi tra la parte
+p e sia il source che il drain è come se ci fosse un diodo (con capo positivo in p e negativo
 nei terminali) che impedisce il passaggio di corrente. Poi, via via che aumento la tensione sul
 gate, gli elettroni presenti nella parte p vengono attirati vicino all'ossido (perché è così
-che funziona un condensatore) fino a che il campo elettrico e così forte che gli elettroni
-sono talmente schiacciati tra di loro che e come se ci fosse un canale tra il source e il drain.
+che funziona un condensatore) fino a che il campo elettrico è così forte che gli elettroni
+sono talmente schiacciati tra di loro che è come se ci fosse un canale tra il source e il drain.
 
 Questo dispositivo non può andare in breakdown perché tra la parte metallica e p c'è uno
 strato isolante.
 
+figura sgd
+
 **Regioni di lavoro**
 
 * cutoff: $V_{GS}<V_{t}$, in questa regione il dispositivo e come spento
-perché non ho il canale di conduzione * regione lineare: questa regione, nei bjt,
+perché non ho il canale di conduzione 
+* regione lineare: questa regione, nei bjt,
 corrisponde alla regione di saturazione. In questa regione ho poca corrente e il
 dispositivo lavora come un resistore controllato in tensione. $V_{GS}>V_{t},\
 I_{D}=\frac{V_{DS}}{R_{DS}}<I_{D-SAT}$. $\frac{1}{R_{DS}}\propto V_{GS}$.
-* regione di saturazione: in questa regione la corrente e costante $$I_{D}
+* regione di saturazione: in questa regione la corrente è costante $$I_{D}
 = K[2(V_{GS}-V_{t})V_{DS}-V_{DS}^{2}]$$ $$I_{D-SAT} = K(V_{GS}-V_{t})^{2}\ \text{quando}\
 V_{DS}\leq V_{GS}-V_{t}$$ $$K = \frac{1}{2}\mu C_{ox}\frac{W}{L}$$ dove $\mu$ dovrebbe essere la
-mobilita del materiale (quindi quanto facilmente scorrono le cariche al suo interno), $C_{ox}$
-la capacità dell'ossido per unita di carica, W la larghezza della zona che va a costituire il
+mobilità del materiale (quindi quanto facilmente scorrono le cariche al suo interno), $C_{ox}$
+la capacità dell'ossido per unita di carica, $W$ è la larghezza della zona che va a costituire il
 canale e L la sua lunghezza.
+
+figura drain to source voltage
 
 All'aumentare della corrente il N-MOS si comporta come un resistore la cui resistenza è data
 da $R=\frac{\rho\cdot L}{s}$ (s non so cosa sia).
@@ -316,13 +337,13 @@ Per valutare K date delle curve e possibile risolvere il seguente sistema:
 $$
 \begin{cases}
 I_{D1}=K(V_{G1}-V_{t})^{2}\\
-I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\quad\longrightarrow\begin{cases}\sqrt{I_{D1}}=\sqrt{K}(V_{G1}-V_{t})\\
+I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\longrightarrow\begin{cases}\sqrt{I_{D1}}=\sqrt{K}(V_{G1}-V_{t})\\
 \sqrt{I_{D2}}=\sqrt{K}(V_{G2}-V_{t})
 \end{cases}
 $$\
 Figure 15: Schema di un P-MOS
 
-## Chapter 1 Dispositivi Elektronic
+\newpage
 
 ## Chapter 2 Algebra boolean
 
@@ -342,40 +363,44 @@ Ogni famiglia logica ha dei parametri statici:
 
 * $\mathbf{V_{iH}},\ \mathbf{V_{iL}}$ sono tensioni di ingresso, $V_{iH}$ e il minimo
 valore della tensione tale per cui la famiglia percepisca il livello logico "alto". $V_{iL}$
-e invece il valore massimo della tensione affinché la famiglia percepisca il livello logico
+è invece il valore massimo della tensione affinché la famiglia percepisca il livello logico
 "basso". Spesso questi due valori sono diversi e quindi nel mezzo c'è una zona dove il produttore
-non ci garantisse se il circuito segnerà alto o basso.  * $\mathbf{V_{oH}},\ \mathbf{V_{oL}}$
-sono rispettivamente il minimo valore di output che si ha quando viene generato un livello logico
+non ci garantisse se il circuito segnerà alto o basso.
+* $\mathbf{V_{oH}},\ \mathbf{V_{oL}}$ sono rispettivamente il minimo valore di output che si ha quando viene generato un livello logico
 alto e il massimo valore di output che si ha quando viene generato un livello logico basso.
 * $\mathbf{I_{iH}},\ \mathbf{I_{iL}}$ sono rispettivamente la corrente assorbita dalla porta
-quando gli viene presentato in ingresso un input alto e quando l'input e ad un livello logico
-basso.	* **Noise margin** e la quantità cui il segnale eccede la soglia minima $V_{iH}$ e
+quando gli viene presentato in ingresso un input alto e quando l'input è ad un livello logico
+basso.	
+* **Noise margin** è la quantità cui il segnale eccede la soglia minima $V_{iH}$ e
 $V_{iL}$. Come noise margin si prende il minimo tra il noise margin relativo al livello alto e
 a quello basso: $$NM_{H} =V_{oH}-V_{iH}$$ $$NM_{L} =V_{iL}-V_{oH}$$ $$NM =min(NM_{L},NM_{h})$$
-più NM è alto, meglio è perché vuol dire che il sistema e meno sensibile al rumore.  *
-**Fan out** e il numero massimo di porte a cui può essere connesso una certa porta mantenendo
-il livello logico corretto.  * **Static power** e la potenza dissipata in condizioni statiche:
-$P=(P_{H}+P_{L})/2$, $P_{H}=V_{cc}\cdot i_{H}$ (e la corrente che entra dal terminale
+più NM è alto, meglio è perché vuol dire che il sistema e meno sensibile al rumore.  
+* **Fan out** è il numero massimo di porte a cui può essere connesso una certa porta mantenendo
+il livello logico corretto.  
+* **Static power** è la potenza dissipata in condizioni statiche:
+$P=(P_{H}+P_{L})/2$, $P_{H}=V_{cc}\cdot i_{H}$ (è la corrente che entra dal terminale
 attaccato all'alimentazione), $P_{L}=V_{cc}\cdot i_{L}$.
 
 #### Parametri dinamici
 
 Questi invece sono parametri che riguardano la famiglia logica durante la commutazione.
 
-* **Ritardo di propagazione** sono due tempi $tp_{HL}$ e $tp_{LH}$ che indicano rispettivamente
+* **Ritardo di propagazione**: sono due tempi $tp_{HL}$ e $tp_{LH}$ che indicano rispettivamente
 il tempo necessario per passare dallo stato alto a quello basso e viceversa. Normalmente non sono
-uguali e quindi si considera come "delay" il tempo maggiore.  * **Delay-power product** solitamente
-data una certa tecnologia questo prodotto è costante e quindi è possibile aumentare la potenza
-per ridurre il delay. Questo e possibile perché normalmente il delay e causato dai condensatori,
-che necessitano che passi loro attraverso una certa quantità di carica prima di commutare(?),
-e quindi aumentando la potenza aumento anche la quantità di corrente che passa nel condensatore
-e quindi si scarica/carica più velocemente. $$\text{Delay}\cdot\text{Potenza}=DP$$ * **Energia
-di commutazione** e la quantità di energia necessaria per eseguire una commutazione. Grazie
-a questo valore e possibile il consumo di potenza di un certo dispositivo.
+uguali e quindi si considera come "delay" il tempo maggiore.
+* **Delay-power product**: solitamente data una certa tecnologia questo prodotto è costante
+e quindi è possibile aumentare la potenza per ridurre il delay. Questo e possibile perché
+normalmente il delay e causato dai condensatori, che necessitano che passi loro attraverso una
+certa quantità di carica prima di commutare(?), e quindi aumentando la potenza aumento anche la
+quantità di corrente che passa nel condensatore e quindi si scarica/carica più velocemente. $$\text{Delay}\cdot\text{Potenza}=DP$$ 
+* **Energia di commutazione**: è la quantità di energia necessaria per eseguire una commutazione. Grazie a questo valore è possibile il consumo di potenza di un certo dispositivo.
 
 ### 2.2 Famiglie logiche
 
 #### RTL (resistor-transistor logic
+
+Figure 2.1: Questa famiglia logica funziona come una porta NOT. Tuttavia i suoi parametri non
+sono ottimali e infatti non viene più usata(?).
 
 Se su 2.1 viene messa una corrente $I_{N}=0$ allora ho il transistor in interdizione, quindi
 non passa corrente e quindi $I_{C}=0$. Conseguentemente $V_{out}=5V-R_{C}\cdot I=5V$.
@@ -385,30 +410,27 @@ quindi in $V_{out}$ ho una tensione molto bassa, tipo 0.2V.
 
 Il circuito del RTL completo prevede anche un'altra parte:
 
-La cui relativa tabella di verità e
-
-Figure 2.1: Questa famiglia logica funziona come una porta NOT. Tuttavia i suoi parametri non
-sono ottimali e infatti non viene più usata(?).
-
+La cui relativa tabella di verità è
+$$
+\begin{array}{cc|c}\text{A}&\text{B}&\text{NOR}\\\hline0&0&1\\0&1&0\\1&0&0\\1&1&0\end{array}
+$$
 Se entrambi gli ingressi sono 0 allora entrambi i transistor sono interdetti e quindi l'uscita
-$V_{out}$ e altra. Se invece almeno uno è in saturazione la famiglia logica ha come uscita
-un livello basso perché la corrente a questo punto score anche nel transistor.
+$V_{out}$ è altra. Se invece almeno uno è in saturazione la famiglia logica ha come uscita
+un livello basso perché la corrente a questo punto scorre anche nel transistor.
 
 #### TTL (transistor-transistor)
 
-Se l'ingresso e 5V vado in regione attiva inversa (conseguentemente ho un guadagno basso) e
+Se l'ingresso è 5V vado in regione attiva inversa (conseguentemente ho un guadagno basso) e
 quindi nel collettore passa praticamente solo la corrente di base. Il problema dell'assorbimento,
-con questa famiglia logica, si presenta quando il transistor viene acceso (pero e di grandezza
+con questa famiglia logica, si presenta quando il transistor viene acceso (però è di grandezza
 minore perché qui il transistor è già in saturazione, inoltre la porta funziona in modo più
-predicibile). Un altro vantaggio è che $Q_{1}$ rimuove le minority carriers da $Q_{2}$ durante
+predicibile).
+Figure 2.3: Porta NOT (base)
+Un altro vantaggio è che $Q_{1}$ rimuove le minority carriers da $Q_{2}$ durante
 la transizione LH. Di contro resta una resistenza di pullup che serve per attirare tanta corrente.
-
+\newline
 Quindi è stata pensata una versione **enhanced** del not (in realtà poi c'è la versione
 enhanced della enhanced).
-
-Figure 2.3: Porta NOT (base)
-
-### 2.2 Famille Logiche
 
 La caratteristica di questa porta è che c'è un invertitore che permette di funzionare bene sia
 quando l'uscita è alta che quando è bassa. Il **phase splitter** serve a creare due segnali
@@ -419,63 +441,64 @@ $Q_{2}$ viene spendo grazie alla resistenza da 1k.
 Il problema di questa porta è che l'uscita HL è poco ripida, quindi è possibile aggiungere
 un altro transistor.
 
-Questa porta (ma anche le altre) sono fatte con transistor NPN. L'**active**
-
-Figure 2.4: Porta enhanced NOT
-
 Figure 2.5: Porta enhanced${}^{2}$ NOT
 
-**pull down** e un dispositivo che serve a svuotare $Q_{2}$ rapidamente. Con questa porta
+Questa porta (ma anche le altre) sono fatte con transistor NPN. L'**active pull down** è un dispositivo che serve a svuotare $Q_{2}$ rapidamente. Con questa porta
 viene sincronizzata l'accensione di $Q_{2}-Q_{3}$ e quindi la pendenza della funzione di
 transizione aumenta (questo è merito di aver aggiunto $Q_{5}$). La resistenza RC da 130 serve
 per ridurre la corrente che passa quando, durante la commutazione, sia $Q_{2}$ che $Q_{4}$
-sono chiusi e quindi la corrente va verso la massa. Aggiungere un nuovo transistor e stata una
+sono chiusi e quindi la corrente va verso la massa. Aggiungere un nuovo transistor è stata una
 scelta molto buona perché questa porta e sia più veloce dell'altra ma consuma anche meno
 (questo accade perché nell'intervallo di tempo tra l'input che e andato a 0 e l'output che
 sale a 1 (circa 10ns) il circuito assorbe corrente; grazie al transistor questa finestra di
-tempo e quasi dimezzata e quindi anche la corrente assorbita e minore).
-
+tempo e quasi dimezzata e quindi anche la corrente assorbita e minore).\newline
 Con TTL e più facile implementare un NAND:
+
+Figura 2.6: Porta NAND. In pratica è un NOT ma dove Q1 ha due o più emettitori
 
 Il funzionamento della porta è il seguente: il primo dei due emettitori che collego alla terra
 spegne il circuito a destra e quindi passa la corrente "da sopra". Se invece sono entrambi su
-$Q_{3},Q_{5},Q_{2}$ sono accesi e quindi l'uscita e giu.
+$Q_{3},Q_{5},Q_{2}$ sono accesi e quindi l'uscita è giù.
 
 Durante le commutazioni del not, in quella HL passo da avere $Q_{4}$ e $Q_{1}$ accesi
 (rispettivamente attivo e saturato) ad avere accesi $Q_{2},Q_{3},Q_{5}$, in quella LH il
 contrario, ovvero ho $Q_{2},Q_{3},Q_{5}$ in saturazione e passo ad avere accesi $Q_{1}$
 e $Q_{4}$.
 
-Figure 2.6: Porta NAND. In pratica è un NOT ma dove $Q_{1}$ ha due o più emettitori.
-
 #### MOS logic cells
 
 I MOS utilizzati possono essere sia a canale P che a canale N. Possono poi esserci MOS ad
 arricchimento: dove applicando tensione al gate si forma il canale, o a svuotamento: dove il
 canale è già formato e devo chiuderlo. Il vantaggio di utilizzare i MOS per realizzare porte
-logiche e quello che permette di realizzare dispositivi molto compatti e che consumano meno.
+logiche è quello che permette di realizzare dispositivi molto compatti e che consumano meno.
+
+Figure 2.7: Invertitore CMOS.
 
 Solitamente vogliamo che i dispositivi digitali lavorino nella regione lineare (i mos) e in
 saturazione (i bjt). Nel caso dei mos, quando sono in regione lineare funzionano come se fossero
 delle resistenze connesse ad un interruttore (l'interruttore si apre quando il cmos è interdetto).
 
-La corrente di ingresso e di uscita, in un mos, in condizioni statiche, e 0.
+Figure 2.8: Come varia l'uscita $V_{o}$ al variare dell'ingresso $V_{i}$.
+
+La corrente di ingresso e di uscita, in un mos, in condizioni statiche, è 0.
 
 Mi conviene che quando costruisco i dispositivi questi abbiano k uguale in modo da ottenere due
 equazioni identiche (per il PMOS e il NMOS) (per questo motivo la curva in 2.8 è antisimmetrica
 rispetto al centro). Facendo così il margine di rumore alto e basso sono uguali e quindi
 ottimizzo le risorse della porta logica.
 
-Figure 2.7: Invertitore CMOS.
-
-Figure 2.8: Come varia lâ€™uscita $V_{o}$ al variare dellâ€™ingresso $V_{i}$.
-
+Le formule che indicano i vari parametri sono:
+$$\begin{aligned}&V_{iH}=\frac{1}{8}[5V_{DD}-2V_{t}]\\&V_{iL}=\frac{1}{8}[3V_{DD}+2V_{t}]\\&V_{oH}=V_{DD}\\&V_{0L}=0\\&NM_{L}=NM_{H}=NM=V_{iL}\end{aligned}$$
+Il noise margin massimo si ha quando $V_iL=V_{iH}$. Tuttavia questa condizione non è ottimale perché l'onda della transizione è poco brusca e a noi piace quando la transizione avviene rapidamente (inoltre se non è brusca passa della corrente nel circuito) e quindi le tensioni di input spesso vengono prese pari a $V_{iL}=$ $\frac{1}{3}V_{DD}$ e$V_{iH}=\frac{2}{3}V_{DD}.$
+Con i MOS la tensione di alimentazioni ci interessa poco. Invece nei TTL abbiamo una tensione di soglia fissa da abbattere (0.7V). Con i MOS è possibile lavorare sui parametri quando lo andiamo a costruire e farne uno con un canale più corto e che quindi lavora con tensioni più basse (e che ovviamente è più piccolo).
+Con CMOS è possibile sia fare un NOR che un NAND.
 Figure 2.9: NOR fatto con tecnologia CMOS.
 
-### 2.2 Famiglie Logiche
+Figure 2.10: NAND fatto con tecnologia CMOS.
 
 Ecco un confronto tra TTL e CMOS:
 
+\begin{center}
 \begin{tabular}{c|c} TTL & CMOS \\ \hline \hline  & Alimentazione variabile \\ Alimentazione 5V &
 (la porta può essere alimentata \\  & con tensioni diverse) \\ \hline $V_{i}:0.9V-1.4V$ &
 \\ (i valori commercial sono & $V_{i}:\frac{1}{3}V_{DD}-\frac{2}{3}V_{DD}$ \\ $0.8V-2V$)
@@ -484,13 +507,12 @@ $V_{oH}:3.6V$ diodo, trans. e resistenza in serie & $V_{oH}$ resistenza del cana
 & (circa 10$\Omega$ ciascuna) \\ \hline bias currents e input currents & corrente assorbita
 pari a 0 (in condizione statica) \\ contribuiscono alla dissipazione & (a volte capita di avere
 consumo statico purtroppo) \\ della potenza & \\ \end{tabular}
+\end{center}
 
 #### BiCMOS
 
 A volte vogliamo poter combinare sia i vantaggi di CMOS (alta integrazione e consumo di potenza
 statica basso) con quelli dei circuiti bipolari.
-
-Figure 2.10: NAND fatto con tecnologia CMOS.
 
 Questo sopra ha un'uscita compatibile con i CMOS ma nel caso volessimo avere un'uscita compatibile
 TTL la cosa migliore da fare è utilizzare input TTL compatibili (e in uscita un totem pole).
