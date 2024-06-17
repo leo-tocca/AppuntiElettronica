@@ -400,7 +400,7 @@ quantità di corrente che passa nel condensatore e quindi si scarica/carica più
 
 ### 2.2 Famiglie logiche
 
-#### RTL (resistor-transistor logic
+#### RTL (resistor-transistor logic=
 
 Figure 2.1: Questa famiglia logica funziona come una porta NOT. Tuttavia i suoi parametri non
 sono ottimali e infatti non viene più usata(?).
@@ -540,7 +540,9 @@ L'elemento di memoria utilizzato è il flip-flop D.
 ### 2.4 Latch SR 
 
 Figure 2.12: Latch Set-Reset. Gli ingressi sono "bassi attivi" (se messi a 0 sono accesi).
-
+$$
+\begin{array}{ccccc}\overline{S}&\overline{R}&Q_{new}&\overline{Q_{new}}\\\hline1&1&Q_{old}&\overline{Q_{old}}&\text{hold}\\0&1&1&0&\text{set}\\1&0&0&1&\text{reset}\\0&0&1&1&\text{combinazione proibita}\end{array}
+$$
 L'ultima combinazione è necessario evitarla per due motivi:
 
 1. perché nel passaggio da 00 a 11 lo stato che avrà il latch dipenderà dallo stato in cui
@@ -555,6 +557,16 @@ Nelle FPGA è proibito sintetizzare la funzione logica dei latch.
 
 ### 2.5 Positive edge triggered flip flop (DFF, flip flop di tipo D)
 
+Figure 2.13: E un flip flop D. I due NAND più a destra sono un latch SR.
+$$
+\begin{array}{ccccc}
+C&D&Q_{new}&\overline{Q_{new}}\\
+\hline0&\text{x}&Q_{old}&Q_{old}&\text{hold}\\
+1&\text{x}&Q_{old}&\overline{Q_{old}}&\text{hold}\\
+\uparrow&0&0&1&\text{reset}\\
+\uparrow&1&1&0&\text{set}
+\end{array}
+$$
 Nel momento in cui il clock sale si presenta una configurazione che dipende dal dato.
 
 Per vedere nello schema come funziona la transizione, ad esempio $\uparrow$ con D=0, prima
@@ -564,37 +576,47 @@ calcolo C=0 e D=0, poi metto C=1 e vedo come cambia l'output.
 
 I circuiti logici possono essere implementati:
 
-* con i flip flop * con le logiche programmabili (tipo FPGA) * circuiti integrati con il circuito
-logico preciso stampato sopra
+* con i flip flop 
+* con le logiche programmabili (tipo FPGA) 
+* circuiti integrati con il circuito logico preciso stampato sopra
 
-Figure 2.13: E un flip flop D. I due NAND piÃº a destra sono un latch SR.
 
-E necessario che gli oggetti appartenenti a queste categorie possano dialogare tra di loro e si
+È necessario che gli oggetti appartenenti a queste categorie possano dialogare tra di loro e si
 dice che appartengono alla stessa famiglia logica se ciò avviene. Tanti anni fa per progettare
 sistemi digitali si utilizzavano:
 
-* porte logiche * flip flop * buffers * adders * counters
+* porte logiche 
+* flip flop 
+* buffers 
+* adders 
+* counters
 
 Oggigiorno si usano le FPGA (che hanno migliaia di porte logiche e che si programmano con un
 linguaggio di programmazione un po' simile all'assembler). I motivi perché non si utilizzano
 i circuiti _vecchio stampo_ sono:
 
-* così i PCB hanno dimensioni ridotte * si riducono correnti parassite * e possibile avere
-velocità maggiore * si hanno minori consumi
+* così i PCB hanno dimensioni ridotte 
+* si riducono correnti parassite 
+* è possibile avere velocità maggiore 
+* si hanno minori consumi
 
 In un sistema digitale c'è quasi sempre:
 
-* qualcosa di programmabile * glue logic (raccordi tra varie componenti del sistema fatti con
-porte logiche) * front-end ICs (tipo convertitore A/D e D/A oppure con funzioni I/O) * clock
-system * power control
+* qualcosa di programmabile 
+* glue logic (raccordi tra varie componenti del sistema fatti con porte logiche) 
+* front-end ICs (tipo convertitore A/D e D/A oppure con funzioni I/O) 
+* clock system 
+* power control
 
 Il packaging dei circuiti integrati determina la quantità di spazio occupato e quanti effetti
 parassiti ci sono.
 
 Il primo packaging inventato era il **DIP** (dual in line): corpo in resina con a destra e a
 sinistra dei piedini (through-hole, ovvero che passano attraverso la scheda). La distanza tra
-un piedino e l'altro e di $\frac{1}{10}$in (2.54cm). Sono così grandi perché le macchine
+un piedino e l'altro è di $\frac{1}{10}$in (2.54cm). Sono così grandi perché le macchine
 che assemblavano i circuiti integrati non potevano lavorare con oggetti più piccoli di questi.
+
+Figura 2.14: DIP
 
 Successivamente sono stati sostituiti dai **SMD** (surface mounted device), che nella forma
 sono simili ai DIP solo che la distanza tra i piedini e massimo massimo 50mils (1 mils = 0.001
@@ -602,6 +624,8 @@ in) (50mils = 1.27mm) ma se no è meno. Questo vuol dire che sono più piccoli e
 meno induttanza e conduttanza parasite. Inoltre a parità di piedini occupano $\frac{1}{4}$
 volte l'area che occuperebbe un DIP. I piedini dei SMD sono da appoggiare sulla superficie del
 circuito e saldarli.
+
+Figure 2.15: SMD
 
 Questi si usano ancora oggi.
 
@@ -611,43 +635,54 @@ e queste servono per essere saldate (con dei forni). I secondi hanno tanti aggeg
 sotto il chip, come ad esempio i processori (così che poi possono essere messi su un "aggancio"
 apposito che ha tanti pin).
 
-Figure 2.15: SMD
 
 Figure 2.16: BGA
 
 Figure 2.17: LGA
 
+Poi c’è una tecnologia che consiste nel prendere il chip senza packaging e schiaffarlo
+direttamente sul circuito. Questa opzione si chiama bare die e si utilizza se è 
+necessario/possibile risparmiare anche sul packaging perché vengono
+prodotti miliardi di dispositivi tutti uguali (come ad esempio per gli orologi a muro). \newline
+A volte alcuni SMD hanno i pin su 4 lati. \newline 
+La distanza tra le palline dei BGA può variare tra 1.27mm e 0.4mm. 
+Nonostante i BGA abbiano un sacco di palline è difficile che siano montati male
+e che quindi ci siano problemi di cortocircuito tra le varie palline (quindi è un
+packaging molto buono). È possibile mettere le palline direttamente sul silicio 
+e quindi fare un misto tra BGA e SMD (solitamente questa cosa funziona se ho pochi pin).
+
 ### 2.7 Famiglie logiche standard
 
 Le famiglie TTL sono solo a 5V per ragioni costruttive.
 
-* TTL/L*S TTL o low power Schottky (obsoleta) * ALS advanced low power Schottky, consuma la meta e
-va il doppio più veloce (in disuso anche questo) * F fast (consuma un po' ma va parecchio veloce)
+* TTL/L*S TTL o low power Schottky (obsoleta) 
+* ALS advanced low power Schottky, consuma la metà e va il doppio più veloce (in disuso anche questo)
+* F fast (consuma un po' ma va parecchio veloce)
 
 Tra tutte e tre le logiche TTL, l'unica che un po' si utilizza ancora è la F (quando dobbiamo
 gestire tanta corrente in uscita).
 
 Poi ci sono i CMOS:
 
-* CMOS alimentati con tensione 5-15V (MOLTO delicati, tipo che se uno ha un maglione e li
-prende in mano si rompono) * AHC advanced high speed CMOS (vanno a 5V) * AC advanced CMOS
-(anche questi vanno a 5V)
+* CMOS alimentati con tensione 5-15V (MOLTO delicati, tipo che se uno ha un maglione e li prende in mano si rompono) 
+* AHC advanced high speed CMOS (vanno a 5V) 
+* AC advanced CMOS (anche questi vanno a 5V)
 
 Anche se può sembrare strano AC ha delle prestazioni migliori di AHC. AC è molto veloce ma
 consuma anche molto (quando effettua le commutazioni).
 
 Oggigiorno i CMOS consumano meno (perché lavorano con meno tensione).
 
-Se abbaso la tensione di una porta progettata per lavorare con tensioni più alte (sono stupido)
-riesco a far funzionare la porta lo stesso ma avro una mi- more velocità. La cosa più saggia da
+Se abbasso la tensione di una porta progettata per lavorare con tensioni più alte (sono stupido)
+riesco a far funzionare la porta lo stesso ma avrò una minore velocità. La cosa più saggia da
 fare se voglio utilizzare meno tensione è scegliere una porta che è stata progettata proprio
 per lavorare con la tensione che desidero.
 
 Poi ci sono altre famiglie un po più moderne:
 
-* LV, LVC low voltage CMOS (sono general purpose) * ALVC, AVC advanced low voltage CMOS (permettono
-di avere una velocità molto elevata) * (A)LVT advanced low voltage BiCMOS (performance buona,
-consumo basso, si accende con 0.7V)
+* LV, LVC low voltage CMOS (sono general purpose) 
+* ALVC, AVC advanced low voltage CMOS (permettono di avere una velocità molto elevata) 
+* (A)LVT advanced low voltage BiCMOS (performance buona, consumo basso, si accende con 0.7V)
 
 Attualmente si utilizzano LVC e BiCMOS.
 
@@ -655,10 +690,12 @@ Attualmente si utilizzano LVC e BiCMOS.
 
 La nomenclatura standard prevede:
 
-1. produttore 2. 74 = circuiti commerciali, 54 = circuiti militari (la differenza è che i
-circuiti militari sono garantiti per funzionare anche in situazioni più estreme)3. famiglia
-logica 4. funzione che svolge (e quindi e possibile sapere anche che porte ci sono dentro)
-5. package 6. a volte c'è anche scritto il range di temperatura a cui lavora
+1. produttore 
+2. 74 = circuiti commerciali, 54 = circuiti militari (la differenza è che i circuiti militari sono garantiti per funzionare anche in situazioni più estreme)
+3. famiglia logica 
+4. funzione che svolge (e quindi e possibile sapere anche che porte ci sono dentro)
+5. package 
+6. a volte c'è anche scritto il range di temperatura a cui lavora
 
 Esempio:
 
@@ -670,10 +707,11 @@ $$\underbrace{SN}_{1}\underbrace{74}_{2}\underbrace{AC}_{3}\underbrace{00}_{4}-
 Per effettuare una comparazione tra le famiglie logiche si può compararle in base alle
 performance:
 
-* velocità di commutazione * consumo di potenza (questo varia in base alla frequenza) * quanto
-e potente lo stato di uscita = fan out
+* velocità di commutazione 
+* consumo di potenza (questo varia in base alla frequenza) 
+* quanto è potente lo stato di uscita = fan out
 
-La velocità, in una certa famiglia, e strettamente legata (inversamente proporzionale) al
+La velocità, in una certa famiglia, è strettamente legata (inversamente proporzionale) al
 consumo di potenza.
 
 Le famiglie BiCMOS il consumo di potenza è elevato (possono essere utilizzate in caso mi serva
@@ -681,7 +719,7 @@ elevata corrente d'uscita).
 
 ### 2.8 Come si imposta l'input
 
-Figure 2.18: Il circuito A, quando è accesa l’uscita e a 0V, quando e spento e a $V_{CC}$. Il
+Figure 2.18: Il circuito A, quando è accesa l’uscita e a 0V, quando è spento e a $V_{CC}$. Il
 circuito B è il contrario
 
 Queste due configurazioni sono uguali solo quando $I_{iH}$ e $I_{iL}$ sono uguali (e quindi
@@ -698,21 +736,21 @@ perché PMOS e NMOS sono in conduzione e quindi passa corrente per tanto tempo.
 
 I possibili rimedi sono:
 
-* collegare il pin alla massa * collegare il pin all'alimentazione * collegare il pin alla
-massa con una resistenza nel mezzo (tra il pin e la massa) così da rendere il pin più facile
-da utilizzare se un giorno cambiassi idea sul suo utilizzo
+* collegare il pin alla massa
+* collegare il pin all'alimentazione
+* collegare il pin alla massa con una resistenza nel mezzo (tra il pin e la massa) così da rendere il pin più facile da utilizzare se un giorno cambiassi idea sul suo utilizzo
 
-Per i TTL se l'ingresso (emitter del BJT) è scollegato e come se fosse "alto" e quindi non ci
+Per i TTL se l'ingresso (emitter del BJT) è scollegato è come se fosse "alto" e quindi non ci
 sono troppi problemi. Al massimo posso inserire una resistenza di pull-up (che tira il segnale
 ancora più in alto).
 
-Un motivo per cui i circuiti vengono programmati con i segnali di controllo attivi bassi e
+Un motivo per cui i circuiti vengono programmati con i segnali di controllo attivi bassi è
 perché, se si rompe un pin, la funzione smette di essere eseguita.
 
 Ogni output deve garantire livelli "basso" e "alto" corretti:
-
-$$V_{OHmin} >V_{iHmin}$$ $$V_{OLmax} <V_{iLmax}$$
-
+\begin{align*}
+V_{OHmin}&>V_{iHmin}\\V_{OLmax}&<V_{iLmax}
+\end{align*}
 Quando uno legge i dati relativi al circuito potrebbe leggere i valori tipici (che sono la
 media del processo in condizioni controllate), il valore massimo e il valore minimo: le cose
 interessanti e importanti sono solo le ultime due.
@@ -720,13 +758,13 @@ interessanti e importanti sono solo le ultime due.
 Quando progetto devo utilizzare il **worst case design**: devo progettare considerando i valori
 peggiori.
 
-Per rendere compatibili CMOS 5V e TTL si può introdurre un pull-up come in figura 2.21. $R_{p}$
-deve essere tale da non superare un certo limite imposto dalla porta quando ha uscita bassa.
+Figure 2.19: I range di I/O dipendono dal processo di produzione, temperatura attuale e $V_{CC}$.
 
 Figure 2.20: Questo è il grafico 2.19 ma messo in verticale. Il TTL e il CMOS 3.3V sono molto
 simili. Questa cosa è intenzionale così che sono compatibili tra di loro.
 
-Figure 2.19: I range di I/O dipendono dal processo di produzione, temperatura attuale e $V_{CC}$.
+Per rendere compatibili CMOS 5V e TTL si può introdurre un pull-up come in figura 2.21. $R_{p}$
+deve essere tale da non superare un certo limite imposto dalla porta quando ha uscita bassa.
 
 Figure 2.21
 
@@ -740,7 +778,10 @@ nel tempo desiderato.
 
 Figure 2.22
 
-### 2.10 DATASheet
+Figure 2.23: A sinistra c'è una porta TTL con uscita alta, a destra con uscita bassa.
+
+Figure 2.24: I TTL sono asimmetrici in correnti di uscita mentre i CMOS hanno output simmetrici.
+
 
 L'uscita dei TTL funziona meglio quando è "bassa" perché ha una corrente maggiore "e quindi
 si vede meglio". Questo è il secondo motivo per cui i segnali di controllo sono attivi bassi.
@@ -748,30 +789,26 @@ si vede meglio". Questo è il secondo motivo per cui i segnali di controllo sono
 Per le famiglie CMOS non c'è alcun motivo per cui continuare ad utilizzare segnali attivi
 bassi se non perché "si è sempre fatto così".
 
-### 2.10 DATASheet
+### 2.10 Datasheet
 
 Le info sulle porte logiche sono sul datasheet. Queste info sono:
 
-* funzionalità * tipo di package
-
-Figure 2.23: A sinistra câ€™e una porta TTL con uscita alta, a destra con uscita bassa.
-
-Figure 2.24: I TTL sono asimmetrici in correnti di uscita mentre i CMOS hanno output simmetrici.
-
-* absolute maximum ratings (limiti entro i quali il dispositivo e garantito che non si
-rompa) * recommended operating conditions (i limiti entro i quali il dispositivo funziona
-correttamente) * specifiche elettriche (valori tipo $V_{OH}$ in relazione a $I_{OH}$ e
-$V_{CC}$ * caratteristiche dinamiche (tipo $t_{pd}$ (=t${}_{\text{propagation delay}}$)
-che e espresso da un range e dipende molto dalla $V_{CC}$, quindi se aumento $V_{CC}$ il
-$t_{pd}$ diminuisce; se nel foglio non sembra così probabilmente e diverso il carico con cui
-sono stati svolti gli esperimenti e magari con tensioni maggiori sono stati usati condensatori
-maggiori per simulare dispositivi più vecchi)
+* funzionalità 
+* tipo di package
+* absolute maximum ratings (limiti entro i quali il dispositivo e garantito che non si rompa) 
+* recommended operating conditions (i limiti entro i quali il dispositivo funziona correttamente) 
+* specifiche elettriche (valori tipo $V_{OH}$ in relazione a $I_{OH}$ e $V_{CC}$ 
+* caratteristiche dinamiche (tipo $t_{pd}$ (=t${}_{\text{propagation delay}}$)
+    che è espresso da un range e dipende molto dalla $V_{CC}$, quindi se aumento $V_{CC}$ il
+    $t_{pd}$ diminuisce; se nel foglio non sembra così probabilmente è diverso il carico con cui
+    sono stati svolti gli esperimenti e magari con tensioni maggiori sono stati usati condensatori
+    maggiori per simulare dispositivi più vecchi)
 
 Nella prima pagina dello sheet ci sono le informazioni più importanti (però di solito conviene
 leggere anche le pagine dopo). Input transition rate con max a 5ns/V vuol dire che se ci metto
 più di 5ns per V a fare la commutazione friggo il circuito.
 
-$C_{i}$ e la capacità dell'ingresso (più nello specifico del gate). Tale capacità influenza
+$C_{i}$ è la capacità dell'ingresso (più nello specifico del gate). Tale capacità influenza
 anche la resistenza di pullup che posso mettere: il $\tau$ relativo al condensatore è pari
 al transmission rate $\times V_{CC}$, se faccio $\tau/C$ ottengo il valore massimo della
 resistenza di pullup che posso utilizzare senza avere problemi.
@@ -805,78 +842,115 @@ Nel datasheet ci sono le specifiche con cui è stato testato il dispositivo cont
 All'aumentare della frequenza di commutazione aumenta anche la potenza assorbita. Di solito le
 famiglie più veloci assorbono più potenza.
 
-Nei TTL il consumo e dato da:
+Nei TTL il consumo è dato da:
 
-* statico $\rightarrow$ bias current * dinamico $\rightarrow$ cross-conduzione (quando i
-transistor del totem pole sono entrambi in conduzione)
+* statico $\rightarrow$ bias current 
+* dinamico $\rightarrow$ cross-conduzione (quando i transistor del totem pole sono entrambi in conduzione)
 
-Nei CMOS invece e dato da:
+Nei CMOS invece è dato da:
 
-* statico $\rightarrow\approx 0$ * dinamico $\rightarrow$ capacità parassita del circuito
-integrato, capacità dei circuiti che ci metto fuori e in minor parte (tipo che le altre cause
-consumano dalle 3 alle 5 volte più potenza rispetto a questa) la cross conduzione
+* statico $\rightarrow\approx 0$ 
+* dinamico $\rightarrow$ capacità parassita del circuito integrato, capacità dei circuiti che ci metto fuori e in minor parte (tipo che le altre cause
+consumano dalle 3 alle 5 volte più potenza rispetto a questa) la cross conduzione.
 
 Nelle famiglie low voltage logic circuit il consumo è molto minore.
 
-La **potenza dissipata da una capacità alla frequenza di clock** e:
+La **potenza dissipata da una capacità alla frequenza di clock** è:
 
 $$P=\frac{1}{T}\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt$$
 
 Per l'onda quadra vale $i_{0}=i_{p}=C_{L}\cdot\frac{dV}{dt}$ e quindi l'integrale diventa
 facilmente
 
-$$\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt =\int_{0}^{T}C_{L}\cdot\frac{dV}{dt}\cdot V_{o}(t)dt$$
-$$=\int_{0}^{V_{DD}}C_{L}\cdot V_{0}dV$$ $$=\frac{1}{2}V_{DD}^{2}C_{L}$$
+\begin{align*}
+\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt &=\int_{0}^{T}C_{L}\cdot\frac{dV}{dt}\cdot V_{o}(t)dt\\
+&=\int_{0}^{V_{DD}}C_{L}\cdot V_{0}dV\\
+&=\frac{1}{2}V_{DD}^{2}C_{L}
+\end{align*}
 
 Che poi (facendo delle magie e delle considerazioni che posso considerare il circuito come una
 resistenza e una capacità(??)) diventa
 
 $$P=C_{L}V_{DD}^{2}f_{0}$$
 
-## Chapter 2 Algebra Booleana
+Da questa formula si può notare che la potenza è direttamente proporzionale
+alla frequenza e proporzionale al quadrato rispetto a VDD.
+Se diminuisco la tensione di alimentazione di metà, la potenza di dissipazione
+decresce di 4 volte.
+Quindi conviene tenere la tensione di alimentazione bassa.
+Se il circuito è fatto da più capacità allora la potenza complessiva è
+$$
+P_{TOT}=\sum_{n}(C_{L_{n}}\cdot f_{0n})\cdot V_{DD}^{2}
+$$
+Nei CMOS dobbiamo considerare sia la capacità parassita interna $(C_{pd})$, sia
+quelle esterne $(C_{L})$.Solitamente $C_{pd}$  è scritta sul datasheet.
+$C_{pd}$ aumenta con la complessità del circuito e diminuisce con l'avanzare della
+tecnologia.
+
+In circuiti più complessi i CMOS sono così piccoli che un po'di corrente passa
+sempre (in condizioni statiche) (si hanno delle leakage currents).
+Per gestire la temperatura dei chip si può:
+* variare la tensione e la frequenza con cui lavora per diminuire i consumi 
+* se il chip non viene utilizzato o viene spento togliendogli l'alimentazione
+o gli viene tolto il clock (così da consumare solo in modo statico)
+* start&stop (tipico dei sistemi embedded dove il dispositiwo prima è in idle,
+poi si sveglia per fare il suo e poi torna in idle)
+* termal throttling (il dispositivo va al massimo fmo a quando non arriva
+alla temperatura limite e poi diminuisce la potenza per restare a tale 
+temperatura, ovviamente le prestazioni sono ridotte) (questa cosa è tipica
+delle GPU e SSD)
+
+### Convertitori
+I convertitori servono per trasformare segnali analogici in segnali continui e
+viceversa. Questi sfruttano i concetti di **quantizzazione** e **campionamento**.
+* **Campionamento**: A intervalli regolari misuro il valore assunto dal segnale continuo e suppongo che questo mantenga tale valore per tutta la durata dell’intervallo.
+* **Quantizzazione**: I campioni vengono sostituiti con il valore del **livello di
+quantizzazione** più vicino. La **risoluzione** è il numero di bit con cui viene quantizzato il segnale.
 
 #### Principali formati digitali
 
-$V_{fs}$ e il range di valori ammissibili. E importante che questo valore sia dello stesso
+$$\begin{array}{c|c|c|c}V_{in}&\text{Binary}&\text{Offset binary}&\text{2's compl.}\\\hline V_{fs}/2&111111&111111&011111\\+\text{dV}&000001&100001&000001\\0&000000&100000&000000\\-\text{dV}&/&011111&111111\\-V_{fs}/2&/&000000&100000\end{array}$$
+Tabella 2.3: L’offset binary non è compatibile con i calcoli che utilizzano il complemento a 2
+
+$V_{fs}$ è il range di valori ammissibili. È importante che questo valore sia dello stesso
 ordine di grandezza del segnale che vogliamo convertire perché se è più piccolo chiaramente
 non possiamo convertirlo per bene, mentre se è più grande abbiamo dei problemi perché è
 come se sfruttassimo meno bit e quindi otteniamo meno precisione.
 
-#### Convertitori D/A
-
-Il convertitore in figura 2.26 sfrutta un amplificatore invertente e il principio
-di sovrapposizione: $V_{out}$ e $-\frac{R_{F}}{R_{G}}\cdot V_{in}$ dove $R_{F}$ e la
-resistenza in parallelo all'amplificatore e $R_{G}$ e quella dopo l'ingresso a 5V, posso poi
-calcolare i $V_{out}$ per tutte
+#### Convertitori D/a
 
 Figure 2.26: Questo D/A converter non e ottimale perché richiede che i valori delle resistenze
 siano precisi e questi solitamente non lo sono.
 
+
+Il convertitore in figura 2.26 sfrutta un amplificatore invertente e il principio
+di sovrapposizione: $V_{out}$ e $-\frac{R_{F}}{R_{G}}\cdot V_{in}$ dove $R_{F}$ è la
+resistenza in parallelo all'amplificatore e $R_{G}$ è quella dopo l'ingresso a 5V, posso poi
+calcolare i $V_{out}$ per tutte
 \begin{table} \begin{tabular}{c|c|c|c} $V_{in}$ & Binary & Offset binary & 2â€™s compl. \\
 \hline $V_{fs}/2$ & 111111 & 111111 & 011111 \\ +dV & 000001 & 100001 & 000001 \\ 0 & 000000
 & 100000 & 000000 \\ -dV & / & 011111 & 111111 \\ $-V_{fs}/2$ & / & 000000 & 100000 \\
-\end{tabular} \end{table} Table 2.3: L’_offset binary_ non è compatibile con i calcoli che
-utilizzano il complemento a 2.
-
-le resistenze e trovare la tensione di uscita totale facendone la combinazione lineare
+\end{tabular} \end{table}le resistenze e trovare la tensione di uscita totale facendone la combinazione lineare
 
 $$V_{out}=-V_{in}\cdot\left(\frac{R_{F}}{R_{G_{1}}}+\frac{R_{F}}{R_{G_{2}}}+...+
 \frac{R_{F}}{R_{G_{n}}}\right)$$
 
 Una soluzione migliore e il **R-2R converter**.
 
+Figura 2.27
+
 Nel convertitore in figura 2.27 vengono utilizzate solo due tipologie di resistenze: una con
 valore R e una che vale 2R.
 
-Guardando ad ogni nodo da destra${}^{(\gamma)}$, è possibile vedere due resistenze da 2R in
+Guardando ad ogni nodo da destra(?), è possibile vedere due resistenze da 2R in
 parallelo, che quindi fanno una resistenza R. Inoltre è possibile notare che la corrente si
 dimezzi ad ogni nodo.
 
 La precisione di un DAC si misura con:
 
 * **full scale error**, ovvero la differenza massima tra il valore di output ideale e quello
-reale (si misura in % di $V_{fs}$ * **linearity error**, ovvero la differenza massima tra
-l'ampiezza di uno "step" reale e uno ideale
+reale (si misura in % di $V_{fs}$) 
+* **linearity error**, ovvero la differenza massima tra l'ampiezza di uno "step" reale e uno ideale
 
 Il **tempo di campionamento** corrisponde al tempo in cui è iniziata la conversione da digitale
 a analogico.
@@ -887,12 +961,14 @@ Il segnale di output di un DAC è campionato e quantizzato.
 
 #### Convertitori A/D
 
-E importante che il segnale in ingresso sfrutti tutta la capacità di conversione del dispositivo,
+È importante che il segnale in ingresso sfrutti tutta la capacità di conversione del dispositivo,
 per esempio se il convertitore lavora sull'intervallo [0, 10V] e il segnale in ingresso oscilla
-tra -1V e +1V quello che devo fare e spostare di +1V il segnale e poi amplificarlo di un fattore
+tra -1V e +1V quello che devo fare + spostare di +1V il segnale e poi amplificarlo di un fattore
 5, così che oscilli tra 0 e 10V.
 
-### Digital ramp ADC
+* Digital ramp ADC
+
+Figura 2.28
 
 In questo tipo di convertitore viene utilizzato un comparatore che ha output 1 se gli ingressi
 sono uguali e 0 se sono diversi. Nel contatore viene messo il valore convertito. La conversione
@@ -902,31 +978,31 @@ la conversione è completata.
 Il principale problema di questo convertitore è che per completare una conversione richiede
 fino a $2^{N}$ colpi di clock.
 
-### Successive approx. ADC
+* Successive approx. ADC
 
-Figure 2.29:La struttura di fondo è la medesima di quella prima, solo che adesso la conversione
+Figura 2.30
+
+La struttura di fondo è la medesima di quella prima, solo che adesso la conversione
 avviene utilizzando un algoritmo di bisezione. In questo modo divido lo spazio in 2 ad ogni
 passo. Il numero di colpi di clock per completare una conversione e N.
 
-**Flash ADC**
+* Flash ADC
 
 Questo convertitore è molto bello perché produce l'output in un colpo di clock. Questa cosa
 è possibile perché vengono messe in parallelo le varie informazioni. Tuttavia ho bisogno di
 $2^{N}$ comparatori e questi occupano diverso spazio sul silicio e quindi posso lavorare solo
 con pochi bit di uscita.
 
-Nel ADC flash il campionamento avviene quando metto il dato nel registro. Nel SAR tale momento si
-ha quando ho finito l'ultima conversione mentre il tempo di conversione e il tempo di esecuzione
-dell'algoritmo di conversione.
-
-Nei digital ramp il momento di campionamento e quando "l'uscita diventa 0", il tempo di
-conversione è variabile.
-
-Figure 2.31:
+Figura 2.31
 
 Figure 2.32: Come viene effettuato il campionamento
 
-Figure 2.31:
+Nel ADC flash il campionamento avviene quando metto il dato nel registro. Nel SAR tale momento si
+ha quando ho finito l'ultima conversione mentre il tempo di conversione è il tempo di esecuzione
+dell'algoritmo di conversione.
+
+Nei digital ramp il momento di campionamento + quando "l'uscita diventa 0", il tempo di
+conversione è variabile.
 
 ## Chapter 3 Microprocessori, microcontrollori, etc.
 
@@ -940,53 +1016,57 @@ comunque migliaia). Le FPGA contengono milioni di porte logiche.
 
 ### 3.1 Definizioni
 
-Microprocessore un single chip processing unit (tipo l'8086) e richiede la ram, l'interrupt
+* Microprocessore: un single chip processing unit (tipo l'8086) e richiede la ram, l'interrupt
 controller (dispositivo che sotto certe condizioni cambia l'ordine di esecuzione del programma
-generando delle interruzioni che chiamano delle funzioni specifiche per gestire l'evento (ad
-esempio la pressione di un tasto)), il DMA controller (che si occupa di spostare dati tra le
-varie zone di memoria (solitamente della sua gestione se ne occupa il sistema operativo)), il
+generando delle interruzioni che chiamano delle funzioni specifiche per gestire l'evento, ad
+esempio la pressione di un tasto), il DMA controller (che si occupa di spostare dati tra le
+varie zone di memoria, solitamente della sua gestione se ne occupa il sistema operativo), il
 clock e lo UART (che non so cosa sia). Al giorno d'oggi, interrupt controller e DMA controller
 sono incorporati nel processore.
-
-Microcontrollore E anche questo un single chip processing unit (solitamente meno potente di un
+* Microcontrollore: E anche questo un single chip processing unit (solitamente meno potente di un
 microprocessor al fine di consumare meno) autonomo (quindi non gli servono clock, ram, memoria
-flash, PIC, DMA, ecc. esterni (perché sono tutti integrati al suo interno)).
+flash, PIC, DMA, ecc. esterni, perché sono tutti integrati al suo interno).
 
 Il DMA controller del microcontrollore, di solito (quando manca il SO), deve essere programmato
 da noi.
 
 ### 3.2 Requisiti di un microcontrollore
 
-* **Esecuzione predicibile del codice**: e facile sapere quanto tempo ci metterà a eseguire il
-codice * **RISC/CISC con poche istruzioni** * **Architettura Harward**: l'architettura Harward
+* **Esecuzione predicibile del codice**: è facile sapere quanto tempo ci metterà a eseguire il
+codice 
+* **RISC/CISC con poche istruzioni** 
+* **Architettura Harward**: l'architettura Harward
 prevede che dal processore partano due bus, uno verso la memoria dati e uno verso la memoria
 programma. Al contrario l'architettura di Von Neumann prevede che ci sia un solo bus che collega le
-memorie alla CPU * **Possibilità di comunicare con il mondo esterno mediante* * **GPIO: pin che
-possono essere impostati come ingresso o come uscita a piacimento* * **Mixed signal peripherals
-(ADC/DAC): permettono un controllo lineare (tipo mediante gli amplificatori)* * **Periferiche di
-comunicazione che implementano le interfacce di comunicazione* * **Numerical control interface
-(PWM, pulse width modulation): permettono un controllo di altri dispositivi con meno sprechi
-rispetto al controllo lineare* * **Tempi di reazione agli eventi esterni molto rapido**
+memorie alla CPU 
 
-Aside sui motori elettrici Se volessi controllare in velocità un motore elettrico potrei:
+Figura 3.1 Architetture a confronto
 
-* **Dare la potenza giusta affinché si muova con una certa velocità**
+* Possibilità di comunicare con il mondo esterno mediante
+    * GPIO: pin che possono essere impostati come ingresso o come uscita a piacimento
+    * Mixed signal peripherals (ADC/DAC): permettono un controllo lineare (tipo mediante gli amplificatori)* 
+    * Periferiche di comunicazione che implementano le interfacce di comunicazione
+    * Numerical control interface (PWM, pulse width modulation): permettono un controllo di altri dispositivi con meno sprechi rispetto al controllo lineare
+    * Tempi di reazione agli eventi esterni molto rapido**
 
-Figure 3.1: Architetture a confronto* Dare per una frazione di secondo la potenza massima
-erogabile, poi stare fermo per un tot e ripetere questo finché ne ho bisogno
+* Aside sui motori elettrici: Se volessi controllare in velocità un motore elettrico potrei:
+a. Dare la potenza giusta affinché si muova con una certa velocità
+b. Dare per una frazione di secondo la potenza massima erogabile, poi stare fermo per un tot e ripetere questo finché ne ho bisogno
 
-L'opzione B e quella più efficace perché limita la potenza persa sull'amplificatore
+L'opzione B è quella più efficace perché limita la potenza persa sull'amplificatore
+
+Figura 3.2
 
 Poi vogliamo che il dispositivo sia piccolo e che consumi **poco**.
 
-### 3.3 Schedule
+### 3.3 Schede
 
 Le schede solitamente hanno il processore e basta. A volte hanno anche una parte per fare il
-debug del codice direttamente su di essa. Per esempio Arduino UNO e del primo tipo, la scheda
-che abbiamo in laboratorio (STM qualcosa) e del secondo.
+debug del codice direttamente su di essa. Per esempio Arduino UNO è del primo tipo, la scheda
+che abbiamo in laboratorio (STM qualcosa) è del secondo.
 
 Poi esiste una porta (**porta JTAG**) che serve per accedere ai registri e alla memoria flash
-(quindi per caricare il programma la sopra) del microcontrollore. Questa porta può essere
+(quindi per caricare il programma là sopra) del microcontrollore. Questa porta può essere
 utilizzata anche per bloccare l'esecuzione del codice.
 
 Sulla scheda c'è un dispositivo che serve a bloccare ingressi e uscite al fine di evitare
@@ -999,14 +1079,13 @@ non incorrere in comportamenti non desiderati è consigliabile aggiungere un pul
 così anche da preservare il circuito (magari i mos si attivano e passa un sacco di corrente
 e poi si rompono).
 
-Cortex-M4 (F4)e il microcontroller installato sulle schede che abbiamo in laboratorio.
-
+* Cortex-M4 (F4): è il microcontroller installato sulle schede che abbiamo in laboratorio.
 Utilizza architettura Harvard, e CISC, ha molte periferiche, consuma pochino (100$\mu$A/MHz)
 e ha l'unità floating point (FPU).
 
 La FPU è un modulo della CPU che permette di eseguire operazioni in virgola mobile senza
 utilizzare una libreria che le simuli (l'utilizzo della libreria è molto oneroso in termini
-di cicli di clock). La precisione della FPU e la precisione singola (32 bit). Non tutte le
+di cicli di clock). La precisione della FPU è la precisione singola (32 bit). Non tutte le
 schede sono dotate di questo modulo (ad esempio Arduino UNO ne è sprovvisto). Per qualche
 motivo non è detto che il compilatore della nostra scheda utilizzi gli OPCODE floating point
 (bisogna stare attenti a quale usa).
