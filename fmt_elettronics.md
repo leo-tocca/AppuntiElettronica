@@ -81,7 +81,7 @@ reticolo cristallino degli atomi di un elemento drogante. L'elemento drogante vi
 con un rapporto dell'ordine di $1:10{}^{10}$ (questo è il caso di un drogaggio pesante,
 se no è ancora minore la quantità di elemento drogante).
 
-Il vantaggio di inserire un elemento drogante all'interno del reticolo cristallino e che gli
+Il vantaggio di inserire un elemento drogante all'interno del reticolo cristallino è che gli
 altri atomi lo vedono come uno di loro solo con un elettrone in più o in meno. Il drogaggio può
 essere **di tipo P** se l'elemento drogante ha un elettrone in meno rispetto al semiconduttore
 (ad esempio se drogo il silicio con il boro), oppure **di tipo N** se l'elemento drogante ha
@@ -1106,18 +1106,16 @@ e la cui frequenza va da 1 a 50MHz.
 
 Il segnale generato dal quarzo viene poi moltiplicato/diviso dal PLL.
 
-Gpio"Dietro" ciascun GPIO ci sono due parti: una che gestisce l'ingresso e una che gestisce
-l'uscita.
+Figura 3.3
 
+* **GPIO**: "Dietro" ciascun GPIO ci sono due parti: una che gestisce l'ingresso e una che gestisce
+l'uscita. \newline
 L'uscita è composta da due CMOS. Noi ne dobbiamo usare solo 1. Spesso potrebbe essere utile
 avere una resistenza di pull up/pull down internamente (oppure un pull up esternamente, se
 necessito di maggiore precisione).
-
 Per evitare che il codice sia interrotto da un'interruzione in una zona critica non viene
-utilizzato l'output data register.
-
-Al contrario si utilizza il bit set/reset register che e **interrupt safe**.
-
+utilizzato l'output data register. \newline
+Al contrario si utilizza il bit set/reset register che e **interrupt safe**. \newline
 Quando voglio scrivere un 1 sull'ODR metto nella parte bassa del BSRR un 1 (e poi ci pensa lui
 a scriverlo nel ODR). Se invece voglio resettare un bit dell'ODR basta mettere un 1 nella parte
 alta del BSRR.
@@ -1131,13 +1129,15 @@ Su STM32 può essere **nested/vectored**:
 
 * nested vuol dire che le interazioni hanno una priorità e che durante l'esecuzione di una
 interruzione a bassa priorità può arrivare una interruzione a priorità maggiore che passa
-avanti.  * vettorizzato vuol dire che ci sono n sorgenti di interrupt e ciascuna è collegata
+avanti.  
+* vettorizzato vuol dire che ci sono n sorgenti di interrupt e ciascuna è collegata
 ad una funzione che si trova elencata in una tabella delle interruzioni. Questa tecnica viene
 utilizzata se devono essere gestite tante interruzioni diverse.
 
 Gli usi tipici dell'interrupt controller sono:
 
-* gestione dei GPIO * con i timer, ovvero viene generata una richiesta di interruzione dopo un
+* gestione dei GPIO 
+* con i timer, ovvero viene generata una richiesta di interruzione dopo un
 tot specifico di tempo. I timer possono essere utilizzati per produrre segnali periodici utili
 per i sistemi di controllo (tipo PWM).
 
@@ -1152,19 +1152,27 @@ NON SI FA DEBUG DI CIRCUITI DI POTENZA.
 
 ### 4.1 Parametri RTL
 
-* $V_{iH}$ = 0.75V, $V_{iL}$ = 0.6V * $I_{iH}$ @ $V_{iH}$ = 150 $\mu A$, $I_{iH}$ @ 5V
-= 9.5mA * $I_{iL}$ = 0 * $V_{oH}$ = 5V (no load condition) * $V_{oL}$ = 0.2V * $NM_{H}$
-= 4.25V, $NM_{L}$ = 0.4V $\to NM$ = 0.4V * Fan-out: 33 * $P_{L}$ = 5V$\times$7.5mA
-(Rc) = 37.5mW, $P_{H}$ = 0, $P$ =18mW * $t_{pHL}$ e $t_{pH}$ veloci per merito della
-resistenza in base (qualche nS) * $DP$ = 5nS$\times$18mW = 90pJ
+* $V_{iH} = 0.75V, V_{iL} = 0.6V$ 
+* $I_{iH} @ V_{iH} = 150 \mu A, I_{iH} @ 5V = 9.5mA$
+* $I_{iL} = 0$
+* $V_{oH} = 5V$ (no load condition) 
+* $V_{oL} = 0.2V$
+* $NM_{H} = 4.25V, NM_{L} = 0.4V \to NM = 0.4V$
+* Fan-out: 33
+* $P_{L} = 5V\times 7.5mA (Rc) = 37.5mW, P_{H} = 0, P =18mW$ 
+* $t_{pHL} e $t_{pH}$ veloci per merito della resistenza in base (qualche nS) 
+* $DP$ = 5nS\times 18mW = 90pJ$
 
 Il fanout si calcola facendo: $(V_{CC}-V_{iH})/R_{C}=n\times I_{iH}($@$V_{iH})$.
 
 ### 4.2 Parametri TTL (credo il not standard con 5 transistor)
 
-* $V_{iH}$ = 1.35V, $V_{iL}$ = 1.1V * $I_{iH}$ = 15 $\mu A$ * $I_{iL}$ = 1mA * $V_{oH}$
-= 3.75V* $V_{oL}$ = 0.2V * $NM_{H}$ = 2.4V, $NM_{L}$ = 0.9V $\to NM$ = 0.9V * $P_{L}$
-= 5V$\times$(0.7mA (Rpu)+2.5mA (Rpu1)) = 16mW, $P_{H}$ = 5V$\times$1mA (Rpu) = 5mW, $P$
-=11.5mW * $t_{pHL}$ e $t_{pH}$ veloci per merito di Q5 e dei transistor vari(?) (circa 5 nS)
-* $DP$ = 5nS$\times$11.5mW = 57.5pJ
-
+* $V_{iH} = 1.35V, V_{iL} = 1.1V$
+* $I_{iH} = 15\mu A$
+* $I_{iL} = 1mA$
+* $V_{oH} = 3.75V$
+* $V_{oL} = 0.2V$ 
+* $NM_{H} = 2.4V, NM_{L} = 0.9V \to NM = 0.9V$
+* $P_{L} = 5V\times(0.7mA (Rpu)+2.5mA (Rpu1)) = 16mW, P_{H} = 5V\times 1mA (Rpu) = 5mW, P=11.5mW$
+* $t_{pHL}$ e $t_{pH}$ veloci per merito di Q5 e dei transistor vari(?) (circa 5 nS)
+* $DP = 5nS\times 11.5mW = 57.5pJ$
