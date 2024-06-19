@@ -36,6 +36,19 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -80,130 +93,14 @@
 
 \begin{document}
 
-\section{Index}\label{index}
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\newpage
 
-\begin{itemize}
-\tightlist
-\item
-  1 Dispositivi elettronici
-
-  \begin{itemize}
-  \tightlist
-  \item
-    1.1 Giunzione P-N
-  \item
-    1.1.1 Formule
-  \item
-    1.2 Diodi particolari
-  \item
-    1.2.1 Fotodiodi
-  \item
-    1.2.2 LED
-  \item
-    1.2.3 Diodi Schottky
-  \item
-    1.3 Leggi di Kirchoff
-  \item
-    1.4 BJT: giunzione n-p-n (transistor bipolare)
-  \item
-    1.5 Sonda 10x
-  \item
-    1.6 Diodo Zener
-  \item
-    1.7 BJT pnp
-  \item
-    1.8 Fototransistor
-  \item
-    1.9 MOS
-  \item
-    1.9.1 N-MOS
-  \item
-    1.9.2 P-MOS
-  \end{itemize}
-\item
-  2 Algebra booleana
-
-  \begin{itemize}
-  \tightlist
-  \item
-    2.1 Parametri
-  \item
-    2.1.1 Parametri statici
-  \item
-    2.1.2 Parametri dinamici
-  \item
-    2.2 Famiglie logiche
-  \item
-    2.2.1 RTL (resistor-transistor logic)
-  \item
-    2.2.2 TTL (transistor-transistor)
-  \item
-    2.2.3 MOS logic cells
-  \item
-    2.2.4 BiCMOS
-  \item
-    2.3 Logica combinatoria e sequenziale
-  \item
-    2.4 Latch SR
-  \item
-    2.5 Positive edge triggered flip flop (DFF, flip flop di tipo D)
-  \item
-    2.6 Circuiti integrati commerciali
-  \item
-    2.7 Famiglie logiche standard
-  \item
-    2.7.1 Nomenclature delle porte logiche
-  \item
-    2.7.2 Comparazione tra famiglie logiche
-  \item
-    2.8 Come si imposta l'input
-  \item
-    2.9 Cosa fare con i piedini non utilizzati
-  \end{itemize}
-\item
-  2.10 Datasheet
-\item
-  2.11 Scariche elettrostatiche
-\item
-  2.12 Consumi di potenza durante la commutazione
-\item
-  2.13 Convertitori
-\item
-  2.13.1 Principali formati digitali
-\item
-  2.13.2 Convertitori D/A
-\item
-  2.13.3 Convertitori A/D
-\item
-  3 Microprocessori, microcontrollori, etc.
-
-  \begin{itemize}
-  \tightlist
-  \item
-    3.1 Definizioni
-  \item
-    3.2 Requisiti di un microcontrollore
-  \item
-    3.3 Schede
-  \item
-    3.4 Approfondimento sulla Cortex-M4
-  \item
-    3.5 Interrupt controller
-  \end{itemize}
-\item
-  4 Appendice
-
-  \begin{itemize}
-  \tightlist
-  \item
-    4.1 Parametri RTL
-  \item
-    4.2 Parametri TTL (credo il not standard con 5 transistor)
-  \end{itemize}
-\end{itemize}
-
-\subsection{Chapter 1 Dispositivi
-elettronici}\label{chapter-1-dispositivi-elettronici}
+\section{Capitolo 1 Dispositivi
+elettronici}\label{capitolo-1-dispositivi-elettronici}
 
 I dispositivi dei circuiti integrati sono fatti principalmente in
 silicio (S) o in germanio (Ge) o in qualche lega come GaAs, GaN, InP,
@@ -219,7 +116,7 @@ drogaggio pesante, se no è ancora minore la quantità di elemento
 drogante).
 
 Il vantaggio di inserire un elemento drogante all'interno del reticolo
-cristallino e che gli altri atomi lo vedono come uno di loro solo con un
+cristallino è che gli altri atomi lo vedono come uno di loro solo con un
 elettrone in più o in meno. Il drogaggio può essere \textbf{di tipo P}
 se l'elemento drogante ha un elettrone in meno rispetto al
 semiconduttore (ad esempio se drogo il silicio con il boro), oppure
@@ -227,17 +124,29 @@ semiconduttore (ad esempio se drogo il silicio con il boro), oppure
 esempio se drogo il silicio con il fosforo). Nel primo caso ottengo
 delle lacune, nel secondo degli elettroni in eccesso.
 
-\subsubsection{1.1 Giunzione P-N}\label{giunzione-p-n}
+\subsection{1.1 Giunzione P-N}\label{giunzione-p-n}
 
 Una giunzione P-N e formata da una sezione del semiconduttore drogata
 con un drogaggio P (con una percentuale \(N_{a}\), n.~accettori) e
 un'altra sezione drogata con un drogaggio N (con una percentuale
-\(N_{d}\), n.~donatori). Queste due sezioni devono essere adiacenti,
-così che gli elettroni possano migrare dalla parte drogata N a quella
-drogata P per formare al centro una regione detta \textbf{regione di
-svuotamento} (dove ho riprodotto il reticolo cristallino classico).
+\(N_{d}\), n.~donatori).
 
-Figure 1.1: Giunzione P-N
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth,height=0.05\textheight]{immagini/0.jpg}
+\caption{Giunzione P-N}
+\end{figure}
+
+Queste due sezioni devono essere adiacenti, così che gli elettroni
+possano migrare dalla parte drogata N a quella drogata P per formare al
+centro una regione detta \textbf{regione di svuotamento} (dove ho
+riprodotto il reticolo cristallino classico).
+
+\begin{figure}
+\centering
+\includegraphics[width=0.68\textwidth,height=\textheight]{immagini/1.png}
+\caption{Regione di svuotamento}
+\end{figure}
 
 Lo scopo della regione di svuotamento è impedire che altre cariche
 negative di N possano fluire in P. La quantità di carica presente su
@@ -245,7 +154,11 @@ ciascuna delle ''sezioni''della regione di svuotamento dev'essere
 uguale, tuttavia le dimensioni delle sezioni può essere diversa e
 influenzata dalla percentuale di drogante.
 
-Figure 1.3: Grafici relativi alla regione di svuotamento
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth,height=0.35\textheight]{immagini/2.png}
+\caption{``Grafici relativi alla regione di svuotamento''}
+\end{figure}
 
 Affinché un elettrone ``salti'' la barriera deve esserci un buon motivo
 e questo può essere dato fornendogli energia. La giunzione P-N permette
@@ -267,7 +180,7 @@ corrente fluisce normalmente.
 
 Se il diodo è scaldato funziona meglio.
 
-\paragraph{Formule}\label{formule}
+\subsubsection{1.1.1 Formule}\label{formule}
 
 \textbf{Forward bias}
 
@@ -277,14 +190,22 @@ Se il diodo è scaldato funziona meglio.
 del diodo, \(nV_{t}\) sarà il \emph{potenziale nativo dei diodi}
 \((0.7V)\)
 
-Figura 1.4: Grafico che spiega a grandi linee il comportamento di un
-diodo P-N al variare della differenza di potenziale
+\begin{figure}
+\centering
+\includegraphics[width=0.3\textwidth,height=\textheight]{immagini/3.png}
+\caption{Grafico che spiega a grandi linee il comportamento di un diodo
+P-N al variare della differenza di potenziale}
+\end{figure}
 
-\subsubsection{1.2 Diodi particolari}\label{diodi-particolari}
+\subsection{1.2 Diodi particolari}\label{diodi-particolari}
 
-\paragraph{Fotodiodi}\label{fotodiodi}
+\subsubsection{1.2.1 Fotodiodi}\label{fotodiodi}
 
-Figure 1.5: I fotodiodi sono polarizzati inversamente
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{immagini/4.png}
+\caption{I fotodiodi sono polarizzati inversamente}
+\end{figure}
 
 I fotodiodi sono diodi la cui giunzione o è scoperta o è incapsulata in
 un materiale trasparente.
@@ -297,7 +218,7 @@ elettrone-lacuna e far passare corrente.
 La corrente che scorre nel diodo non dipende dalla tensione applicata ai
 suoi capi ma solo dal flusso luminoso che colpisce la giunzione.
 
-\paragraph{Formule}\label{formule-1}
+\subsubsection{1.2.2 Formule}\label{formule-1}
 
 \[
 I_d = k \cdot E_{L}
@@ -308,7 +229,7 @@ FIGURA
 \(k\) è una costante che ci dice il produttore del diodo, \(E_L\) è il
 flusso luminoso (in \(W /m^2\)) che incide sul fotodiodo.
 
-\paragraph{Led}\label{led}
+\subsubsection{Led}\label{led}
 
 I led (light emitting diode) sono anch'essi diodi la cui giunzione è
 impacchettata in un involucro trasparente. La loro barriera non si trova
@@ -333,7 +254,7 @@ La luce viene emessa perché gli elettroni che si trovano ad uno stato
 energetico più alto ``saltano'' verso uno stato più basso e perdono
 energia in forma luminosa.
 
-\paragraph{Diodi Schottky}\label{diodi-schottky}
+\subsubsection{Diodi Schottky}\label{diodi-schottky}
 
 I diodi Schottky sono diodi in cui la parte P è sostituita con un
 metallo (solitamente alluminio). Nella parte metallica non si può creare
@@ -344,10 +265,14 @@ conduzione diretta a conduzione inversa. \newline Viene utilizzato dove
 e un problema avere 0.7V di caduta, quindi tipo nei circuiti di potenza
 o nei circuiti logici.
 
-Figure 1.6: Grafico che spiega a grandi linee il comportamento di un
-diodo Schottky in relazione ad uno non Schottky
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{immagini/6.png}
+\caption{Grafico che spiega a grandi linee il comportamento di un diodo
+Schottky in confronto ad un non Schottky}
+\end{figure}
 
-\subsubsection{1.3 Leggi di Kirchoff}\label{leggi-di-kirchoff}
+\subsection{1.3 Leggi di Kirchoff}\label{leggi-di-kirchoff}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -358,10 +283,17 @@ diodo Schottky in relazione ad uno non Schottky
   La somma delle tensioni lungo un percorso chiuso è 0
 \end{enumerate}
 
-\subsubsection{1.4 BJT: giunzione n-p-n (transistor
+\subsection{1.4 BJT: giunzione n-p-n (transistor
 bipolare)}\label{bjt-giunzione-n-p-n-transistor-bipolare}
 
-Figure 1.7: Schema di un transistor bipolare
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{immagini/7.png}
+\caption{Schema di un transistor bipolare}
+\end{figure}
+
+N.B.: la base è molto stretta così che la corrente possa passare senza
+problemi.
 
 Ci sono 4 regioni di funzionamento:
 
@@ -390,8 +322,8 @@ Ci sono 4 regioni di funzionamento:
 \item
   \textbf{Saturazione} \begin{gather*}
   V_{be}>V_{th},\ V_{ce}<V_{ce-sat}\ \Longrightarrow\ V_{bc}>V_{th} \\
-  I_{b}>0,I_{c}<h_{fe}I_{b}\
-  \end{gather*}\textbackslash end\{gather*\}
+  I_{b}>0,I_{c}<h_{fe}I_{b}
+  \end{gather*}
 \item
   \textbf{Attiva inversa} \begin{gather*}
   V_{be}<0,\ V_{bc}>V_{th} \\
@@ -399,14 +331,24 @@ Ci sono 4 regioni di funzionamento:
   \end{gather*}
 \end{itemize}
 
-Figure 1.9: Grafico un po' più realistico di un bjt
+\begin{figure}
+\centering
+\includegraphics[width=0.2\textwidth,height=\textheight]{immagini/9.png}
+\caption{Schema fisico di un BJT}
+\end{figure}
 
-\subsubsection{1.5 Sonda 10x}\label{sonda-10x}
+\subsection{1.5 Sonda 10x}\label{sonda-10x}
 
-Figura 1.10: Schema di una sonda 10x \emph{Bandwidth limit}: un tastino
-sull'oscilloscopio che taglia le frequenze sopra i 20MHz.
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{immagini/10.png}
+\caption{Schema di una sonda 10x}
+\end{figure}
 
-\subsubsection{1.6 Diodo Zener}\label{diodo-zener}
+\emph{Bandwidth limit}: un tastino sull'oscilloscopio che taglia le
+frequenze sopra i 20MHz.\newpage
+
+\subsection{1.6 Diodo Zener}\label{diodo-zener}
 
 Figure 1.11: Schema di un diodo zener Questo tipo di diodo lavora in
 breakdown. Se lo metto in polarizzazione diretta funziona come un diodo
@@ -421,7 +363,7 @@ Nel circuito in figura 1.11 la resistenza e importante perché se non ci
 fosse avrei \(\frac{V_{G}-V_{i}}{R}=i_{r}\) ma \(R\to 0\) e quindi
 \(i_{r}\to\infty\).
 
-\subsubsection{1.7 BJT pnp}\label{bjt-pnp}
+\subsection{1.7 BJT pnp}\label{bjt-pnp}
 
 Questo dispositivo è complementare al npn: le equazioni sono le medesime
 ma il verso delle correnti e delle tensioni è inverso.
@@ -432,7 +374,7 @@ Rispetto al npn, il pnp ha un gain minore e quindi funziona peggio (per
 questo motivo, quando e possibile, si utilizzano gli npn), ovvero scorre
 meno corrente (ha un'efficienza di circa la metà degli elettroni).
 
-\subsubsection{1.8 Fototransistor}\label{fototransistor}
+\subsection{1.8 Fototransistor}\label{fototransistor}
 
 La corrente di base viene generata quando è esposto alla luce, per il
 resto è un transistor normale.
@@ -445,14 +387,14 @@ resto è un transistor normale.
 un resistore dal lato del collettore per evitare di andare in
 saturazione. Figure 1.13: Schema di un fototransistor
 
-\subsubsection{1.9 Mos}\label{mos}
+\subsection{1.9 Mos}\label{mos}
 
 MOS è una sigla che sta per \textbf{metallo}, \textbf{ossido} e
 \textbf{semiconduttore} e sono indica dei dispositivi controllati dalla
 differenza di potenziale presente tra due suoi terminali. Una
 particolarità di questa tecnologia è il non utilizzo della giunzione.
 
-\paragraph{N-Mos}\label{n-mos}
+\subsubsection{N-Mos}\label{n-mos}
 
 Figure 1.14: Schema di un N-MOS
 
@@ -510,7 +452,7 @@ Non posso realizzare dispositivi troppo piccoli perché canali di
 dimensioni ridotte supportano tensioni più basse (o meglio posso ma devo
 utilizzare tensioni minori).
 
-\paragraph{P-MOS}\label{p-mos}
+\subsubsection{P-MOS}\label{p-mos}
 
 Al contrario dell'N-MOS qui devo attirare le lacune. Le equazioni sono
 le stesse, solo tensioni e correnti hanno il segno invertito
@@ -535,7 +477,7 @@ Figure 15: Schema di un P-MOS
 
 \newpage
 
-\subsection{Chapter 2 Algebra boolean}\label{chapter-2-algebra-boolean}
+\section{Chapter 2 Algebra booleana}\label{chapter-2-algebra-booleana}
 
 Lo scopo di un circuito logico è quello di trasferire e processare
 informazioni. Esistono tre porte principali: not, and, or.
@@ -547,9 +489,9 @@ utilizzando solo una di queste due perché se mettiamo in entrambi gli
 ingressi della porta lo stesso ingresso, l'uscita e un \emph{banale}
 not.
 
-\subsubsection{2.1 Parametri}\label{parametri}
+\subsection{2.1 Parametri}\label{parametri}
 
-\paragraph{Parametri statici}\label{parametri-statici}
+\subsubsection{Parametri statici}\label{parametri-statici}
 
 Ogni famiglia logica ha dei parametri statici:
 
@@ -589,7 +531,7 @@ Ogni famiglia logica ha dei parametri statici:
   \(P_{L}=V_{cc}\cdot i_{L}\).
 \end{itemize}
 
-\paragraph{Parametri dinamici}\label{parametri-dinamici}
+\subsubsection{Parametri dinamici}\label{parametri-dinamici}
 
 Questi invece sono parametri che riguardano la famiglia logica durante
 la commutazione.
@@ -616,10 +558,10 @@ la commutazione.
   consumo di potenza di un certo dispositivo.
 \end{itemize}
 
-\subsubsection{2.2 Famiglie logiche}\label{famiglie-logiche}
+\subsection{2.2 Famiglie logiche}\label{famiglie-logiche}
 
-\paragraph{RTL (resistor-transistor
-logic=}\label{rtl-resistor-transistor-logic}
+\subsubsection{RTL (resistor-transistor
+logic)}\label{rtl-resistor-transistor-logic}
 
 Figure 2.1: Questa famiglia logica funziona come una porta NOT. Tuttavia
 i suoi parametri non sono ottimali e infatti non viene più usata(?).
@@ -641,7 +583,8 @@ interdetti e quindi l'uscita \(V_{out}\) è altra. Se invece almeno uno è
 in saturazione la famiglia logica ha come uscita un livello basso perché
 la corrente a questo punto scorre anche nel transistor.
 
-\paragraph{TTL (transistor-transistor)}\label{ttl-transistor-transistor}
+\subsubsection{TTL
+(transistor-transistor)}\label{ttl-transistor-transistor}
 
 Se l'ingresso è 5V vado in regione attiva inversa (conseguentemente ho
 un guadagno basso) e quindi nel collettore passa praticamente solo la
@@ -696,7 +639,7 @@ Durante le commutazioni del not, in quella HL passo da avere \(Q_{4}\) e
 \(Q_{2},Q_{3},Q_{5}\) in saturazione e passo ad avere accesi \(Q_{1}\) e
 \(Q_{4}\).
 
-\paragraph{MOS logic cells}\label{mos-logic-cells}
+\subsubsection{MOS logic cells}\label{mos-logic-cells}
 
 I MOS utilizzati possono essere sia a canale P che a canale N. Possono
 poi esserci MOS ad arricchimento: dove applicando tensione al gate si
@@ -759,7 +702,7 @@ bias currents e input currents \par{}contribuiscono alla dissipazione della pote
 \end{tabular}
 \end{table}
 
-\paragraph{BiCMOS}\label{bicmos}
+\subsubsection{BiCMOS}\label{bicmos}
 
 A volte vogliamo poter combinare sia i vantaggi di CMOS (alta
 integrazione e consumo di potenza statica basso) con quelli dei circuiti
@@ -771,7 +714,7 @@ Questo sopra ha un'uscita compatibile con i CMOS, ma nel caso volessimo
 avere un'uscita compatibile TTL la cosa migliore da fare è utilizzare
 input TTL compatibili (e in uscita un totem pole).
 
-\subsubsection{2.3 Logica combinatoria e
+\subsection{2.3 Logica combinatoria e
 sequenziale}\label{logica-combinatoria-e-sequenziale}
 
 \begin{itemize}
@@ -790,7 +733,7 @@ sequenziale}\label{logica-combinatoria-e-sequenziale}
 
 L'elemento di memoria utilizzato è il flip-flop D.
 
-\subsubsection{2.4 Latch SR}\label{latch-sr}
+\subsection{2.4 Latch SR}\label{latch-sr}
 
 Figure 2.12: Latch Set-Reset. Gli ingressi sono ``bassi attivi'' (se
 messi a 0 sono accesi). \[
@@ -814,7 +757,7 @@ dell'altro ingresso, se invece ho uno 0 l'uscita e per forza 1).
 
 Nelle FPGA è proibito sintetizzare la funzione logica dei latch.
 
-\subsubsection{2.5 Positive edge triggered flip flop (DFF, flip flop di
+\subsection{2.5 Positive edge triggered flip flop (DFF, flip flop di
 tipo
 D)}\label{positive-edge-triggered-flip-flop-dff-flip-flop-di-tipo-d}
 
@@ -834,7 +777,7 @@ Per vedere nello schema come funziona la transizione, ad esempio
 \(\uparrow\) con D=0, prima calcolo C=0 e D=0, poi metto C=1 e vedo come
 cambia l'output.
 
-\subsubsection{2.6 Circuiti integrati
+\subsection{2.6 Circuiti integrati
 commerciali}\label{circuiti-integrati-commerciali}
 
 I circuiti logici possono essere implementati:
@@ -949,7 +892,7 @@ cortocircuito tra le varie palline (quindi è un packaging molto buono).
 È possibile mettere le palline direttamente sul silicio e quindi fare un
 misto tra BGA e SMD (solitamente questa cosa funziona se ho pochi pin).
 
-\subsubsection{2.7 Famiglie logiche
+\subsection{2.7 Famiglie logiche
 standard}\label{famiglie-logiche-standard}
 
 Le famiglie TTL sono solo a 5V per ragioni costruttive.
@@ -1008,7 +951,7 @@ Poi ci sono altre famiglie un po più moderne:
 
 Attualmente si utilizzano LVC e BiCMOS.
 
-\paragraph{Nomenclature delle porte
+\subsubsection{Nomenclature delle porte
 logiche}\label{nomenclature-delle-porte-logiche}
 
 La nomenclatura standard prevede:
@@ -1038,7 +981,7 @@ Esempio:
 \[\underbrace{SN}_{1}\underbrace{74}_{2}\underbrace{AC}_{3}\underbrace{00}_{4}-
 \underbrace{xxx}_{5}\]
 
-\paragraph{Comparazione tra famiglie
+\subsubsection{Comparazione tra famiglie
 logiche}\label{comparazione-tra-famiglie-logiche}
 
 Per effettuare una comparazione tra le famiglie logiche si può
@@ -1060,8 +1003,7 @@ proporzionale) al consumo di potenza.
 Le famiglie BiCMOS il consumo di potenza è elevato (possono essere
 utilizzate in caso mi serva elevata corrente d'uscita).
 
-\subsubsection{2.8 Come si imposta
-l'input}\label{come-si-imposta-linput}
+\subsection{2.8 Come si imposta l'input}\label{come-si-imposta-linput}
 
 Figure 2.18: Il circuito A, quando è accesa l'uscita e a 0V, quando è
 spento e a \(V_{CC}\). Il circuito B è il contrario
@@ -1071,7 +1013,7 @@ Queste due configurazioni sono uguali solo quando \(I_{iH}\) e
 utilizzare il circuito A perché così non ho cadute di tensione dovute a
 \(I_{iL}\).
 
-\subsubsection{2.9 Cosa fare con i piedini non
+\subsection{2.9 Cosa fare con i piedini non
 utilizzati}\label{cosa-fare-con-i-piedini-non-utilizzati}
 
 I piedini CMOS non utilizzati sono un bel problema perché hanno
@@ -1154,16 +1096,14 @@ Per le famiglie CMOS non c'è alcun motivo per cui continuare ad
 utilizzare segnali attivi bassi se non perché ``si è sempre fatto
 così''.
 
-\subsubsection{2.10 Datasheet}\label{datasheet}
+\subsection{2.10 Datasheet}\label{datasheet}
 
 Le info sulle porte logiche sono sul datasheet. Queste info sono:
 
 \begin{itemize}
 \tightlist
 \item
-  funzionalità
-\item
-  tipo di package
+  funzionalità tipo di package
 \item
   absolute maximum ratings (limiti entro i quali il dispositivo e
   garantito che non si rompa)
@@ -1194,7 +1134,7 @@ il \(\tau\) relativo al condensatore è pari al transmission rate
 \(\times V_{CC}\), se faccio \(\tau/C\) ottengo il valore massimo della
 resistenza di pullup che posso utilizzare senza avere problemi.
 
-\subsubsection{2.11 Scariche
+\subsection{2.11 Scariche
 elettrostatiche}\label{scariche-elettrostatiche}
 
 Se scarichiamo su di un circuito lo rompiamo (a meno che questo non sia
@@ -1224,7 +1164,7 @@ lavoro troppo secco (e troppo umido).
 Nel datasheet ci sono le specifiche con cui è stato testato il
 dispositivo contro le ESD.
 
-\subsubsection{2.12 Consumi di potenza durante la
+\subsection{2.12 Consumi di potenza durante la
 commutazione}\label{consumi-di-potenza-durante-la-commutazione}
 
 All'aumentare della frequenza di commutazione aumenta anche la potenza
@@ -1298,7 +1238,7 @@ va al massimo fmo a quando non arriva alla temperatura limite e poi
 diminuisce la potenza per restare a tale temperatura, ovviamente le
 prestazioni sono ridotte) (questa cosa è tipica delle GPU e SSD)
 
-\subsubsection{Convertitori}\label{convertitori}
+\subsection{Convertitori}\label{convertitori}
 
 I convertitori servono per trasformare segnali analogici in segnali
 continui e viceversa. Questi sfruttano i concetti di
@@ -1310,7 +1250,7 @@ vengono sostituiti con il valore del \textbf{livello di quantizzazione}
 più vicino. La \textbf{risoluzione} è il numero di bit con cui viene
 quantizzato il segnale.
 
-\paragraph{Principali formati
+\subsubsection{Principali formati
 digitali}\label{principali-formati-digitali}
 
 \[\begin{array}{c|c|c|c}V_{in}&\text{Binary}&\text{Offset binary}&\text{2's compl.}\\\hline V_{fs}/2&111111&111111&011111\\+\text{dV}&000001&100001&000001\\0&000000&100000&000000\\-\text{dV}&/&011111&111111\\-V_{fs}/2&/&000000&100000\end{array}\]
@@ -1323,7 +1263,7 @@ convertire perché se è più piccolo chiaramente non possiamo convertirlo
 per bene, mentre se è più grande abbiamo dei problemi perché è come se
 sfruttassimo meno bit e quindi otteniamo meno precisione.
 
-\paragraph{Convertitori D/a}\label{convertitori-da}
+\subsubsection{Convertitori D/A}\label{convertitori-da}
 
 Figure 2.26: Questo D/A converter non e ottimale perché richiede che i
 valori delle resistenze siano precisi e questi solitamente non lo sono.
@@ -1334,10 +1274,12 @@ principio di sovrapposizione: \(V_{out}\) e
 parallelo all'amplificatore e \(R_{G}\) è quella dopo l'ingresso a 5V,
 posso poi calcolare i \(V_{out}\) per tutte
 
-\begin{table} \begin{tabular}{c|c|c|c} $V_{in}$ & Binary & Offset binary & 2â€™s compl. \\
+\begin{center}
+\begin{table} \begin{tabular}{c|c|c|c} $V_{in}$ & Binary & Offset binary & 2's compl. \\
 \hline $V_{fs}/2$ & 111111 & 111111 & 011111 \\ +dV & 000001 & 100001 & 000001 \\ 0 & 000000
 & 100000 & 000000 \\ -dV & / & 011111 & 111111 \\ $-V_{fs}/2$ & / & 000000 & 100000 \\
 \end{tabular} \end{table}
+\end{center}
 
 le resistenze e trovare la tensione di uscita totale facendone la
 combinazione lineare
@@ -1375,7 +1317,7 @@ La \textbf{risoluzione} si esprime in numero di bit utilizzati.
 
 Il segnale di output di un DAC è campionato e quantizzato.
 
-\paragraph{Convertitori A/D}\label{convertitori-ad}
+\subsubsection{Convertitori A/D}\label{convertitori-ad}
 
 È importante che il segnale in ingresso sfrutti tutta la capacità di
 conversione del dispositivo, per esempio se il convertitore lavora
@@ -1437,7 +1379,7 @@ dell'algoritmo di conversione.
 Nei digital ramp il momento di campionamento + quando ``l'uscita diventa
 0'', il tempo di conversione è variabile.
 
-\subsection{Chapter 3 Microprocessori, microcontrollori,
+\section{Chapter 3 Microprocessori, microcontrollori,
 etc.}\label{chapter-3-microprocessori-microcontrollori-etc.}
 
 Ci sono tanti tipi di dispositivi programmabili: microcontrollori,
@@ -1450,7 +1392,7 @@ Le GPU contengono migliaia di core (che magari sono meno potenti della
 singola CPU però sono comunque migliaia). Le FPGA contengono milioni di
 porte logiche.
 
-\subsubsection{3.1 Definizioni}\label{definizioni}
+\subsection{3.1 Definizioni}\label{definizioni}
 
 \begin{itemize}
 \tightlist
@@ -1474,7 +1416,7 @@ porte logiche.
 Il DMA controller del microcontrollore, di solito (quando manca il SO),
 deve essere programmato da noi.
 
-\subsubsection{3.2 Requisiti di un
+\subsection{3.2 Requisiti di un
 microcontrollore}\label{requisiti-di-un-microcontrollore}
 
 \begin{itemize}
@@ -1538,15 +1480,15 @@ Figura 3.2
 
 Poi vogliamo che il dispositivo sia piccolo e che consumi \textbf{poco}.
 
-\subsubsection{3.3 Schede}\label{schede}
+\subsection{3.3 Schede}\label{schede}
 
 Le schede solitamente hanno il processore e basta. A volte hanno anche
 una parte per fare il debug del codice direttamente su di essa. Per
-esempio Arduino UNO e del primo tipo, la scheda che abbiamo in
-laboratorio (STM qualcosa) e del secondo.
+esempio Arduino UNO è del primo tipo, la scheda che abbiamo in
+laboratorio (STM qualcosa) è del secondo.
 
 Poi esiste una porta (\textbf{porta JTAG}) che serve per accedere ai
-registri e alla memoria flash (quindi per caricare il programma la
+registri e alla memoria flash (quindi per caricare il programma là
 sopra) del microcontrollore. Questa porta può essere utilizzata anche
 per bloccare l'esecuzione del codice.
 
@@ -1563,16 +1505,19 @@ consigliabile aggiungere un pull up/pull down così anche da preservare
 il circuito (magari i mos si attivano e passa un sacco di corrente e poi
 si rompono).
 
-Cortex-M4 (F4)e il microcontroller installato sulle schede che abbiamo
-in laboratorio.
-
-Utilizza architettura Harvard, e CISC, ha molte periferiche, consuma
-pochino (100\(\mu\)A/MHz) e ha l'unità floating point (FPU).
+\begin{itemize}
+\tightlist
+\item
+  Cortex-M4 (F4): è il microcontroller installato sulle schede che
+  abbiamo in laboratorio. Utilizza architettura Harvard, e CISC, ha
+  molte periferiche, consuma pochino (100\(\mu\)A/MHz) e ha l'unità
+  floating point (FPU).
+\end{itemize}
 
 La FPU è un modulo della CPU che permette di eseguire operazioni in
 virgola mobile senza utilizzare una libreria che le simuli (l'utilizzo
 della libreria è molto oneroso in termini di cicli di clock). La
-precisione della FPU e la precisione singola (32 bit). Non tutte le
+precisione della FPU è la precisione singola (32 bit). Non tutte le
 schede sono dotate di questo modulo (ad esempio Arduino UNO ne è
 sprovvisto). Per qualche motivo non è detto che il compilatore della
 nostra scheda utilizzi gli OPCODE floating point (bisogna stare attenti
@@ -1585,7 +1530,7 @@ una volta il reciproco del valore da dividere e poi utilizzare quello.
 
 Alcuni GPIO hanno delle funzioni specifiche in più (tipo PWM/ADC DAC).
 
-\subsubsection{3.4 Approfondimento sulla
+\subsection{3.4 Approfondimento sulla
 Cortex-M4}\label{approfondimento-sulla-cortex-m4}
 
 L'oscillatore (clock) interno e fatto con un not, una resistenza e un
@@ -1597,23 +1542,24 @@ molte meno ppm) e la cui frequenza va da 1 a 50MHz.
 
 Il segnale generato dal quarzo viene poi moltiplicato/diviso dal PLL.
 
-Gpio''Dietro'' ciascun GPIO ci sono due parti: una che gestisce
-l'ingresso e una che gestisce l'uscita.
+Figura 3.3
 
-L'uscita è composta da due CMOS. Noi ne dobbiamo usare solo 1. Spesso
-potrebbe essere utile avere una resistenza di pull up/pull down
-internamente (oppure un pull up esternamente, se necessito di maggiore
-precisione).
-
-Per evitare che il codice sia interrotto da un'interruzione in una zona
-critica non viene utilizzato l'output data register.
-
-Al contrario si utilizza il bit set/reset register che e
-\textbf{interrupt safe}.
-
-Quando voglio scrivere un 1 sull'ODR metto nella parte bassa del BSRR un
-1 (e poi ci pensa lui a scriverlo nel ODR). Se invece voglio resettare
-un bit dell'ODR basta mettere un 1 nella parte alta del BSRR.
+\begin{itemize}
+\tightlist
+\item
+  \textbf{GPIO}: ``Dietro'' ciascun GPIO ci sono due parti: una che
+  gestisce l'ingresso e una che gestisce l'uscita. \newline L'uscita è
+  composta da due CMOS. Noi ne dobbiamo usare solo 1. Spesso potrebbe
+  essere utile avere una resistenza di pull up/pull down internamente
+  (oppure un pull up esternamente, se necessito di maggiore precisione).
+  Per evitare che il codice sia interrotto da un'interruzione in una
+  zona critica non viene utilizzato l'output data register. \newline Al
+  contrario si utilizza il bit set/reset register che e
+  \textbf{interrupt safe}. \newline Quando voglio scrivere un 1 sull'ODR
+  metto nella parte bassa del BSRR un 1 (e poi ci pensa lui a scriverlo
+  nel ODR). Se invece voglio resettare un bit dell'ODR basta mettere un
+  1 nella parte alta del BSRR.
+\end{itemize}
 
 \subsubsection{3.5 Interrupt controller}\label{interrupt-controller}
 
@@ -1628,11 +1574,12 @@ Su STM32 può essere \textbf{nested/vectored}:
 \item
   nested vuol dire che le interazioni hanno una priorità e che durante
   l'esecuzione di una interruzione a bassa priorità può arrivare una
-  interruzione a priorità maggiore che passa avanti. * vettorizzato vuol
-  dire che ci sono n sorgenti di interrupt e ciascuna è collegata ad una
-  funzione che si trova elencata in una tabella delle interruzioni.
-  Questa tecnica viene utilizzata se devono essere gestite tante
-  interruzioni diverse.
+  interruzione a priorità maggiore che passa avanti.\\
+\item
+  vettorizzato vuol dire che ci sono n sorgenti di interrupt e ciascuna
+  è collegata ad una funzione che si trova elencata in una tabella delle
+  interruzioni. Questa tecnica viene utilizzata se devono essere gestite
+  tante interruzioni diverse.
 \end{itemize}
 
 Gli usi tipici dell'interrupt controller sono:
@@ -1640,10 +1587,12 @@ Gli usi tipici dell'interrupt controller sono:
 \begin{itemize}
 \tightlist
 \item
-  gestione dei GPIO * con i timer, ovvero viene generata una richiesta
-  di interruzione dopo un tot specifico di tempo. I timer possono essere
-  utilizzati per produrre segnali periodici utili per i sistemi di
-  controllo (tipo PWM).
+  gestione dei GPIO
+\item
+  con i timer, ovvero viene generata una richiesta di interruzione dopo
+  un tot specifico di tempo. I timer possono essere utilizzati per
+  produrre segnali periodici utili per i sistemi di controllo (tipo
+  PWM).
 \end{itemize}
 
 Figure 3.4: Il duty cycle è dato da \(\frac{D}{T}=\delta\). Maggiore è
@@ -1654,20 +1603,33 @@ programma (tipo con il debugger).
 
 NON SI FA DEBUG DI CIRCUITI DI POTENZA.
 
-\subsection{Chapter 4 Appendice}\label{chapter-4-appendice}
+Chapter 4 Appendice
 
-\subsubsection{4.1 Parametri RTL}\label{parametri-rtl}
+\subsection{4.1 Parametri RTL}\label{parametri-rtl}
 
 \begin{itemize}
 \tightlist
 \item
-  \(V_{iH}\) = 0.75V, \(V_{iL}\) = 0.6V * \(I_{iH}\) @ \(V_{iH}\) = 150
-  \(\mu A\), \(I_{iH}\) @ 5V = 9.5mA * \(I_{iL}\) = 0 * \(V_{oH}\) = 5V
-  (no load condition) * \(V_{oL}\) = 0.2V * \(NM_{H}\) = 4.25V,
-  \(NM_{L}\) = 0.4V \(\to NM\) = 0.4V * Fan-out: 33 * \(P_{L}\) =
-  5V\$\times\$7.5mA (Rc) = 37.5mW, \(P_{H}\) = 0, \(P\) =18mW *
-  \(t_{pHL}\) e \(t_{pH}\) veloci per merito della resistenza in base
-  (qualche nS) * \(DP\) = 5nS\$\times\$18mW = 90pJ
+  \(V_{iH} = 0.75V, V_{iL} = 0.6V\)
+\item
+  \(I_{iH} @ V_{iH} = 150 \mu A, I_{iH} @ 5V = 9.5mA\)
+\item
+  \(I_{iL} = 0\)
+\item
+  \(V_{oH} = 5V\) (no load condition)
+\item
+  \(V_{oL} = 0.2V\)
+\item
+  \(NM_{H} = 4.25V, NM_{L} = 0.4V \to NM = 0.4V\)
+\item
+  Fan-out: 33
+\item
+  \(P_{L} = 5V\times 7.5mA (Rc) = 37.5mW, P_{H} = 0, P =18mW\)
+\item
+  \$t\_\{pHL\} e \(t_{pH}\) veloci per merito della resistenza in base
+  (qualche nS)
+\item
+  \(DP\) = 5nS\times 18mW = 90pJ\$
 \end{itemize}
 
 Il fanout si calcola facendo:
@@ -1679,14 +1641,24 @@ transistor)}\label{parametri-ttl-credo-il-not-standard-con-5-transistor}
 \begin{itemize}
 \tightlist
 \item
-  \(V_{iH}\) = 1.35V, \(V_{iL}\) = 1.1V * \(I_{iH}\) = 15 \(\mu A\) *
-  \(I_{iL}\) = 1mA * \(V_{oH}\) = 3.75V* \(V_{oL}\) = 0.2V * \(NM_{H}\)
-  = 2.4V, \(NM_{L}\) = 0.9V \(\to NM\) = 0.9V * \(P_{L}\) =
-  5V\(\times\)(0.7mA (Rpu)+2.5mA (Rpu1)) = 16mW, \(P_{H}\) =
-  5V\$\times\$1mA (Rpu) = 5mW, \(P\) =11.5mW * \(t_{pHL}\) e \(t_{pH}\)
-  veloci per merito di Q5 e dei transistor vari(?) (circa 5 nS)
+  \(V_{iH} = 1.35V, V_{iL} = 1.1V\)
 \item
-  \(DP\) = 5nS\$\times\$11.5mW = 57.5pJ
+  \(I_{iH} = 15\mu A\)
+\item
+  \(I_{iL} = 1mA\)
+\item
+  \(V_{oH} = 3.75V\)
+\item
+  \(V_{oL} = 0.2V\)
+\item
+  \(NM_{H} = 2.4V, NM_{L} = 0.9V \to NM = 0.9V\)
+\item
+  \(P_{L} = 5V\times(0.7mA (Rpu)+2.5mA (Rpu1)) = 16mW, P_{H} = 5V\times 1mA (Rpu) = 5mW, P=11.5mW\)
+\item
+  \(t_{pHL}\) e \(t_{pH}\) veloci per merito di Q5 e dei transistor
+  vari(?) (circa 5 nS)
+\item
+  \(DP = 5nS\times 11.5mW = 57.5pJ\)
 \end{itemize}
 
 \end{document}
