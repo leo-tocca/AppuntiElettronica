@@ -202,7 +202,9 @@ I_{e} =-I_{b}\ (\text{il gain è }\leq 1)
 
 ## 1.6 Diodo Zener
 
-Figure 1.11: Schema di un diodo zener
+[image1.11]: immagini/11.png "Schema di un diodo Zener"
+![Schema di un diodo Zener][image1.11]{width=50%}
+
 Questo tipo di diodo lavora in breakdown. Se lo metto in polarizzazione diretta funziona come un
 diodo normale, se però lo metto in polarizzazione inversa faccio si che la tensione di breakdown
 sia molto precisa e quindi se $V_{G}<V_{Z}$ non succede nulla ($V_{G}=V_{0}$). Se invece
@@ -217,7 +219,8 @@ $\frac{V_{G}-V_{i}}{R}=i_{r}$ ma $R\to 0$ e quindi $i_{r}\to\infty$.
 Questo dispositivo è complementare al npn: le equazioni sono le medesime ma il verso delle
 correnti e delle tensioni è inverso.
 
-Figure 1.12: Schema di un transistor pnp
+[image1.12]: immagini/12.png "Schema di un transistor pnp"
+![Schema di un transistor pnp][image1.12]{width=50%}
 
 Rispetto al npn, il pnp ha un gain minore e quindi funziona
 peggio (per questo motivo, quando e possibile, si utilizzano gli npn), ovvero scorre meno corrente
@@ -234,7 +237,9 @@ $P_{L}$ e la potenza luminosa.
 
 È importante che il dispositivo sia in regione attiva e quindi inserisco un resistore dal lato
 del collettore per evitare di andare in saturazione.
-Figure 1.13: Schema di un fototransistor
+
+[image1.13]:immagini/13.png "Schema di un fototransistor"
+![Schema di un fototransistor][image1.13]{width=70%}
 
 ## 1.9 Mos
 

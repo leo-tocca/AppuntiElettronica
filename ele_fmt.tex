@@ -350,14 +350,19 @@ frequenze sopra i 20MHz.\newpage
 
 \subsection{1.6 Diodo Zener}\label{diodo-zener}
 
-Figure 1.11: Schema di un diodo zener Questo tipo di diodo lavora in
-breakdown. Se lo metto in polarizzazione diretta funziona come un diodo
-normale, se però lo metto in polarizzazione inversa faccio si che la
-tensione di breakdown sia molto precisa e quindi se \(V_{G}<V_{Z}\) non
-succede nulla (\(V_{G}=V_{0}\)). Se invece \(V_{G}\geq V_{Z}\) allora il
-diodo va in breakdown e inizia a scorrere corrente in esso. Di preciso
-scorre \(V_{0}=V_{Z}\) (e quindi ho una tensione in uscita
-stabilizzata).
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{immagini/11.png}
+\caption{Schema di un diodo Zener}
+\end{figure}
+
+Questo tipo di diodo lavora in breakdown. Se lo metto in polarizzazione
+diretta funziona come un diodo normale, se però lo metto in
+polarizzazione inversa faccio si che la tensione di breakdown sia molto
+precisa e quindi se \(V_{G}<V_{Z}\) non succede nulla (\(V_{G}=V_{0}\)).
+Se invece \(V_{G}\geq V_{Z}\) allora il diodo va in breakdown e inizia a
+scorrere corrente in esso. Di preciso scorre \(V_{0}=V_{Z}\) (e quindi
+ho una tensione in uscita stabilizzata).
 
 Nel circuito in figura 1.11 la resistenza e importante perché se non ci
 fosse avrei \(\frac{V_{G}-V_{i}}{R}=i_{r}\) ma \(R\to 0\) e quindi
@@ -368,7 +373,11 @@ fosse avrei \(\frac{V_{G}-V_{i}}{R}=i_{r}\) ma \(R\to 0\) e quindi
 Questo dispositivo è complementare al npn: le equazioni sono le medesime
 ma il verso delle correnti e delle tensioni è inverso.
 
-Figure 1.12: Schema di un transistor pnp
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{immagini/12.png}
+\caption{Schema di un transistor pnp}
+\end{figure}
 
 Rispetto al npn, il pnp ha un gain minore e quindi funziona peggio (per
 questo motivo, quando e possibile, si utilizzano gli npn), ovvero scorre
@@ -385,7 +394,13 @@ resto è un transistor normale.
 
 È importante che il dispositivo sia in regione attiva e quindi inserisco
 un resistore dal lato del collettore per evitare di andare in
-saturazione. Figure 1.13: Schema di un fototransistor
+saturazione.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{immagini/13.png}
+\caption{Schema di un fototransistor}
+\end{figure}
 
 \subsection{1.9 Mos}\label{mos}
 
