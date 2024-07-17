@@ -19,7 +19,7 @@ header-includes: |
 
 \newpage
 
-# Capitolo 1 Dispositivi elettronici
+# Capitolo 1: \newline Dispositivi elettronici
 
 I dispositivi dei circuiti integrati sono fatti principalmente in silicio (S) o in germanio (Ge)
 o in qualche lega come GaAs, GaN, InP, SiC, ovvero materiali con 3/4/5 elettroni nell'orbitale
@@ -249,7 +249,8 @@ particolarità di questa tecnologia è il non utilizzo della giunzione.
 
 ### N-Mos
 
-Figure 1.14: Schema di un N-MOS
+[image1.14]:immagini/14.png "Schema di un N-MOS"
+![Schema di un N-MOS][image1.14]{width=70%}
 
 Questo dispositivo ha tre terminali: source, gate e
 drain. Se siamo in corrente continua allora la corrente che scorre nel gate è 0, altrimenti,
@@ -265,7 +266,10 @@ sono talmente schiacciati tra di loro che è come se ci fosse un canale tra il s
 Questo dispositivo non può andare in breakdown perché tra la parte metallica e p c'è uno
 strato isolante.
 
-figura sgd
+\newpage
+
+[image1.15]:immagini/15.png "SGD"
+![SGD][image1.15]{width=50%}
 
 **Regioni di lavoro**
 
