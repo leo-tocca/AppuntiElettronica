@@ -198,7 +198,7 @@ I_{e} =-I_{b}\ (\text{il gain è }\leq 1)
 [image1.10]: immagini/10.png "Schema di una sonda 10x"
 ![Schema di una sonda 10x][image1.10]{width=60%}
 
-*Bandwidth limit*: un tastino sull'oscilloscopio che taglia le frequenze sopra i 20MHz.\newpage
+*Bandwidth limit*: un tastino sull'oscilloscopio che taglia le frequenze sopra i 20MHz.
 
 ## 1.6 Diodo Zener
 
@@ -266,8 +266,6 @@ sono talmente schiacciati tra di loro che è come se ci fosse un canale tra il s
 Questo dispositivo non può andare in breakdown perché tra la parte metallica e p c'è uno
 strato isolante.
 
-\newpage
-
 [image1.15]:immagini/15.png "SGD"
 ![SGD][image1.15]{width=50%}
 
@@ -286,7 +284,8 @@ mobilità del materiale (quindi quanto facilmente scorrono le cariche al suo int
 la capacità dell'ossido per unita di carica, $W$ è la larghezza della zona che va a costituire il
 canale e L la sua lunghezza.
 
-figura drain to source voltage
+[image1.16]:immagini/16.png "Grafico N-MOS"
+![Grafico N-MOS][image1.16]{width=50%}
 
 All'aumentare della corrente il N-MOS si comporta come un resistore la cui resistenza è data
 da $R=\frac{\rho\cdot L}{s}$ (s non so cosa sia).
@@ -295,6 +294,9 @@ Non posso realizzare dispositivi troppo piccoli perché canali di dimensioni rid
 tensioni più basse (o meglio posso ma devo utilizzare tensioni minori).
 
 ### P-MOS
+
+[image1.17]:immagini/17.png "Schema di un P-MOS"
+![Schema di un P-MOS][image1.17]{width=60%}
 
 Al contrario dell'N-MOS qui devo attirare le lacune. Le equazioni sono le stesse, solo tensioni e
 correnti hanno il segno invertito ($V_{GS}<0,V_{DS}>0,V_{t}<0$). Solitamente questo dispositivo
@@ -312,10 +314,7 @@ I_{D1}=K(V_{G1}-V_{t})^{2}\\
 I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\longrightarrow\begin{cases}\sqrt{I_{D1}}=\sqrt{K}(V_{G1}-V_{t})\\
 \sqrt{I_{D2}}=\sqrt{K}(V_{G2}-V_{t})
 \end{cases}
-$$\
-Figure 15: Schema di un P-MOS
-
-\newpage
+$$
 
 # Chapter 2 Algebra booleana
 
@@ -371,8 +370,8 @@ quantità di corrente che passa nel condensatore e quindi si scarica/carica più
 
 ### RTL (resistor-transistor logic)
 
-Figure 2.1: Questa famiglia logica funziona come una porta NOT. Tuttavia i suoi parametri non
-sono ottimali e infatti non viene più usata(?).
+[image2.1]:immagini/18.png "Questa famiglia logica funziona come una porta NOT. Tuttavia i suoi parametri non sono ottimali e infatti non viene più usata(?)".
+![Questa famiglia logica funziona come una porta NOT. Tuttavia i suoi parametri non sono ottimali e infatti non viene più usata(?)"][image2.1]{width=70%}
 
 Se su 2.1 viene messa una corrente $I_{N}=0$ allora ho il transistor in interdizione, quindi
 non passa corrente e quindi $I_{C}=0$. Conseguentemente $V_{out}=5V-R_{C}\cdot I=5V$.
