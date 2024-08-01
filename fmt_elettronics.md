@@ -19,7 +19,7 @@ header-includes: |
 
 \newpage
 
-# Capitolo 1: \newline Dispositivi elettronici
+# Capitolo 1: Dispositivi elettronici
 
 I dispositivi dei circuiti integrati sono fatti principalmente in silicio (S) o in germanio (Ge)
 o in qualche lega come GaAs, GaN, InP, SiC, ovvero materiali con 3/4/5 elettroni nell'orbitale
@@ -239,7 +239,7 @@ $P_{L}$ e la potenza luminosa.
 del collettore per evitare di andare in saturazione.
 
 [image1.13]:immagini/13.png "Schema di un fototransistor"
-![Schema di un fototransistor][image1.13]{width=70%}
+![Schema di un fototransistor][image1.13]{width=50%}
 
 ## 1.9 Mos
 
@@ -296,7 +296,7 @@ tensioni più basse (o meglio posso ma devo utilizzare tensioni minori).
 ### P-MOS
 
 [image1.17]:immagini/17.png "Schema di un P-MOS"
-![Schema di un P-MOS][image1.17]{width=60%}
+![Schema di un P-MOS][image1.17]{width=50%}
 
 Al contrario dell'N-MOS qui devo attirare le lacune. Le equazioni sono le stesse, solo tensioni e
 correnti hanno il segno invertito ($V_{GS}<0,V_{DS}>0,V_{t}<0$). Solitamente questo dispositivo
@@ -316,7 +316,7 @@ I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\longrightarrow\begin{cases}\sqrt{I_{D1}}=\
 \end{cases}
 $$
 
-# Chapter 2 Algebra booleana
+# Capitolo 2 Algebra booleana
 
 Lo scopo di un circuito logico è quello di trasferire e processare informazioni. Esistono tre
 porte principali: not, and, or.
@@ -370,16 +370,22 @@ quantità di corrente che passa nel condensatore e quindi si scarica/carica più
 
 ### RTL (resistor-transistor logic)
 
-[image2.1]:immagini/18.png "Questa famiglia logica funziona come una porta NOT. Tuttavia i suoi parametri non sono ottimali e infatti non viene più usata(?)".
-![Questa famiglia logica funziona come una porta NOT. Tuttavia i suoi parametri non sono ottimali e infatti non viene più usata(?)"][image2.1]{width=70%}
+Questa famiglia logica (rappresentata in figura) funziona come una porta NOT
 
+[image2.1]:immagini/18.png "Porta NOT"
+![Porta NOT][image2.1]{width=40%}
+
+Tuttavia i suoi parametri non sono ottimali e infatti non viene più usata(?)"
 Se su 2.1 viene messa una corrente $I_{N}=0$ allora ho il transistor in interdizione, quindi
 non passa corrente e quindi $I_{C}=0$. Conseguentemente $V_{out}=5V-R_{C}\cdot I=5V$.
 
 Se invece viene applicata una tensione di 5V riesco a mandare in saturazione il transistor e
 quindi in $V_{out}$ ho una tensione molto bassa, tipo 0.2V.
 
-Il circuito del RTL completo prevede anche un'altra parte:
+Il circuito del RTL completo (quindi che rappresenta una porta NOR) prevede anche un'altra parte:
+
+[image2.2]:immagini/19.png "Porta NOR"
+![Porta NOR][image2.2]{width=45%}
 
 La cui relativa tabella di verità è
 $$
@@ -391,17 +397,21 @@ un livello basso perché la corrente a questo punto scorre anche nel transistor.
 
 ### TTL (transistor-transistor)
 
+[image2.3]:immagini/20.jpg "Porta NOT (base)"
+![Porta NOT (base)][image2.3]{width=50%}
+
 Se l'ingresso è 5V vado in regione attiva inversa (conseguentemente ho un guadagno basso) e
 quindi nel collettore passa praticamente solo la corrente di base. Il problema dell'assorbimento,
 con questa famiglia logica, si presenta quando il transistor viene acceso (però è di grandezza
 minore perché qui il transistor è già in saturazione, inoltre la porta funziona in modo più
-predicibile).
-Figure 2.3: Porta NOT (base)
-Un altro vantaggio è che $Q_{1}$ rimuove le minority carriers da $Q_{2}$ durante
+predicibile).Un altro vantaggio è che $Q_{1}$ rimuove le minority carriers da $Q_{2}$ durante
 la transizione LH. Di contro resta una resistenza di pullup che serve per attirare tanta corrente.
 \newline
 Quindi è stata pensata una versione **enhanced** del not (in realtà poi c'è la versione
 enhanced della enhanced).
+
+[image2.4]:immagini/21.jpg "Porta enhanced NOT"
+![Porta enhanced NOT][image2.4]{width=50%}
 
 La caratteristica di questa porta è che c'è un invertitore che permette di funzionare bene sia
 quando l'uscita è alta che quando è bassa. Il **phase splitter** serve a creare due segnali
@@ -412,7 +422,8 @@ $Q_{2}$ viene spendo grazie alla resistenza da 1k.
 Il problema di questa porta è che l'uscita HL è poco ripida, quindi è possibile aggiungere
 un altro transistor.
 
-Figure 2.5: Porta enhanced${}^{2}$ NOT
+[image2.5]:immagini/22.jpg "Porta enhanced${}^{2}$ NOT"
+![Porta enhanced$^{2}$ NOT][image2.5]{width=30%}
 
 Questa porta (ma anche le altre) sono fatte con transistor NPN. L'**active pull down** è un dispositivo che serve a svuotare $Q_{2}$ rapidamente. Con questa porta
 viene sincronizzata l'accensione di $Q_{2}-Q_{3}$ e quindi la pendenza della funzione di
@@ -422,10 +433,12 @@ sono chiusi e quindi la corrente va verso la massa. Aggiungere un nuovo transist
 scelta molto buona perché questa porta e sia più veloce dell'altra ma consuma anche meno
 (questo accade perché nell'intervallo di tempo tra l'input che e andato a 0 e l'output che
 sale a 1 (circa 10ns) il circuito assorbe corrente; grazie al transistor questa finestra di
-tempo e quasi dimezzata e quindi anche la corrente assorbita e minore).\newline
-Con TTL e più facile implementare un NAND:
+tempo e quasi dimezzata e quindi anche la corrente assorbita e minore).
 
-Figura 2.6: Porta NAND. In pratica è un NOT ma dove Q1 ha due o più emettitori
+Con TTL è più facile implementare un NAND:
+
+[image2.6]:immagini/23.jpg "Porta NAND. In pratica è un NOT ma dove $Q_1$ ha due o più emettitori"
+![Porta NAND. In pratica è un NOT ma dove $Q_1$ ha due o più emettitori][image2.6]{width=30%}
 
 Il funzionamento della porta è il seguente: il primo dei due emettitori che collego alla terra
 spegne il circuito a destra e quindi passa la corrente "da sopra". Se invece sono entrambi su
@@ -443,13 +456,15 @@ arricchimento: dove applicando tensione al gate si forma il canale, o a svuotame
 canale è già formato e devo chiuderlo. Il vantaggio di utilizzare i MOS per realizzare porte
 logiche è quello che permette di realizzare dispositivi molto compatti e che consumano meno.
 
-Figure 2.7: Invertitore CMOS.
+[image2.7]:immagini/24.jpg "Invertitore CMOS"
+![Invertitore CMOS][image2.7]{width=40%}
 
 Solitamente vogliamo che i dispositivi digitali lavorino nella regione lineare (i mos) e in
 saturazione (i bjt). Nel caso dei mos, quando sono in regione lineare funzionano come se fossero
 delle resistenze connesse ad un interruttore (l'interruttore si apre quando il cmos è interdetto).
 
-Figure 2.8: Come varia l'uscita $V_{o}$ al variare dell'ingresso $V_{i}$.
+[image2.8]:immagini/25.jpg "Come varia l'uscita $V_{o}$ al variare dell'ingresso $V_{i}$"
+![Come varia l'uscita $V_o$ al variare dell'ingresso $V_i$][image2.8]{width=50%}
 
 La corrente di ingresso e di uscita, in un mos, in condizioni statiche, è 0.
 
@@ -463,7 +478,8 @@ $$\begin{aligned}&V_{iH}=\frac{1}{8}[5V_{DD}-2V_{t}]\\&V_{iL}=\frac{1}{8}[3V_{DD
 Il noise margin massimo si ha quando $V_iL=V_{iH}$. Tuttavia questa condizione non è ottimale perché l'onda della transizione è poco brusca e a noi piace quando la transizione avviene rapidamente (inoltre se non è brusca passa della corrente nel circuito) e quindi le tensioni di input spesso vengono prese pari a $V_{iL}=$ $\frac{1}{3}V_{DD}$ e$V_{iH}=\frac{2}{3}V_{DD}.$
 Con i MOS la tensione di alimentazioni ci interessa poco. Invece nei TTL abbiamo una tensione di soglia fissa da abbattere (0.7V). Con i MOS è possibile lavorare sui parametri quando lo andiamo a costruire e farne uno con un canale più corto e che quindi lavora con tensioni più basse (e che ovviamente è più piccolo).
 Con CMOS è possibile sia fare un NOR che un NAND.
-Figure 2.9: NOR fatto con tecnologia CMOS.
+
+[image2.9]:immagini/ NOR fatto con tecnologia CMOS.
 
 Figure 2.10: NAND fatto con tecnologia CMOS.
 
