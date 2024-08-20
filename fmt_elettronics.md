@@ -709,7 +709,7 @@ elevata corrente d'uscita).
 
 ## 2.8 Come si imposta l'input
 
-[image2.14]:immagini/34.png "Il circuito A, quando è accesa l’uscita e a 0V, quando è spento e a $V_{CC}$. Il circuito B è il contrario"
+[image2.14]:immagini/34.png "Il circuito A, quando è accesa l’uscita è a 0V, quando è spento è a $V_{CC}$. Il circuito B è il contrario"
 ![Il circuito A, quando è accesa l’uscita e a 0V, quando è spento e a $V_{CC}$. Il circuito B è il contrario][image2.14]{width=40%}
 
 Queste due configurazioni sono uguali solo quando $I_{iH}$ e $I_{iL}$ sono uguali (e quindi
@@ -748,11 +748,16 @@ interessanti e importanti sono solo le ultime due.
 Quando progetto devo utilizzare il **worst case design**: devo progettare considerando i valori
 peggiori.
 
-Figure 2.19: I range di I/O dipendono dal processo di produzione, temperatura attuale e $V_{CC}$.
 
-Figure 2.20: Questo è il grafico 2.19 ma messo in verticale. Il TTL e il CMOS 3.3V sono molto
-simili. Questa cosa è intenzionale così che sono compatibili tra di loro.
+<div id="fig:figureRef2">
+!["I range di I/O dipendono dal processo di produzione, temperatura attuale e $V_{CC}$."](immagini/35.png){width=35%}
+!["Questo è il grafico a sinistra ma messo in verticale. Il TTL e il CMOS 3.3V sono molto simili. Questa cosa è intenzionale così che sono compatibili tra di loro."](immagini/36.png){width=35%}
 
+TTL e CMOS
+</div>
+
+
+Figure 2.20: 
 Per rendere compatibili CMOS 5V e TTL si può introdurre un pull-up come in figura 2.21. $R_{p}$
 deve essere tale da non superare un certo limite imposto dalla porta quando ha uscita bassa.
 
@@ -763,10 +768,21 @@ resistenza, minore è il consumo di potenza in condizioni statiche.
 
 Però c'è anche il problema che più prendo grande la resistenza più ci mette il circuito
 a commutare tra due livelli. Quindi la cosa migliore da fare e prendere una resistenza
-nell'intervallo identificato dai calcoli di figura 2.22 che permetta al circuito di commutare
+nell'intervallo identificato dai calcoli espressi qui sotto che permetta al circuito di commutare
 nel tempo desiderato.
 
-Figure 2.22
+
+
+\begin{align*}
+&\mathrm{HP: ~}I_{OH}=1 mA@V_{IHmin}; \\
+&I_{OLmax}=10 mA@V_{ILmax}\\
+&\mathrm{V_{0}=5V-R\times I_{OH}>V_{IHmin}\to V_{0}=5V-R\times1mA>3.5V\to}\\
+&\mathrm{R<1.5V/1mA\to R<1.5k \Omega}\\
+&\mathrm{I_{OL}= \frac{5V - V_{ILmax}}{R}< I_{OLmax} \to R > \frac{(5V-V_{ILmax})}{R} \to} \\
+&\mathrm{R<\frac{4V}{10mA}\to R>0.4k \Omega}
+\end{align*}
+
+
 
 Figure 2.23: A sinistra c'è una porta TTL con uscita alta, a destra con uscita bassa.
 
@@ -912,17 +928,10 @@ come se sfruttassimo meno bit e quindi otteniamo meno precisione.
 Figure 2.26: Questo D/A converter non e ottimale perché richiede che i valori delle resistenze
 siano precisi e questi solitamente non lo sono.
 
-
 Il convertitore in figura 2.26 sfrutta un amplificatore invertente e il principio
 di sovrapposizione: $V_{out}$ e $-\frac{R_{F}}{R_{G}}\cdot V_{in}$ dove $R_{F}$ è la
 resistenza in parallelo all'amplificatore e $R_{G}$ è quella dopo l'ingresso a 5V, posso poi
 calcolare i $V_{out}$ per tutte
-\begin{center}
-\begin{table} \begin{tabular}{c|c|c|c} $V_{in}$ & Binary & Offset binary & 2's compl. \\
-\hline $V_{fs}/2$ & 111111 & 111111 & 011111 \\ +dV & 000001 & 100001 & 000001 \\ 0 & 000000
-& 100000 & 000000 \\ -dV & / & 011111 & 111111 \\ $-V_{fs}/2$ & / & 000000 & 100000 \\
-\end{tabular} \end{table}
-\end{center}
 le resistenze e trovare la tensione di uscita totale facendone la combinazione lineare
 
 $$V_{out}=-V_{in}\cdot\left(\frac{R_{F}}{R_{G_{1}}}+\frac{R_{F}}{R_{G_{2}}}+...+
