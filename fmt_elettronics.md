@@ -1,4 +1,5 @@
 ---
+chapters: true
 header-includes: |
             \usepackage{cancel}
             \usepackage{steinmetz}
@@ -45,7 +46,7 @@ una percentuale $N_{a}$, n. accettori) e un'altra sezione drogata con un drogagg
 percentuale $N_{d}$, n. donatori).
 
 [image1.1]: immagini/0.jpg "Giunzione P-N" 
-![Giunzione P-N][image1.1]{height=5%}
+    ![Giunzione P-N][image1.1]{height=5%}
 
 Queste due sezioni devono essere adiacenti, così che gli
 elettroni possano migrare dalla parte drogata N a quella drogata P per formare al centro una
@@ -344,7 +345,7 @@ quando gli viene presentato in ingresso un input alto e quando l'input è ad un 
 basso.	
 * **Noise margin** è la quantità cui il segnale eccede la soglia minima $V_{iH}$ e
 $V_{iL}$. Come noise margin si prende il minimo tra il noise margin relativo al livello alto e
-a quello basso: $$NM_{H} =V_{oH}-V_{iH}$$ $$NM_{L} =V_{iL}-V_{oH}$$ $$NM =min(NM_{L},NM_{h})$$
+a quello basso: $$NM_{H} =V_{oH}-V_{iH}$$ $$NM_{L} =V_{iL}-V_{oH}$$ $$NM =\min(NM_{L},NM_{h})$$
 più NM è alto, meglio è perché vuol dire che il sistema e meno sensibile al rumore.  
 * **Fan out** è il numero massimo di porte a cui può essere connesso una certa porta mantenendo
 il livello logico corretto.  
@@ -474,14 +475,15 @@ rispetto al centro). Facendo così il margine di rumore alto e basso sono uguali
 ottimizzo le risorse della porta logica.
 
 Le formule che indicano i vari parametri sono:
-$$\begin{aligned}&V_{iH}=\frac{1}{8}[5V_{DD}-2V_{t}]\\&V_{iL}=\frac{1}{8}[3V_{DD}+2V_{t}]\\&V_{oH}=V_{DD}\\&V_{0L}=0\\&NM_{L}=NM_{H}=NM=V_{iL}\end{aligned}$$
+$$
+\begin{aligned}&V_{iH}=\frac{1}{8}[5V_{DD}-2V_{t}]\\&V_{iL}=\frac{1}{8}[3V_{DD}+2V_{t}]\\&V_{oH}=V_{DD}\\&V_{0L}=0\\&NM_{L}=NM_{H}=NM=V_{iL}\end{aligned}
+$$
 Il noise margin massimo si ha quando $V_iL=V_{iH}$. Tuttavia questa condizione non è ottimale perché l'onda della transizione è poco brusca e a noi piace quando la transizione avviene rapidamente (inoltre se non è brusca passa della corrente nel circuito) e quindi le tensioni di input spesso vengono prese pari a $V_{iL}=$ $\frac{1}{3}V_{DD}$ e$V_{iH}=\frac{2}{3}V_{DD}.$
 Con i MOS la tensione di alimentazioni ci interessa poco. Invece nei TTL abbiamo una tensione di soglia fissa da abbattere (0.7V). Con i MOS è possibile lavorare sui parametri quando lo andiamo a costruire e farne uno con un canale più corto e che quindi lavora con tensioni più basse (e che ovviamente è più piccolo).
 Con CMOS è possibile sia fare un NOR che un NAND.
 
-[image2.9]:immagini/ NOR fatto con tecnologia CMOS.
-
-Figure 2.10: NAND fatto con tecnologia CMOS.
+[image2.9]:immagini/26.jpg "NOR fatto con tecnologia CMOS."
+!["NOR fatto che tecnlogia CMOS"][image2.9]{width=50%}
 
 Ecco un confronto tra TTL e CMOS:
 
@@ -506,7 +508,8 @@ bias currents e input currents \par{}contribuiscono alla dissipazione della pote
 A volte vogliamo poter combinare sia i vantaggi di CMOS (alta integrazione e consumo di potenza
 statica basso) con quelli dei circuiti bipolari.
 
-Figure 2.11: Invertitore fatto con tecnologia BiCMOS.
+[image2.10]:immagini/27.jpg "Invertitore fatto con tecnologia BiCMOS."
+!["Invertitore fatto con tecnologia BiCMOS"][image2.10]{width=50%}
 
 Questo sopra ha un'uscita compatibile con i CMOS, ma nel caso volessimo avere un'uscita compatibile
 TTL la cosa migliore da fare è utilizzare input TTL compatibili (e in uscita un totem pole).
@@ -523,7 +526,10 @@ L'elemento di memoria utilizzato è il flip-flop D.
 
 ## 2.4 Latch SR 
 
-Figure 2.12: Latch Set-Reset. Gli ingressi sono "bassi attivi" (se messi a 0 sono accesi).
+[image2.11]:immagini/28.png "Latch Set-Reset"
+![Latch Set-Reset][image2.11]{width=50%}
+
+Gli ingressi sono "bassi attivi" (se messi a 0 sono accesi).
 $$
 \begin{array}{ccccc}\overline{S}&\overline{R}&Q_{new}&\overline{Q_{new}}\\\hline1&1&Q_{old}&\overline{Q_{old}}&\text{hold}\\0&1&1&0&\text{set}\\1&0&0&1&\text{reset}\\0&0&1&1&\text{combinazione proibita}\end{array}
 $$
@@ -541,7 +547,9 @@ Nelle FPGA è proibito sintetizzare la funzione logica dei latch.
 
 ## 2.5 Positive edge triggered flip flop (DFF, flip flop di tipo D)
 
-Figure 2.13: E un flip flop D. I due NAND più a destra sono un latch SR.
+[image2.12]:immagini/29.png "È un flip flop D. I due NAND più a destra sono un latch SR."
+![È un flip flop D. I due NAND più a destra sono un latch SR.][image2.12]{width=30%}
+
 $$
 \begin{array}{ccccc}
 C&D&Q_{new}&\overline{Q_{new}}\\
@@ -598,19 +606,13 @@ parassiti ci sono.
 Il primo packaging inventato era il **DIP** (dual in line): corpo in resina con a destra e a
 sinistra dei piedini (through-hole, ovvero che passano attraverso la scheda). La distanza tra
 un piedino e l'altro è di $\frac{1}{10}$in (2.54cm). Sono così grandi perché le macchine
-che assemblavano i circuiti integrati non potevano lavorare con oggetti più piccoli di questi.
-
-Figura 2.14: DIP
-
+che assemblavano i circuiti integrati non potevano lavorare con oggetti più piccoli di questi. \\
 Successivamente sono stati sostituiti dai **SMD** (surface mounted device), che nella forma
 sono simili ai DIP solo che la distanza tra i piedini e massimo massimo 50mils (1 mils = 0.001
 in) (50mils = 1.27mm) ma se no è meno. Questo vuol dire che sono più piccoli e quindi hanno
 meno induttanza e conduttanza parasite. Inoltre a parità di piedini occupano $\frac{1}{4}$
 volte l'area che occuperebbe un DIP. I piedini dei SMD sono da appoggiare sulla superficie del
 circuito e saldarli.
-
-Figure 2.15: SMD
-
 Questi si usano ancora oggi.
 
 Dopo (una ventina d'anni fa) sono stati inventati i **BGA** e gli **LGA**, rispettivamente
@@ -619,9 +621,14 @@ e queste servono per essere saldate (con dei forni). I secondi hanno tanti aggeg
 sotto il chip, come ad esempio i processori (così che poi possono essere messi su un "aggancio"
 apposito che ha tanti pin).
 
-Figure 2.16: BGA
+<div id="fig:figureRef">
+![DIP: Dual In-line Package](immagini/30.png){width=20%}
+![SMD: Surface Mounted Device](immagini/31.jpg){width=20%}
+![BGA: Ball Grid Array](immagini/32.jpg){width=20%}
+![LGA: Land Grid Array](immagini/33.jpg){width=20%}
 
-Figure 2.17: LGA
+Diversi circuiti integrati
+</div>
 
 Poi c’è una tecnologia che consiste nel prendere il chip senza packaging e schiaffarlo
 direttamente sul circuito. Questa opzione si chiama bare die e si utilizza se è 
@@ -702,8 +709,8 @@ elevata corrente d'uscita).
 
 ## 2.8 Come si imposta l'input
 
-Figure 2.18: Il circuito A, quando è accesa l’uscita e a 0V, quando è spento e a $V_{CC}$. Il
-circuito B è il contrario
+[image2.14]:immagini/34.png "Il circuito A, quando è accesa l’uscita e a 0V, quando è spento e a $V_{CC}$. Il circuito B è il contrario"
+![Il circuito A, quando è accesa l’uscita e a 0V, quando è spento e a $V_{CC}$. Il circuito B è il contrario][image2.14]{width=40%}
 
 Queste due configurazioni sono uguali solo quando $I_{iH}$ e $I_{iL}$ sono uguali (e quindi
 nei CMOS). Per i circuiti TTL è meglio utilizzare il circuito A perché così non ho cadute
