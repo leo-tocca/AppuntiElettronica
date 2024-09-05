@@ -756,12 +756,11 @@ peggiori.
 TTL e CMOS
 </div>
 
-
-Figure 2.20: 
 Per rendere compatibili CMOS 5V e TTL si può introdurre un pull-up come in figura 2.21. $R_{p}$
 deve essere tale da non superare un certo limite imposto dalla porta quando ha uscita bassa.
 
-Figure 2.21
+[image2.22]:immagini/37.png "TTL con pull-up"
+![TTL con pull-up][image2.22]{width=50%}
 
 Se $R_{p}$ è grande allora la porta "si beve" molta corrente; tuttavia più è grande la
 resistenza, minore è il consumo di potenza in condizioni statiche.
@@ -772,17 +771,8 @@ nell'intervallo identificato dai calcoli espressi qui sotto che permetta al circ
 nel tempo desiderato.
 
 
-
-\begin{align*}
-&\mathrm{HP: ~}I_{OH}=1 mA@V_{IHmin}; \\
-&I_{OLmax}=10 mA@V_{ILmax}\\
-&\mathrm{V_{0}=5V-R\times I_{OH}>V_{IHmin}\to V_{0}=5V-R\times1mA>3.5V\to}\\
-&\mathrm{R<1.5V/1mA\to R<1.5k \Omega}\\
-&\mathrm{I_{OL}= \frac{5V - V_{ILmax}}{R}< I_{OLmax} \to R > \frac{(5V-V_{ILmax})}{R} \to} \\
-&\mathrm{R<\frac{4V}{10mA}\to R>0.4k \Omega}
-\end{align*}
-
-
+[image]:immagini/39.png ""
+![][image]{width=50%}
 
 Figure 2.23: A sinistra c'è una porta TTL con uscita alta, a destra con uscita bassa.
 
