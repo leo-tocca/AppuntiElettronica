@@ -771,12 +771,22 @@ nell'intervallo identificato dai calcoli espressi qui sotto che permetta al circ
 nel tempo desiderato.
 
 
-[image]:immagini/39.png ""
+[image]:immagini/38.png "Calcolo"
 ![][image]{width=50%}
 
-Figure 2.23: A sinistra c'è una porta TTL con uscita alta, a destra con uscita bassa.
 
-Figure 2.24: I TTL sono asimmetrici in correnti di uscita mentre i CMOS hanno output simmetrici.
+[image2.15]:immagini/39.png "A sinistra c'è una porta TTL con uscita alta, a destra con uscita bassa."
+![A sinistra c'è una porta TTl con uscita alta, a destra con uscita bassa][image2.15]{width=50%}
+
+|        | I_{OH} max (mA) | I_{OL} max (mA) |
+|:------:|:---------------:|:---------------:|
+|  LS00  |       -0,4      |       +16       |
+|   F00  |        -1       |       +20       |
+|  F244  |       -15       |       +64       |
+|  AHC00 |        -8       |        +8       |
+| LVC244 |       -24       |       +24       |
+
+Tabella: I TTL sono asimmetrici in correnti di uscita mentre i CMOS hanno output simmetrici.
 
 
 L'uscita dei TTL funziona meglio quando è "bassa" perché ha una corrente maggiore "e quindi
@@ -822,7 +832,8 @@ può rompere il gate. Inoltre più è piccolo il dispositivo, maggiore è la sen
 un circuito resista alle scariche elettrostatiche provenienti da tale ente. Ad esempio esistono
 modelli dell'uomo, delle macchine industriali e di altri dispositivi carichi.
 
-Figure 2.25: Human body model
+[image2.16]:immagini/40.png "Human body model"
+![Human body model][image2.16]{width=30%}
 
 Il costruttore poi potrebbe utilizzare dei diodi in modo tale da evitare che le scariche effettuate
 sul componente siano fatali o potrebbe utilizzare transistor con $V_{\text{breakdown}}$ maggiore.
