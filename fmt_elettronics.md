@@ -9,6 +9,8 @@ header-includes: |
             \usepackage{siunitx}
             \usepackage{geometry}
             \usepackage{array}
+            \usepackage{caption}
+            \usepackage{subcaption}
             \usepackage{hhline}
 				\geometry{
 					a4paper,
@@ -870,8 +872,7 @@ Per l'onda quadra vale $i_{0}=i_{p}=C_{L}\cdot\frac{dV}{dt}$ e quindi l'integral
 facilmente
 
 \begin{align*}
-\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt &=\int_{0}^{T}C_{L}\cdot\frac{dV}{dt}\cdot V_{o}(t)dt\\
-&=\int_{0}^{V_{DD}}C_{L}\cdot V_{0}dV\\
+\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt &=\int_{0}^{T}C_{L}\cdot\frac{dV}{dt}\cdot V_{o}(t)dt=\int_{0}^{V_{DD}}C_{L}\cdot V_{0}dV\\
 &=\frac{1}{2}V_{DD}^{2}C_{L}
 \end{align*}
 
@@ -926,8 +927,8 @@ come se sfruttassimo meno bit e quindi otteniamo meno precisione.
 
 ### Convertitori D/A
 
-Figure 2.26: Questo D/A converter non e ottimale perché richiede che i valori delle resistenze
-siano precisi e questi solitamente non lo sono.
+[image2.17]:immagini/41.png "Questo D/A converter non è ottimale perché richiede che i valori delle resistenze siano precisi e questi solitamente non lo sono."
+![Questo D/A converter non è ottimale perché richiede che i valori delle resistenze siano precisi e questi solitamente non lo sono.][image2.17]{width=40%}
 
 Il convertitore in figura 2.26 sfrutta un amplificatore invertente e il principio
 di sovrapposizione: $V_{out}$ e $-\frac{R_{F}}{R_{G}}\cdot V_{in}$ dove $R_{F}$ è la
@@ -938,9 +939,10 @@ le resistenze e trovare la tensione di uscita totale facendone la combinazione l
 $$V_{out}=-V_{in}\cdot\left(\frac{R_{F}}{R_{G_{1}}}+\frac{R_{F}}{R_{G_{2}}}+...+
 \frac{R_{F}}{R_{G_{n}}}\right)$$
 
-Una soluzione migliore e il **R-2R converter**.
+Una soluzione migliore è il **R-2R converter**.
 
-Figura 2.27
+[image2.18]:immagini/42.png "R-2R converter"
+![R-2R converter][image2.18]{width=50%}
 
 Nel convertitore in figura 2.27 vengono utilizzate solo due tipologie di resistenze: una con
 valore R e una che vale 2R.
@@ -971,23 +973,27 @@ tra -1V e +1V quello che devo fare + spostare di +1V il segnale e poi amplificar
 
 * Digital ramp ADC
 
-Figura 2.28
+[image2.19]:immagini/43.png "Digital ramp ADC"
+![Digital ramp ADC][image2.19]{width=50%}
 
 In questo tipo di convertitore viene utilizzato un comparatore che ha output 1 se gli ingressi
 sono uguali e 0 se sono diversi. Nel contatore viene messo il valore convertito. La conversione
 avviene gradualmente fino ad un certo punto dove il segnale in uscita diventa 0, a quel punto
-la conversione è completata.
-
+la conversione è completata. \newline
 Il principale problema di questo convertitore è che per completare una conversione richiede
 fino a $2^{N}$ colpi di clock.
 
 * Successive approx. ADC
 
-Figura 2.30
+[image2.20]:immagini/44.png "Successive approximation ADC - 12 "
+![Successive approximation ADC - 1][image2.20]{width=40%}
+
+[image2.21]:immagini/45.png "Successive approximation ADC - 2 "
+![Successive approximation ADC - 2][image2.21]{width=40%}
 
 La struttura di fondo è la medesima di quella prima, solo che adesso la conversione
 avviene utilizzando un algoritmo di bisezione. In questo modo divido lo spazio in 2 ad ogni
-passo. Il numero di colpi di clock per completare una conversione e N.
+passo. Il numero di colpi di clock per completare una conversione è N.
 
 * Flash ADC
 
@@ -996,14 +1002,22 @@ Questo convertitore è molto bello perché produce l'output in un colpo di clock
 $2^{N}$ comparatori e questi occupano diverso spazio sul silicio e quindi posso lavorare solo
 con pochi bit di uscita.
 
-Figura 2.31
 
-Figure 2.32: Come viene effettuato il campionamento
+![Flash ADC](immagini/46.png){width=40%}
+![Come viene effettuato il campionamento](immagini/47.png){width=50%}
+\begin{figure}[!h]
+\begin{subfigure}[t]{0.4\textwidth}
+\caption{Flash ADC}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.6\textwidth}
+\caption{Come viene effettuato il campionamento}
+\end{subfigure}
+\end{figure}
 
 Nel ADC flash il campionamento avviene quando metto il dato nel registro. Nel SAR tale momento si
 ha quando ho finito l'ultima conversione mentre il tempo di conversione è il tempo di esecuzione
-dell'algoritmo di conversione.
-
+dell'algoritmo di conversione. \newline
 Nei digital ramp il momento di campionamento + quando "l'uscita diventa 0", il tempo di
 conversione è variabile.
 
@@ -1043,7 +1057,8 @@ prevede che dal processore partano due bus, uno verso la memoria dati e uno vers
 programma. Al contrario l'architettura di Von Neumann prevede che ci sia un solo bus che collega le
 memorie alla CPU 
 
-Figura 3.1 Architetture a confronto
+[image3.1]:immagini/48.png "Architetture a confronto"
+![Architetture a confronto][image3.1]{width=40%}
 
 * Possibilità di comunicare con il mondo esterno mediante
     * GPIO: pin che possono essere impostati come ingresso o come uscita a piacimento
@@ -1058,7 +1073,8 @@ b. Dare per una frazione di secondo la potenza massima erogabile, poi stare ferm
 
 L'opzione B è quella più efficace perché limita la potenza persa sull'amplificatore
 
-Figura 3.2
+[image3.2]:immagini/49.jpg "Opzione B"
+![Opzione B][image3.2]{width=50%}
 
 Poi vogliamo che il dispositivo sia piccolo e che consumi **poco**.
 
@@ -1109,7 +1125,8 @@ e la cui frequenza va da 1 a 50MHz.
 
 Il segnale generato dal quarzo viene poi moltiplicato/diviso dal PLL.
 
-Figura 3.3
+[image3.3]:immagini/50.png "Cortex M4"
+![Cortex M4][image3.3]{width=50%}
 
 * **GPIO**: "Dietro" ciascun GPIO ci sono due parti: una che gestisce l'ingresso e una che gestisce
 l'uscita. \newline
@@ -1144,15 +1161,14 @@ Gli usi tipici dell'interrupt controller sono:
 tot specifico di tempo. I timer possono essere utilizzati per produrre segnali periodici utili
 per i sistemi di controllo (tipo PWM).
 
-Figure 3.4: Il duty cycle è dato da $\frac{D}{T}=\delta$. Maggiore è la soglia, più tempo
-sta alta l’onda.
-
+[image3.4]:immagini/51.png "Il duty cycle è dato da $\frac{D}{T}=\delta$. Maggiore è la soglia, più tempo sta alta l’onda."
+[Il duty cycle è dato da $\frac{D}{T}=\delta$. Maggiore è la soglia, più tempo sta alta l’onda.][image3.4]{width=50%}
 Il contatore del timer non si ferma quando fermo l'esecuzione del programma (tipo con il debugger).
 
 NON SI FA DEBUG DI CIRCUITI DI POTENZA.
 
- Chapter 4 Appendice
 
+# Chapter 4 Appendice
 ## 4.1 Parametri RTL
 
 * $V_{iH} = 0.75V, V_{iL} = 0.6V$ 
