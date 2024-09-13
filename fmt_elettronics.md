@@ -43,7 +43,7 @@ delle lacune, nel secondo degli elettroni in eccesso.
 
 ## 1.1 Giunzione P-N
 
-Una giunzione P-N e formata da una sezione del semiconduttore drogata con un drogaggio P (con
+Una giunzione P-N è formata da una sezione del semiconduttore drogata con un drogaggio P (con
 una percentuale $N_{a}$, n. accettori) e un'altra sezione drogata con un drogaggio N (con una
 percentuale $N_{d}$, n. donatori).
 
@@ -52,13 +52,14 @@ percentuale $N_{d}$, n. donatori).
 
 Queste due sezioni devono essere adiacenti, così che gli
 elettroni possano migrare dalla parte drogata N a quella drogata P per formare al centro una
-regione detta **regione di svuotamento** (dove ho riprodotto il reticolo cristallino classico).
+regione detta **regione di svuotamento** (o _depletion layer_) (dove ho riprodotto il reticolo
+cristallino classico).
 
 [image1.2]: immagini/1.png "Regione di svuotamento"
 ![Regione di svuotamento][image1.2]{width=68%}
 
 Lo scopo della regione di svuotamento è impedire che altre cariche negative di N possano
-fluire in P. La quantità di carica presente su ciascuna delle ”sezioni”della regione di 
+fluire in P. La quantità di carica presente su ciascuna delle ”sezioni” della regione di 
 svuotamento dev’essere uguale, tuttavia le dimensioni delle sezioni può essere diversa
 e influenzata dalla percentuale di drogante.
 
@@ -1014,6 +1015,7 @@ con pochi bit di uscita.
 \caption{Come viene effettuato il campionamento}
 \end{subfigure}
 \end{figure}
+
 
 Nel ADC flash il campionamento avviene quando metto il dato nel registro. Nel SAR tale momento si
 ha quando ho finito l'ultima conversione mentre il tempo di conversione è il tempo di esecuzione
