@@ -29,7 +29,7 @@ header-includes: |
 
 # Capitolo 1: Dispositivi elettronici
 
-## Semiconduttori
+## 1.1 Semiconduttori
 
 I semiconduttori sono i materiali con cui sono composti i circuiti integrati.
 Sono, come suggerisce il nome, materiali in cui il flusso di corrente *non è 
@@ -37,6 +37,7 @@ libero* (non è un conduttore), ma è **presente** (non è un'isolante).
 
 In particolare, conducono in particolari situazioni. Quali sono però i
 materiali con queste condizioni?
+
 - Silicio (Si), Germanio (Ge) (Carbonio (C), ma composto)
 - GaAs, GaN (Gallio-Arsenico/Azoto)
 In generale sono gli elementi della $4°$ colonna della tavola periodica o
@@ -85,7 +86,7 @@ dove $N_a$ è tipo p:'positivo', mentre $N_d$ è di tipo n:'negativo'.
 Collegando un blocco drogato tipo P ed uno tipo N abbiamo
 
 [image1.1]: immagini/0.jpg "Giunzione P-N" 
-![Giunzione P-N][image1.1]{height=5%}
+![Giunzione P-N][image1.1]{#fig}
 
 L'abbondanza di lacune in $p$ è considerabile come una carenza di elettroni, di cui $n$ *abbonda*.
 Ciò genera una **migrazione** di elettroni da n verso p.
