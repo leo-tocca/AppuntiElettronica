@@ -22,7 +22,7 @@ header-includes: |
 
 \newpage
 
-# Capitolo 1: Dispositivi elettronici
+# Dispositivi elettronici
 
 I dispositivi dei circuiti integrati sono fatti principalmente in silicio (S) o in germanio (Ge)
 o in qualche lega come GaAs, GaN, InP, SiC, ovvero materiali con 3/4/5 elettroni nell'orbitale
@@ -41,7 +41,7 @@ essere **di tipo P** se l'elemento drogante ha un elettrone in meno rispetto al 
 un elettrone in più (ad esempio se drogo il silicio con il fosforo). Nel primo caso ottengo
 delle lacune, nel secondo degli elettroni in eccesso.
 
-## 1.1 Giunzione P-N
+## Giunzione P-N
 
 Una giunzione P-N è formata da una sezione del semiconduttore drogata con un drogaggio P (con
 una percentuale $N_{a}$, n. accettori) e un'altra sezione drogata con un drogaggio N (con una
@@ -83,7 +83,7 @@ il campo elettrico fino ad un punto detto **di breakdown** dove la corrente flui
 
 Se il diodo è scaldato funziona meglio.
 
-### 1.1.1 Formule
+### Formule
 
 **Forward bias**
 
@@ -95,9 +95,9 @@ sarà il _potenziale nativo dei diodi_ $(0.7V)$
 [image1.4]: immagini/3.png "Grafico che spiega a grandi linee il comportamento di un diodo P-N al variare della differenza di potenziale"
 ![Grafico che spiega a grandi linee il comportamento di un diodo P-N al variare della differenza di potenziale][image1.4]{width=30%}
 
-## 1.2 Diodi particolari
+## Diodi particolari
 
-### 1.2.1 Fotodiodi
+### Fotodiodi
 
 [image1.5]: immagini/4.png "I fotodiodi sono polarizzati inversamente"
 ![I fotodiodi sono polarizzati inversamente][image1.5]{width=50%}
@@ -111,7 +111,7 @@ elettrone-lacuna e far passare corrente.
 La corrente che scorre nel diodo non dipende dalla tensione applicata ai suoi capi ma solo dal
 flusso luminoso che colpisce la giunzione.
 
-### 1.2.2 Formule
+### Formule
 $$
 I_d = k \cdot E_{L}
 $$
@@ -157,12 +157,12 @@ o nei circuiti logici.
 [image1.6]: immagini/6.png "Grafico che spiega a grandi linee il comportamento di un diodo Schottky in relazione ad uno non Schottky"
 ![Grafico che spiega a grandi linee il comportamento di un diodo Schottky in confronto ad un non Schottky][image1.6]{width=50%}
 
-## 1.3 Leggi di Kirchoff
+## Leggi di Kirchoff
 
 1. La somma delle correnti in un nodo è 0 
 2. La somma delle tensioni lungo un percorso chiuso è 0
 
-## 1.4 BJT: giunzione n-p-n (transistor bipolare)
+## BJT: giunzione n-p-n (transistor bipolare)
 
 [image1.7]: immagini/7.png "Schema di un transistor bipolare (NJT)"
 ![Schema di un transistor bipolare][image1.7]{width=50%}
@@ -198,13 +198,13 @@ I_{e} =-I_{b}\ (\text{il gain è }\leq 1)
 [image1.9]: immagini/9.png "Schema fisico di un BJT"
 ![Schema fisico di un BJT][image1.9]{width=20%}
 
-## 1.5 Sonda 10x
+## Sonda 10x
 [image1.10]: immagini/10.png "Schema di una sonda 10x"
 ![Schema di una sonda 10x][image1.10]{width=60%}
 
 *Bandwidth limit*: un tastino sull'oscilloscopio che taglia le frequenze sopra i 20MHz.
 
-## 1.6 Diodo Zener
+## Diodo Zener
 
 [image1.11]: immagini/11.png "Schema di un diodo Zener"
 ![Schema di un diodo Zener][image1.11]{width=50%}
@@ -218,7 +218,7 @@ preciso scorre $V_{0}=V_{Z}$ (e quindi ho una tensione in uscita stabilizzata).
 Nel circuito in figura 1.11 la resistenza e importante perché se non ci fosse avrei
 $\frac{V_{G}-V_{i}}{R}=i_{r}$ ma $R\to 0$ e quindi $i_{r}\to\infty$.
 
-## 1.7 BJT pnp
+## BJT pnp
 
 Questo dispositivo è complementare al npn: le equazioni sono le medesime ma il verso delle
 correnti e delle tensioni è inverso.
@@ -230,7 +230,7 @@ Rispetto al npn, il pnp ha un gain minore e quindi funziona
 peggio (per questo motivo, quando e possibile, si utilizzano gli npn), ovvero scorre meno corrente
 (ha un'efficienza di circa la metà degli elettroni).
 
-## 1.8 Fototransistor
+## Fototransistor
 
 La corrente di base viene generata quando è esposto alla luce, per il resto è un transistor
 normale.
@@ -245,7 +245,7 @@ del collettore per evitare di andare in saturazione.
 [image1.13]:immagini/13.png "Schema di un fototransistor"
 ![Schema di un fototransistor][image1.13]{width=50%}
 
-## 1.9 Mos
+## Mos
 
 MOS è una sigla che sta per **metallo**, **ossido** e **semiconduttore** e sono indica dei
 dispositivi controllati dalla differenza di potenziale presente tra due suoi terminali. Una
@@ -320,7 +320,7 @@ I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\longrightarrow\begin{cases}\sqrt{I_{D1}}=\
 \end{cases}
 $$
 
-# Capitolo 2 Algebra booleana
+# Algebra booleana
 
 Lo scopo di un circuito logico è quello di trasferire e processare informazioni. Esistono tre
 porte principali: not, and, or.
@@ -330,7 +330,7 @@ or, and, nor, nand. In particolare, se scegliamo nor e nand, possiamo rappresent
 circuito logico utilizzando solo una di queste due perché se mettiamo in entrambi gli ingressi
 della porta lo stesso ingresso, l'uscita e un _banale_ not.
 
-## 2.1 Parametri
+## Parametri
 
 ### Parametri statici
 
@@ -370,7 +370,7 @@ certa quantità di carica prima di commutare(?), e quindi aumentando la potenza 
 quantità di corrente che passa nel condensatore e quindi si scarica/carica più velocemente. $$\text{Delay}\cdot\text{Potenza}=DP$$ 
 * **Energia di commutazione**: è la quantità di energia necessaria per eseguire una commutazione. Grazie a questo valore è possibile il consumo di potenza di un certo dispositivo.
 
-## 2.2 Famiglie logiche
+## Famiglie logiche
 
 ### RTL (resistor-transistor logic)
 
@@ -453,7 +453,7 @@ Durante le commutazioni del not, in quella HL passo da avere $Q_{4}$ e $Q_{1}$ a
 contrario, ovvero ho $Q_{2},Q_{3},Q_{5}$ in saturazione e passo ad avere accesi $Q_{1}$
 e $Q_{4}$.
 
-### MOS logic cells
+### Logic cells
 
 I MOS utilizzati possono essere sia a canale P che a canale N. Possono poi esserci MOS ad
 arricchimento: dove applicando tensione al gate si forma il canale, o a svuotamento: dove il
@@ -517,7 +517,7 @@ statica basso) con quelli dei circuiti bipolari.
 Questo sopra ha un'uscita compatibile con i CMOS, ma nel caso volessimo avere un'uscita compatibile
 TTL la cosa migliore da fare è utilizzare input TTL compatibili (e in uscita un totem pole).
 
-## 2.3 Logica combinatoria e sequenziale
+## Logica combinatoria e sequenziale
 
 - Logica combinatoria: una funzione logica è statica nel tempo e non ha memoria. $y=f(x)$.
 - Logica sequenziale: può essere descritta da due funzioni combinatorie: $y_{n}=f_{1}(x,M_{n})$
@@ -527,7 +527,7 @@ diverse.
 
 L'elemento di memoria utilizzato è il flip-flop D.
 
-## 2.4 Latch SR 
+## Latch SR 
 
 [image2.11]:immagini/28.png "Latch Set-Reset"
 ![Latch Set-Reset][image2.11]{width=50%}
@@ -548,7 +548,7 @@ invece ho uno 0 l'uscita e per forza 1).
 
 Nelle FPGA è proibito sintetizzare la funzione logica dei latch.
 
-## 2.5 Positive edge triggered flip flop (DFF, flip flop di tipo D)
+## Positive edge triggered flip flop (DFF, flip flop di tipo D)
 
 [image2.12]:immagini/29.png "È un flip flop D. I due NAND più a destra sono un latch SR."
 ![È un flip flop D. I due NAND più a destra sono un latch SR.][image2.12]{width=30%}
@@ -567,7 +567,7 @@ Nel momento in cui il clock sale si presenta una configurazione che dipende dal 
 Per vedere nello schema come funziona la transizione, ad esempio $\uparrow$ con D=0, prima
 calcolo C=0 e D=0, poi metto C=1 e vedo come cambia l'output.
 
-## 2.6 Circuiti integrati commerciali
+## Circuiti integrati commerciali
 
 I circuiti logici possono essere implementati:
 
@@ -624,14 +624,28 @@ e queste servono per essere saldate (con dei forni). I secondi hanno tanti aggeg
 sotto il chip, come ad esempio i processori (così che poi possono essere messi su un "aggancio"
 apposito che ha tanti pin).
 
-<div id="fig:figureRef">
-![DIP: Dual In-line Package](immagini/30.png){width=20%}
-![SMD: Surface Mounted Device](immagini/31.jpg){width=20%}
-![BGA: Ball Grid Array](immagini/32.jpg){width=20%}
-![LGA: Land Grid Array](immagini/33.jpg){width=20%}
-
-Diversi circuiti integrati
-</div>
+\begin{figure}[h]
+\centering
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/30.png}
+    \caption{[DIP: Dual In-line Package}
+  \end{subfigure}
+  \hspace{0.02\textwidth}
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/31.jpg}
+    \caption{SMD: Surface Mounted Device}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/32.jpg}
+    \caption{[BGA: Ball Grid Array}
+  \end{subfigure}
+  \hspace{0.02\textwidth}
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/33.jpg}
+    \caption{LGA: Land Grid Array]}
+\end{subfigure}
+\caption{Diversi circuiti integrati}
+\end{figure}
 
 Poi c’è una tecnologia che consiste nel prendere il chip senza packaging e schiaffarlo
 direttamente sul circuito. Questa opzione si chiama bare die e si utilizza se è 
@@ -644,7 +658,7 @@ e che quindi ci siano problemi di cortocircuito tra le varie palline (quindi è 
 packaging molto buono). È possibile mettere le palline direttamente sul silicio 
 e quindi fare un misto tra BGA e SMD (solitamente questa cosa funziona se ho pochi pin).
 
-## 2.7 Famiglie logiche standard
+## Famiglie logiche standard
 
 Le famiglie TTL sono solo a 5V per ragioni costruttive.
 
@@ -710,7 +724,7 @@ consumo di potenza.
 Le famiglie BiCMOS il consumo di potenza è elevato (possono essere utilizzate in caso mi serva
 elevata corrente d'uscita).
 
-## 2.8 Come si imposta l'input
+## Come si imposta l'input
 
 [image2.14]:immagini/34.png "Il circuito A, quando è accesa l’uscita è a 0V, quando è spento è a $V_{CC}$. Il circuito B è il contrario"
 ![Il circuito A, quando è accesa l’uscita e a 0V, quando è spento e a $V_{CC}$. Il circuito B è il contrario][image2.14]{width=40%}
@@ -719,7 +733,7 @@ Queste due configurazioni sono uguali solo quando $I_{iH}$ e $I_{iL}$ sono ugual
 nei CMOS). Per i circuiti TTL è meglio utilizzare il circuito A perché così non ho cadute
 di tensione dovute a $I_{iL}$.
 
-## 2.9 Cosa fare con i piedini non utilizzati
+## Cosa fare con i piedini non utilizzati
 
 I piedini CMOS non utilizzati sono un bel problema perché hanno un'impedenza molto alta
 (siccome sono isolati) e quando sono sconnessi possono caricarsi con della tensione variabile
@@ -798,7 +812,7 @@ si vede meglio". Questo è il secondo motivo per cui i segnali di controllo sono
 Per le famiglie CMOS non c'è alcun motivo per cui continuare ad utilizzare segnali attivi
 bassi se non perché "si è sempre fatto così".
 
-## 2.10 Datasheet
+## Datasheet
 
 Le info sulle porte logiche sono sul datasheet. Queste info sono:
 
@@ -822,7 +836,7 @@ anche la resistenza di pullup che posso mettere: il $\tau$ relativo al condensat
 al transmission rate $\times V_{CC}$, se faccio $\tau/C$ ottengo il valore massimo della
 resistenza di pullup che posso utilizzare senza avere problemi.
 
-## 2.11 Scariche elettrostatiche
+## Scariche elettrostatiche
 
 Se scarichiamo su di un circuito lo rompiamo (a meno che questo non sia progettato opportunamente
 per evitare tale evenienza).
@@ -847,7 +861,7 @@ un ambiente di lavoro troppo secco (e troppo umido).
 
 Nel datasheet ci sono le specifiche con cui è stato testato il dispositivo contro le ESD.
 
-## 2.12 Consumi di potenza durante la commutazione
+## Consumi di potenza durante la commutazione
 
 All'aumentare della frequenza di commutazione aumenta anche la potenza assorbita. Di solito le
 famiglie più veloci assorbono più potenza.
@@ -1023,7 +1037,7 @@ dell'algoritmo di conversione. \newline
 Nei digital ramp il momento di campionamento + quando "l'uscita diventa 0", il tempo di
 conversione è variabile.
 
-# Chapter 3 Microprocessori, microcontrollori, etc.
+# Microprocessori, microcontrollori, etc.
 
 Ci sono tanti tipi di dispositivi programmabili: microcontrollori, microprocessori, GPU, FPGA, ecc.
 
@@ -1033,7 +1047,7 @@ ad un livello più alto.
 Le GPU contengono migliaia di core (che magari sono meno potenti della singola CPU però sono
 comunque migliaia). Le FPGA contengono milioni di porte logiche.
 
-## 3.1 Definizioni
+## Definizioni
 
 * Microprocessore: un single chip processing unit (tipo l'8086) e richiede la ram, l'interrupt
 controller (dispositivo che sotto certe condizioni cambia l'ordine di esecuzione del programma
@@ -1049,7 +1063,7 @@ flash, PIC, DMA, ecc. esterni, perché sono tutti integrati al suo interno).
 Il DMA controller del microcontrollore, di solito (quando manca il SO), deve essere programmato
 da noi.
 
-## 3.2 Requisiti di un microcontrollore
+## Requisiti di un microcontrollore
 
 * **Esecuzione predicibile del codice**: è facile sapere quanto tempo ci metterà a eseguire il
 codice 
@@ -1080,7 +1094,7 @@ L'opzione B è quella più efficace perché limita la potenza persa sull'amplifi
 
 Poi vogliamo che il dispositivo sia piccolo e che consumi **poco**.
 
-## 3.3 Schede
+## Schede
 
 Le schede solitamente hanno il processore e basta. A volte hanno anche una parte per fare il
 debug del codice direttamente su di essa. Per esempio Arduino UNO è del primo tipo, la scheda
@@ -1117,7 +1131,7 @@ altrimenti calcolare una volta il reciproco del valore da dividere e poi utilizz
 
 Alcuni GPIO hanno delle funzioni specifiche in più (tipo PWM/ADC DAC).
 
-## 3.4 Approfondimento sulla Cortex-M4
+## Approfondimento sulla Cortex-M4
 
 L'oscillatore (clock) interno e fatto con un not, una resistenza e un condensatore. La
 precisione e dell'1% (10000 parti per milione) e la frequenza varia in base alla temperatura
@@ -1142,7 +1156,7 @@ Quando voglio scrivere un 1 sull'ODR metto nella parte bassa del BSRR un 1 (e po
 a scriverlo nel ODR). Se invece voglio resettare un bit dell'ODR basta mettere un 1 nella parte
 alta del BSRR.
 
-### 3.5 Interrupt controller
+### Interrupt controller
 
 Serve a interrompere il flusso di programma per gestire un altro flusso (ISR) e poi tornare a
 gestire il programma principale. L'interrupt controller reagisce a degli eventi.
@@ -1170,8 +1184,8 @@ Il contatore del timer non si ferma quando fermo l'esecuzione del programma (tip
 NON SI FA DEBUG DI CIRCUITI DI POTENZA.
 
 
-# Chapter 4 Appendice
-## 4.1 Parametri RTL
+# Appendice
+## Parametri RTL
 
 * $V_{iH} = 0.75V, V_{iL} = 0.6V$ 
 * $I_{iH} @ V_{iH} = 150 \mu A, I_{iH} @ 5V = 9.5mA$
