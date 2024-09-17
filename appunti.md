@@ -18,6 +18,7 @@ header-includes: |
             \usepackage{geometry}
             \usepackage{array}
             \usepackage{caption}
+            \usepackage{sectsty}
             \usepackage{hhline}
 				\geometry{
 					a4paper,
@@ -27,9 +28,9 @@ header-includes: |
 				}
 ---
 
-# Capitolo 1: Dispositivi elettronici
+# Dispositivi elettronici
 
-## 1.1 Semiconduttori
+## Semiconduttori
 
 I semiconduttori sono i materiali con cui sono composti i circuiti integrati.
 Sono, come suggerisce il nome, materiali in cui il flusso di corrente *non è 
@@ -89,9 +90,9 @@ Collegando un blocco drogato tipo P ed uno tipo N abbiamo
 ![Giunzione P-N][image1.1]{#fig}
 
 L'abbondanza di lacune in $p$ è considerabile come una carenza di elettroni, di cui $n$ *abbonda*.
-Ciò genera una **migrazione** di elettroni da n verso p.
+Ciò genera una **migrazione** di elettroni da N verso P, detta anche _corrente di diffusione_.
 
-Tale fenomeno carica in modo *positivo* n (meno elettroni), e in modo *negativo* p (più elettroni).
+Tale fenomeno carica in modo *positivo* N (meno elettroni), e in modo *negativo* P (più elettroni).
 \newline
 Tali cariche generano dei campi elettrici (positivo su n e negativo su p), i quali impediscono un
 ulteriore passaggio di carica, ottenendo allora un **equilibrio**.
@@ -100,7 +101,8 @@ ulteriore passaggio di carica, ottenendo allora un **equilibrio**.
 
 Nel punto di contatto si crea così una zona in cui tutte le lacune sono state riempite,
 e tutti gli elettroni extra di p ceduti.
-Tale zona è detta **depletion layer** (regione di svuotamento a carica spaziale).
+Tale zona è detta **depletion layer** (regione di svuotamento a carica spaziale), al cui
+interno **non** vi sono portatori mobili.
 
 [image1.2]: immagini/1.png "Regione di svuotamento"
 ![Regione di svuotamento][image1.2]{width=68%}
@@ -109,6 +111,7 @@ In genere la regione di svuotamento non è simmetrica: deve valere:
 $$
 x_P N_A = x_N N_D
 $$
+
 Come si vede nella figura seguente ($x_P$ e $x_N$ dipendono da $N_A$ e $N_D$). \newline
 * $N_A > N_D \to$ più è drogata la regione più la regione di svuotamento è piccola. 
 
@@ -118,7 +121,7 @@ $p\rightarrow n$ (delle lacune) e $n\rightarrow p$ (degli elettroni).
 [image1.3]: immagini/2.png "Grafici relativi alla regione di svuotamento"
 !["Grafici relativi alla regione di svuotamento"][image1.3]{height=35%}
 
-Il simbolo circuitale della giunzione pn, detta **diodo** è
+Il simbolo circuitale della giunzione P-N, detta **diodo** è
 
 \begin{center}
 \begin{circuitikz}
@@ -126,8 +129,17 @@ Il simbolo circuitale della giunzione pn, detta **diodo** è
 \end{circuitikz}
 \end{center}
 
-dove a sinistra abbiamo un **anodo** A (dal greco *salita*), e a destra un **catodo** K (dal greco *discesa*).
+dove a sinistra abbiamo un **anodo** A (dal greco *salita*), e a destra un **catodo** K 
+(dal greco *discesa*).
 
+#### Polarizzazione
+
+In base all'applicazione di un potenziale sul diodo posso distinguere la:
+
+* Polarizzazione **diretta** (forward bias): applico un potenziale positivo sull'anodo A e negativo sul catodo
+K, "alzando" il potenziale
+
+#### Diodi Speciali
 \begin{center}
 \begin{circuitikz}
   \draw (0,0) node[left]{+} to[diode, l_=Diodo normale] (2,0) node[right]{-};
