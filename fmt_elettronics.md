@@ -48,7 +48,7 @@ una percentuale $N_{a}$, n. accettori) e un'altra sezione drogata con un drogagg
 percentuale $N_{d}$, n. donatori).
 
 [image1.1]: immagini/0.jpg "Giunzione P-N" 
-    ![Giunzione P-N][image1.1]{height=5%}
+![Giunzione P-N][image1.1]{height=5%}
 
 Queste due sezioni devono essere adiacenti, così che gli
 elettroni possano migrare dalla parte drogata N a quella drogata P per formare al centro una

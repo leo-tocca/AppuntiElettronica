@@ -76,7 +76,10 @@ Vediamo ora degli elementi in silicio.
 
 Una giunzione P-N è formata da una sezione del semiconduttore drogata con un drogaggio P (con
 una percentuale $N_{a}$, n. accettori) e un'altra sezione drogata con un drogaggio N (con una
-percentuale $N_{d}$, n. donatori).Il drogaggio è quantificato con le grandezze
+percentuale $N_{d}$, n. donatori). \newline
+Il materiale quindi è separato in due zone _nettamente distinte_, senza alterazione della
+struttura cristallina all'interfaccia delle due zone. \newline
+Il drogaggio è quantificato con le grandezze
 $$
 N_A = \frac{\# acceptors}{vol. unit} \text{ e } N_d=\frac{\# donors}{vol. unit}
 $$
@@ -87,9 +90,9 @@ dove $N_a$ è tipo p:'positivo', mentre $N_d$ è di tipo n:'negativo'.
 Collegando un blocco drogato tipo P ed uno tipo N abbiamo
 
 [image1.1]: immagini/0.jpg "Giunzione P-N" 
-![Giunzione P-N][image1.1]{#fig}
+![Giunzione P-N][image1.1]{width=30%}
 
-L'abbondanza di lacune in $p$ è considerabile come una carenza di elettroni, di cui $n$ *abbonda*.
+L'abbondanza di lacune in p è considerabile come una carenza di elettroni, di cui n *abbonda*.
 Ciò genera una **migrazione** di elettroni da N verso P, detta anche _corrente di diffusione_.
 
 Tale fenomeno carica in modo *positivo* N (meno elettroni), e in modo *negativo* P (più elettroni).
