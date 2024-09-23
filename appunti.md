@@ -44,6 +44,14 @@ materiali con queste condizioni?
 In generale sono gli elementi della $4°$ colonna della tavola periodica o
 composti a numero medio di elettroni liberi pari a 4 (dai 3 ai 4).
 
+Il silicio è il materiale semiconduttore _"per eccellenza"_ (da cui anche
+il nome della famosa Silicon Valley), ma nella sua forma cristallina pura
+ogni atomo forma un legame covalente[^1] con i suoi vicini "più prossimi":
+per questo, a temperatura ambiente il silicio **non** è un gran conduttore
+di elettricità.
+
+[^1]: legame chimico in cui due atomi mettono in comune delle coppie di elettroni.
+
 Per dotare un materiale semiconduttore di conduttività *selettiva* è necessario
 *"drogare"* il materiale stesso, ovvero aggiungere, in piccole dosi, nel reticolo
 cristallino materiali della $5°$ colonna (drogaggio di tipo N), o elementi
@@ -115,7 +123,8 @@ $$
 x_P N_A = x_N N_D
 $$
 
-Come si vede nella figura seguente ($x_P$ e $x_N$ dipendono da $N_A$ e $N_D$). \newline
+Come si vede nella figura seguente ($x_P$ e $x_N$ dipendono da $N_A$ e $N_D$).
+
 * $N_A > N_D \to$ più è drogata la regione più la regione di svuotamento è piccola. 
 
 Ricordando che $E=\int Q$, e che $V=\int E$, si vede come il potenziale **impedisca** il moto
@@ -124,13 +133,16 @@ $p\rightarrow n$ (delle lacune) e $n\rightarrow p$ (degli elettroni).
 [image1.3]: immagini/2.png "Grafici relativi alla regione di svuotamento"
 !["Grafici relativi alla regione di svuotamento"][image1.3]{height=35%}
 
-Il simbolo circuitale della giunzione P-N, detta **diodo** è
+Il simbolo circuitale della giunzione P-N, detta **diodo**[^4] è
 
 \begin{center}
 \begin{circuitikz}
   \draw (0,0) node[left]{A} to[diode,color=red] (2,0) node[right]{K};
 \end{circuitikz}
 \end{center}
+
+[^4]: Un diodo è un dispositivo elettrico che permette alla corrente di muoversi attraverso
+di esso in una direzione con molta più facilità che nell'altra.
 
 dove a sinistra abbiamo un **anodo** A (dal greco *salita*), e a destra un **catodo** K 
 (dal greco *discesa*).
