@@ -7,14 +7,18 @@ tags: [Appunti]
 titlepage: true
 chapters: true
 chaptersDepth: 3
-header-includes: |
+header-includes:
+- |
+  ```{=latex}
             \usepackage{cancel}
+            \usepackage{tikz}
             \usepackage{circuitikz}
             \usepackage{steinmetz}
             \usepackage{derivative}
             \usepackage{tabularray}
             \usepackage{mathtools}
             \usepackage{siunitx}
+            \usepackage{tcolorbox}
             \usepackage{geometry}
             \usepackage{array}
             \usepackage{caption}
@@ -26,6 +30,12 @@ header-includes: |
 					left=20mm,
 					top=20mm,
 				}
+            \tcbuselibrary{most}
+            \newtcolorbox[auto counter,number within=section]{mybox}[1]{colback=red!5!white, colframe=red!75!black,fonttitle=\bfseries, title={#1}}
+    ```
+pandoc-latex-environment:
+  tcolorbox: [box]
+
 ---
 
 # Dispositivi elettronici
@@ -44,13 +54,14 @@ materiali con queste condizioni?
 In generale sono gli elementi della $4°$ colonna della tavola periodica o
 composti a numero medio di elettroni liberi pari a 4 (dai 3 ai 4).
 
-Il silicio è il materiale semiconduttore _"per eccellenza"_ (da cui anche
+\begin{mybox}{\emph{Silicio}}
+Il silicio è il materiale semiconduttore \emph{"per eccellenza"} (da cui anche
 il nome della famosa Silicon Valley), ma nella sua forma cristallina pura
-ogni atomo forma un legame covalente[^1] con i suoi vicini "più prossimi":
+ogni atomo forma un legame covalente\footnote{legame chimico in cui due atomi mettono
+in comune delle coppie di elettroni.} con i suoi vicini "più prossimi":
 per questo, a temperatura ambiente il silicio **non** è un gran conduttore
 di elettricità.
-
-[^1]: legame chimico in cui due atomi mettono in comune delle coppie di elettroni.
+\end{mybox}
 
 Per dotare un materiale semiconduttore di conduttività *selettiva* è necessario
 *"drogare"* il materiale stesso, ovvero aggiungere, in piccole dosi, nel reticolo
