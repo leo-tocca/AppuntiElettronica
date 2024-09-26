@@ -1,5 +1,5 @@
 ---
-title: "Appunti Elettronica generale"
+title: "Appunti Elettronica Digitale"
 author: [Leonardo Toccafondi]
 date: 2024-04-12
 subject: "Elettronica"

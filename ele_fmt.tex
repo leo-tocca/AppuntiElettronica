@@ -3,7 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-]{article}
+]{book}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
 \ifPDFTeX
@@ -36,23 +36,35 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\setcounter{secnumdepth}{5}
 \ifLuaTeX
 \usepackage[bidi=basic]{babel}
 \else
@@ -70,6 +82,8 @@
 \usepackage{siunitx}
 \usepackage{geometry}
 \usepackage{array}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{hhline}
     \geometry{
         a4paper,
@@ -77,9 +91,6 @@
         left=20mm,
         top=20mm,
     }
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -92,15 +103,16 @@
 \date{}
 
 \begin{document}
+\frontmatter
 
 {
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{2}
 \tableofcontents
 }
+\mainmatter
 \newpage
 
-\section{Capitolo 1 Dispositivi
-elettronici}\label{capitolo-1-dispositivi-elettronici}
+\chapter{Dispositivi elettronici}\label{dispositivi-elettronici}
 
 I dispositivi dei circuiti integrati sono fatti principalmente in
 silicio (S) o in germanio (Ge) o in qualche lega come GaAs, GaN, InP,
@@ -124,39 +136,40 @@ semiconduttore (ad esempio se drogo il silicio con il boro), oppure
 esempio se drogo il silicio con il fosforo). Nel primo caso ottengo
 delle lacune, nel secondo degli elettroni in eccesso.
 
-\subsection{1.1 Giunzione P-N}\label{giunzione-p-n}
+\section{Giunzione P-N}\label{giunzione-p-n}
 
-Una giunzione P-N e formata da una sezione del semiconduttore drogata
+Una giunzione P-N è formata da una sezione del semiconduttore drogata
 con un drogaggio P (con una percentuale \(N_{a}\), n.~accettori) e
 un'altra sezione drogata con un drogaggio N (con una percentuale
 \(N_{d}\), n.~donatori).
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth,height=0.05\textheight]{immagini/0.jpg}
+\includegraphics[width=\linewidth,height=0.05\textheight,keepaspectratio]{immagini/0.jpg}
 \caption{Giunzione P-N}
 \end{figure}
 
 Queste due sezioni devono essere adiacenti, così che gli elettroni
 possano migrare dalla parte drogata N a quella drogata P per formare al
-centro una regione detta \textbf{regione di svuotamento} (dove ho
-riprodotto il reticolo cristallino classico).
+centro una regione detta \textbf{regione di svuotamento} (o
+\emph{depletion layer}) (dove ho riprodotto il reticolo cristallino
+classico).
 
 \begin{figure}
 \centering
-\includegraphics[width=0.68\textwidth,height=\textheight]{immagini/1.png}
+\includegraphics[width=0.68\linewidth,height=\textheight,keepaspectratio]{immagini/1.png}
 \caption{Regione di svuotamento}
 \end{figure}
 
 Lo scopo della regione di svuotamento è impedire che altre cariche
 negative di N possano fluire in P. La quantità di carica presente su
-ciascuna delle ''sezioni''della regione di svuotamento dev'essere
+ciascuna delle ''sezioni'' della regione di svuotamento dev'essere
 uguale, tuttavia le dimensioni delle sezioni può essere diversa e
 influenzata dalla percentuale di drogante.
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth,height=0.35\textheight]{immagini/2.png}
+\includegraphics[width=\linewidth,height=0.35\textheight,keepaspectratio]{immagini/2.png}
 \caption{``Grafici relativi alla regione di svuotamento''}
 \end{figure}
 
@@ -180,7 +193,7 @@ corrente fluisce normalmente.
 
 Se il diodo è scaldato funziona meglio.
 
-\subsubsection{1.1.1 Formule}\label{formule}
+\subsection{Formule}\label{formule}
 
 \textbf{Forward bias}
 
@@ -192,18 +205,18 @@ del diodo, \(nV_{t}\) sarà il \emph{potenziale nativo dei diodi}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.3\textwidth,height=\textheight]{immagini/3.png}
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{immagini/3.png}
 \caption{Grafico che spiega a grandi linee il comportamento di un diodo
 P-N al variare della differenza di potenziale}
 \end{figure}
 
-\subsection{1.2 Diodi particolari}\label{diodi-particolari}
+\section{Diodi particolari}\label{diodi-particolari}
 
-\subsubsection{1.2.1 Fotodiodi}\label{fotodiodi}
+\subsection{Fotodiodi}\label{fotodiodi}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth,height=\textheight]{immagini/4.png}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/4.png}
 \caption{I fotodiodi sono polarizzati inversamente}
 \end{figure}
 
@@ -218,7 +231,7 @@ elettrone-lacuna e far passare corrente.
 La corrente che scorre nel diodo non dipende dalla tensione applicata ai
 suoi capi ma solo dal flusso luminoso che colpisce la giunzione.
 
-\subsubsection{1.2.2 Formule}\label{formule-1}
+\subsection{Formule}\label{formule-1}
 
 \[
 I_d = k \cdot E_{L}
@@ -229,7 +242,7 @@ FIGURA
 \(k\) è una costante che ci dice il produttore del diodo, \(E_L\) è il
 flusso luminoso (in \(W /m^2\)) che incide sul fotodiodo.
 
-\subsubsection{Led}\label{led}
+\subsection{Led}\label{led}
 
 I led (light emitting diode) sono anch'essi diodi la cui giunzione è
 impacchettata in un involucro trasparente. La loro barriera non si trova
@@ -254,7 +267,7 @@ La luce viene emessa perché gli elettroni che si trovano ad uno stato
 energetico più alto ``saltano'' verso uno stato più basso e perdono
 energia in forma luminosa.
 
-\subsubsection{Diodi Schottky}\label{diodi-schottky}
+\subsection{Diodi Schottky}\label{diodi-schottky}
 
 I diodi Schottky sono diodi in cui la parte P è sostituita con un
 metallo (solitamente alluminio). Nella parte metallica non si può creare
@@ -267,12 +280,12 @@ o nei circuiti logici.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth,height=\textheight]{immagini/6.png}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/6.png}
 \caption{Grafico che spiega a grandi linee il comportamento di un diodo
 Schottky in confronto ad un non Schottky}
 \end{figure}
 
-\subsection{1.3 Leggi di Kirchoff}\label{leggi-di-kirchoff}
+\section{Leggi di Kirchoff}\label{leggi-di-kirchoff}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -283,12 +296,12 @@ Schottky in confronto ad un non Schottky}
   La somma delle tensioni lungo un percorso chiuso è 0
 \end{enumerate}
 
-\subsection{1.4 BJT: giunzione n-p-n (transistor
+\section{BJT: giunzione n-p-n (transistor
 bipolare)}\label{bjt-giunzione-n-p-n-transistor-bipolare}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth,height=\textheight]{immagini/7.png}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/7.png}
 \caption{Schema di un transistor bipolare}
 \end{figure}
 
@@ -333,26 +346,26 @@ Ci sono 4 regioni di funzionamento:
 
 \begin{figure}
 \centering
-\includegraphics[width=0.2\textwidth,height=\textheight]{immagini/9.png}
+\includegraphics[width=0.2\linewidth,height=\textheight,keepaspectratio]{immagini/9.png}
 \caption{Schema fisico di un BJT}
 \end{figure}
 
-\subsection{1.5 Sonda 10x}\label{sonda-10x}
+\section{Sonda 10x}\label{sonda-10x}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.6\textwidth,height=\textheight]{immagini/10.png}
+\includegraphics[width=0.6\linewidth,height=\textheight,keepaspectratio]{immagini/10.png}
 \caption{Schema di una sonda 10x}
 \end{figure}
 
 \emph{Bandwidth limit}: un tastino sull'oscilloscopio che taglia le
-frequenze sopra i 20MHz.\newpage
+frequenze sopra i 20MHz.
 
-\subsection{1.6 Diodo Zener}\label{diodo-zener}
+\section{Diodo Zener}\label{diodo-zener}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth,height=\textheight]{immagini/11.png}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/11.png}
 \caption{Schema di un diodo Zener}
 \end{figure}
 
@@ -368,14 +381,14 @@ Nel circuito in figura 1.11 la resistenza e importante perché se non ci
 fosse avrei \(\frac{V_{G}-V_{i}}{R}=i_{r}\) ma \(R\to 0\) e quindi
 \(i_{r}\to\infty\).
 
-\subsection{1.7 BJT pnp}\label{bjt-pnp}
+\section{BJT pnp}\label{bjt-pnp}
 
 Questo dispositivo è complementare al npn: le equazioni sono le medesime
 ma il verso delle correnti e delle tensioni è inverso.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth,height=\textheight]{immagini/12.png}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/12.png}
 \caption{Schema di un transistor pnp}
 \end{figure}
 
@@ -383,7 +396,7 @@ Rispetto al npn, il pnp ha un gain minore e quindi funziona peggio (per
 questo motivo, quando e possibile, si utilizzano gli npn), ovvero scorre
 meno corrente (ha un'efficienza di circa la metà degli elettroni).
 
-\subsection{1.8 Fototransistor}\label{fototransistor}
+\section{Fototransistor}\label{fototransistor}
 
 La corrente di base viene generata quando è esposto alla luce, per il
 resto è un transistor normale.
@@ -398,20 +411,24 @@ saturazione.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth,height=\textheight]{immagini/13.png}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/13.png}
 \caption{Schema di un fototransistor}
 \end{figure}
 
-\subsection{1.9 Mos}\label{mos}
+\section{Mos}\label{mos}
 
 MOS è una sigla che sta per \textbf{metallo}, \textbf{ossido} e
 \textbf{semiconduttore} e sono indica dei dispositivi controllati dalla
 differenza di potenziale presente tra due suoi terminali. Una
 particolarità di questa tecnologia è il non utilizzo della giunzione.
 
-\subsubsection{N-Mos}\label{n-mos}
+\subsection{N-Mos}\label{n-mos}
 
-Figure 1.14: Schema di un N-MOS
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{immagini/14.png}
+\caption{Schema di un N-MOS}
+\end{figure}
 
 Questo dispositivo ha tre terminali: source, gate e drain. Se siamo in
 corrente continua allora la corrente che scorre nel gate è 0,
@@ -430,7 +447,11 @@ tra di loro che è come se ci fosse un canale tra il source e il drain.
 Questo dispositivo non può andare in breakdown perché tra la parte
 metallica e p c'è uno strato isolante.
 
-figura sgd
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/15.png}
+\caption{SGD}
+\end{figure}
 
 \textbf{Regioni di lavoro}
 
@@ -457,7 +478,11 @@ figura sgd
   va a costituire il canale e L la sua lunghezza.
 \end{itemize}
 
-figura drain to source voltage
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/16.png}
+\caption{Grafico N-MOS}
+\end{figure}
 
 All'aumentare della corrente il N-MOS si comporta come un resistore la
 cui resistenza è data da \(R=\frac{\rho\cdot L}{s}\) (s non so cosa
@@ -467,7 +492,13 @@ Non posso realizzare dispositivi troppo piccoli perché canali di
 dimensioni ridotte supportano tensioni più basse (o meglio posso ma devo
 utilizzare tensioni minori).
 
-\subsubsection{P-MOS}\label{p-mos}
+\subsection{P-MOS}\label{p-mos}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/17.png}
+\caption{Schema di un P-MOS}
+\end{figure}
 
 Al contrario dell'N-MOS qui devo attirare le lacune. Le equazioni sono
 le stesse, solo tensioni e correnti hanno il segno invertito
@@ -487,12 +518,9 @@ I_{D1}=K(V_{G1}-V_{t})^{2}\\
 I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\longrightarrow\begin{cases}\sqrt{I_{D1}}=\sqrt{K}(V_{G1}-V_{t})\\
 \sqrt{I_{D2}}=\sqrt{K}(V_{G2}-V_{t})
 \end{cases}
-\]\\
-Figure 15: Schema di un P-MOS
+\]
 
-\newpage
-
-\section{Chapter 2 Algebra booleana}\label{chapter-2-algebra-booleana}
+\chapter{Algebra booleana}\label{algebra-booleana}
 
 Lo scopo di un circuito logico è quello di trasferire e processare
 informazioni. Esistono tre porte principali: not, and, or.
@@ -504,9 +532,9 @@ utilizzando solo una di queste due perché se mettiamo in entrambi gli
 ingressi della porta lo stesso ingresso, l'uscita e un \emph{banale}
 not.
 
-\subsection{2.1 Parametri}\label{parametri}
+\section{Parametri}\label{parametri}
 
-\subsubsection{Parametri statici}\label{parametri-statici}
+\subsection{Parametri statici}\label{parametri-statici}
 
 Ogni famiglia logica ha dei parametri statici:
 
@@ -534,7 +562,7 @@ Ogni famiglia logica ha dei parametri statici:
   minima \(V_{iH}\) e \(V_{iL}\). Come noise margin si prende il minimo
   tra il noise margin relativo al livello alto e a quello basso:
   \[NM_{H} =V_{oH}-V_{iH}\] \[NM_{L} =V_{iL}-V_{oH}\]
-  \[NM =min(NM_{L},NM_{h})\] più NM è alto, meglio è perché vuol dire
+  \[NM =\min(NM_{L},NM_{h})\] più NM è alto, meglio è perché vuol dire
   che il sistema e meno sensibile al rumore.\\
 \item
   \textbf{Fan out} è il numero massimo di porte a cui può essere
@@ -546,7 +574,7 @@ Ogni famiglia logica ha dei parametri statici:
   \(P_{L}=V_{cc}\cdot i_{L}\).
 \end{itemize}
 
-\subsubsection{Parametri dinamici}\label{parametri-dinamici}
+\subsection{Parametri dinamici}\label{parametri-dinamici}
 
 Questi invece sono parametri che riguardano la famiglia logica durante
 la commutazione.
@@ -573,23 +601,37 @@ la commutazione.
   consumo di potenza di un certo dispositivo.
 \end{itemize}
 
-\subsection{2.2 Famiglie logiche}\label{famiglie-logiche}
+\section{Famiglie logiche}\label{famiglie-logiche}
 
-\subsubsection{RTL (resistor-transistor
+\subsection{RTL (resistor-transistor
 logic)}\label{rtl-resistor-transistor-logic}
 
-Figure 2.1: Questa famiglia logica funziona come una porta NOT. Tuttavia
-i suoi parametri non sono ottimali e infatti non viene più usata(?).
+Questa famiglia logica (rappresentata in figura) funziona come una porta
+NOT
 
-Se su 2.1 viene messa una corrente \(I_{N}=0\) allora ho il transistor
-in interdizione, quindi non passa corrente e quindi \(I_{C}=0\).
-Conseguentemente \(V_{out}=5V-R_{C}\cdot I=5V\).
+\begin{figure}
+\centering
+\includegraphics[width=0.4\linewidth,height=\textheight,keepaspectratio]{immagini/18.png}
+\caption{Porta NOT}
+\end{figure}
+
+Tuttavia i suoi parametri non sono ottimali e infatti non viene più
+usata(?)'' Se su 2.1 viene messa una corrente \(I_{N}=0\) allora ho il
+transistor in interdizione, quindi non passa corrente e quindi
+\(I_{C}=0\). Conseguentemente \(V_{out}=5V-R_{C}\cdot I=5V\).
 
 Se invece viene applicata una tensione di 5V riesco a mandare in
 saturazione il transistor e quindi in \(V_{out}\) ho una tensione molto
 bassa, tipo 0.2V.
 
-Il circuito del RTL completo prevede anche un'altra parte:
+Il circuito del RTL completo (quindi che rappresenta una porta NOR)
+prevede anche un'altra parte:
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\linewidth,height=\textheight,keepaspectratio]{immagini/19.png}
+\caption{Porta NOR}
+\end{figure}
 
 La cui relativa tabella di verità è \[
 \begin{array}{cc|c}\text{A}&\text{B}&\text{NOR}\\\hline0&0&1\\0&1&0\\1&0&0\\1&1&0\end{array}
@@ -598,20 +640,32 @@ interdetti e quindi l'uscita \(V_{out}\) è altra. Se invece almeno uno è
 in saturazione la famiglia logica ha come uscita un livello basso perché
 la corrente a questo punto scorre anche nel transistor.
 
-\subsubsection{TTL
+\subsection{TTL
 (transistor-transistor)}\label{ttl-transistor-transistor}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/20.jpg}
+\caption{Porta NOT (base)}
+\end{figure}
 
 Se l'ingresso è 5V vado in regione attiva inversa (conseguentemente ho
 un guadagno basso) e quindi nel collettore passa praticamente solo la
 corrente di base. Il problema dell'assorbimento, con questa famiglia
 logica, si presenta quando il transistor viene acceso (però è di
 grandezza minore perché qui il transistor è già in saturazione, inoltre
-la porta funziona in modo più predicibile). Figure 2.3: Porta NOT (base)
-Un altro vantaggio è che \(Q_{1}\) rimuove le minority carriers da
-\(Q_{2}\) durante la transizione LH. Di contro resta una resistenza di
-pullup che serve per attirare tanta corrente. \newline Quindi è stata
-pensata una versione \textbf{enhanced} del not (in realtà poi c'è la
-versione enhanced della enhanced).
+la porta funziona in modo più predicibile).Un altro vantaggio è che
+\(Q_{1}\) rimuove le minority carriers da \(Q_{2}\) durante la
+transizione LH. Di contro resta una resistenza di pullup che serve per
+attirare tanta corrente. \newline Quindi è stata pensata una versione
+\textbf{enhanced} del not (in realtà poi c'è la versione enhanced della
+enhanced).
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/21.jpg}
+\caption{Porta enhanced NOT}
+\end{figure}
 
 La caratteristica di questa porta è che c'è un invertitore che permette
 di funzionare bene sia quando l'uscita è alta che quando è bassa. Il
@@ -623,7 +677,11 @@ spengono/accendono \(Q_{4}/Q_{2}\).
 Il problema di questa porta è che l'uscita HL è poco ripida, quindi è
 possibile aggiungere un altro transistor.
 
-Figure 2.5: Porta enhanced\({}^{2}\) NOT
+\begin{figure}
+\centering
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{immagini/22.jpg}
+\caption{Porta enhanced\(^{2}\) NOT}
+\end{figure}
 
 Questa porta (ma anche le altre) sono fatte con transistor NPN.
 L'\textbf{active pull down} è un dispositivo che serve a svuotare
@@ -637,11 +695,16 @@ scelta molto buona perché questa porta e sia più veloce dell'altra ma
 consuma anche meno (questo accade perché nell'intervallo di tempo tra
 l'input che e andato a 0 e l'output che sale a 1 (circa 10ns) il
 circuito assorbe corrente; grazie al transistor questa finestra di tempo
-e quasi dimezzata e quindi anche la corrente assorbita e
-minore).\newline Con TTL e più facile implementare un NAND:
+e quasi dimezzata e quindi anche la corrente assorbita e minore).
 
-Figura 2.6: Porta NAND. In pratica è un NOT ma dove Q1 ha due o più
-emettitori
+Con TTL è più facile implementare un NAND:
+
+\begin{figure}
+\centering
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{immagini/23.jpg}
+\caption{Porta NAND. In pratica è un NOT ma dove \(Q_1\) ha due o più
+emettitori}
+\end{figure}
 
 Il funzionamento della porta è il seguente: il primo dei due emettitori
 che collego alla terra spegne il circuito a destra e quindi passa la
@@ -654,7 +717,7 @@ Durante le commutazioni del not, in quella HL passo da avere \(Q_{4}\) e
 \(Q_{2},Q_{3},Q_{5}\) in saturazione e passo ad avere accesi \(Q_{1}\) e
 \(Q_{4}\).
 
-\subsubsection{MOS logic cells}\label{mos-logic-cells}
+\subsection{Logic cells}\label{logic-cells}
 
 I MOS utilizzati possono essere sia a canale P che a canale N. Possono
 poi esserci MOS ad arricchimento: dove applicando tensione al gate si
@@ -663,15 +726,22 @@ chiuderlo. Il vantaggio di utilizzare i MOS per realizzare porte logiche
 è quello che permette di realizzare dispositivi molto compatti e che
 consumano meno.
 
-Figure 2.7: Invertitore CMOS.
+\begin{figure}
+\centering
+\includegraphics[width=0.4\linewidth,height=\textheight,keepaspectratio]{immagini/24.jpg}
+\caption{Invertitore CMOS}
+\end{figure}
 
 Solitamente vogliamo che i dispositivi digitali lavorino nella regione
 lineare (i mos) e in saturazione (i bjt). Nel caso dei mos, quando sono
 in regione lineare funzionano come se fossero delle resistenze connesse
 ad un interruttore (l'interruttore si apre quando il cmos è interdetto).
 
-Figure 2.8: Come varia l'uscita \(V_{o}\) al variare dell'ingresso
-\(V_{i}\).
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/25.jpg}
+\caption{Come varia l'uscita \(V_o\) al variare dell'ingresso \(V_i\)}
+\end{figure}
 
 La corrente di ingresso e di uscita, in un mos, in condizioni statiche,
 è 0.
@@ -682,9 +752,9 @@ questo motivo la curva in 2.8 è antisimmetrica rispetto al centro).
 Facendo così il margine di rumore alto e basso sono uguali e quindi
 ottimizzo le risorse della porta logica.
 
-Le formule che indicano i vari parametri sono:
-\[\begin{aligned}&V_{iH}=\frac{1}{8}[5V_{DD}-2V_{t}]\\&V_{iL}=\frac{1}{8}[3V_{DD}+2V_{t}]\\&V_{oH}=V_{DD}\\&V_{0L}=0\\&NM_{L}=NM_{H}=NM=V_{iL}\end{aligned}\]
-Il noise margin massimo si ha quando \(V_iL=V_{iH}\). Tuttavia questa
+Le formule che indicano i vari parametri sono: \[
+\begin{aligned}&V_{iH}=\frac{1}{8}[5V_{DD}-2V_{t}]\\&V_{iL}=\frac{1}{8}[3V_{DD}+2V_{t}]\\&V_{oH}=V_{DD}\\&V_{0L}=0\\&NM_{L}=NM_{H}=NM=V_{iL}\end{aligned}
+\] Il noise margin massimo si ha quando \(V_iL=V_{iH}\). Tuttavia questa
 condizione non è ottimale perché l'onda della transizione è poco brusca
 e a noi piace quando la transizione avviene rapidamente (inoltre se non
 è brusca passa della corrente nel circuito) e quindi le tensioni di
@@ -694,10 +764,13 @@ interessa poco. Invece nei TTL abbiamo una tensione di soglia fissa da
 abbattere (0.7V). Con i MOS è possibile lavorare sui parametri quando lo
 andiamo a costruire e farne uno con un canale più corto e che quindi
 lavora con tensioni più basse (e che ovviamente è più piccolo). Con CMOS
-è possibile sia fare un NOR che un NAND. Figure 2.9: NOR fatto con
-tecnologia CMOS.
+è possibile sia fare un NOR che un NAND.
 
-Figure 2.10: NAND fatto con tecnologia CMOS.
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/26.jpg}
+\caption{``NOR fatto che tecnlogia CMOS''}
+\end{figure}
 
 Ecco un confronto tra TTL e CMOS:
 
@@ -717,19 +790,23 @@ bias currents e input currents \par{}contribuiscono alla dissipazione della pote
 \end{tabular}
 \end{table}
 
-\subsubsection{BiCMOS}\label{bicmos}
+\subsection{BiCMOS}\label{bicmos}
 
 A volte vogliamo poter combinare sia i vantaggi di CMOS (alta
 integrazione e consumo di potenza statica basso) con quelli dei circuiti
 bipolari.
 
-Figure 2.11: Invertitore fatto con tecnologia BiCMOS.
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/27.jpg}
+\caption{``Invertitore fatto con tecnologia BiCMOS''}
+\end{figure}
 
 Questo sopra ha un'uscita compatibile con i CMOS, ma nel caso volessimo
 avere un'uscita compatibile TTL la cosa migliore da fare è utilizzare
 input TTL compatibili (e in uscita un totem pole).
 
-\subsection{2.3 Logica combinatoria e
+\section{Logica combinatoria e
 sequenziale}\label{logica-combinatoria-e-sequenziale}
 
 \begin{itemize}
@@ -748,10 +825,15 @@ sequenziale}\label{logica-combinatoria-e-sequenziale}
 
 L'elemento di memoria utilizzato è il flip-flop D.
 
-\subsection{2.4 Latch SR}\label{latch-sr}
+\section{Latch SR}\label{latch-sr}
 
-Figure 2.12: Latch Set-Reset. Gli ingressi sono ``bassi attivi'' (se
-messi a 0 sono accesi). \[
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/28.png}
+\caption{Latch Set-Reset}
+\end{figure}
+
+Gli ingressi sono ``bassi attivi'' (se messi a 0 sono accesi). \[
 \begin{array}{ccccc}\overline{S}&\overline{R}&Q_{new}&\overline{Q_{new}}\\\hline1&1&Q_{old}&\overline{Q_{old}}&\text{hold}\\0&1&1&0&\text{set}\\1&0&0&1&\text{reset}\\0&0&1&1&\text{combinazione proibita}\end{array}
 \] L'ultima combinazione è necessario evitarla per due motivi:
 
@@ -772,11 +854,15 @@ dell'altro ingresso, se invece ho uno 0 l'uscita e per forza 1).
 
 Nelle FPGA è proibito sintetizzare la funzione logica dei latch.
 
-\subsection{2.5 Positive edge triggered flip flop (DFF, flip flop di
-tipo
+\section{Positive edge triggered flip flop (DFF, flip flop di tipo
 D)}\label{positive-edge-triggered-flip-flop-dff-flip-flop-di-tipo-d}
 
-Figure 2.13: E un flip flop D. I due NAND più a destra sono un latch SR.
+\begin{figure}
+\centering
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{immagini/29.png}
+\caption{È un flip flop D. I due NAND più a destra sono un latch SR.}
+\end{figure}
+
 \[
 \begin{array}{ccccc}
 C&D&Q_{new}&\overline{Q_{new}}\\
@@ -792,7 +878,7 @@ Per vedere nello schema come funziona la transizione, ad esempio
 \(\uparrow\) con D=0, prima calcolo C=0 e D=0, poi metto C=1 e vedo come
 cambia l'output.
 
-\subsection{2.6 Circuiti integrati
+\section{Circuiti integrati
 commerciali}\label{circuiti-integrati-commerciali}
 
 I circuiti logici possono essere implementati:
@@ -868,21 +954,15 @@ in resina con a destra e a sinistra dei piedini (through-hole, ovvero
 che passano attraverso la scheda). La distanza tra un piedino e l'altro
 è di \(\frac{1}{10}\)in (2.54cm). Sono così grandi perché le macchine
 che assemblavano i circuiti integrati non potevano lavorare con oggetti
-più piccoli di questi.
-
-Figura 2.14: DIP
-
-Successivamente sono stati sostituiti dai \textbf{SMD} (surface mounted
-device), che nella forma sono simili ai DIP solo che la distanza tra i
-piedini e massimo massimo 50mils (1 mils = 0.001 in) (50mils = 1.27mm)
-ma se no è meno. Questo vuol dire che sono più piccoli e quindi hanno
-meno induttanza e conduttanza parasite. Inoltre a parità di piedini
-occupano \(\frac{1}{4}\) volte l'area che occuperebbe un DIP. I piedini
-dei SMD sono da appoggiare sulla superficie del circuito e saldarli.
-
-Figure 2.15: SMD
-
-Questi si usano ancora oggi.
+più piccoli di questi. \textbackslash{} Successivamente sono stati
+sostituiti dai \textbf{SMD} (surface mounted device), che nella forma
+sono simili ai DIP solo che la distanza tra i piedini e massimo massimo
+50mils (1 mils = 0.001 in) (50mils = 1.27mm) ma se no è meno. Questo
+vuol dire che sono più piccoli e quindi hanno meno induttanza e
+conduttanza parasite. Inoltre a parità di piedini occupano
+\(\frac{1}{4}\) volte l'area che occuperebbe un DIP. I piedini dei SMD
+sono da appoggiare sulla superficie del circuito e saldarli. Questi si
+usano ancora oggi.
 
 Dopo (una ventina d'anni fa) sono stati inventati i \textbf{BGA} e gli
 \textbf{LGA}, rispettivamente \emph{ball grid array} e \emph{land grid
@@ -891,9 +971,28 @@ servono per essere saldate (con dei forni). I secondi hanno tanti
 aggegetti, sempre sotto il chip, come ad esempio i processori (così che
 poi possono essere messi su un ``aggancio'' apposito che ha tanti pin).
 
-Figure 2.16: BGA
-
-Figure 2.17: LGA
+\begin{figure}[h]
+\centering
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/30.png}
+    \caption{[DIP: Dual In-line Package}
+  \end{subfigure}
+  \hspace{0.02\textwidth}
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/31.jpg}
+    \caption{SMD: Surface Mounted Device}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/32.jpg}
+    \caption{[BGA: Ball Grid Array}
+  \end{subfigure}
+  \hspace{0.02\textwidth}
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/33.jpg}
+    \caption{LGA: Land Grid Array]}
+\end{subfigure}
+\caption{Diversi circuiti integrati}
+\end{figure}
 
 Poi c'è una tecnologia che consiste nel prendere il chip senza packaging
 e schiaffarlo direttamente sul circuito. Questa opzione si chiama bare
@@ -907,8 +1006,7 @@ cortocircuito tra le varie palline (quindi è un packaging molto buono).
 È possibile mettere le palline direttamente sul silicio e quindi fare un
 misto tra BGA e SMD (solitamente questa cosa funziona se ho pochi pin).
 
-\subsection{2.7 Famiglie logiche
-standard}\label{famiglie-logiche-standard}
+\section{Famiglie logiche standard}\label{famiglie-logiche-standard}
 
 Le famiglie TTL sono solo a 5V per ragioni costruttive.
 
@@ -966,7 +1064,7 @@ Poi ci sono altre famiglie un po più moderne:
 
 Attualmente si utilizzano LVC e BiCMOS.
 
-\subsubsection{Nomenclature delle porte
+\subsection{Nomenclature delle porte
 logiche}\label{nomenclature-delle-porte-logiche}
 
 La nomenclatura standard prevede:
@@ -996,7 +1094,7 @@ Esempio:
 \[\underbrace{SN}_{1}\underbrace{74}_{2}\underbrace{AC}_{3}\underbrace{00}_{4}-
 \underbrace{xxx}_{5}\]
 
-\subsubsection{Comparazione tra famiglie
+\subsection{Comparazione tra famiglie
 logiche}\label{comparazione-tra-famiglie-logiche}
 
 Per effettuare una comparazione tra le famiglie logiche si può
@@ -1018,17 +1116,21 @@ proporzionale) al consumo di potenza.
 Le famiglie BiCMOS il consumo di potenza è elevato (possono essere
 utilizzate in caso mi serva elevata corrente d'uscita).
 
-\subsection{2.8 Come si imposta l'input}\label{come-si-imposta-linput}
+\section{Come si imposta l'input}\label{come-si-imposta-linput}
 
-Figure 2.18: Il circuito A, quando è accesa l'uscita e a 0V, quando è
-spento e a \(V_{CC}\). Il circuito B è il contrario
+\begin{figure}
+\centering
+\includegraphics[width=0.4\linewidth,height=\textheight,keepaspectratio]{immagini/34.png}
+\caption{Il circuito A, quando è accesa l'uscita e a 0V, quando è spento
+e a \(V_{CC}\). Il circuito B è il contrario}
+\end{figure}
 
 Queste due configurazioni sono uguali solo quando \(I_{iH}\) e
 \(I_{iL}\) sono uguali (e quindi nei CMOS). Per i circuiti TTL è meglio
 utilizzare il circuito A perché così non ho cadute di tensione dovute a
 \(I_{iL}\).
 
-\subsection{2.9 Cosa fare con i piedini non
+\section{Cosa fare con i piedini non
 utilizzati}\label{cosa-fare-con-i-piedini-non-utilizzati}
 
 I piedini CMOS non utilizzati sono un bel problema perché hanno
@@ -1072,18 +1174,21 @@ e importanti sono solo le ultime due.
 Quando progetto devo utilizzare il \textbf{worst case design}: devo
 progettare considerando i valori peggiori.
 
-Figure 2.19: I range di I/O dipendono dal processo di produzione,
-temperatura attuale e \(V_{CC}\).
+\phantomsection\label{fig:figureRef2}
+\includegraphics[width=0.35\linewidth,height=\textheight,keepaspectratio]{immagini/35.png}
+\includegraphics[width=0.35\linewidth,height=\textheight,keepaspectratio]{immagini/36.png}
 
-Figure 2.20: Questo è il grafico 2.19 ma messo in verticale. Il TTL e il
-CMOS 3.3V sono molto simili. Questa cosa è intenzionale così che sono
-compatibili tra di loro.
+TTL e CMOS
 
 Per rendere compatibili CMOS 5V e TTL si può introdurre un pull-up come
 in figura 2.21. \(R_{p}\) deve essere tale da non superare un certo
 limite imposto dalla porta quando ha uscita bassa.
 
-Figure 2.21
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/37.png}
+\caption{TTL con pull-up}
+\end{figure}
 
 Se \(R_{p}\) è grande allora la porta ``si beve'' molta corrente;
 tuttavia più è grande la resistenza, minore è il consumo di potenza in
@@ -1092,15 +1197,33 @@ condizioni statiche.
 Però c'è anche il problema che più prendo grande la resistenza più ci
 mette il circuito a commutare tra due livelli. Quindi la cosa migliore
 da fare e prendere una resistenza nell'intervallo identificato dai
-calcoli di figura 2.22 che permetta al circuito di commutare nel tempo
-desiderato.
+calcoli espressi qui sotto che permetta al circuito di commutare nel
+tempo desiderato.
 
-Figure 2.22
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/38.png}
 
-Figure 2.23: A sinistra c'è una porta TTL con uscita alta, a destra con
-uscita bassa.
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/39.png}
+\caption{A sinistra c'è una porta TTl con uscita alta, a destra con
+uscita bassa}
+\end{figure}
 
-Figure 2.24: I TTL sono asimmetrici in correnti di uscita mentre i CMOS
+\begin{longtable}[]{@{}ccc@{}}
+\toprule\noalign{}
+& I\_\{OH\} max (mA) & I\_\{OL\} max (mA) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+LS00 & -0,4 & +16 \\
+F00 & -1 & +20 \\
+F244 & -15 & +64 \\
+AHC00 & -8 & +8 \\
+LVC244 & -24 & +24 \\
+\end{longtable}
+
+Tabella: I TTL sono asimmetrici in correnti di uscita mentre i CMOS
 hanno output simmetrici.
 
 L'uscita dei TTL funziona meglio quando è ``bassa'' perché ha una
@@ -1111,7 +1234,7 @@ Per le famiglie CMOS non c'è alcun motivo per cui continuare ad
 utilizzare segnali attivi bassi se non perché ``si è sempre fatto
 così''.
 
-\subsection{2.10 Datasheet}\label{datasheet}
+\section{Datasheet}\label{datasheet}
 
 Le info sulle porte logiche sono sul datasheet. Queste info sono:
 
@@ -1149,8 +1272,7 @@ il \(\tau\) relativo al condensatore è pari al transmission rate
 \(\times V_{CC}\), se faccio \(\tau/C\) ottengo il valore massimo della
 resistenza di pullup che posso utilizzare senza avere problemi.
 
-\subsection{2.11 Scariche
-elettrostatiche}\label{scariche-elettrostatiche}
+\section{Scariche elettrostatiche}\label{scariche-elettrostatiche}
 
 Se scarichiamo su di un circuito lo rompiamo (a meno che questo non sia
 progettato opportunamente per evitare tale evenienza).
@@ -1165,7 +1287,11 @@ sia possibile testare se un circuito resista alle scariche
 elettrostatiche provenienti da tale ente. Ad esempio esistono modelli
 dell'uomo, delle macchine industriali e di altri dispositivi carichi.
 
-Figure 2.25: Human body model
+\begin{figure}
+\centering
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{immagini/40.png}
+\caption{Human body model}
+\end{figure}
 
 Il costruttore poi potrebbe utilizzare dei diodi in modo tale da evitare
 che le scariche effettuate sul componente siano fatali o potrebbe
@@ -1179,7 +1305,7 @@ lavoro troppo secco (e troppo umido).
 Nel datasheet ci sono le specifiche con cui è stato testato il
 dispositivo contro le ESD.
 
-\subsection{2.12 Consumi di potenza durante la
+\section{Consumi di potenza durante la
 commutazione}\label{consumi-di-potenza-durante-la-commutazione}
 
 All'aumentare della frequenza di commutazione aumenta anche la potenza
@@ -1219,8 +1345,7 @@ Per l'onda quadra vale \(i_{0}=i_{p}=C_{L}\cdot\frac{dV}{dt}\) e quindi
 l'integrale diventa facilmente
 
 \begin{align*}
-\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt &=\int_{0}^{T}C_{L}\cdot\frac{dV}{dt}\cdot V_{o}(t)dt\\
-&=\int_{0}^{V_{DD}}C_{L}\cdot V_{0}dV\\
+\int_{0}^{T}i_{0}(t)\cdot V_{o}(t)dt &=\int_{0}^{T}C_{L}\cdot\frac{dV}{dt}\cdot V_{o}(t)dt=\int_{0}^{V_{DD}}C_{L}\cdot V_{0}dV\\
 &=\frac{1}{2}V_{DD}^{2}C_{L}
 \end{align*}
 
@@ -1253,7 +1378,7 @@ va al massimo fmo a quando non arriva alla temperatura limite e poi
 diminuisce la potenza per restare a tale temperatura, ovviamente le
 prestazioni sono ridotte) (questa cosa è tipica delle GPU e SSD)
 
-\subsection{Convertitori}\label{convertitori}
+\section{Convertitori}\label{convertitori}
 
 I convertitori servono per trasformare segnali analogici in segnali
 continui e viceversa. Questi sfruttano i concetti di
@@ -1265,7 +1390,7 @@ vengono sostituiti con il valore del \textbf{livello di quantizzazione}
 più vicino. La \textbf{risoluzione} è il numero di bit con cui viene
 quantizzato il segnale.
 
-\subsubsection{Principali formati
+\subsection{Principali formati
 digitali}\label{principali-formati-digitali}
 
 \[\begin{array}{c|c|c|c}V_{in}&\text{Binary}&\text{Offset binary}&\text{2's compl.}\\\hline V_{fs}/2&111111&111111&011111\\+\text{dV}&000001&100001&000001\\0&000000&100000&000000\\-\text{dV}&/&011111&111111\\-V_{fs}/2&/&000000&100000\end{array}\]
@@ -1278,33 +1403,32 @@ convertire perché se è più piccolo chiaramente non possiamo convertirlo
 per bene, mentre se è più grande abbiamo dei problemi perché è come se
 sfruttassimo meno bit e quindi otteniamo meno precisione.
 
-\subsubsection{Convertitori D/A}\label{convertitori-da}
+\subsection{Convertitori D/A}\label{convertitori-da}
 
-Figure 2.26: Questo D/A converter non e ottimale perché richiede che i
-valori delle resistenze siano precisi e questi solitamente non lo sono.
+\begin{figure}
+\centering
+\includegraphics[width=0.4\linewidth,height=\textheight,keepaspectratio]{immagini/41.png}
+\caption{Questo D/A converter non è ottimale perché richiede che i
+valori delle resistenze siano precisi e questi solitamente non lo sono.}
+\end{figure}
 
 Il convertitore in figura 2.26 sfrutta un amplificatore invertente e il
 principio di sovrapposizione: \(V_{out}\) e
 \(-\frac{R_{F}}{R_{G}}\cdot V_{in}\) dove \(R_{F}\) è la resistenza in
 parallelo all'amplificatore e \(R_{G}\) è quella dopo l'ingresso a 5V,
-posso poi calcolare i \(V_{out}\) per tutte
-
-\begin{center}
-\begin{table} \begin{tabular}{c|c|c|c} $V_{in}$ & Binary & Offset binary & 2's compl. \\
-\hline $V_{fs}/2$ & 111111 & 111111 & 011111 \\ +dV & 000001 & 100001 & 000001 \\ 0 & 000000
-& 100000 & 000000 \\ -dV & / & 011111 & 111111 \\ $-V_{fs}/2$ & / & 000000 & 100000 \\
-\end{tabular} \end{table}
-\end{center}
-
-le resistenze e trovare la tensione di uscita totale facendone la
-combinazione lineare
+posso poi calcolare i \(V_{out}\) per tutte le resistenze e trovare la
+tensione di uscita totale facendone la combinazione lineare
 
 \[V_{out}=-V_{in}\cdot\left(\frac{R_{F}}{R_{G_{1}}}+\frac{R_{F}}{R_{G_{2}}}+...+
 \frac{R_{F}}{R_{G_{n}}}\right)\]
 
-Una soluzione migliore e il \textbf{R-2R converter}.
+Una soluzione migliore è il \textbf{R-2R converter}.
 
-Figura 2.27
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/42.png}
+\caption{R-2R converter}
+\end{figure}
 
 Nel convertitore in figura 2.27 vengono utilizzate solo due tipologie di
 resistenze: una con valore R e una che vale 2R.
@@ -1332,7 +1456,7 @@ La \textbf{risoluzione} si esprime in numero di bit utilizzati.
 
 Il segnale di output di un DAC è campionato e quantizzato.
 
-\subsubsection{Convertitori A/D}\label{convertitori-ad}
+\subsection{Convertitori A/D}\label{convertitori-ad}
 
 È importante che il segnale in ingresso sfrutti tutta la capacità di
 conversione del dispositivo, per esempio se il convertitore lavora
@@ -1346,16 +1470,19 @@ di un fattore 5, così che oscilli tra 0 e 10V.
   Digital ramp ADC
 \end{itemize}
 
-Figura 2.28
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/43.png}
+\caption{Digital ramp ADC}
+\end{figure}
 
 In questo tipo di convertitore viene utilizzato un comparatore che ha
 output 1 se gli ingressi sono uguali e 0 se sono diversi. Nel contatore
 viene messo il valore convertito. La conversione avviene gradualmente
 fino ad un certo punto dove il segnale in uscita diventa 0, a quel punto
-la conversione è completata.
-
-Il principale problema di questo convertitore è che per completare una
-conversione richiede fino a \(2^{N}\) colpi di clock.
+la conversione è completata. \newline Il principale problema di questo
+convertitore è che per completare una conversione richiede fino a
+\(2^{N}\) colpi di clock.
 
 \begin{itemize}
 \tightlist
@@ -1363,12 +1490,22 @@ conversione richiede fino a \(2^{N}\) colpi di clock.
   Successive approx. ADC
 \end{itemize}
 
-Figura 2.30
+\begin{figure}
+\centering
+\includegraphics[width=0.4\linewidth,height=\textheight,keepaspectratio]{immagini/44.png}
+\caption{Successive approximation ADC - 1}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\linewidth,height=\textheight,keepaspectratio]{immagini/45.png}
+\caption{Successive approximation ADC - 2}
+\end{figure}
 
 La struttura di fondo è la medesima di quella prima, solo che adesso la
 conversione avviene utilizzando un algoritmo di bisezione. In questo
 modo divido lo spazio in 2 ad ogni passo. Il numero di colpi di clock
-per completare una conversione e N.
+per completare una conversione è N.
 
 \begin{itemize}
 \tightlist
@@ -1382,20 +1519,28 @@ varie informazioni. Tuttavia ho bisogno di \(2^{N}\) comparatori e
 questi occupano diverso spazio sul silicio e quindi posso lavorare solo
 con pochi bit di uscita.
 
-Figura 2.31
+\includegraphics[width=0.4\linewidth,height=\textheight,keepaspectratio]{immagini/46.png}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/47.png}
 
-Figure 2.32: Come viene effettuato il campionamento
+\begin{figure}[!h]
+\begin{subfigure}[t]{0.4\textwidth}
+\caption{Flash ADC}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.6\textwidth}
+\caption{Come viene effettuato il campionamento}
+\end{subfigure}
+\end{figure}
 
 Nel ADC flash il campionamento avviene quando metto il dato nel
 registro. Nel SAR tale momento si ha quando ho finito l'ultima
 conversione mentre il tempo di conversione è il tempo di esecuzione
-dell'algoritmo di conversione.
+dell'algoritmo di conversione. \newline Nei digital ramp il momento di
+campionamento + quando ``l'uscita diventa 0'', il tempo di conversione è
+variabile.
 
-Nei digital ramp il momento di campionamento + quando ``l'uscita diventa
-0'', il tempo di conversione è variabile.
-
-\section{Chapter 3 Microprocessori, microcontrollori,
-etc.}\label{chapter-3-microprocessori-microcontrollori-etc.}
+\chapter{Microprocessori, microcontrollori,
+etc.}\label{microprocessori-microcontrollori-etc.}
 
 Ci sono tanti tipi di dispositivi programmabili: microcontrollori,
 microprocessori, GPU, FPGA, ecc.
@@ -1407,7 +1552,7 @@ Le GPU contengono migliaia di core (che magari sono meno potenti della
 singola CPU però sono comunque migliaia). Le FPGA contengono milioni di
 porte logiche.
 
-\subsection{3.1 Definizioni}\label{definizioni}
+\section{Definizioni}\label{definizioni}
 
 \begin{itemize}
 \tightlist
@@ -1431,7 +1576,7 @@ porte logiche.
 Il DMA controller del microcontrollore, di solito (quando manca il SO),
 deve essere programmato da noi.
 
-\subsection{3.2 Requisiti di un
+\section{Requisiti di un
 microcontrollore}\label{requisiti-di-un-microcontrollore}
 
 \begin{itemize}
@@ -1448,7 +1593,11 @@ microcontrollore}\label{requisiti-di-un-microcontrollore}
   che ci sia un solo bus che collega le memorie alla CPU
 \end{itemize}
 
-Figura 3.1 Architetture a confronto
+\begin{figure}
+\centering
+\includegraphics[width=0.4\linewidth,height=\textheight,keepaspectratio]{immagini/48.png}
+\caption{Architetture a confronto}
+\end{figure}
 
 \begin{itemize}
 \tightlist
@@ -1491,11 +1640,15 @@ Figura 3.1 Architetture a confronto
 L'opzione B è quella più efficace perché limita la potenza persa
 sull'amplificatore
 
-Figura 3.2
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/49.jpg}
+\caption{Opzione B}
+\end{figure}
 
 Poi vogliamo che il dispositivo sia piccolo e che consumi \textbf{poco}.
 
-\subsection{3.3 Schede}\label{schede}
+\section{Schede}\label{schede}
 
 Le schede solitamente hanno il processore e basta. A volte hanno anche
 una parte per fare il debug del codice direttamente su di essa. Per
@@ -1545,7 +1698,7 @@ una volta il reciproco del valore da dividere e poi utilizzare quello.
 
 Alcuni GPIO hanno delle funzioni specifiche in più (tipo PWM/ADC DAC).
 
-\subsection{3.4 Approfondimento sulla
+\section{Approfondimento sulla
 Cortex-M4}\label{approfondimento-sulla-cortex-m4}
 
 L'oscillatore (clock) interno e fatto con un not, una resistenza e un
@@ -1557,7 +1710,11 @@ molte meno ppm) e la cui frequenza va da 1 a 50MHz.
 
 Il segnale generato dal quarzo viene poi moltiplicato/diviso dal PLL.
 
-Figura 3.3
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/50.png}
+\caption{Cortex M4}
+\end{figure}
 
 \begin{itemize}
 \tightlist
@@ -1576,7 +1733,7 @@ Figura 3.3
   1 nella parte alta del BSRR.
 \end{itemize}
 
-\subsubsection{3.5 Interrupt controller}\label{interrupt-controller}
+\subsection{Interrupt controller}\label{interrupt-controller}
 
 Serve a interrompere il flusso di programma per gestire un altro flusso
 (ISR) e poi tornare a gestire il programma principale. L'interrupt
@@ -1610,17 +1767,16 @@ Gli usi tipici dell'interrupt controller sono:
   PWM).
 \end{itemize}
 
-Figure 3.4: Il duty cycle è dato da \(\frac{D}{T}=\delta\). Maggiore è
-la soglia, più tempo sta alta l'onda.
-
-Il contatore del timer non si ferma quando fermo l'esecuzione del
-programma (tipo con il debugger).
+\href{immagini/51.png}{Il duty cycle è dato da \(\frac{D}{T}=\delta\).
+Maggiore è la soglia, più tempo sta alta l'onda.} Il contatore del timer
+non si ferma quando fermo l'esecuzione del programma (tipo con il
+debugger).
 
 NON SI FA DEBUG DI CIRCUITI DI POTENZA.
 
-Chapter 4 Appendice
+\chapter{Appendice}\label{appendice}
 
-\subsection{4.1 Parametri RTL}\label{parametri-rtl}
+\section{Parametri RTL}\label{parametri-rtl}
 
 \begin{itemize}
 \tightlist
@@ -1650,7 +1806,7 @@ Chapter 4 Appendice
 Il fanout si calcola facendo:
 \((V_{CC}-V_{iH})/R_{C}=n\times I_{iH}(\)@\(V_{iH})\).
 
-\subsubsection{4.2 Parametri TTL (credo il not standard con 5
+\subsection{4.2 Parametri TTL (credo il not standard con 5
 transistor)}\label{parametri-ttl-credo-il-not-standard-con-5-transistor}
 
 \begin{itemize}
@@ -1676,4 +1832,5 @@ transistor)}\label{parametri-ttl-credo-il-not-standard-con-5-transistor}
   \(DP = 5nS\times 11.5mW = 57.5pJ\)
 \end{itemize}
 
+\backmatter
 \end{document}
