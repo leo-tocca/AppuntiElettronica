@@ -75,7 +75,7 @@ Il drogaggio, quindi, va a **modificare** la concentrazione di elettroni e di *l
 attraverso questo inserimento di impurità sostituzionali (ovvero atomi di elementi diversi,
 i quali si sostituiscono ad alcuni degli atomi di silicio.) \newline
 In pratica andiamo ad  aggiungere, in piccole dosi, nel reticolo cristallino materiali della
-$5°$ colonna (drogaggio di tipo **n**, hanno 5 elettroni di valenza, sono detti donatori, ad esempio
+$5°$ colonna (drogaggio di tipo **n**, hanno 5 elettroni di valenza, sono detti **donatori**, ad esempio
 il fosforo), o elementi della $3°$ colonna (tipo **p**, hanno 3 elettroni di valenza e sono detti 
 **accettori**, ad esempio il boro).\newline
 Tale discrepanza induce la formazione di livelli energetici aggiuntivi all'interno della banda 
@@ -138,7 +138,8 @@ Come si vede nella figura 1.3 ($x_P$ e $x_N$ dipendono da $N_A$ e $N_D$).
 * $N_A > N_D \to$ più è drogata la regione più la regione di svuotamento è piccola. 
 
 Ricordando che il campo elettrico $E=\int Q \,dq$, e che la tensione (o potenziale)
-$V=\int E$, si vede come il potenziale **impedisca** il moto \colorbox{yellow}{(forse ulteriore?)}
+$V=\int E$, si vede come il potenziale **impedisca** il moto \colorbox{yellow}{(forse ulteriore?,
+dei rimanenti elettroni)}
 $p\rightarrow n$ (delle lacune) e $n\rightarrow p$ (degli elettroni).
 
 [image1.3]: immagini/2.png "Grafici relativi alla regione di svuotamento"
@@ -181,6 +182,10 @@ sul catodo K, "alzando" il potenziale
 \end{center}
 
 \appendix
+
+# Esercizi
+
+## Esercizi capitolo 1
 
 # 
 
