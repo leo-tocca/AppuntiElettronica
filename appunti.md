@@ -12,6 +12,7 @@ header-includes:
 - |
   ```{=latex}
             \usepackage{cancel}
+            \usepackage{float}
             \usepackage{tikz}
             \usepackage[version=4]{mhchem}
             \usepackage{circuitikz}
@@ -105,10 +106,10 @@ N_A = \frac{\# acceptors}{vol. unit} \text{ e } N_d=\frac{\# donors}{vol. unit}
 $$
 dove $N_a$ è tipo p:'positivo', mentre $N_d$ è di tipo n:'negativo'.
 
-Collegando un blocco drogato tipo P ed uno tipo N abbiamo
+Collegando un blocco drogato tipo p ed uno tipo n abbiamo
 
-[image1.1]: immagini/0.jpg "Giunzione P-N" 
-![Giunzione P-N][image1.1]{width=30%}
+[giunzione-pn]: immagini/0.jpg "Giunzione p-n" 
+![Giunzione P-N][giunzione-pn]{width=30%}
 
 Nella pratica parto da un blocco puro di silicio, per poi iniettare a *strati* il drogaggio.
 
@@ -125,8 +126,8 @@ e tutti gli elettroni extra di p ceduti.
 Tale zona è detta **depletion layer** (regione di svuotamento a carica spaziale), al cui
 interno **non** vi sono portatori mobili (di carica elettrica).
 
-[image1.2]: immagini/1.png "Regione di svuotamento"
-![Regione di svuotamento][image1.2]{width=68%}
+[reg_svuotamento]: immagini/1.png "Regione di svuotamento"
+![Regione di svuotamento][reg_svuotamento]{width=68%}
 
 In genere la regione di svuotamento non è simmetrica: deve valere:
 $$
@@ -142,18 +143,21 @@ $V=\int E$, si vede come il potenziale **impedisca** il moto \colorbox{yellow}{(
 dei rimanenti elettroni)}
 $p\rightarrow n$ (delle lacune) e $n\rightarrow p$ (degli elettroni).
 
-[image1.3]: immagini/2.png "Grafici relativi alla regione di svuotamento"
-!["Grafici relativi alla regione di svuotamento"][image1.3]{height=35%}
+[grafici_reg]: immagini/2.png "Grafici relativi alla regione di svuotamento"
+!["Grafici relativi alla regione di svuotamento"][grafici_reg]{height=35%}
 
 ### Diodo
 
 Il simbolo circuitale della giunzione p-n, detta **diodo**[^4] è
 
-\begin{center}
+\begin{figure}[H]
+\begin{centering}
 \begin{circuitikz}
   \draw (0,0) node[left]{A} to[diode,color=red] (2,0) node[right]{K};
 \end{circuitikz}
-\end{center}
+\caption{Diodo}
+\end{centering}
+\end{figure}
 
 [^4]: Un diodo è un dispositivo elettrico che permette alla corrente di muoversi attraverso
 di esso in una direzione con molta più facilità che nell'altra. È il dispositivo più semplice che
@@ -187,7 +191,7 @@ sul catodo K, "alzando" il potenziale
 
 ## Esercizi capitolo 1
 
-# 
+# Varie 
 
 ## Semiconduttori e bande
 
