@@ -108,8 +108,22 @@ dove $N_a$ è tipo p:'positivo', mentre $N_d$ è di tipo n:'negativo'.
 
 Collegando un blocco drogato tipo p ed uno tipo n abbiamo
 
-[giunzione-pn]: immagini/0.jpg "Giunzione p-n" 
-![Giunzione P-N][giunzione-pn]{width=30%}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.75]
+    \draw[very thick](-2,0)--(2,0)--(2,1)--(-2,1)--(-2,0);
+    \draw[very thick](0,0)--(0,1);
+    \draw[thick](0.5,0)--(0.5,1);
+    \draw[thick](-0.5,0)--(-0.5,1);
+    \node at (1.25,0.5) {$N$};
+    \node at (-1.25,0.5) {$P$};
+	 % Aggiungiamo le due righe orizzontali
+    \draw[thick](-2.5,0.5)--(-2,0.5);
+    \draw[thick](2,0.5)--(2.5,0.5);
+    \draw[->](-0.25,0.5)--(0.25,0.5)node[above]{$V_0$};
+\end{tikzpicture}
+\caption{Giunzione pn}
+\end{figure}
 
 Nella pratica parto da un blocco puro di silicio, per poi iniettare a *strati* il drogaggio.
 
@@ -123,11 +137,11 @@ ulteriore passaggio di carica, ottenendo allora un **equilibrio**.
 
 Nel punto di contatto si crea così una zona in cui tutte le lacune sono state riempite,
 e tutti gli elettroni extra di p ceduti.
-Tale zona è detta **depletion layer** (regione di svuotamento a carica spaziale), al cui
+Tale zona è detta **depletion layer** (regione di svuotamento o di carica spaziale), al cui
 interno **non** vi sono portatori mobili (di carica elettrica).
 
 [reg_svuotamento]: immagini/1.png "Regione di svuotamento"
-![Regione di svuotamento][reg_svuotamento]{width=68%}
+![Regione di svuotamento][reg_svuotamento]{width=80%}
 
 In genere la regione di svuotamento non è simmetrica: deve valere:
 $$
@@ -143,14 +157,17 @@ $V=\int E$, si vede come il potenziale **impedisca** il moto \colorbox{yellow}{(
 dei rimanenti elettroni)}
 $p\rightarrow n$ (delle lacune) e $n\rightarrow p$ (degli elettroni).
 
-[grafici_reg]: immagini/2.png "Grafici relativi alla regione di svuotamento"
-!["Grafici relativi alla regione di svuotamento"][grafici_reg]{height=35%}
+\begin{figure}[H]
+\includegraphics[height=0.6\textwidth, width=!]{immagini/2.png}
+\centering
+\caption{Grafici relativi alla regione di svuotamento}
+\end{figure}
 
 ### Diodo
 
 Il simbolo circuitale della giunzione p-n, detta **diodo**[^4] è
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{centering}
 \begin{circuitikz}
   \draw (0,0) node[left]{A} to[diode,color=red] (2,0) node[right]{K};

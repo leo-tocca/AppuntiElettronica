@@ -65,6 +65,7 @@
 \let\LanguageShortHands\languageshorthands
 \def\languageshorthands#1{}
           \usepackage{cancel}
+          \usepackage{float}
           \usepackage{tikz}
           \usepackage[version=4]{mhchem}
           \usepackage{circuitikz}
@@ -190,12 +191,23 @@ N_A = \frac{\# acceptors}{vol. unit} \text{ e } N_d=\frac{\# donors}{vol. unit}
 \] dove \(N_a\) è tipo p:`positivo', mentre \(N_d\) è di tipo
 n:`negativo'.
 
-Collegando un blocco drogato tipo P ed uno tipo N abbiamo
+Collegando un blocco drogato tipo p ed uno tipo n abbiamo
 
-\begin{figure}
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{immagini/0.jpg}
-\caption{Giunzione P-N}
+\begin{tikzpicture}[scale=1.75]
+    \draw[very thick](-2,0)--(2,0)--(2,1)--(-2,1)--(-2,0);
+    \draw[very thick](0,0)--(0,1);
+    \draw[thick](0.5,0)--(0.5,1);
+    \draw[thick](-0.5,0)--(-0.5,1);
+    \node at (1.25,0.5) {$N$};
+    \node at (-1.25,0.5) {$P$};
+     % Aggiungiamo le due righe orizzontali
+    \draw[thick](-2.5,0.5)--(-2,0.5);
+    \draw[thick](2,0.5)--(2.5,0.5);
+    \draw[->](-0.25,0.5)--(0.25,0.5)node[above]{$V_0$};
+\end{tikzpicture}
+\caption{Giunzione pn}
 \end{figure}
 
 Nella pratica parto da un blocco puro di silicio, per poi iniettare a
@@ -213,13 +225,13 @@ un ulteriore passaggio di carica, ottenendo allora un
 
 Nel punto di contatto si crea così una zona in cui tutte le lacune sono
 state riempite, e tutti gli elettroni extra di p ceduti. Tale zona è
-detta \textbf{depletion layer} (regione di svuotamento a carica
+detta \textbf{depletion layer} (regione di svuotamento o di carica
 spaziale), al cui interno \textbf{non} vi sono portatori mobili (di
 carica elettrica).
 
 \begin{figure}
 \centering
-\includegraphics[width=0.68\linewidth,height=\textheight,keepaspectratio]{immagini/1.png}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{immagini/1.png}
 \caption{Regione di svuotamento}
 \end{figure}
 
@@ -243,10 +255,10 @@ Ricordando che il campo elettrico \(E=\int Q \,dq\), e che la tensione
 dei rimanenti elettroni)} \(p\rightarrow n\) (delle lacune) e
 \(n\rightarrow p\) (degli elettroni).
 
-\begin{figure}
+\begin{figure}[H]
+\includegraphics[height=0.6\textwidth, width=!]{immagini/2.png}
 \centering
-\includegraphics[width=\linewidth,height=0.35\textheight,keepaspectratio]{immagini/2.png}
-\caption{``Grafici relativi alla regione di svuotamento''}
+\caption{Grafici relativi alla regione di svuotamento}
 \end{figure}
 
 \subsection{Diodo}\label{diodo}
@@ -257,11 +269,14 @@ Il simbolo circuitale della giunzione p-n, detta
   molta più facilità che nell'altra. È il dispositivo più semplice che
   fa uso di una giunzione p-n.} è
 
-\begin{center}
+\begin{figure}[h]
+\begin{centering}
 \begin{circuitikz}
   \draw (0,0) node[left]{A} to[diode,color=red] (2,0) node[right]{K};
 \end{circuitikz}
-\end{center}
+\caption{Diodo}
+\end{centering}
+\end{figure}
 
 dove a sinistra abbiamo un \textbf{anodo} A (dal greco \emph{salita}), e
 a destra un \textbf{catodo} K (dal greco \emph{discesa}).
@@ -299,7 +314,7 @@ la:
 
 \section{Esercizi capitolo 1}\label{esercizi-capitolo-1}
 
-\chapter{}\label{section}
+\chapter{Varie}\label{varie}
 
 \section{Semiconduttori e bande}\label{semiconduttori-e-bande}
 
