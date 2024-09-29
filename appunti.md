@@ -80,8 +80,11 @@ $5°$ colonna (drogaggio di tipo **n**, hanno 5 elettroni di valenza, sono detti
 il fosforo), o elementi della $3°$ colonna (tipo **p**, hanno 3 elettroni di valenza e sono detti 
 **accettori**, ad esempio il boro).\newline
 Tale discrepanza induce la formazione di livelli energetici aggiuntivi all'interno della banda 
-proibita[^2] o "gap" del semiconduttore. Nel primo caso, si genera un eccesso di lacune,
-mentre nel secondo si ha un eccesso di elettroni liberi, determinando così una variazione della conducibilità elettrica intrinseca del materiale. 
+proibita[^2] o "gap" del semiconduttore. Nel primo caso si genera un eccesso di lacune, le quali
+si comportano come particelle cariche *positivamente*, mentre nel secondo si ha un eccesso di elettroni liberi,
+determinando così una variazione della conducibilità elettrica intrinseca del materiale. \newline
+Non solo, sia le lacune che gli elettroni liberi sono quindi liberi di muoversi all'interno del
+semiconduttore!
 
 La qualità del semiconduttore è influenzata dal materiale usato (per esempio Ge
 è meglio del \ce{Si}, ma è più raro), che è a sua volta influenzato dal goal[^3]
@@ -89,24 +92,23 @@ La qualità del semiconduttore è influenzata dal materiale usato (per esempio G
 
 Vediamo ora degli elementi in silicio.
 
-[^1]:assenza di elettroni dovuta alla **rottura** di un legame.
-[^2]:intervallo di energia interdetto agli elettroni, distanza tra la banda di valenza di conduzione (nei semiconduttori distanti $1\si{eV}$)
-[^3]:(penso voglia dire "obiettivo perseguito")
+[^1]: Assenza di elettroni dovuta alla **rottura** di un legame. È insieme all'elettrone, un portatore di carica nei semiconduttori.
+[^2]: Intervallo di energia interdetto agli elettroni, distanza tra la banda di valenza di conduzione (nei semiconduttori distanti $1\si{eV}$).
+[^3]: (penso voglia dire "obiettivo perseguito").
 
 ### Giunzione p-n
 
-Una giunzione pn (o p-n) è formata da una sezione del semiconduttore drogata con un drogaggio p (con
-una percentuale $N_{a}$, n. accettori) e un'altra sezione drogata con un drogaggio n (con una
-percentuale $N_{d}$, n. donatori). \newline
-Il materiale quindi è separato in due zone _nettamente distinte_, senza alterazione della
-struttura cristallina all'interfaccia delle due zone. \newline
-Il drogaggio è quantificato con le grandezze
+Una giunzione pn (o p-n) si forma quando una del materiale semiconduttore intrinseco [^4] drogato con un drogaggio p (con
+una percentuale $N_{a}$, n. accettori) viene posta a contatto con altro materiale semiconduttore drogato con un drogaggio n (con una percentuale $N_{d}$, n. donatori). \newline
+Le percentuali/densità dipendono dalle seguenti "formule":
 $$
 N_A = \frac{\# acceptors}{vol. unit} \text{ e } N_d=\frac{\# donors}{vol. unit}
 $$
-dove $N_a$ è tipo p:'positivo', mentre $N_d$ è di tipo n:'negativo'.
+dove $N_a$ indica la densità di tipo p:'positivo', mentre $N_d$ la densità di tipo n:'negativo'.
 
-Collegando un blocco drogato tipo p ed uno tipo n abbiamo
+[^4]: Puro, quindi privo di un quantitativo significativo di drogaggio.
+
+Collegando un blocco drogato tipo p ed uno tipo n abbiamo (idealmente)[^a]
 
 \begin{figure}[H]
 \centering
@@ -125,15 +127,30 @@ Collegando un blocco drogato tipo p ed uno tipo n abbiamo
 \caption{Giunzione pn}
 \end{figure}
 
-Nella pratica parto da un blocco puro di silicio, per poi iniettare a *strati* il drogaggio.
+Il materiale quindi è separato in due zone _nettamente distinte_, senza alterazione della
+struttura cristallina all'interfaccia delle due zone. \newline
 
-L'abbondanza di lacune in p è considerabile come una carenza di elettroni, di cui n *abbonda*.
-Ciò genera una **migrazione** di elettroni da N verso P, detta anche _corrente di diffusione_.
+[^a]: Nella pratica parto da un blocco puro di silicio, per poi iniettare a *strati* il drogaggio.
 
-Tale fenomeno carica in modo *positivo* n (meno elettroni), e in modo *negativo* p (più elettroni).
-\newline
-Tali cariche generano dei campi elettrici (positivo su n e negativo su p), i quali impediscono un
+L'abbondanza di lacune in p è, come sappiamo, corrispondente ad una carenza di elettroni, di cui n *abbonda*.
+In altre parole questa diversa *densità* di portatori di carica genera una **migrazione** di elettroni da N verso P,
+detta anche _diffusione (elettrica)_ oppure anche _corrente di diffusione_, che consiste quindi in
+
+* lacune che si diffondono dalla regione (dal semiconduttore) drogata con p alla regione n;
+* elettroni che si diffondono dalla regione drogata con n alla regione p.
+
+Tale fenomeno carica in modo *positivo* il semiconduttore n (meno elettroni), e in modo *negativo*
+il semiconduttore p (più elettroni). Una volta che un certo numero di cariche si sono trasferite da una sezione
+delle giunzione all'altra (i *portatori maggioritari* sono le cariche positive su n e negative su p)
+raggiungiamo un **equilibrio**: questo accade perché durante lo spostamento delle cariche dovuto alla corrente di diffusione,
+si sviluppa una corrente di trascinamento che si oppone a quella di diffusione, un campo elettrico e una differenza di potenziale.
+Questa è anche detta **barriera di potenziale**, in quanto impedisce...
+
+
+<!--- TODO: RISCRIVERE PARTE SU DEPLATION LAYER, BARRIERA DI POTENZIALE, DENSITÀ DI ACCETTORI ETC
+che impediscono un
 ulteriore passaggio di carica, ottenendo allora un **equilibrio**.
+--->
 
 Nel punto di contatto si crea così una zona in cui tutte le lacune sono state riempite,
 e tutti gli elettroni extra di p ceduti.
@@ -153,8 +170,8 @@ Come si vede nella figura 1.3 ($x_P$ e $x_N$ dipendono da $N_A$ e $N_D$).
 * $N_A > N_D \to$ più è drogata la regione più la regione di svuotamento è piccola. 
 
 Ricordando che il campo elettrico $E=\int Q \,dq$, e che la tensione (o potenziale)
-$V=\int E$, si vede come il potenziale **impedisca** il moto \colorbox{yellow}{(forse ulteriore?,
-dei rimanenti elettroni)}
+$V=\int E$, si vede come il potenziale **impedisca** il moto spontaneo di ulteriore/
+rimanenti elettroni)}
 $p\rightarrow n$ (delle lacune) e $n\rightarrow p$ (degli elettroni).
 
 \begin{figure}[H]
@@ -165,7 +182,7 @@ $p\rightarrow n$ (delle lacune) e $n\rightarrow p$ (degli elettroni).
 
 ### Diodo
 
-Il simbolo circuitale della giunzione p-n, detta **diodo**[^4] è
+Il simbolo circuitale della giunzione p-n, detta **diodo**[^5] è
 
 \begin{figure}[h]
 \begin{centering}
@@ -176,7 +193,7 @@ Il simbolo circuitale della giunzione p-n, detta **diodo**[^4] è
 \end{centering}
 \end{figure}
 
-[^4]: Un diodo è un dispositivo elettrico che permette alla corrente di muoversi attraverso
+[^5]: Un diodo è un dispositivo elettrico che permette alla corrente di muoversi attraverso
 di esso in una direzione con molta più facilità che nell'altra. È il dispositivo più semplice che
 fa uso di una giunzione p-n.
 
