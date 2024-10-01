@@ -99,16 +99,18 @@ Vediamo ora degli elementi in silicio.
 ### Giunzione p-n
 
 Una giunzione pn (o p-n) si forma quando una del materiale semiconduttore intrinseco [^4] drogato con un drogaggio p (con
-una percentuale $N_{a}$, n. accettori) viene posta a contatto con altro materiale semiconduttore drogato con un drogaggio n (con una percentuale $N_{d}$, n. donatori). \newline
-Le percentuali/densità dipendono dalle seguenti "formule":
+una percentuale $N_{A}$, n. accettori) viene posta a contatto con altro materiale semiconduttore drogato con un drogaggio n
+(con una percentuale $N_{D}$, n. donatori). \newline
+La concentrazione di ioni dalle seguenti "formule":
 $$
-N_A = \frac{\# acceptors}{vol. unit} \text{ e } N_d=\frac{\# donors}{vol. unit}
+N_A = \frac{\# acceptors}{vol. unit} \text{ e } N_D=\frac{\# donors}{vol. unit}
 $$
-dove $N_a$ indica la densità di tipo p:'positivo', mentre $N_d$ la densità di tipo n:'negativo'.
+dove $N_a$ indica il numero[^5] di ioni di tipo p:'positivo', mentre $N_d$ il numero di ioni di tipo n:'negativo'.
 
 [^4]: Puro, quindi privo di un quantitativo significativo di drogaggio.
+[^5]: Oppure densità di ioni, o concentrazione...
 
-Collegando un blocco drogato tipo p ed uno tipo n abbiamo (idealmente)[^a]
+Collegando un blocco drogato tipo p ed uno tipo n abbiamo (idealmente)[^6]
 
 \begin{figure}[H]
 \centering
@@ -130,59 +132,58 @@ Collegando un blocco drogato tipo p ed uno tipo n abbiamo (idealmente)[^a]
 Il materiale quindi è separato in due zone _nettamente distinte_, senza alterazione della
 struttura cristallina all'interfaccia delle due zone. \newline
 
-[^a]: Nella pratica parto da un blocco puro di silicio, per poi iniettare a *strati* il drogaggio.
+[^6]: Nella pratica parto da un blocco puro di silicio, per poi iniettare a *strati* il drogaggio.
 
 L'abbondanza di lacune in p è, come sappiamo, corrispondente ad una carenza di elettroni, di cui n *abbonda*.
 In altre parole questa diversa *densità* di portatori di carica genera una **migrazione** di elettroni da N verso P,
-detta anche _diffusione (elettrica)_ oppure anche _corrente di diffusione_, che consiste quindi in
+detta anche _diffusione[^7] (elettrica)_ oppure anche _corrente di diffusione_, che consiste quindi in
 
 * lacune che si diffondono dalla regione (dal semiconduttore) drogata con p alla regione n;
 * elettroni che si diffondono dalla regione drogata con n alla regione p.
 
+> N.B.:(i *portatori maggioritari* sono le cariche positive su n e negative su p)
+
 Tale fenomeno carica in modo *positivo* il semiconduttore n (meno elettroni), e in modo *negativo*
-il semiconduttore p (più elettroni). Una volta che un certo numero di cariche si sono trasferite da una sezione
-delle giunzione all'altra (i *portatori maggioritari* sono le cariche positive su n e negative su p)
-raggiungiamo un **equilibrio**: questo accade perché durante lo spostamento delle cariche dovuto alla corrente di diffusione,
-si sviluppa una corrente di trascinamento che si oppone a quella di diffusione, un campo elettrico e una differenza di potenziale.
-Questa è anche detta **barriera di potenziale**, in quanto impedisce...
+il semiconduttore p (più elettroni): non solo, questo spostamento crea a cavallo della giunzione un campo elettrico.
+Una volta che la corrente di diffusione equivale la corrente di trascinamento[^8] raggiungiamo un **equilibrio**:
+La presenza del campo elettrico comporta la presenza di una differenza di potenziale.
+Questa è anche detta **barriera di potenziale**, in quanto si oppone (come una barriera) ai portatori di
+carica soggetti alla spinta della diffusione (si oppone al movimento di elettroni nella regione p
+elacune nella regione n). Infatti con lo spostamento di lacune ed elettroni essa aumenta
+fino a impedirne il superamento[^9].
 
+[^7]: Fenomeno che si ritrova in natura qualora vi sia uno squilibrio nella distribuzione nello spazio di particelle simili.
+[^8]: Detta anche corrente di deriva, in questo caso i portatori si muovono perché **spinti** dal campo elettrico.
+[^9]: È possibile superarla, ma deve essere fornita una differenza di potenziale **esterna*
 
-<!--- TODO: RISCRIVERE PARTE SU DEPLATION LAYER, BARRIERA DI POTENZIALE, DENSITÀ DI ACCETTORI ETC
-che impediscono un
-ulteriore passaggio di carica, ottenendo allora un **equilibrio**.
---->
-
-Nel punto di contatto si crea così una zona in cui tutte le lacune sono state riempite,
-e tutti gli elettroni extra di p ceduti.
+Nel punto di contatto si crea così una zona in cui tutte le lacune sono state riempite,e tutti gli elettroni extra di p ceduti.
 Tale zona è detta **depletion layer** (regione di svuotamento o di carica spaziale), al cui
-interno **non** vi sono portatori mobili (di carica elettrica).
+interno **non** vi sono portatori mobili (di carica), i quali non possono "fermarsi" dove vi è
+una differenza di potenziale (gli atomi donatori respingono le lacune e gli atomi accettori respingono gli elettroni).
 
-[reg_svuotamento]: immagini/1.png "Regione di svuotamento"
-![Regione di svuotamento][reg_svuotamento]{width=80%}
+[reg_svuotamento]: immagini/1.png "Regione di svuotamento e movimento di lacune ed elettroni"
+![Regione di svuotamento e movimento di lacune ed elettroni][reg_svuotamento]{width=80%}
 
-In genere la regione di svuotamento non è simmetrica: deve valere:
+In genere la regione di svuotamento non è simmetrica: la seguente equazione regola la larghezza della regione:
 $$
-x_P N_A = x_N N_D
+x_p N_A = x_N N_D
 $$
+dove $x_p$ e $x_n$ sono rispettivamente le **larghezze** della regione di svuotamento entro
+il semiconduttore drogato p e drogato n.
 
-Come si vede nella figura 1.3 ($x_P$ e $x_N$ dipendono da $N_A$ e $N_D$).
+Come si vede nella figura 1.3:
 
 * $N_A > N_D \to$ più è drogata la regione più la regione di svuotamento è piccola. 
-
-Ricordando che il campo elettrico $E=\int Q \,dq$, e che la tensione (o potenziale)
-$V=\int E$, si vede come il potenziale **impedisca** il moto spontaneo di ulteriore/
-rimanenti elettroni)}
-$p\rightarrow n$ (delle lacune) e $n\rightarrow p$ (degli elettroni).
 
 \begin{figure}[H]
 \includegraphics[height=0.6\textwidth, width=!]{immagini/2.png}
 \centering
-\caption{Grafici relativi alla regione di svuotamento}
+\caption{Grafici relativi al potenziale, al campo elettrico e alla carica nella giunzione pn}
 \end{figure}
 
 ### Diodo
 
-Il simbolo circuitale della giunzione p-n, detta **diodo**[^5] è
+Il simbolo circuitale della giunzione p-n, detta **diodo**[^10] è
 
 \begin{figure}[h]
 \begin{centering}
@@ -193,7 +194,7 @@ Il simbolo circuitale della giunzione p-n, detta **diodo**[^5] è
 \end{centering}
 \end{figure}
 
-[^5]: Un diodo è un dispositivo elettrico che permette alla corrente di muoversi attraverso
+[^10]: Un diodo è un dispositivo elettrico che permette alla corrente di muoversi attraverso
 di esso in una direzione con molta più facilità che nell'altra. È il dispositivo più semplice che
 fa uso di una giunzione p-n.
 

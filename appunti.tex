@@ -152,8 +152,9 @@ e muoversi liberamente nel cristallo.
 Per dotare un materiale semiconduttore di conduttività \emph{selettiva}
 è necessario \emph{``drogare''} il materiale stesso. Il drogaggio,
 quindi, va a \textbf{modificare} la concentrazione di elettroni e di
-\emph{lacune} \footnote{assenza di elettroni dovuta alla
-  \textbf{rottura} di un legame.}, attraverso questo inserimento di
+\emph{lacune} \footnote{Assenza di elettroni dovuta alla
+  \textbf{rottura} di un legame. È insieme all'elettrone, un portatore
+  di carica nei semiconduttori.}, attraverso questo inserimento di
 impurità sostituzionali (ovvero atomi di elementi diversi, i quali si
 sostituiscono ad alcuni degli atomi di silicio.) \newline In pratica
 andiamo ad aggiungere, in piccole dosi, nel reticolo cristallino
@@ -162,36 +163,41 @@ elettroni di valenza, sono detti \textbf{donatori}, ad esempio il
 fosforo), o elementi della \(3°\) colonna (tipo \textbf{p}, hanno 3
 elettroni di valenza e sono detti \textbf{accettori}, ad esempio il
 boro).\newline Tale discrepanza induce la formazione di livelli
-energetici aggiuntivi all'interno della banda proibita\footnote{intervallo
+energetici aggiuntivi all'interno della banda proibita\footnote{Intervallo
   di energia interdetto agli elettroni, distanza tra la banda di valenza
-  di conduzione (nei semiconduttori distanti \(1\si{eV}\))} o ``gap''
-del semiconduttore. Nel primo caso, si genera un eccesso di lacune,
-mentre nel secondo si ha un eccesso di elettroni liberi, determinando
-così una variazione della conducibilità elettrica intrinseca del
-materiale.
+  di conduzione (nei semiconduttori distanti \(1\si{eV}\)).} o ``gap''
+del semiconduttore. Nel primo caso si genera un eccesso di lacune, le
+quali si comportano come particelle cariche \emph{positivamente}, mentre
+nel secondo si ha un eccesso di elettroni liberi, determinando così una
+variazione della conducibilità elettrica intrinseca del materiale.
+\newline Non solo, sia le lacune che gli elettroni liberi sono quindi
+liberi di muoversi all'interno del semiconduttore!
 
 La qualità del semiconduttore è influenzata dal materiale usato (per
 esempio Ge è meglio del \ce{Si}, ma è più raro), che è a sua volta
 influenzato dal goal\footnote{(penso voglia dire ``obiettivo
-  perseguito'')} (elettronica digitale usa \ce{Si}, l'elettronica di
+  perseguito'').} (elettronica digitale usa \ce{Si}, l'elettronica di
 potenza il \ce{GaN} o \ce{SiC}).
 
 Vediamo ora degli elementi in silicio.
 
 \subsection{Giunzione p-n}\label{giunzione-p-n}
 
-Una giunzione pn (o p-n) è formata da una sezione del semiconduttore
-drogata con un drogaggio p (con una percentuale \(N_{a}\), n.~accettori)
-e un'altra sezione drogata con un drogaggio n (con una percentuale
-\(N_{d}\), n.~donatori). \newline Il materiale quindi è separato in due
-zone \emph{nettamente distinte}, senza alterazione della struttura
-cristallina all'interfaccia delle due zone. \newline Il drogaggio è
-quantificato con le grandezze \[
-N_A = \frac{\# acceptors}{vol. unit} \text{ e } N_d=\frac{\# donors}{vol. unit}
-\] dove \(N_a\) è tipo p:`positivo', mentre \(N_d\) è di tipo
-n:`negativo'.
+Una giunzione pn (o p-n) si forma quando una del materiale
+semiconduttore intrinseco \footnote{Puro, quindi privo di un
+  quantitativo significativo di drogaggio.} drogato con un drogaggio p
+(con una percentuale \(N_{A}\), n.~accettori) viene posta a contatto con
+altro materiale semiconduttore drogato con un drogaggio n (con una
+percentuale \(N_{D}\), n.~donatori). \newline La concentrazione di ioni
+dalle seguenti ``formule'': \[
+N_A = \frac{\# acceptors}{vol. unit} \text{ e } N_D=\frac{\# donors}{vol. unit}
+\] dove \(N_a\) indica il numero\footnote{Oppure densità di ioni, o
+  concentrazione\ldots{}} di ioni di tipo p:`positivo', mentre \(N_d\)
+il numero di ioni di tipo n:`negativo'.
 
 Collegando un blocco drogato tipo p ed uno tipo n abbiamo
+(idealmente)\footnote{Nella pratica parto da un blocco puro di silicio,
+  per poi iniettare a \emph{strati} il drogaggio.}
 
 \begin{figure}[H]
 \centering
@@ -210,37 +216,71 @@ Collegando un blocco drogato tipo p ed uno tipo n abbiamo
 \caption{Giunzione pn}
 \end{figure}
 
-Nella pratica parto da un blocco puro di silicio, per poi iniettare a
-\emph{strati} il drogaggio.
+Il materiale quindi è separato in due zone \emph{nettamente distinte},
+senza alterazione della struttura cristallina all'interfaccia delle due
+zone. \newline
 
-L'abbondanza di lacune in p è considerabile come una carenza di
-elettroni, di cui n \emph{abbonda}. Ciò genera una \textbf{migrazione}
-di elettroni da N verso P, detta anche \emph{corrente di diffusione}.
+L'abbondanza di lacune in p è, come sappiamo, corrispondente ad una
+carenza di elettroni, di cui n \emph{abbonda}. In altre parole questa
+diversa \emph{densità} di portatori di carica genera una
+\textbf{migrazione} di elettroni da N verso P, detta anche
+\emph{diffusione\footnote{Fenomeno che si ritrova in natura qualora vi
+  sia uno squilibrio nella distribuzione nello spazio di particelle
+  simili.} (elettrica)} oppure anche \emph{corrente di diffusione}, che
+consiste quindi in
 
-Tale fenomeno carica in modo \emph{positivo} n (meno elettroni), e in
-modo \emph{negativo} p (più elettroni). \newline Tali cariche generano
-dei campi elettrici (positivo su n e negativo su p), i quali impediscono
-un ulteriore passaggio di carica, ottenendo allora un
-\textbf{equilibrio}.
+\begin{itemize}
+\tightlist
+\item
+  lacune che si diffondono dalla regione (dal semiconduttore) drogata
+  con p alla regione n;
+\item
+  elettroni che si diffondono dalla regione drogata con n alla regione
+  p.
+\end{itemize}
+
+\begin{quote}
+N.B.:(i \emph{portatori maggioritari} sono le cariche positive su n e
+negative su p)
+\end{quote}
+
+Tale fenomeno carica in modo \emph{positivo} il semiconduttore n (meno
+elettroni), e in modo \emph{negativo} il semiconduttore p (più
+elettroni): non solo, questo spostamento crea a cavallo della giunzione
+un campo elettrico. Una volta che la corrente di diffusione equivale la
+corrente di trascinamento\footnote{Detta anche corrente di deriva, in
+  questo caso i portatori si muovono perché \textbf{spinti} dal campo
+  elettrico.} raggiungiamo un \textbf{equilibrio}: La presenza del campo
+elettrico comporta la presenza di una differenza di potenziale. Questa è
+anche detta \textbf{barriera di potenziale}, in quanto si oppone (come
+una barriera) ai portatori di carica soggetti alla spinta della
+diffusione (si oppone al movimento di elettroni nella regione p elacune
+nella regione n). Infatti con lo spostamento di lacune ed elettroni essa
+aumenta fino a impedirne il superamento\footnote{È possibile superarla,
+  ma deve essere fornita una differenza di potenziale **esterna*}.
 
 Nel punto di contatto si crea così una zona in cui tutte le lacune sono
-state riempite, e tutti gli elettroni extra di p ceduti. Tale zona è
+state riempite,e tutti gli elettroni extra di p ceduti. Tale zona è
 detta \textbf{depletion layer} (regione di svuotamento o di carica
 spaziale), al cui interno \textbf{non} vi sono portatori mobili (di
-carica elettrica).
+carica), i quali non possono ``fermarsi'' dove vi è una differenza di
+potenziale (gli atomi donatori respingono le lacune e gli atomi
+accettori respingono gli elettroni).
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{immagini/1.png}
-\caption{Regione di svuotamento}
+\caption{Regione di svuotamento e movimento di lacune ed elettroni}
 \end{figure}
 
-In genere la regione di svuotamento non è simmetrica: deve valere: \[
-x_P N_A = x_N N_D
-\]
+In genere la regione di svuotamento non è simmetrica: la seguente
+equazione regola la larghezza della regione: \[
+x_p N_A = x_N N_D
+\] dove \(x_p\) e \(x_n\) sono rispettivamente le \textbf{larghezze}
+della regione di svuotamento entro il semiconduttore drogato p e drogato
+n.
 
-Come si vede nella figura 1.3 (\(x_P\) e \(x_N\) dipendono da \(N_A\) e
-\(N_D\)).
+Come si vede nella figura 1.3:
 
 \begin{itemize}
 \tightlist
@@ -249,16 +289,10 @@ Come si vede nella figura 1.3 (\(x_P\) e \(x_N\) dipendono da \(N_A\) e
   svuotamento è piccola.
 \end{itemize}
 
-Ricordando che il campo elettrico \(E=\int Q \,dq\), e che la tensione
-(o potenziale) \(V=\int E\), si vede come il potenziale
-\textbf{impedisca} il moto \colorbox{yellow}{(forse ulteriore?,
-dei rimanenti elettroni)} \(p\rightarrow n\) (delle lacune) e
-\(n\rightarrow p\) (degli elettroni).
-
 \begin{figure}[H]
 \includegraphics[height=0.6\textwidth, width=!]{immagini/2.png}
 \centering
-\caption{Grafici relativi alla regione di svuotamento}
+\caption{Grafici relativi al potenziale, al campo elettrico e alla carica nella giunzione pn}
 \end{figure}
 
 \subsection{Diodo}\label{diodo}
