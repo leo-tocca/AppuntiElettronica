@@ -66,6 +66,7 @@
 \def\languageshorthands#1{}
           \usepackage{cancel}
           \usepackage{float}
+          \usepackage{subcaption}
           \usepackage{tikz}
           \usepackage[version=4]{mhchem}
           \usepackage{circuitikz}
@@ -267,10 +268,16 @@ carica), i quali non possono ``fermarsi'' dove vi è una differenza di
 potenziale (gli atomi donatori respingono le lacune e gli atomi
 accettori respingono gli elettroni).
 
-\begin{figure}
-\centering
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{immagini/1.png}
-\caption{Regione di svuotamento e movimento di lacune ed elettroni}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/1.png}
+\includegraphics[width=0.25\linewidth,height=\textheight,keepaspectratio]{immagini/pn_equilibrio.png}
+
+\begin{figure}[!h]
+\begin{subfigure}[t]{0.4\linewidth}
+\caption{Regione di svuotamento}
+\end{subfigure}
+\begin{subfigure}[t]{0.4\linewidth}
+\caption{Giunzione pn all'equilibrio}
+\end{subfigure}
 \end{figure}
 
 In genere la regione di svuotamento non è simmetrica: la seguente

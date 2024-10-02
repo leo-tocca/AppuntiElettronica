@@ -13,6 +13,7 @@ header-includes:
   ```{=latex}
             \usepackage{cancel}
             \usepackage{float}
+            \usepackage{subcaption}
             \usepackage{tikz}
             \usepackage[version=4]{mhchem}
             \usepackage{circuitikz}
@@ -161,8 +162,16 @@ Tale zona è detta **depletion layer** (regione di svuotamento o di carica spazi
 interno **non** vi sono portatori mobili (di carica), i quali non possono "fermarsi" dove vi è
 una differenza di potenziale (gli atomi donatori respingono le lacune e gli atomi accettori respingono gli elettroni).
 
-[reg_svuotamento]: immagini/1.png "Regione di svuotamento e movimento di lacune ed elettroni"
-![Regione di svuotamento e movimento di lacune ed elettroni][reg_svuotamento]{width=80%}
+![Regione di svuotamento e movimento di lacune ed elettroni](immagini/1.png){width=50%}
+![Giunzione pn all'equilibrio](immagini/pn_equilibrio.png){width=25%}
+\begin{figure}[!h]
+\begin{subfigure}[t]{0.4\linewidth}
+\caption{Regione di svuotamento}
+\end{subfigure}
+\begin{subfigure}[t]{0.4\linewidth}
+\caption{Giunzione pn all'equilibrio}
+\end{subfigure}
+\end{figure}
 
 In genere la regione di svuotamento non è simmetrica: la seguente equazione regola la larghezza della regione:
 $$
