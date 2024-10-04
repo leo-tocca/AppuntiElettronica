@@ -137,38 +137,43 @@ struttura cristallina all'interfaccia delle due zone. \newline
 
 L'abbondanza di lacune in p è, come sappiamo, corrispondente ad una carenza di elettroni, di cui n *abbonda*.
 In altre parole questa diversa *densità* di portatori di carica genera una **migrazione** di elettroni da N verso P,
-detta anche _diffusione[^7] (elettrica)_ oppure anche _corrente di diffusione_, che consiste quindi in
+detta anche _diffusione[^7] (elettrica)_ $I_D$ oppure anche _corrente di diffusione_, che consiste quindi in
 
 * lacune che si diffondono dalla regione (dal semiconduttore) drogata con p alla regione n;
 * elettroni che si diffondono dalla regione drogata con n alla regione p.
 
-> N.B.:(i *portatori maggioritari* sono le cariche positive su n e negative su p)
+> N.B.: Nella zona n i **portatori maggioritari** di carica sono le cariche negative, mentre nella zona p sono le cariche positive
 
-Tale fenomeno carica in modo *positivo* il semiconduttore n (meno elettroni), e in modo *negativo*
-il semiconduttore p (più elettroni): non solo, questo spostamento crea a cavallo della giunzione un campo elettrico.
-Una volta che la corrente di diffusione equivale la corrente di trascinamento[^8] raggiungiamo un **equilibrio**:
-La presenza del campo elettrico comporta la presenza di una differenza di potenziale.
-Questa è anche detta **barriera di potenziale**, in quanto si oppone (come una barriera) ai portatori di
+Tale fenomeno carica in modo *positivo* il semiconduttore drogato n (meno elettroni), e in modo *negativo*
+il semiconduttore drogato p (più elettroni). \newline
+Le lacune che si diffondono dalla regione/zona p alla n si ricombinano con gli elettroni liberi, *scomparendo*. Di conseguenza,
+il numero di elettroni liberi nella zona n *diminuisce*, quindi non saranno più neutralizzate alcune cariche fisse positive
+(atomi donatori). Dal momento che questa ricombinazione avviene in prossimità della giunzione, accanto a questa si svilupperà
+una regione **svuotata** di elettroni, con cariche fisse positive non compensate. \newline
+Analogamente nella zona p otterremo una zona svuotata dalle lacune e che comprende delle cariche fisse
+(in questo caso negative) non compensate. \newline
+Entrambe queste zone danno luogo alla **regione di svuotamento**[^8] (o di carica spaziale, in inglese *depletion layer*).
+Inoltre lo spostamento delle cariche crea a cavallo della giunzione un campo elettrico, con la zona n positiva rispetto
+alla zona p. La presenza del campo elettrico comporta la presenza di una differenza di potenziale.
+Questa è anche detta **barriera di potenziale**[^9], in quanto si oppone ad un'ulterore diffusione ai portatori di
 carica soggetti alla spinta della diffusione (si oppone al movimento di elettroni nella regione p
-elacune nella regione n). Infatti con lo spostamento di lacune ed elettroni essa aumenta
-fino a impedirne il superamento[^9].
+e lacune nella regione n).
+Una volta che la corrente di diffusione equivale la corrente di trascinamento[^10] $I_S$ raggiungiamo un **equilibrio** (dinamica):
+La presenza del campo elettrico comporta la presenza di una differenza di potenziale.
 
 [^7]: Fenomeno che si ritrova in natura qualora vi sia uno squilibrio nella distribuzione nello spazio di particelle simili.
-[^8]: Detta anche corrente di deriva, in questo caso i portatori si muovono perché **spinti** dal campo elettrico.
-[^9]: È possibile superarla, ma deve essere fornita una differenza di potenziale **esterna*
-
-Nel punto di contatto si crea così una zona in cui tutte le lacune sono state riempite,e tutti gli elettroni extra di p ceduti.
-Tale zona è detta **depletion layer** (regione di svuotamento o di carica spaziale), al cui
-interno **non** vi sono portatori mobili (di carica), i quali non possono "fermarsi" dove vi è
-una differenza di potenziale (gli atomi donatori respingono le lacune e gli atomi accettori respingono gli elettroni).
-
-![Regione di svuotamento e movimento di lacune ed elettroni](immagini/1.png){width=50%}
-![Giunzione pn all'equilibrio](immagini/pn_equilibrio.png){width=25%}
-\begin{figure}[!h]
-\begin{subfigure}[t]{0.4\linewidth}
+[^8]: Svuotata di portatori **mobili**
+[^9]: È possibile superarla, ma deve essere fornita una differenza di potenziale **esterna**.
+[^10]: Detta anche corrente di deriva (drift), in questo caso i portatori si muovono perché **spinti** dal campo elettrico dovuto allo squilibrio di carica.
+ 
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.6\textwidth}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{immagini/1.png}
 \caption{Regione di svuotamento}
 \end{subfigure}
-\begin{subfigure}[t]{0.4\linewidth}
+\begin{subfigure}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{immagini/pn_equilibrio.png}
 \caption{Giunzione pn all'equilibrio}
 \end{subfigure}
 \end{figure}
@@ -180,19 +185,20 @@ $$
 dove $x_p$ e $x_n$ sono rispettivamente le **larghezze** della regione di svuotamento entro
 il semiconduttore drogato p e drogato n.
 
-Come si vede nella figura 1.3:
-
-* $N_A > N_D \to$ più è drogata la regione più la regione di svuotamento è piccola. 
-
 \begin{figure}[H]
 \includegraphics[height=0.6\textwidth, width=!]{immagini/2.png}
 \centering
 \caption{Grafici relativi al potenziale, al campo elettrico e alla carica nella giunzione pn}
+\label{fig:1.3}
 \end{figure}
+
+Come si vede nella @fig:1.3 :
+
+* $N_A > N_D \to$ più è drogata la regione più la regione di svuotamento è piccola. 
 
 ### Diodo
 
-Il simbolo circuitale della giunzione p-n, detta **diodo**[^10] è
+Il simbolo circuitale della giunzione p-n, detta **diodo**[^11] è
 
 \begin{figure}[h]
 \begin{centering}
@@ -203,7 +209,7 @@ Il simbolo circuitale della giunzione p-n, detta **diodo**[^10] è
 \end{centering}
 \end{figure}
 
-[^10]: Un diodo è un dispositivo elettrico che permette alla corrente di muoversi attraverso
+[^11]: Un diodo è un dispositivo elettrico che permette alla corrente di muoversi attraverso
 di esso in una direzione con molta più facilità che nell'altra. È il dispositivo più semplice che
 fa uso di una giunzione p-n.
 
