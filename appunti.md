@@ -211,7 +211,7 @@ Il simbolo circuitale della giunzione p-n, detta **diodo**[^11] è
 
 [^11]: Un diodo è un dispositivo elettrico che permette alla corrente di muoversi attraverso
 di esso in una direzione con molta più facilità che nell'altra. È il dispositivo più semplice che
-fa uso di una giunzione p-n.
+fa uso di una giunzione p-n, ed è l'elemento circuitale non lineare più importante.
 
 dove a sinistra abbiamo un **anodo** A (dal greco *salita*), e a destra un **catodo** K 
 (dal greco *discesa*).
