@@ -209,9 +209,9 @@ Il simbolo circuitale della giunzione p-n, detta **diodo**[^11] è
 \end{centering}
 \end{figure}
 
-[^11]: Un diodo è un dispositivo elettrico che permette alla corrente di muoversi attraverso
-di esso in una direzione con molta più facilità che nell'altra. È il dispositivo più semplice che
-fa uso di una giunzione p-n, ed è l'elemento circuitale non lineare più importante.
+[^11]: Il diodo ideale è un dispositivo che lascia passare corrente solo in un senso, con resistenza nulla, e non
+lascia passare corrente nell’altro senso. Il diodo a giunzione approssima molto bene un diodo ideale, ed è l'elemento circuitale non lineare più importante.
+
 
 dove a sinistra abbiamo un **anodo** A (dal greco *salita*), e a destra un **catodo** K 
 (dal greco *discesa*).
@@ -222,10 +222,38 @@ contatto col suo reoforo deve essere molto drogata \colorbox{yellow}{(approfondi
 
 #### Polarizzazione
 
-In base all'applicazione di un potenziale sul diodo posso distinguere la:
+L'applicazione di un potenziale sul diodo viene detta **polarizzazione**, e si distingue la:
 
-* Polarizzazione **diretta** (forward bias): applico un potenziale positivo sull'anodo A e negativo
-sul catodo K, "alzando" il potenziale
+* Polarizzazione **diretta** (forward bias): applico un potenziale positivo sull'anodo A (lato p) e negativo
+sul catodo K (lato n). La differenza di potenziale applicata ha la polarità *concorde* con la barriera di potenziale.
+    - L'aumento della tensione determina una riduzione della barriera di potenziale, e di conseguenza della larghezza della
+    regione di svuotamento. In questo modo aumenta il numero di elettroni e di lacune capaci di attraversare la giunzione
+    tramite la diffusione.
+    - La corrente di diffusione, rispetto a quella di deriva, aumenta rapidamente di svariati ordini di grandezza.
+\begin{figure}[h]
+\begin{centering}
+\begin{circuitikz}
+  \draw (0,0) node[left]{+} to[diode,color=blue] (2,0) node[right]{-};
+\end{circuitikz}
+\caption{Diodo polarizzato direttamente}
+\end{centering}
+\end{figure}
+* Polarizzazione **indiretta** (reverse bias): applico un potenziale negativo sull'anodo e positivo sul catodo. In questo
+caso la polarità della tensione applicata è discorde rispetto a quella della barriera di potenziale.
+    - La regione di svuotamento si allarga, e la tensione di polarizzazione richiama le lacune verso il terminale negativo
+    e gli elettroni verso il terminale positivo. Quindi l'ampiezza della barriera di potenziale aumenta.
+    - La corrente di diffusione diminuisce fino ad annullarsi, mentre quella di deriva rimane (anche se è molto piccola e
+    varia con la temperatura).
+
+\begin{figure}[h]
+\begin{centering}
+\begin{circuitikz}
+  \draw (0,0) node[left]{-} to[diode,color=orange] (2,0) node[right]{+};
+\end{circuitikz}
+\caption{Diodo polarizzato indirettamente}
+\end{centering}
+\end{figure}
+
 
 #### Diodi Speciali
 \begin{center}
