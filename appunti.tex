@@ -65,6 +65,7 @@
 \let\LanguageShortHands\languageshorthands
 \def\languageshorthands#1{}
           \usepackage{cancel}
+          \usepackage{comment}
           \usepackage{float}
           \usepackage{subcaption}
           \usepackage{tikz}
@@ -133,7 +134,7 @@ materiali con queste condizioni?
   (Carbonio (\ce{C}), ma composto)
 \item
   \emph{Elementi composti}: \ce{GaAs}, \ce{GaN} (Gallio-Arsenico/Azoto)
-  In generale sono gli elementi della \(4°\) colonna della tavola
+  In generale sono gli elementi della \(14°\) colonna della tavola
   periodica o composti a numero medio di elettroni liberi pari a 4 (dai
   3 ai 4).
 \end{itemize}
@@ -271,7 +272,7 @@ nella regione n). Una volta che la corrente di diffusione equivale la
 corrente di trascinamento\footnote{Detta anche corrente di deriva
   (drift), in questo caso i portatori si muovono perché \textbf{spinti}
   dal campo elettrico dovuto allo squilibrio di carica.} \(I_S\)
-raggiungiamo un \textbf{equilibrio} (dinamica): La presenza del campo
+raggiungiamo un \textbf{equilibrio} (dinamico): La presenza del campo
 elettrico comporta la presenza di una differenza di potenziale.
 
 \begin{figure}[H]
@@ -391,11 +392,23 @@ L'applicazione di un potenziale sul diodo viene detta
 \begin{figure}[h]
 \begin{centering}
 \begin{circuitikz}
-  \draw (0,0) node[left]{-} to[diode,color=orange] (2,0) node[right]{+};
+  \draw[thick] (0,0) node[left]{-} to[diode,color=orange] (2,0) node[right]{+};
 \end{circuitikz}
 \caption{Diodo polarizzato indirettamente}
 \end{centering}
 \end{figure}
+
+\subsubsection{Equazione caratteristica}\label{equazione-caratteristica}
+
+In generale, la giunzione pn ha un'equazione caratteristica
+
+\[
+i=I_{S}(e^{\frac{V_d}{nV_t}}-1)
+\]
+
+detta \textbf{equazione di Shockley}: \(V_d\) indica la differenza di
+potenziale applicati ai capi del diodo, \(nV_t\) è il potenziale nativo
+dei diodi (pari a 0.7V).. In condizion
 
 \subsubsection{Diodi Speciali}\label{diodi-speciali}
 
@@ -462,6 +475,15 @@ A questo punto possono verificarsi diverse possibilità:
 
 (N.B paragrafo proveniente da
 \href{https://it.wikipedia.org/wiki/Struttura_elettronica_a_bande}{Wikipedia})
+
+\begin{comment}
+## Tavola periodica
+
+%%\pgfPT[show title=false, back color scheme=example,
+%%  legend box={draw=blue!50,fill=blue!20},
+%%  show extra legend,
+%%  Z list={5,7,13,14,15,31,32,33,49,51}]
+\end{comment}
 
 \backmatter
 \end{document}

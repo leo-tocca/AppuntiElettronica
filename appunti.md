@@ -12,6 +12,7 @@ header-includes:
 - |
   ```{=latex}
             \usepackage{cancel}
+            \usepackage{comment}
             \usepackage{float}
             \usepackage{subcaption}
             \usepackage{tikz}
@@ -56,7 +57,7 @@ materiali con queste condizioni?
 
 - *Elementi semiconduttori*: Silicio (\ce{Si}), Germanio (\ce{Ge}) (Carbonio (\ce{C}), ma composto)
 - *Elementi composti*: \ce{GaAs}, \ce{GaN} (Gallio-Arsenico/Azoto)
-In generale sono gli elementi della $4°$ colonna della tavola periodica o
+In generale sono gli elementi della $14°$ colonna della tavola periodica o
 composti a numero medio di elettroni liberi pari a 4 (dai 3 ai 4).
 
 \begin{mybox}{\emph{Silicio}}
@@ -158,7 +159,7 @@ alla zona p. La presenza del campo elettrico comporta la presenza di una differe
 Questa è anche detta **barriera di potenziale**[^9], in quanto si oppone ad un'ulterore diffusione ai portatori di
 carica soggetti alla spinta della diffusione (si oppone al movimento di elettroni nella regione p
 e lacune nella regione n).
-Una volta che la corrente di diffusione equivale la corrente di trascinamento[^10] $I_S$ raggiungiamo un **equilibrio** (dinamica):
+Una volta che la corrente di diffusione equivale la corrente di trascinamento[^10] $I_S$ raggiungiamo un **equilibrio** (dinamico):
 La presenza del campo elettrico comporta la presenza di una differenza di potenziale.
 
 [^7]: Fenomeno che si ritrova in natura qualora vi sia uno squilibrio nella distribuzione nello spazio di particelle simili.
@@ -248,12 +249,22 @@ caso la polarità della tensione applicata è discorde rispetto a quella della b
 \begin{figure}[h]
 \begin{centering}
 \begin{circuitikz}
-  \draw (0,0) node[left]{-} to[diode,color=orange] (2,0) node[right]{+};
+  \draw[thick] (0,0) node[left]{-} to[diode,color=orange] (2,0) node[right]{+};
 \end{circuitikz}
 \caption{Diodo polarizzato indirettamente}
 \end{centering}
 \end{figure}
 
+#### Equazione caratteristica
+
+In generale, la giunzione pn ha un'equazione caratteristica
+
+$$
+i=I_{S}(e^{\frac{V_d}{nV_t}}-1)
+$$
+
+detta **equazione di Shockley**: $V_d$ indica la differenza di potenziale applicati ai capi del diodo,
+$nV_t$ è il potenziale nativo dei diodi (pari a 0.7V).. In condizion
 
 #### Diodi Speciali
 \begin{center}
@@ -301,3 +312,12 @@ prossima a quella di un metallo, con valori di conducibilità elettrica non null
 (N.B paragrafo proveniente da [Wikipedia][link1])
 
 [link1]: https://it.wikipedia.org/wiki/Struttura_elettronica_a_bande 
+
+\begin{comment}
+## Tavola periodica
+
+%%\pgfPT[show title=false, back color scheme=example,
+%%  legend box={draw=blue!50,fill=blue!20},
+%%  show extra legend,
+%%  Z list={5,7,13,14,15,31,32,33,49,51}]
+\end{comment}
