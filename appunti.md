@@ -255,7 +255,7 @@ caso la polarità della tensione applicata è discorde rispetto a quella della b
 \end{centering}
 \end{figure}
 
-#### Equazione caratteristica
+#### Equazione caratteristica e breakdown
 
 In generale, la giunzione pn ha un'equazione caratteristica
 
@@ -263,8 +263,15 @@ $$
 i=I_{S}(e^{\frac{V_d}{nV_t}}-1)
 $$
 
-detta **equazione di Shockley**: $V_d$ indica la differenza di potenziale applicati ai capi del diodo,
-$nV_t$ è il potenziale nativo dei diodi (pari a 0.7V).. In condizion
+detta **equazione di Shockley**:
+
+* $V_d$ indica la differenza di potenziale applicati ai capi del diodo;
+* $nV_t$ è il potenziale nativo dei diodi (pari a $0.7 \V$), o *tensione termica*, pari a $26 \mV$.
+* $I_S$ (o $I_0$) è una costante detta *corrente di saturazione* (per il \ce{Si} ha valori tra $10^{-15}$ e $10^{-19} \A$)
+In condizioni di polarizzazione diretta la corrente è trascurabili per tensioni al di sotto di $0,5 - 0,6 \V$ e aumenta
+molto velocemente in un intervallo molto piccolo.
+
+Il **breakdown**..
 
 #### Diodi Speciali
 \begin{center}
