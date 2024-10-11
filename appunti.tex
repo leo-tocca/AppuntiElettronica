@@ -65,6 +65,8 @@
 \let\LanguageShortHands\languageshorthands
 \def\languageshorthands#1{}
           \usepackage{cancel}
+          \usepackage[backend=bibtex]{biblatex}
+          \addbibresource{citazioni.bib}
           \usepackage{comment}
           \usepackage{float}
           \usepackage{subcaption}
@@ -415,17 +417,46 @@ detta \textbf{equazione di Shockley}:
   \(V_d\) indica la differenza di potenziale applicati ai capi del
   diodo;
 \item
-  \(nV_t\) è il potenziale nativo dei diodi (pari a \(0.7 \V\)), o
-  \emph{tensione termica}, pari a \(26 \mV\).
+  \(nV_t\) è il potenziale nativo dei diodi (pari a
+  \(\SI{0.7}{\volt}\)), o \emph{tensione termica}, pari a
+  \(\SI{26}{\mV}\).
 \item
   \(I_S\) (o \(I_0\)) è una costante detta \emph{corrente di
   saturazione} (per il \ce{Si} ha valori tra \(10^{-15}\) e
-  \(10^{-19} \A\)) In condizioni di polarizzazione diretta la corrente è
-  trascurabili per tensioni al di sotto di \(0,5 - 0,6 \V\) e aumenta
-  molto velocemente in un intervallo molto piccolo.
+  \(10^{-19} \, \si{\ampere}\))
 \end{itemize}
 
-Il \textbf{breakdown}..
+In condizioni di polarizzazione diretta la corrente è trascurabile per
+tensioni al di sotto di \(0,5 - 0,6 \si{\volt}\) (per diodi al silicio)
+e dopo aver superato la \emph{tensione di soglia} cresce molto
+repentinamente\footnote{Per un aumento di corrente di un fattore mille è
+  sufficiente un aumento di tensione pari a \(\SI{0.8}{\volt}\). Infatti
+  viene assunta \(\SI{0.6}{\volt}\) come tensione di soglia e
+  \(\SI{0.8}{\volt}\) come tensione massima.}. \newline Quando il diodo
+è in polarizzazione inversa, aumentando la tensione la corrente rimane
+costante finché non si raggiunge la cosiddetta \textbf{tensione di
+breakdown} (o di rottura). Una volta oltrepassata la corrente aumenta
+\colorbox{yellow}{(forse in questo caso \textit{diminuisce}} in maniera
+drastica a tensione praticamente costante.
+
+Il fenomeno del breakdown è dovuto a:
+
+\begin{itemize}
+\tightlist
+\item
+  Effetto \emph{Zener}: prevalente per tensioni di breakdown inferiori
+  alla decina di volt;
+\item
+  Effetto \emph{valanga}: prevalente per tensioni di breakdown superiori
+  alla decina di volt.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{immagini/iv_pn.png} % replace with your image file
+    \caption{Una tipica caratteristica I-V di un diodo a giunzione PN \cite{diodeMS}}
+    \label{fig:caratteristica_pn}
+\end{figure}
 
 \subsubsection{Diodi Speciali}\label{diodi-speciali}
 
@@ -501,6 +532,10 @@ A questo punto possono verificarsi diverse possibilità:
 %%  show extra legend,
 %%  Z list={5,7,13,14,15,31,32,33,49,51}]
 \end{comment}
+
+\chapter{Bibliografia e sitografia}\label{bibliografia-e-sitografia}
+
+\printbibliography
 
 \backmatter
 \end{document}

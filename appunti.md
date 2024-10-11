@@ -5,6 +5,7 @@ date: 2024-04-12
 subject: "Elettronica"
 tags: [Appunti]
 titlepage: true
+bibliography: citazioni.bib
 chapters: true
 chaptersDepth: 3
 toc: yes
@@ -12,6 +13,8 @@ header-includes:
 - |
   ```{=latex}
             \usepackage{cancel}
+            \usepackage[backend=bibtex]{biblatex}
+            \addbibresource{citazioni.bib}
             \usepackage{comment}
             \usepackage{float}
             \usepackage{subcaption}
@@ -213,7 +216,6 @@ Il simbolo circuitale della giunzione p-n, detta **diodo**[^11] è
 [^11]: Il diodo ideale è un dispositivo che lascia passare corrente solo in un senso, con resistenza nulla, e non
 lascia passare corrente nell’altro senso. Il diodo a giunzione approssima molto bene un diodo ideale, ed è l'elemento circuitale non lineare più importante.
 
-
 dove a sinistra abbiamo un **anodo** A (dal greco *salita*), e a destra un **catodo** K 
 (dal greco *discesa*).
 
@@ -266,12 +268,28 @@ $$
 detta **equazione di Shockley**:
 
 * $V_d$ indica la differenza di potenziale applicati ai capi del diodo;
-* $nV_t$ è il potenziale nativo dei diodi (pari a $0.7 \V$), o *tensione termica*, pari a $26 \mV$.
-* $I_S$ (o $I_0$) è una costante detta *corrente di saturazione* (per il \ce{Si} ha valori tra $10^{-15}$ e $10^{-19} \A$)
-In condizioni di polarizzazione diretta la corrente è trascurabili per tensioni al di sotto di $0,5 - 0,6 \V$ e aumenta
-molto velocemente in un intervallo molto piccolo.
+* $nV_t$ è il potenziale nativo dei diodi (pari a $\SI{0.7}{\volt}$), o *tensione termica*, pari a $\SI{26}{\mV}$.
+* $I_S$ (o $I_0$) è una costante detta *corrente di saturazione* (per il \ce{Si} ha valori tra $10^{-15}$ e $10^{-19} \, \si{\ampere}$)
 
-Il **breakdown**..
+In condizioni di polarizzazione diretta la corrente è trascurabile per tensioni al di sotto di $0,5 - 0,6 \si{\volt}$ 
+(per diodi al silicio) e dopo aver superato la *tensione di soglia* cresce molto repentinamente[^12]. \newline
+Quando il diodo è in polarizzazione inversa, aumentando la tensione la corrente rimane costante finché
+non si raggiunge la cosiddetta **tensione di breakdown** (o di rottura). Una volta oltrepassata la corrente
+aumenta \colorbox{yellow}{(forse in questo caso \textit{diminuisce}} in maniera drastica a tensione praticamente costante.
+
+Il fenomeno del breakdown è dovuto a:
+
+* Effetto *Zener*: prevalente per tensioni di breakdown inferiori alla decina di volt;
+* Effetto *valanga*: prevalente per tensioni di breakdown superiori alla decina di volt.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{immagini/iv_pn.png} % replace with your image file
+    \caption{Una tipica caratteristica I-V di un diodo a giunzione PN \cite{diodeMS}}
+    \label{fig:caratteristica_pn}
+\end{figure}
+
 
 #### Diodi Speciali
 \begin{center}
@@ -328,3 +346,10 @@ prossima a quella di un metallo, con valori di conducibilità elettrica non null
 %%  show extra legend,
 %%  Z list={5,7,13,14,15,31,32,33,49,51}]
 \end{comment}
+
+[^12]: Per un aumento di corrente di un fattore mille è sufficiente un aumento di tensione pari a $\SI{0.8}{\volt}$. Infatti viene assunta
+$\SI{0.6}{\volt}$ come tensione di soglia e $\SI{0.8}{\volt}$ come tensione massima.
+
+# Bibliografia e sitografia
+
+\printbibliography 
