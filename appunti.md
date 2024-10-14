@@ -41,6 +41,9 @@ header-includes:
             \tcbuselibrary{most}
             \newtcolorbox[auto counter,number within=section]{mybox}[1]{colback=red!5!white, colframe=red!75!black,
             fonttitle=\bfseries, title={#1}}
+            \newtcolorbox[auto counter,number within=section]{mybox2}[1]{colback=green!5!white, colframe=green!75!black,
+            fonttitle=\bfseries, title={#1}}
+            \definecolor{RedOrange}{RGB}{254,80,0}
     ```
 pandoc-latex-environment:
   tcolorbox: [box]
@@ -200,7 +203,7 @@ Come si vede nella @fig:1.3 :
 
 * $N_A > N_D \to$ più è drogata la regione più la regione di svuotamento è piccola. 
 
-### Diodo
+## I diodi
 
 Il simbolo circuitale della giunzione p-n, detta **diodo**[^11] è
 
@@ -223,7 +226,7 @@ Sia la zone p che la zona n sono munite di un contatto elettrico (detto **reofor
 in modo tale che sia possibile applicarvi una tensione. È da notare come la zona n in
 contatto col suo reoforo deve essere molto drogata \colorbox{yellow}{(approfondire)}.
 
-#### Polarizzazione
+### Polarizzazione
 
 L'applicazione di un potenziale sul diodo viene detta **polarizzazione**, e si distingue la:
 
@@ -246,7 +249,8 @@ caso la polarità della tensione applicata è discorde rispetto a quella della b
     - La regione di svuotamento si allarga, e la tensione di polarizzazione richiama le lacune verso il terminale negativo
     e gli elettroni verso il terminale positivo. Quindi l'ampiezza della barriera di potenziale aumenta.
     - La corrente di diffusione diminuisce fino ad annullarsi, mentre quella di deriva rimane (anche se è molto piccola e
-    varia con la temperatura).
+    varia con la temperatura). Quindi quasi nessuna corrente riesce a scorrere.
+    - Il campo elettrico incrementa fino ad ottenere il *breakdown*.
 
 \begin{figure}[h]
 \begin{centering}
@@ -257,7 +261,7 @@ caso la polarità della tensione applicata è discorde rispetto a quella della b
 \end{centering}
 \end{figure}
 
-#### Equazione caratteristica e breakdown
+### Equazione caratteristica e breakdown
 
 In generale, la giunzione pn ha un'equazione caratteristica
 
@@ -277,10 +281,18 @@ Quando il diodo è in polarizzazione inversa, aumentando la tensione la corrente
 non si raggiunge la cosiddetta **tensione di breakdown** (o di rottura). Una volta oltrepassata la corrente
 aumenta \colorbox{yellow}{(forse in questo caso \textit{diminuisce}} in maniera drastica a tensione praticamente costante.
 
+\begin{mybox2}{Il \emph{breakdown}}
 Il fenomeno del breakdown è dovuto a:
-
-* Effetto *Zener*: prevalente per tensioni di breakdown inferiori alla decina di volt;
-* Effetto *valanga*: prevalente per tensioni di breakdown superiori alla decina di volt.
+\begin{enumerate}
+\item Effetto \emph{Zener}: prevalente per tensioni di breakdown inferiori alla decina di volt. Quando il diodo è polarizzato
+    inversamente e la tensione è compresa tra $0\si{\volt}$ e $V_Z$ (inferiore a zero), si comporta quasi come un circuito aperto,
+    seppur continui a scorrere una piccola corrente di saturazione inversa, oltre $V_Z$ la banda di valenza della regione p si
+    avvicina talmente tanto alla banda di conduzione che alcuni elettroni si spostano dall'una all'altra;
+\item Effetto \emph{valanga} (avalanche): prevalente per tensioni di breakdown superiori alla decina di volt. Si manifesta
+    in presenza di campi elettrici \emph{molto elevati}, dovuti alla presenza di una tensione "moderata", ma imposta su distanze
+    molto corte.
+\end{enumerate}
+\end{mybox2}
 
 
 \begin{figure}[H]
@@ -290,14 +302,41 @@ Il fenomeno del breakdown è dovuto a:
     \label{fig:caratteristica_pn}
 \end{figure}
 
+### Diodi Speciali
 
-#### Diodi Speciali
+#### Fotodiodi
+
+I fotodiodi sono diodi in cui la giunzione è "scoperta", o incapsulata in un materiale trasparente, 
+in quanto vogliamo che sia in grado di **emettere** una corrente elettrica sfruttando l'effetto fotoelettrico.
+Difatti è un *trasduttore*[^13] da un segnale ottico ad un elettrico.
+\newline
+L'equazione caratteristica del fotodiodo è pari a quella di un diodo normale, con l'aggiunta di un termine
+$I_{ph}$, che rappresenta la corrente *fotogenerata*[^14]:
+$$
+i=I_{S}(e^{\frac{V_d}{nV_t}}-1)-I_{ph}
+$$
+
 \begin{center}
 \begin{circuitikz}
   \draw (0,0) node[left]{+} to[diode, l_=Diodo normale] (2,0) node[right]{-};
-  \draw (4,0) node[left]{-} to[diode, l_=Fotodiodo] node[right]{+} (6,0);
+  \draw[pD={}, l_=Fotodiodo] (4,0) node[left]{-} to node[right]{+} (6,0);
 \end{circuitikz}
 \end{center}
+
+#### Led
+
+I **led** (*light emitting diode*) è un tipo di diodo che **converte** energia elettrica in luce.
+Sono formati da sottili strati di materiali semiconduttori fortemente drogati, i quali 
+caratterizzano i diversi colori emessi quando viene applicata una polarizzazione *diretta*.\newline
+
+\begin{figure}[h]
+\centering
+\begin{circuitikz}[american]
+\draw[pD={}](0.5,-0.5)to(2.0,-0.5);
+\end{circuitikz}
+\caption{Simbolo circuitale di un led}
+\end{figure}
+
 
 \appendix
 
@@ -347,9 +386,13 @@ prossima a quella di un metallo, con valori di conducibilità elettrica non null
 %%  Z list={5,7,13,14,15,31,32,33,49,51}]
 \end{comment}
 
-[^12]: Per un aumento di corrente di un fattore mille è sufficiente un aumento di tensione pari a $\SI{0.8}{\volt}$. Infatti viene assunta
-$\SI{0.6}{\volt}$ come tensione di soglia e $\SI{0.8}{\volt}$ come tensione massima.
-
 # Bibliografia e sitografia
 
 \printbibliography 
+
+[^12]: Per un aumento di corrente di un fattore mille è sufficiente un aumento di tensione pari a $\SI{0.8}{\volt}$. Infatti viene assunta
+$\SI{0.6}{\volt}$ come tensione di soglia e $\SI{0.8}{\volt}$ come tensione massima.
+
+[^13]: Dispositivo in grado di convertire una forma di energia in una diversa.
+
+[^14]: Risulta proporzionale al flusso di fotoni che colpiscono il fotodiodo
