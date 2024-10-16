@@ -6,6 +6,7 @@ subject: "Elettronica"
 tags: [Appunti]
 titlepage: true
 bibliography: citazioni.bib
+link-citations: true
 chapters: true
 chaptersDepth: 3
 toc: yes
@@ -13,7 +14,8 @@ header-includes:
 - |
   ```{=latex}
             \usepackage{cancel}
-            \usepackage[backend=bibtex]{biblatex}
+            \usepackage[backend=biber]{biblatex}
+            \bibliography{citazioni}
             \addbibresource{citazioni.bib}
             \usepackage{comment}
             \usepackage{float}
@@ -139,9 +141,6 @@ Collegando un blocco drogato tipo p ed uno tipo n abbiamo (idealmente)[^6]
 
 Il materiale quindi è separato in due zone _nettamente distinte_, senza alterazione della
 struttura cristallina all'interfaccia delle due zone. \newline
-
-[^6]: Nella pratica parto da un blocco puro di silicio, per poi iniettare a *strati* il drogaggio.
-
 L'abbondanza di lacune in p è, come sappiamo, corrispondente ad una carenza di elettroni, di cui n *abbonda*.
 In altre parole questa diversa *densità* di portatori di carica genera una **migrazione** di elettroni da N verso P,
 detta anche _diffusione[^7] (elettrica)_ $I_D$ oppure anche _corrente di diffusione_, che consiste quindi in
@@ -168,6 +167,7 @@ e lacune nella regione n).
 Una volta che la corrente di diffusione equivale la corrente di trascinamento[^10] $I_S$ raggiungiamo un **equilibrio** (dinamico):
 La presenza del campo elettrico comporta la presenza di una differenza di potenziale.
 
+[^6]: Nella pratica parto da un blocco puro di silicio, per poi iniettare a *strati* il drogaggio.
 [^7]: Fenomeno che si ritrova in natura qualora vi sia uno squilibrio nella distribuzione nello spazio di particelle simili.
 [^8]: Svuotata di portatori **mobili**
 [^9]: È possibile superarla, ma deve essere fornita una differenza di potenziale **esterna**.
@@ -279,7 +279,7 @@ In condizioni di polarizzazione diretta la corrente è trascurabile per tensioni
 (per diodi al silicio) e dopo aver superato la *tensione di soglia* cresce molto repentinamente[^12]. \newline
 Quando il diodo è in polarizzazione inversa, aumentando la tensione la corrente rimane costante finché
 non si raggiunge la cosiddetta **tensione di breakdown** (o di rottura). Una volta oltrepassata la corrente
-aumenta \colorbox{yellow}{(forse in questo caso \textit{diminuisce}} in maniera drastica a tensione praticamente costante.
+aumenta \colorbox{yellow}{(forse in questo caso \textit{diminuisce})} in maniera drastica a tensione praticamente costante.
 
 \begin{mybox2}{Il \emph{breakdown}}
 Il fenomeno del breakdown è dovuto a:
@@ -292,13 +292,15 @@ Il fenomeno del breakdown è dovuto a:
     in presenza di campi elettrici \emph{molto elevati}, dovuti alla presenza di una tensione "moderata", ma imposta su distanze
     molto corte.
 \end{enumerate}
+
+Solitamente il processo del breakdown è irreversibile, tranne per i diodi Zener, i quali sono ideati per andare in breakdown.
 \end{mybox2}
 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{immagini/iv_pn.png} % replace with your image file
-    \caption{Una tipica caratteristica I-V di un diodo a giunzione PN \cite{diodeMS}}
+    \caption{Una tipica caratteristica I-V di un diodo a giunzione PN \autocite{diodeMS}}
     \label{fig:caratteristica_pn}
 \end{figure}
 
@@ -319,15 +321,25 @@ $$
 \begin{center}
 \begin{circuitikz}
   \draw (0,0) node[left]{+} to[diode, l_=Diodo normale] (2,0) node[right]{-};
-  \draw[pD={}, l_=Fotodiodo] (4,0) node[left]{-} to node[right]{+} (6,0);
+  \draw[pD={}, l_=Fotodiodo] (4,0) node[left]{+} to node[right]{-} (6,0);
 \end{circuitikz}
 \end{center}
+
+
+I fotodiodi p-n possono essere utilizzati senza essere polarizzati: sono adatti per "applicazioni" in situazioni
+di bassa luminosità. Quando sono illuminati, il campo elettrico nella regione di deplezione aumenta, 
+producendo la corrente fotogenerata la quale è cresce all'aumentare del flusso di fotoni. \newline
+Altrimenti i fotodiodi operano in *polarizzazione inversa*, in modo tale che i fotoni (del colore "giusto")
+possedano energia sufficiente ad oltrepassare la barriera di potenziale e a condurre quindi corrente
+elettrica.
 
 #### Led
 
 I **led** (*light emitting diode*) è un tipo di diodo che **converte** energia elettrica in luce.
 Sono formati da sottili strati di materiali semiconduttori fortemente drogati, i quali 
 caratterizzano i diversi colori emessi quando viene applicata una polarizzazione *diretta*.\newline
+Da un punto di vista *costruttivo* i led sono ricoperti da uno strato spesso di resina[^15] **trasparente**
+di forma emisferica, sia per proteggere il led stesso sia per convogliare la luce emessa.
 
 \begin{figure}[h]
 \centering
@@ -337,12 +349,65 @@ caratterizzano i diversi colori emessi quando viene applicata una polarizzazione
 \caption{Simbolo circuitale di un led}
 \end{figure}
 
+Applicando quindi una tensione positiva all'anodo, riduciamo la barriera di potenziale, in modo
+tale che elettroni e lacune ricombinandosi generino fotoni pari al gap tra la banda di conduzione
+e quella di valenza.
+
+Come si può vedere nella tabella sottostante, al fine di generare un colore visibile, deve essere
+fornita una tensione almeno pari a $1,5 \si{\volt}$
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+        \textbf{Semiconduttore composto} & \textbf{$V_{F}$ a $20$ mA} & \textbf{Banda di lunghezza d'onda} & \textbf{Colore} \\ \hline
+        GaInN & 4.0V & 450 nm & Bianco \\ \hline
+        SiC & 3.6V & 430-505 nm & Blu \\ \hline
+        GaAsP & 22V & 585-595 mm & Giallo \\ \hline
+        GaAsP & 2.0V & 605-620nm & Ambra \\ \hline
+        GaAsP & 1.8V & 630-660nm & Rosso \\ \hline
+        GaAs & 1.2V & 850-940nm & Infrarosso \\ \hline
+    \end{tabular}
+    \caption{Diverse tipologie di led in base al colore prodotto}
+\end{table}
+
+#### Diodo Schottky
+
+In questa tipologia di diodo la giunzione p-n è data dall'unione del metallo (che svolge il "ruolo" di semiconduttore 
+p) con un materiale semiconduttore drogato n. In questo modo si viene a creare una *"barriera Schottky"*: questa,
+a differenza della giunzione p-n standard, ha una *bassa* tensione di giunzione (o tensione di soglia) e una regione di svuotamento
+**quasi inesistente**[^16].
+Infatti ai capi di un diodo Schottky si misura solitamente una differenza di potenziale tra i $0.15\si{\volt}$ e i
+$0,45 \si{\volt}$: così facendo abbiamo una maggior efficienza e una maggior velocità di commutazione, riducendo i tempi
+di turnoff[^17]!
+
+\begin{figure}[h]
+\centering
+\begin{circuitikz}[american]
+\draw[sD={}](0.5,-0.5)to(3.0,-0.5);
+\end{circuitikz}
+\caption{Simbolo circuitale di un diodo Schottky}
+\end{figure}
+
+
+\printbibliography[heading=bibintoc]
 
 \appendix
 
 # Esercizi
 
 ## Esercizi capitolo 1
+
+\begin{figure}[h]
+\centering
+\begin{circuitikz}[american]
+\draw[V={}](2.0,-2.5)to(2.0,-5.5);
+\draw[D={}](2.0,-2.5)to(6.5,-2.5);
+\draw[R={}](6.5,-2.5)to(6.5,-5.5);
+\draw[short={}](2.0,-5.5)to(6.5,-5.5);
+\end{circuitikz}
+\end{figure}
+
 
 # Varie 
 
@@ -386,9 +451,6 @@ prossima a quella di un metallo, con valori di conducibilità elettrica non null
 %%  Z list={5,7,13,14,15,31,32,33,49,51}]
 \end{comment}
 
-# Bibliografia e sitografia
-
-\printbibliography 
 
 [^12]: Per un aumento di corrente di un fattore mille è sufficiente un aumento di tensione pari a $\SI{0.8}{\volt}$. Infatti viene assunta
 $\SI{0.6}{\volt}$ come tensione di soglia e $\SI{0.8}{\volt}$ come tensione massima.
@@ -396,3 +458,11 @@ $\SI{0.6}{\volt}$ come tensione di soglia e $\SI{0.8}{\volt}$ come tensione mass
 [^13]: Dispositivo in grado di convertire una forma di energia in una diversa.
 
 [^14]: Risulta proporzionale al flusso di fotoni che colpiscono il fotodiodo
+
+[^15]: Epossidica, in inglese *epoxy*.
+
+[^16]: Dal lato p.
+
+[^17]: Tempo che passa tra la fine dell'influenza esterna (forward bias) ed il momento in cui 
+smette di fluire corrente. È un ritardo causato dalla carenza di lacune ($N_D >> N_A$), causando
+un accumulo extra di carica in p, la quale sarà rilasciata durante il turnoff.
