@@ -45,7 +45,8 @@ header-includes:
             fonttitle=\bfseries, title={#1}}
             \newtcolorbox[auto counter,number within=section]{mybox2}[1]{colback=green!5!white, colframe=green!75!black,
             fonttitle=\bfseries, title={#1}}
-            \definecolor{RedOrange}{RGB}{254,80,0}
+            \newtcolorbox[auto counter,number within=section]{bluebox}[1]{colback=blue!5!white, colframe=blue!75!black,
+            fonttitle=\bfseries, title={#1}}
     ```
 pandoc-latex-environment:
   tcolorbox: [box]
@@ -223,8 +224,7 @@ dove a sinistra abbiamo un **anodo** A (dal greco *salita*), e a destra un **cat
 (dal greco *discesa*).
 
 Sia la zone p che la zona n sono munite di un contatto elettrico (detto **reoforo**),
-in modo tale che sia possibile applicarvi una tensione. È da notare come la zona n in
-contatto col suo reoforo deve essere molto drogata \colorbox{yellow}{(approfondire)}.
+in modo tale che sia possibile applicarvi una tensione.
 
 ### Polarizzazione
 
@@ -373,13 +373,14 @@ fornita una tensione almeno pari a $1,5 \si{\volt}$
 
 #### Diodo Schottky
 
-In questa tipologia di diodo la giunzione p-n è data dall'unione del metallo (che svolge il "ruolo" di semiconduttore 
+In questa tipologia di diodo la giunzione p-n è data dall'unione del metallo (che svolge il ruolo della regione
 p) con un materiale semiconduttore drogato n. In questo modo si viene a creare una *"barriera Schottky"*: questa,
-a differenza della giunzione p-n standard, ha una *bassa* tensione di giunzione (o tensione di soglia) e una regione di svuotamento
-**quasi inesistente**[^16].
+a differenza della giunzione p-n standard, ha una *bassa* tensione di giunzione (o tensione di soglia).
 Infatti ai capi di un diodo Schottky si misura solitamente una differenza di potenziale tra i $0.15\si{\volt}$ e i
 $0,45 \si{\volt}$: così facendo abbiamo una maggior efficienza e una maggior velocità di commutazione, riducendo i tempi
-di turnoff[^17]!
+di turnoff[^16]! \newline
+Inoltre, nella zona della giunzione del metallo, la zona di svuotamento è **nulla o quasi inesistente**[^17].
+
 
 \begin{figure}[h]
 \centering
@@ -389,12 +390,81 @@ di turnoff[^17]!
 \caption{Simbolo circuitale di un diodo Schottky}
 \end{figure}
 
+# I transistor
+
+## Introduzione
+
+Un transistor è un dispositivo a semiconduttori utilizzato per interrompere (commutare) o amplificare 
+segnali elettrici, come se fosse una **valvola**[^18]: in pratica regola la corrente che scorre
+in una maglia (quella in uscita al circuito) tramite la tensione applicata ad un'altra
+(ovvero quella in ingresso al circuito). \newline
+Quando viene utilizzato come interruttore, un transistor è un dispositivo logico a *due stati*:
+ON e OFF (binario 1 e 0). Sulla base di questo vengono realizzate *porte logiche* più complesse,
+quali AND, OR, NOT, le quali a loro volta sono impiegate per realizzare tutti quei dispositivi
+che compongono la parte **digitale** dell'elettronica (famiglie logiche, memorie etc.). \newline
+Invece, quando viene utilizzato come modulatore di corrente, un transistor è a "semplicemente"
+un **amplificatore**[^19].
+
+## Bipolar Junction Transistor: i BJT
+
+A differenza dei diodi a giunzione, i *transistor bipolari* utilizzano tre strati di materiali
+semiconduttori, in pratica otteniamo due diodi posti in serie[^20], in modo tale da "condividere" uno strato. \newline
+Ad ogni strato sarà associato un *terminale[^21]*: quello che sarà detto **base**, che a sua volta
+separa due terminali drogati con gli stessi materiali, che saranno detti rispettivamente
+**collettore** ed **emettitore**.
+
+Possiamo quindi distinguere due diverse tipologie di BJT: quello **npn** e quello **pnp**.
+È importante notare come in un transistore la zona di emettitore è significatimente più 
+drogata di quelle di base e di collettore; si indica infatti con p+ nei transistori pnp e con n+ nei transistori npn.
+
+\begin{figure}[H]
+\centering
+    \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \begin{circuitikz}
+        \draw (0,0) node[npn](Q){};
+        \draw (-1.5,0)node[left]{$B$}to[short,i=$I_B$,*-](Q.B);
+        \draw (0,1.5)node[above]{$C$}to[short,i_=$I_C$,*-](Q.C);
+        \draw (Q.E)to[short,i_=$I_E$,-*](0,-1.5)node[below]{$E$};
+        
+        \draw[->](0.25,-1.375)to[out=45,in=315](0.25,1.375);    
+        \draw[->](-0.25,-1.5)to[out=180,in=270](-1.5,-0.25);
+        \node at (1.3,0){$V_{CE}$};
+        \node at (-1.375,-1.375){$V_{BE}$};
+    \end{circuitikz}
+    \caption{Transistor npn}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \begin{circuitikz}
+        \draw (0,0) node[pnp](Q){};
+        \draw (-1.5,0)node[left]{$B$}to[short,i<=$I_B$,*-](Q.B);
+        \draw (0,-1.5)node[below]{$C$}to[short,i<=$I_C$,*-](Q.C);
+        \draw (Q.E)to[short,i<=$I_E$,-*](0,1.5)node[above]{$E$};
+        
+        \draw[->](0.25,-1.375)to[out=45,in=315](0.25,1.375);    
+        \draw[<-](-0.25,1.5)to[out=180,in=90](-1.5,0.25);
+        \node at (1.3,0){$V_{CE}$};
+        \node at (-1.375,1.375){$V_{EB}$};
+    \end{circuitikz}
+    \caption{Transistor pnp}
+    \end{subfigure}
+    \caption{Transistor BJT}
+\end{figure}
+
 
 \printbibliography[heading=bibintoc]
 
 \appendix
 
 # Esercizi
+
+\begin{bluebox}{Le leggi di Kirchoff}
+\begin{enumerate}
+\item \emph{Legge di Kirchoff alle correnti}: la somma delle correnti in un nodo è pari a 0.
+\item \emph{Legge di Kirchoff alle tensioni}: la somma delle tensioni lungo un percorso chiuso è pari a0.
+\end{enumerate}
+\end{bluebox}
 
 ## Esercizi capitolo 1
 
@@ -452,8 +522,7 @@ prossima a quella di un metallo, con valori di conducibilità elettrica non null
 \end{comment}
 
 
-[^12]: Per un aumento di corrente di un fattore mille è sufficiente un aumento di tensione pari a $\SI{0.8}{\volt}$. Infatti viene assunta
-$\SI{0.6}{\volt}$ come tensione di soglia e $\SI{0.8}{\volt}$ come tensione massima.
+[^12]: Per un aumento di corrente di un fattore mille è sufficiente un aumento di tensione pari a $\SI{0.8}{\volt}$. Infatti viene assunta $\SI{0.6}{\volt}$ come tensione di soglia e $\SI{0.8}{\volt}$ come tensione massima.
 
 [^13]: Dispositivo in grado di convertire una forma di energia in una diversa.
 
@@ -461,8 +530,14 @@ $\SI{0.6}{\volt}$ come tensione di soglia e $\SI{0.8}{\volt}$ come tensione mass
 
 [^15]: Epossidica, in inglese *epoxy*.
 
-[^16]: Dal lato p.
+[^16]: Tempo che passa tra la fine dell'influenza esterna (forward bias) ed il momento in cui smette di fluire corrente. È un ritardo causato dalla carenza di lacune ($N_D >> N_A$), causando un accumulo extra di carica in p, la quale sarà rilasciata durante il turnoff.
 
-[^17]: Tempo che passa tra la fine dell'influenza esterna (forward bias) ed il momento in cui 
-smette di fluire corrente. È un ritardo causato dalla carenza di lacune ($N_D >> N_A$), causando
-un accumulo extra di carica in p, la quale sarà rilasciata durante il turnoff.
+[^17]: Dal lato p.
+
+[^18]: Infatti sono andate a sostituire le *valvole termoioniche*, o *tubo a vuoto*.
+
+[^19]: Può essere sia un amplificatore di potenza che di tensione.
+
+[^20]: Oppure possiamo anche dire che sono due giunzioni p-n poste l'una di seguito all'altra e orientata in senso inverso, andando poi a costituire tre regioni *consecutive*.
+
+[^21]: Si può esprimere anche come *elettrodo*
