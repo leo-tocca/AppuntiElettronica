@@ -408,13 +408,13 @@ un **amplificatore**[^19].
 ## Bipolar Junction Transistor: i BJT
 
 A differenza dei diodi a giunzione, i *transistor bipolari* utilizzano tre strati di materiali
-semiconduttori, in pratica otteniamo due diodi posti in serie[^20], in modo tale da "condividere" uno strato. \newline
-Ad ogni strato sarà associato un *terminale[^21]*: quello che sarà detto **base**, che a sua volta
+semiconduttori, in pratica otteniamo due diodi posti in *antiserie*[^20], in modo tale da "condividere" uno strato.[^21] \newline
+Ad ogni strato sarà associato un *terminale[^22]*: quello che sarà detto **base**, che a sua volta
 separa due terminali drogati con gli stessi materiali, che saranno detti rispettivamente
 **collettore** ed **emettitore**.
 
 Possiamo quindi distinguere due diverse tipologie di BJT: quello **npn** e quello **pnp**.
-È importante notare come in un transistore la zona di emettitore è significatimente più 
+È importante notare come in un transistore la zona di emettitore è significativamente più 
 drogata di quelle di base e di collettore; si indica infatti con p+ nei transistori pnp e con n+ nei transistori npn.
 
 \begin{figure}[H]
@@ -512,7 +512,8 @@ prossima a quella di un metallo, con valori di conducibilità elettrica non null
 
 [link1]: https://it.wikipedia.org/wiki/Struttura_elettronica_a_bande 
 
-\begin{comment}
+\begin{comment} 
+TODO capire come funziona tavola periodica
 ## Tavola periodica
 
 %%\pgfPT[show title=false, back color scheme=example,
@@ -538,6 +539,8 @@ prossima a quella di un metallo, con valori di conducibilità elettrica non null
 
 [^19]: Può essere sia un amplificatore di potenza che di tensione.
 
-[^20]: Oppure possiamo anche dire che sono due giunzioni p-n poste l'una di seguito all'altra e orientata in senso inverso, andando poi a costituire tre regioni *consecutive*.
+[^20]: Antiserie indica, per bipoli **polarizzati**, una connessione in serie (quindi un solo punto di contatto), in cui le polarità dei terminali vengono accoppiate per segni uguali
 
-[^21]: Si può esprimere anche come *elettrodo*
+[^21]: Oppure possiamo anche dire che sono due giunzioni p-n poste l'una di seguito all'altra e orientata in senso inverso, andando poi a costituire tre regioni *consecutive*. 
+
+[^22]: Si può esprimere anche come *elettrodo*
