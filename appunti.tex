@@ -70,6 +70,7 @@
           \usepackage{comment}
           \usepackage{float}
           \usepackage{subcaption}
+          \usepackage{svg}
           \usepackage{tikz}
           \usepackage[version=4]{mhchem}
           \usepackage{circuitikz}
@@ -605,7 +606,9 @@ strato sarà associato un \emph{terminale\footnote{Si può esprimere anche
   come \emph{elettrodo}}}: quello che sarà detto \textbf{base}, che a
 sua volta separa due terminali drogati con gli stessi materiali, che
 saranno detti rispettivamente \textbf{collettore} ed
-\textbf{emettitore}.
+\textbf{emettitore}. \newline I dispositivi BJT sono dispositivi
+\emph{bipolari} in quanto il processo di conduzione coinvolge portatori
+di \emph{entrambe le polarità}.
 
 Possiamo quindi distinguere due diverse tipologie di BJT: quello
 \textbf{npn} e quello \textbf{pnp}. È importante notare come in un
@@ -623,10 +626,13 @@ pnp e con n+ nei transistori npn.
         \draw (0,1.5)node[above]{$C$}to[short,i_=$I_C$,*-](Q.C);
         \draw (Q.E)to[short,i_=$I_E$,-*](0,-1.5)node[below]{$E$};
         
-        \draw[->](0.25,-1.375)to[out=45,in=315](0.25,1.375);    
+        \draw[->](0.25,-1.375)to[out=45,in=315](0.25,1.375);
         \draw[->](-0.25,-1.5)to[out=180,in=270](-1.5,-0.25);
+        \draw[->](-0.25,1.5)to[out=180,in=90](-1.5,0.25);
         \node at (1.3,0){$V_{CE}$};
         \node at (-1.375,-1.375){$V_{BE}$};
+        \node at (-1.375,1.375){$V_{CB}$};
+
     \end{circuitikz}
     \caption{Transistor npn}
     \end{subfigure}
@@ -640,13 +646,64 @@ pnp e con n+ nei transistori npn.
         
         \draw[->](0.25,-1.375)to[out=45,in=315](0.25,1.375);    
         \draw[<-](-0.25,1.5)to[out=180,in=90](-1.5,0.25);
+        \draw[<-](-0.25,-1.5)to[out=180,in=270](-1.5,-0.25); %VBC
         \node at (1.3,0){$V_{CE}$};
         \node at (-1.375,1.375){$V_{EB}$};
+        \node at (-1.375,-1.375){$V_{CB}$};
     \end{circuitikz}
     \caption{Transistor pnp}
     \end{subfigure}
     \caption{Transistor BJT}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{immagini/npn.png}
+        \caption{Caption for image 1}
+        \label{fig:image1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.75\textwidth]{immagini/pnp.png}
+        \caption{Caption for image 2}
+        \label{fig:image2}
+    \end{subfigure}
+    \caption{Overall caption for the figure}
+    \label{fig:subfigures}
+\end{figure}
+
+Come è possibile notare dalle figure precedenti, da un punto di vista
+circuitale i transistor BJT sono rappresentati utilizzando 3 terminali:
+\(\to\) nel simbolo indica la giunzione (e ne è riportata solo una),
+mentre le frecce indicano i versi delle tensioni (dove sono maggiori).
+Parlando del transistor npn, per quanto riguarda le correnti abbiamo che
+all'equilibrio \(I_B + I_C = I_E\), ed \(I_B, I_C\) sono entranti,
+mentre \(I_E\) è uscente.
+
+Per entrambe le tipologie di BJT, da un punto di vista costruttivo
+valgono queste regole:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  La regione dell'emettitore è altamente drogata e ha il compito di
+  emettere o iniettare portatori di corrente nella regione di base. Nei
+  transistor npn, l'emettitore di tipo n immette elettroni liberi nella
+  base, mentre nei transistor pnp, l'emettitore di tipo p introduce
+  lacune nella base.
+\item
+  La base è sottile e leggermente drogata. La maggior parte dei
+  portatori di corrente iniettati nella regione di base si muove verso
+  il collettore senza fuoriuscire dal conduttore della base.
+\item
+  La regione del collettore è moderatamente drogata ed è la più grande
+  all'interno del transistor. La sua funzione consiste nel raccogliere o
+  attrarre i portatori di corrente iniettati nella regione di base.
+\end{enumerate}
 
 \printbibliography[heading=bibintoc]
 
