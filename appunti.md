@@ -412,13 +412,13 @@ A differenza dei diodi a giunzione, i *transistor bipolari* utilizzano tre strat
 semiconduttori, in pratica otteniamo due diodi posti in *antiserie*[^20], in modo tale da 
 "condividere" uno strato.[^21] \newline
 Ad ogni strato sarà associato un *terminale[^22]*: quello che sarà detto **base**, che a sua volta
-separa due terminali drogati con gli stessi materiali, che saranno detti rispettivamente
+separa due terminali drogati con gli stessi materiali (opposti al materiale della base), che saranno detti rispettivamente
 **collettore** ed **emettitore**. \newline
 I dispositivi BJT sono dispositivi *bipolari* in quanto il processo di conduzione coinvolge
 portatori di *entrambe le polarità*.
 
-Possiamo quindi distinguere due diverse tipologie di BJT: quello **npn** e quello **pnp**.
-È importante notare come in un transistore la zona di emettitore è significativamente più 
+La struttura di un transistor BJT può essere realizzata in due modi: quello **npn** e quello **pnp**.
+È importante notare come in un transistor la zona dell'emettitore è significativamente più 
 drogata di quelle di base e di collettore; si indica infatti con p+ nei transistori pnp e con n+ nei transistori npn.
 
 \begin{figure}[H]
@@ -427,6 +427,7 @@ drogata di quelle di base e di collettore; si indica infatti con p+ nei transist
     \centering
     \begin{circuitikz}
         \draw (0,0) node[npn](Q){};
+        \draw[thick] (-0.25,0) circle(0.5);
         \draw (-1.5,0)node[left]{$B$}to[short,i=$I_B$,*-](Q.B);
         \draw (0,1.5)node[above]{$C$}to[short,i_=$I_C$,*-](Q.C);
         \draw (Q.E)to[short,i_=$I_E$,-*](0,-1.5)node[below]{$E$};
@@ -445,6 +446,7 @@ drogata di quelle di base e di collettore; si indica infatti con p+ nei transist
     \centering
     \begin{circuitikz}
         \draw (0,0) node[pnp](Q){};
+        \draw[thick] (-0.25,0) circle(0.5);
         \draw (-1.5,0)node[left]{$B$}to[short,i<=$I_B$,*-](Q.B);
         \draw (0,-1.5)node[below]{$C$}to[short,i<=$I_C$,*-](Q.C);
         \draw (Q.E)to[short,i<=$I_E$,-*](0,1.5)node[above]{$E$};
@@ -452,7 +454,7 @@ drogata di quelle di base e di collettore; si indica infatti con p+ nei transist
         \draw[->](0.25,-1.375)to[out=45,in=315](0.25,1.375);    
         \draw[<-](-0.25,1.5)to[out=180,in=90](-1.5,0.25);
         \draw[<-](-0.25,-1.5)to[out=180,in=270](-1.5,-0.25); %VBC
-        \node at (1.3,0){$V_{CE}$};
+        \node at (1.3,0){$V_{EC}$};
         \node at (-1.375,1.375){$V_{EB}$};
 	    \node at (-1.375,-1.375){$V_{CB}$};
     \end{circuitikz}
@@ -492,6 +494,28 @@ Per entrambe le tipologie di BJT, da un punto di vista costruttivo valgono quest
 1. La regione dell'emettitore è altamente drogata e ha il compito di emettere o iniettare portatori di corrente nella regione di base. Nei transistor npn, l'emettitore di tipo n immette elettroni liberi nella base, mentre nei transistor pnp, l'emettitore di tipo p introduce lacune nella base.
 2. La base è sottile e leggermente drogata. La maggior parte dei portatori di corrente iniettati nella regione di base si muove verso il collettore senza fuoriuscire dal conduttore della base.
 3. La regione del collettore è moderatamente drogata ed è la più grande all'interno del transistor. La sua funzione consiste nel raccogliere o attrarre i portatori di corrente iniettati nella regione di base.
+
+
+## Bipolar Junction Transistor: i BJT (VERSIONE DA MANTENERE)
+
+Il transistor BJT è stato il primo transistor ad essere prodotto su larga scala, precedendo di una decade l'introduzione dei transistor ad **effetto di campo**
+
+I BJT sono un dispositivo a semiconduttore a **tre** terminali, realizzato tramite due giunzioni p-n. Sono **bipolari** in quanto il processo di conduzione coinvolge portatori di *entrambe le polarità*: quindi sia lacune che elettroni. \newline
+La realizzazione fisica consiste nell'utilizzo di tre strati di materiale semiconduttore, collegati ognuno ad un proprio terminale: abbiamo due strati esterni composti con lo stesso materiale drogante (**collettore** ed **emettitore**), ed un secondo strato posto tra gli altri due all'interno del quale viene introdotto un materiale drogante opposto (**base**). Così facendo otteniamo due giunzioni p-n: una base-emettitore ed una base-collettore.
+
+\begin{mybox}{\emph{Configurazione a diodi}}
+In generale un transistor BJT è \textbf{quasi equivalente}a porre due diodi in antiserie\footnote{Antiserie indica, per bipoli polarizzati, una connessione in serie (quindi un solo punto di contatto), in cui le polarità dei terminali vengono accoppiate per segni uguali}. In realtà è più vicina una configurazione di due giunzioni p-n poste l'una di seguito all'altra e orientate in senso inverso. Questo perché per \emph{far funzionare} il transistor BJT è necessaria la presenza di un'\emph{unica} regione di base, che svolge un ruolo cruciale nel controllo della corrente. Quando si affiancano due diodi, l'interazione tra le loro giunzioni non riproduce le caratteristiche di amplificazione e controllo della corrente tipiche di un BJT, in quanto l'introduzione di un metallo nel circuito non permette la corretta gestione delle correnti e delle tensioni necessarie per il funzionamento del transistor: non vi è il campo elettrico necessario a far passare gli elettroni da un diodo all'altro passando per il filo metallico.
+\end{mybox}
+
+È possibile realizzare la struttura in due diverse modalità:
+- tipo **npn**
+- tipo **pnp**
+
+I transistor npn sono usati più frequentemente. Inoltre le regole ed i risultati ottenuti possono essere estesi ai transistor pnp modificando opportunamente i versi di tensioni e correnti.
+
+### Il BJT npn
+
+Un BJT npn è formato da due sezioni di tipo n (emettitore e collettore), e da una di tipo p. Di fondamentale importanza, è lo *spessore della base*.
 
 \printbibliography[heading=bibintoc]
 
