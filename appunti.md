@@ -394,6 +394,38 @@ Inoltre, nella zona della giunzione del metallo, la zona di svuotamento è **nul
 \caption{Simbolo circuitale di un diodo Schottky}
 \end{figure}
 
+#### Diodo Zener
+
+Questa tipologia di diodo lavora in **breakdown**. Se viene applicata una polarizzazione *diretta*
+esso lavora e funziona come un diodo "qualsiasi". Invece, se viene applicata una polarizzazione *inversa*
+la tensione di breakdown è "molto precisa": in questo modo se $V_G < V_Z$ non accade nulla $(V_G = V_Z)$,
+mentre se $V_G \geq V_Z$ allora il diodo va in breakdown e su esso scorre una corrente. Ho quindi
+una tensione di uscita *stabilizzata* $(V_O = V_Z)$.\newline
+Nel circuito della figura seguente la resistenza è molto importante, in quanto se non fosse presnete
+$i_R = \frac{V_G - V_i}{R}$, ma $R\to0$ e quindi $i_{R}\to \infty$
+
+\begin{figure}[H]
+\centering
+\resizebox{0.25\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\normalsize]
+\draw (0,2.25) to[american voltage source, invert] (0,0.25);
+\draw (0,2.25) to[R] (3,2.25);
+\draw[zzD={}](3,0.25) to(3,2.25);
+\draw (0,0.25) to[short] (3,0.25);
+\draw (2.75,2.25) to[short, -o] (4,2.25);
+\draw (3,0.25) to (3,0) node[ground]{};
+\draw [->, >=Stealth] (1,1.75) -- (2,1.75);
+\node [font=\normalsize] at (1.5,1.5) {$i_{R}$};
+\node [font=\normalsize] at (0.75,0.75) {$V_{G}$};
+\node [font=\normalsize] at (4.5,2.25) {$V_{o}$};
+\end{circuitikz}
+}%
+
+\label{fig:my_label}
+\caption{Schema di un diodo Zener}
+\end{figure}
+
 # I transistor
 
 ## Introduzione
