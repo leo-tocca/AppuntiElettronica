@@ -823,6 +823,10 @@ inversamente, anche la corrente del collettore è \emph{nulla}.
 nulla dato che secondo la legge di \(I_D\) in una giunzione con
 polarizzazione inversa la corrente vale \(I_O\).
 
+\begin{quote}
+In definitiva non vi è conduzione.
+\end{quote}
+
 \paragraph{Attiva diretta}\label{attiva-diretta}
 
 In questa regione la giunzione BE è polarizzata \emph{direttamente},
@@ -852,6 +856,11 @@ Il \footnote{È una funzione di.}\textbf{guadagno\footnote{In inglese è
 \emph{amplificatore} della corrente di base nel caso in cui \(h_{fe}\)
 sia un valore alto: ciò lo rende \textbf{\emph{``attivo''}}
 
+\begin{quote}
+In questa regione funge da generatore di corrente controllato in
+corrente.
+\end{quote}
+
 \paragraph{Saturazione}\label{saturazione}
 
 In questa regione anche la giunzione BE è polarizzata direttamente:
@@ -877,11 +886,20 @@ nella base:
   \(I_C < h_{fe}\ I_{B}\)
 \end{itemize}
 
+\begin{quote}
+È da notare come in questa configurazione/regione otteniamo una tensione
+in uscita \textbf{costante} \(V_{CE - sat}\)
+\end{quote}
+
 \paragraph{Regione attiva inversa}\label{regione-attiva-inversa}
 
 In questo caso \(V_{BE}<0\) e \(V_{BC} > V_{\text{soglia}}\). Quindi gli
 elettroni si spostano nel collettore. In questo caso il *guadagno di
 corrente è \(\leq 1\): \(\ I_{e} \simeq - I_{B}\).
+
+\begin{quote}
+Otteniamo un guadagno di corrente molto basso (tipicamente \(\leq 1\))
+\end{quote}
 
 \begin{figure}[H]
 \centering
@@ -942,7 +960,7 @@ andamenti di \(I_C\) in funzione di \(V_{CE}\) con \(I_B\).
 \subsection{Layout planare di un transistor
 NPN}\label{layout-planare-di-un-transistor-npn}
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 \centering
 \resizebox{0.25\textwidth}{!}{%
 \begin{circuitikz}
@@ -978,6 +996,63 @@ base e del collettore sono (viceversa) molto grandi e poco drogate.
 che i materiali \(n^{+}\) sono molto drogati la regione di svuotamento è
 molto piccola e gli elettroni la possono attraversare come se non ci
 fosse.
+
+\subsection{Il BJT pnp}\label{il-bjt-pnp}
+
+È un dispositivo \emph{complementare} al pnp: valfolo le stesse
+equazioni, ma tensioni e correnti sono \textbf{opposte} \newline Sia le
+prestazioni che il guadagno sono \textbf{minori}, perché i portatori in
+movimento sono le \emph{lacune}, più lente rispetto agli elettroni.
+
+\subsection{Transistor ``speciali''}\label{transistor-speciali}
+
+\subsubsection{Foto transistor}\label{foto-transistor}
+
+Il phototransistor è caratterizzato da una corrente di base
+\emph{``photo-generated''}\footnote{In questo caso la corrente di base è
+  sostituita dall'intensità luminosa.}. Il resto dei parametri di lavoro
+sono gli stessi un un normale BJT.
+
+\[
+I_C = k \cdot P_{L}
+\]
+
+dove \(P_L\) è la potente luminosa.\newline È importante che il
+dispositivo si trovi in regione attiva: per questo sarà inserito un
+resistore dal lato del collettore per evitare di andare in saturazione.
+
+\begin{figure}[H]
+\centering
+\begin{circuitikz}[american]
+\draw(1.0,-1.0) node[npn,photo,scale=0.59](Q1){};
+\draw[short](Q1.C)to(1.0,-0.5);
+\draw[short](Q1.E)to(1.0,-1.5);
+\draw(2.0,-1.0) node[pnp,photo,scale=0.59](Q2){};
+\draw[short](Q2.E)to(2.0,-0.5);
+\draw[short](Q2.C)to(2.0,-1.5);
+\end{circuitikz}
+\caption{Un fototransistor npn ed uno pnp}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.25\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\normalsize]
+\draw (0,2) to[R] (0,0);
+%\draw (0,0) to[npn, photo] (0,-2);
+\draw(0.0, 0.0) node[npn,photo,scale=0.7](0,-3){};
+%\draw[short={}](0.0,-2)to(-2.0,-3.0);
+\node at (0,2) [circ] {};
+\node [font=\normalsize] at (0.5,2) {$V_{CC}$};
+\node [font=\normalsize] at (0.5,1) {$R$};
+\node [font=\normalsize] at (2.25,0) {$V_{CE} = V_{CC} - R \cdot I > 0.2$};
+\end{circuitikz}
+}%
+
+\label{fig:my_label}
+\caption{Schema con fototransistor npn}
+\end{figure}
 
 \printbibliography[heading=bibintoc]
 

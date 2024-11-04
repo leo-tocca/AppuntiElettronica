@@ -581,6 +581,8 @@ Inoltre, dato che tutte le giunzioni sono polarizzate inversamente, anche la cor
  $\to i_C = 0$ \newline
 Nel grafico, la corrente non è esattamente nulla dato che secondo la legge di $I_D$ in una giunzione con polarizzazione inversa la corrente vale $I_O$.
 
+> In definitiva non vi è conduzione.
+
 ##### Attiva diretta
 
 In questa regione la giunzione BE è polarizzata *direttamente*, mentre la giunzione BC è polarizzata inversamente. Significa che:
@@ -592,6 +594,8 @@ La corrente $I_B >0$, e nonostante la tensione della giunzione BC sia negativa, 
 Dunque gli elettroni dovrebbero ricombinarsi e "richiudersi" verso la base. Tuttavia, sapendo che la base è "corta" gli elettroni raggiungono il collettore prima di ricombinarsi, il quale li prende (forse meglio dire li accetta), in quanto possiede un potenziale *positivo*. È da notare che comunque non tutti gli elettroni riescono ad attraversare tutto il transistor, statisticamente alcuni si ricombinano con le lacune presenti nella regione della base.
 
 Il [^23]**guadagno[^24] del transistor di corrente** è $h_{fe}=\frac{I_C}{I_B}$. Il transistor ha una funzione di *amplificatore* della corrente di base nel caso in cui $h_{fe}$ sia un valore alto: ciò lo rende **_"attivo"_**
+
+> In questa regione funge da generatore di corrente controllato in corrente.
 
 ##### Saturazione
 
@@ -605,9 +609,13 @@ Se vale quest'ultima condizione (la tensione della giunzione BE è bassa) allora
 - $I_{B}>0$
 - $I_C < h_{fe}\ I_{B}$
 
+> È da notare come in questa configurazione/regione otteniamo una tensione in uscita **costante** $V_{CE - sat}$
+
 ##### Regione attiva inversa
 
 In questo caso $V_{BE}<0$ e $V_{BC} > V_{\text{soglia}}$. Quindi gli elettroni si spostano nel collettore. In questo caso il *guadagno di corrente è $\leq 1$: $\ I_{e} \simeq - I_{B}$.
+
+> Otteniamo un guadagno di corrente molto basso (tipicamente $\leq 1$)
 
 \begin{figure}[H]
 \centering
@@ -666,7 +674,7 @@ In questo grafico sono rappresentate delle curve che riportano gli andamenti di 
 
 ### Layout planare di un transistor NPN
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 \centering
 \resizebox{0.25\textwidth}{!}{%
 \begin{circuitikz}
@@ -695,6 +703,57 @@ In questo grafico sono rappresentate delle curve che riportano gli andamenti di 
 Come mostra anche lo schema, da un punto di vista fisico il layout planare di un transistor BJT npn *non è simmetrico*: questo sia per il drogaggio, sia per la realizzazione del dispositivo stesso. L'emettitore è molto piccolo e molto drogato, mentre le regioni della base e del collettore sono (viceversa) molto grandi e poco drogate. \newline
 I contatti della base, dell'emettitore e del collettore sono *metallici* (se legati a zona n viene un diodo di silicio). Dato che i materiali $n^{+}$ sono molto drogati la regione di svuotamento è molto piccola e gli elettroni la possono attraversare come se non ci fosse.
 
+### Il BJT pnp
+
+È un dispositivo *complementare* al pnp: valfolo le stesse equazioni, ma tensioni e correnti sono **opposte** \newline
+Sia le prestazioni che il guadagno sono **minori**, perché i portatori in movimento sono le *lacune*, più lente rispetto agli elettroni.
+
+### Transistor "speciali"
+
+#### Foto transistor
+
+Il phototransistor è caratterizzato da una corrente di base *"photo-generated"*[^25]. Il resto dei parametri
+di lavoro sono gli stessi un un normale BJT.
+
+$$
+I_C = k \cdot P_{L}
+$$
+
+dove $P_L$ è la potente luminosa.\newline
+È importante che il dispositivo si trovi in regione attiva: per questo sarà inserito un resistore dal lato del collettore per evitare di andare in saturazione.
+
+\begin{figure}[H]
+\centering
+\begin{circuitikz}[american]
+\draw(1.0,-1.0) node[npn,photo,scale=0.59](Q1){};
+\draw[short](Q1.C)to(1.0,-0.5);
+\draw[short](Q1.E)to(1.0,-1.5);
+\draw(2.0,-1.0) node[pnp,photo,scale=0.59](Q2){};
+\draw[short](Q2.E)to(2.0,-0.5);
+\draw[short](Q2.C)to(2.0,-1.5);
+\end{circuitikz}
+\caption{Un fototransistor npn ed uno pnp}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.25\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\normalsize]
+\draw (0,2) to[R] (0,0);
+%\draw (0,0) to[npn, photo] (0,-2);
+\draw(0.0, 0.0) node[npn,photo,scale=0.7](0,-3){};
+%\draw[short={}](0.0,-2)to(-2.0,-3.0);
+\node at (0,2) [circ] {};
+\node [font=\normalsize] at (0.5,2) {$V_{CC}$};
+\node [font=\normalsize] at (0.5,1) {$R$};
+\node [font=\normalsize] at (2.25,0) {$V_{CE} = V_{CC} - R \cdot I > 0.2$};
+\end{circuitikz}
+}%
+
+\label{fig:my_label}
+\caption{Schema con fototransistor npn}
+\end{figure}
 
 \printbibliography[heading=bibintoc]
 
@@ -792,3 +851,4 @@ TODO capire come funziona tavola periodica
 
 [^24]: In inglese è **gain**.
 
+[^25]: In questo caso la corrente di base è sostituita dall'intensità luminosa. 
