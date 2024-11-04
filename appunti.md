@@ -19,11 +19,14 @@ header-includes:
             \addbibresource{citazioni.bib}
             \usepackage{comment}
             \usepackage{float}
+            \usepackage{multirow}
             \usepackage{subcaption}
             \usepackage{svg}
             \usepackage{tikz}
+            \usetikzlibrary{patterns}
             \usepackage[version=4]{mhchem}
             \usepackage{circuitikz}
+            \usepackage{pgfplots}
             \usepackage{steinmetz}
             \usepackage{derivative}
             \usepackage{tabularray}
@@ -496,18 +499,19 @@ Per entrambe le tipologie di BJT, da un punto di vista costruttivo valgono quest
 3. La regione del collettore è moderatamente drogata ed è la più grande all'interno del transistor. La sua funzione consiste nel raccogliere o attrarre i portatori di corrente iniettati nella regione di base.
 
 
-## Bipolar Junction Transistor: i BJT (VERSIONE DA MANTENERE)
+## Bipolar Junction Transistor: i BJT
 
-Il transistor BJT è stato il primo transistor ad essere prodotto su larga scala, precedendo di una decade l'introduzione dei transistor ad **effetto di campo**
+Il transistor BJT è stato il primo transistor ad essere prodotto su larga scala, precedendo di una decade l'introduzione dei transistor ad **effetto di campo**.
 
-I BJT sono un dispositivo a semiconduttore a **tre** terminali, realizzato tramite due giunzioni p-n. Sono **bipolari** in quanto il processo di conduzione coinvolge portatori di *entrambe le polarità*: quindi sia lacune che elettroni. \newline
+I BJT sono un dispositivo a semiconduttore a **tre** terminali, realizzato tramite due giunzioni p-n. Sono **bipolari** in quanto il processo di conduzione coinvolge portatori di _entrambe le polarità_: quindi sia lacune che elettroni. \newline
 La realizzazione fisica consiste nell'utilizzo di tre strati di materiale semiconduttore, collegati ognuno ad un proprio terminale: abbiamo due strati esterni composti con lo stesso materiale drogante (**collettore** ed **emettitore**), ed un secondo strato posto tra gli altri due all'interno del quale viene introdotto un materiale drogante opposto (**base**). Così facendo otteniamo due giunzioni p-n: una base-emettitore ed una base-collettore.
 
 \begin{mybox}{\emph{Configurazione a diodi}}
-In generale un transistor BJT è \textbf{quasi equivalente}a porre due diodi in antiserie\footnote{Antiserie indica, per bipoli polarizzati, una connessione in serie (quindi un solo punto di contatto), in cui le polarità dei terminali vengono accoppiate per segni uguali}. In realtà è più vicina una configurazione di due giunzioni p-n poste l'una di seguito all'altra e orientate in senso inverso. Questo perché per \emph{far funzionare} il transistor BJT è necessaria la presenza di un'\emph{unica} regione di base, che svolge un ruolo cruciale nel controllo della corrente. Quando si affiancano due diodi, l'interazione tra le loro giunzioni non riproduce le caratteristiche di amplificazione e controllo della corrente tipiche di un BJT, in quanto l'introduzione di un metallo nel circuito non permette la corretta gestione delle correnti e delle tensioni necessarie per il funzionamento del transistor: non vi è il campo elettrico necessario a far passare gli elettroni da un diodo all'altro passando per il filo metallico.
+In generale un transistor BJT è \textbf{quasi equivalente }a porre due diodi in antiserie\footnote{Antiserie indica, per bipoli polarizzati, una connessione in serie (quindi un solo punto di contatto), in cui le polarità dei terminali vengono accoppiate per segni uguali}. In realtà è più vicina una configurazione di due giunzioni p-n poste l'una di seguito all'altra e orientate in senso inverso (ognuna delle quali con la propria regione di svuotamento). Questo perché per \emph{far funzionare} il transistor BJT è necessaria la presenza di un'\emph{unica} regione di base, che svolge un ruolo cruciale nel controllo della corrente. Quando si affiancano due diodi, l'interazione tra le loro giunzioni non riproduce le caratteristiche di amplificazione e controllo della corrente tipiche di un BJT, in quanto l'introduzione di un metallo nel circuito non permette la corretta gestione delle correnti e delle tensioni necessarie per il funzionamento del transistor: non vi è il campo elettrico necessario a far passare gli elettroni da un diodo all'altro passando per il filo metallico.
 \end{mybox}
 
 È possibile realizzare la struttura in due diverse modalità:
+
 - tipo **npn**
 - tipo **pnp**
 
@@ -515,7 +519,150 @@ I transistor npn sono usati più frequentemente. Inoltre le regole ed i risultat
 
 ### Il BJT npn
 
-Un BJT npn è formato da due sezioni di tipo n (emettitore e collettore), e da una di tipo p. Di fondamentale importanza, è lo *spessore della base*.
+Un BJT npn è formato da due sezioni di tipo n (emettitore e collettore), e da una di tipo p. 
+Di fondamentale importanza per la fabbricazione di un BJT è lo _spessore della base_. Infatti deve essere il più **sottile** possibile, senza fare un corto circuito tra le regioni del collettore e dell emettitore.
+
+In base alle polarizzazioni applicate alle giunzioni base-collettore e base-emettitore, otteniamo 4 **regioni di funzionamento** del transistor BJT:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Polarizzazione delle giunzioni}} & \multirow{2}{*}{\textbf{Regione di funzionamento}} \\ \cline{1-2}
+\emph{B-E} & \emph{B-C} &  \\ \hline
+Inversa & Inversa & Cutoff (Spento) \\ \hline
+Diretta & Inversa & Attiva Diretta \\ \hline
+Diretta & Diretta & Saturazione \\ \hline
+Inversa & Diretta & Attiva Inversa \\ \hline
+\end{tabular}
+\caption{Regioni di funzionamento in base alla polarizzazione delle giunzioni}
+\label{tab:reg-bjt}
+\end{table}
+
+#### Regioni di funzionamento
+
+##### Cutoff
+
+In questa regione il transistor è *spento*. Entrambe le giunzioni sono polarizzate inversamente: le rispettive tensioni sono ambedue **sotto soglia**. In particolare $V_{BE}<V_{\text{soglia}}$ e $V_{BC}<0$. \newline
+Dato che la giunzione BE non è polarizzata $\to i_B = 0$.
+Inoltre, dato che tutte le giunzioni sono polarizzate inversamente, anche la corrente del collettore è *nulla*.
+ $\to i_C = 0$ \newline
+Nel grafico, la corrente non è esattamente nulla dato che secondo la legge di $I_D$ in una giunzione con polarizzazione inversa la corrente vale $I_O$.
+
+##### Attiva diretta
+
+In questa regione la giunzione BE è polarizzata *direttamente*, mentre la giunzione BC è polarizzata inversamente. Significa che:
+
+- $V_{BE} > V_{\text{soglia}}$
+- $V_{BC} < 0$
+
+La corrente $I_B >0$, e nonostante la tensione della giunzione BC sia negativa, $I_C= h_{fe}I_{b}$. \newline
+Dunque gli elettroni dovrebbero ricombinarsi e "richiudersi" verso la base. Tuttavia, sapendo che la base è "corta" gli elettroni raggiungono il collettore prima di ricombinarsi, il quale li prende (forse meglio dire li accetta), in quanto possiede un potenziale *positivo*. È da notare che comunque non tutti gli elettroni riescono ad attraversare tutto il transistor, statisticamente alcuni si ricombinano con le lacune presenti nella regione della base.
+
+Il [^23]**guadagno[^24] del transistor di corrente** è $h_{fe}=\frac{I_C}{I_B}$. Il transistor ha una funzione di *amplificatore* della corrente di base nel caso in cui $h_{fe}$ sia un valore alto: ciò lo rende **_"attivo"_**
+
+##### Saturazione
+
+In questa regione anche la giunzione BE è polarizzata direttamente:
+
+- $V_{BE}< V_{\text{soglia}}$
+- $V_{CE}<V_{CE -sat}$
+
+Se vale quest'ultima condizione (la tensione della giunzione BE è bassa) allora anche BC è polarizzata direttamente. Per lo stesso motivo gli elettroni non vengono "raccolti" dal collettore, tendendo a rimanere nella base: 
+
+- $I_{B}>0$
+- $I_C < h_{fe}\ I_{B}$
+
+##### Regione attiva inversa
+
+In questo caso $V_{BE}<0$ e $V_{BC} > V_{\text{soglia}}$. Quindi gli elettroni si spostano nel collettore. In questo caso il *guadagno di corrente è $\leq 1$: $\ I_{e} \simeq - I_{B}$.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+        axis lines=middle,
+        xlabel={$V_{CE}$},
+        ylabel={$I_C$},
+        ymin=0, ymax=6, % adjust as needed
+        xmin=0, xmax=6, % adjust as needed
+        domain=0:5,
+        samples=100,
+        ytick=\empty,
+        xtick=\empty,
+        width=10cm, height=8cm,
+        enlarge x limits=false,
+        enlarge y limits=false,
+        extra x ticks={1},
+        extra x tick labels={$V_{CE(\text{sat})}$},
+        extra y ticks={2.5},
+        extra y tick labels={$I_{C(\text{sat})}$},
+        axis line style={->}
+    ]
+
+    % Draw saturation region
+    \addplot [fill=green, fill opacity=0.2, draw=none, domain=0:1] {2} \closedcycle;
+    \node[rotate=90] at (axis cs:0.2,4) {Saturation Region};
+
+    % Draw cutoff region
+    \addplot[pattern=north east lines, pattern color=blue!50, draw=none, domain=1:5] {0} \closedcycle;
+    \node at (axis cs:4,0.5) {Cutoff Region};
+   	\fill[white] (0, 0.01) -- (1, 2) -- (1, 0.01) -- cycle;
+
+    % Draw curves for active region
+    %\addplot[thick, black] {3*x/(x+0.5)};
+    \addplot[thick, black] {2.5*x/(x+0.5)};
+    \addplot[thick, black] {2*x/(x+0.5)};
+    \addplot[thick, black] {1.5*x/(x+0.5)};
+    \addplot[thick, black] {x/(x+0.5)};
+
+    % Label the active region
+    \node[rotate=45] at (axis cs:2.5,1.75) {Active Region};
+
+    % Label currents for different base currents
+    \node[right] at (axis cs:4.25,2.45) {$I_{B} = I_{B_3} + I_{B_2}$};
+    \node[right] at (axis cs:4.25,2) {$I_{B} = I_{B_2} + I_{B_1}$};
+    \node[right] at (axis cs:4.25,1.52) {$I_{B} = I_{B_1} > 0$};
+    \node[right] at (axis cs:4.25,1.1) {$I_{B} = 0$};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Grafico BJT da completare}
+\end{figure}
+
+In questo grafico sono rappresentate delle curve che riportano gli andamenti di $I_C$ in funzione di $V_{CE}$ con $I_B$.
+
+### Layout planare di un transistor NPN
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.25\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\large]
+\draw [thick, fill=blue!20](0,4.25) rectangle (5,0.25);
+\draw [thick, fill=red!20]  (1,4.25) rectangle (4,2.25);
+\draw [thick, fill=blue!20] (2,4.25) rectangle (3,3.25);
+\draw [short] (0,1.25) -- (5,1.25);
+\draw [short] (2.5,0.25) -- (2.5,-0.25);
+\draw [short] (2.5,4.75) -- (2.5,4.25);
+\draw [short] (3.5,4.75) -- (3.5,4.25);
+\node [font=\large] at (2.5,0.75) {n+};
+\node [font=\large] at (2.5,1.75) {n};
+\node [font=\large] at (2.5,2.75) {p};
+\node [font=\large] at (2.5,3.75) {n+};
+\node [font=\normalsize] at (2.5,5) {Emettitore};
+\node [font=\normalsize] at (3.75,5) {Base};
+\node [font=\large] at (2.5,-0.5) {Collettore};
+\end{circuitikz}
+}%
+\centering
+\caption{Configurazione planare di un BJT npn}
+\label{fig:my_label}
+\end{figure}
+
+Come mostra anche lo schema, da un punto di vista fisico il layout planare di un transistor BJT npn *non è simmetrico*: questo sia per il drogaggio, sia per la realizzazione del dispositivo stesso. L'emettitore è molto piccolo e molto drogato, mentre le regioni della base e del collettore sono (viceversa) molto grandi e poco drogate. \newline
+I contatti della base, dell'emettitore e del collettore sono *metallici* (se legati a zona n viene un diodo di silicio). Dato che i materiali $n^{+}$ sono molto drogati la regione di svuotamento è molto piccola e gli elettroni la possono attraversare come se non ci fosse.
+
 
 \printbibliography[heading=bibintoc]
 
@@ -608,3 +755,8 @@ TODO capire come funziona tavola periodica
 [^21]: Oppure possiamo anche dire che sono due giunzioni p-n poste l'una di seguito all'altra e orientata in senso inverso, andando poi a costituire tre regioni *consecutive*. 
 
 [^22]: Si può esprimere anche come *elettrodo*
+
+[^23]: È una funzione di.
+
+[^24]: In inglese è **gain**.
+
