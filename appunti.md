@@ -451,7 +451,7 @@ separa due terminali drogati con gli stessi materiali (opposti al materiale dell
 **collettore** ed **emettitore**. \newline
 I dispositivi BJT sono dispositivi *bipolari* in quanto il processo di conduzione coinvolge
 portatori di *entrambe le polarità*.
-
+\newline
 La struttura di un transistor BJT può essere realizzata in due modi: quello **npn** e quello **pnp**.
 È importante notare come in un transistor la zona dell'emettitore è significativamente più 
 drogata di quelle di base e di collettore; si indica infatti con p+ nei transistori pnp e con n+ nei transistori npn.
@@ -754,6 +754,79 @@ dove $P_L$ è la potente luminosa.\newline
 \label{fig:my_label}
 \caption{Schema con fototransistor npn}
 \end{figure}
+
+## I transistor MOS
+
+I **MOSFET** (*Metal Oxide Semiconductor Field Effect Transistor*) sono una tipologia di transistor appartenente
+ai transistor ad **effetto di campo**.
+
+\begin{mybox2}{\emph{I transistor ad effetto di campo}}
+I transistor ad effetto di campo sono caratterizzati dalla possibilità di controllare la
+\textbf{conduttività elettrica del dispostitivo}, ovvero la quantità di corrente elettrica
+che attraversa il dispositivo stesso, attraverso la formazione di un \emph{campo elettrico}
+all'interno di esso. \newline
+Possono essere realizzati in diverse modalità: 
+\begin{enumerate}
+\item JFET: ovvero Junction-Fet, realizzato con una giunzione p-n come elettrodo "rettificante";
+\item MESFET: abbreviazione di Metal Semiconductor FET realizzato tramite una giunzione Schottky raddrizzante metallo-semiconduttore; 
+\item MOSFET: il più comune.
+\end{enumerate}
+\end{mybox2}
+
+Come per i transistor a giunzione, a seconda del drogaggio possiamo ottenere due tipologie diverse di transistor MOS: i nmos e i pmos. \newline
+In particolare, sono dispositivi *controllati in tensione*.
+
+### N-Mos
+
+\begin{figure}[H]
+\centering
+\resizebox{0.7\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\LARGE]
+
+\draw[thick, fill=red!20]   (0,7.25) rectangle (11,3.25); %rettangolo principale
+\draw[thick, fill=yellow!20]   (4,8.25) rectangle (7,7.25); %ossido
+\draw[thick, fill=blue!20]   (2,7.25) rectangle (4,6.25); %n+
+\draw[thick, fill=red!60]   (4,9.25) rectangle (7,8.25); %metal gate
+\draw[thick, fill=blue!20]   (7,7.25) rectangle  node {\LARGE n+} (9,6.25);%n+
+\node [font=\Large] at (5.5,5.25) {P};
+\node [font=\Large] at (3,6.75) {n+};
+\node [font=\Large] at (5.5,8.75) {Metal gate};
+\node [font=\Large] at (5.5,7.75) {Ossido di S};
+\node [font=\Large] at (3,8.5) {Source};
+\draw [short] (3,8.25) -- (3,7.25);
+\draw [short] (8,8.25) -- (8,7.25);
+\node [font=\Large] at (8,8.5) {Gate};
+\draw [short] (5.5,10.25) -- (5.5,9.25);
+\node [font=\Large] at (5.5,10.5) {Drain};
+\draw (20,8.5) to[Tnmos, transistors/scale=1.02] (20,4.5);
+\draw  (20.25,6.5) circle (1cm);
+\draw [<->, >=Stealth] (12,5.75) -- (16,5.75);
+\draw [->, >=Stealth] (21.75,5.25) .. controls (22.5,6.5) and (22.25,7.25) .. (21.75,7.75) ;
+\draw [->, >=Stealth] (20,8.5) -- (20,7.5);
+\draw [->, >=Stealth] (21,6.5) -- (20.5,6.5);
+\draw [->, >=Stealth] (18.5,6.25) -- (19.25,6.25);
+\draw [short] (19.25,6.25) -- (19.75,6.25);
+\draw [short] (19.75,6.75) -- (19.75,6.25);
+\draw [->, >=Stealth] (20,5.5) -- (20,4.75);
+\draw [short] (20,4.5) -- (21,4.5);
+\node [font=\Large] at (17.75,6.25) {Gate};
+\node [font=\Large] at (20,8.75) {Drain $\sim$ C};
+\node [font=\Large] at (22.25,4.5) {Source $\sim$ E};
+\node [font=\Large] at (20.5,7.75) {$I_D$};
+\node [font=\Large] at (20,4) {$I_S$};
+\draw [->, >=Stealth] (19.5,4.75) .. controls (18.75,5) and (18.75,5.25) .. (18.25,6) ;
+\draw [->, >=Stealth] (17.75,6) -- (17.75,5);
+\node [font=\Large] at (17,4.5) {Terminale di controllo};
+\end{circuitikz}
+}%
+
+\label{fig:my_label}
+\caption{Transistor N-MOS}
+\end{figure}
+
+È da notare come solitamente il metallo utilizzato sia l'alluminio, anche se a volte può essere del silicio molto drogato.
+L'ossido, invece, è ossido di silicio.
 
 \printbibliography[heading=bibintoc]
 
