@@ -5,7 +5,6 @@ date: 2024-04-12
 subject: "Elettronica"
 tags: [Appunti]
 titlepage: true
-bibliography: citazioni.bib
 link-citations: true
 chapters: true
 chaptersDepth: 3
@@ -14,9 +13,6 @@ header-includes:
 - |
   ```{=latex}
             \usepackage{cancel}
-            \usepackage[backend=biber]{biblatex}
-            \bibliography{citazioni}
-            \addbibresource{citazioni.bib}
             \usepackage{comment}
             \usepackage{float}
             \usepackage{multirow}
@@ -189,7 +185,6 @@ La presenza del campo elettrico comporta la presenza di una differenza di potenz
 \caption{Giunzione pn all'equilibrio}
 \end{subfigure}
 \end{figure}
-
 In genere la regione di svuotamento non è simmetrica: la seguente equazione regola la larghezza della regione:
 $$
 x_p N_A = x_N N_D
@@ -268,11 +263,9 @@ caso la polarità della tensione applicata è discorde rispetto a quella della b
 ### Equazione caratteristica e breakdown
 
 In generale, la giunzione pn ha un'equazione caratteristica
-
 $$
 i=I_{S}(e^{\frac{V_d}{nV_t}}-1)
 $$
-
 detta **equazione di Shockley**:
 
 * $V_d$ indica la differenza di potenziale applicati ai capi del diodo;
@@ -300,11 +293,10 @@ Il fenomeno del breakdown è dovuto a:
 Solitamente il processo del breakdown è irreversibile, tranne per i diodi Zener, i quali sono ideati per andare in breakdown.
 \end{mybox2}
 
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{immagini/iv_pn.png} % replace with your image file
-    \caption{Una tipica caratteristica I-V di un diodo a giunzione PN \autocite{diodeMS}}
+    \caption{Una tipica caratteristica I-V di un diodo a giunzione PN}
     \label{fig:caratteristica_pn}
 \end{figure}
 
@@ -714,11 +706,9 @@ Sia le prestazioni che il guadagno sono **minori**, perché i portatori in movim
 
 Il phototransistor è caratterizzato da una corrente di base *"photo-generated"*[^25]. Il resto dei parametri
 di lavoro sono gli stessi un un normale BJT.
-
 $$
 I_C = k \cdot P_{L}
 $$
-
 dove $P_L$ è la potente luminosa.\newline
 È importante che il dispositivo si trovi in regione attiva: per questo sarà inserito un resistore dal lato del collettore per evitare di andare in saturazione.
 
@@ -817,7 +807,7 @@ In particolare, sono dispositivi *controllati in tensione*.
 \node [font=\Large] at (20,4) {$I_S$};
 \draw [->, >=Stealth] (19.5,4.75) .. controls (18.75,5) and (18.75,5.25) .. (18.25,6) ;
 \draw [->, >=Stealth] (17.75,6) -- (17.75,5);
-\node [font=\Large] at (17,4.5) {Terminale di controllo};
+\node [font=\Large] at (17,4.5) {Terminale di controll o};
 \end{circuitikz}
 }%
 
@@ -827,8 +817,6 @@ In particolare, sono dispositivi *controllati in tensione*.
 
 È da notare come solitamente il metallo utilizzato sia l'alluminio, anche se a volte può essere del silicio molto drogato.
 L'ossido, invece, è ossido di silicio.
-
-\printbibliography[heading=bibintoc]
 
 \appendix
 

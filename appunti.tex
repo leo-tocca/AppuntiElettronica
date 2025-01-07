@@ -64,9 +64,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
           \usepackage{cancel}
-          \usepackage[backend=biber]{biblatex}
-          \bibliography{citazioni}
-          \addbibresource{citazioni.bib}
           \usepackage{comment}
           \usepackage{float}
           \usepackage{multirow}
@@ -410,13 +407,9 @@ L'applicazione di un potenziale sul diodo viene detta
 \subsection{Equazione caratteristica e
 breakdown}\label{equazione-caratteristica-e-breakdown}
 
-In generale, la giunzione pn ha un'equazione caratteristica
-
-\[
+In generale, la giunzione pn ha un'equazione caratteristica \[
 i=I_{S}(e^{\frac{V_d}{nV_t}}-1)
-\]
-
-detta \textbf{equazione di Shockley}:
+\] detta \textbf{equazione di Shockley}:
 
 \begin{itemize}
 \tightlist
@@ -464,7 +457,7 @@ Solitamente il processo del breakdown è irreversibile, tranne per i diodi Zener
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{immagini/iv_pn.png} % replace with your image file
-    \caption{Una tipica caratteristica I-V di un diodo a giunzione PN \autocite{diodeMS}}
+    \caption{Una tipica caratteristica I-V di un diodo a giunzione PN}
     \label{fig:caratteristica_pn}
 \end{figure}
 
@@ -1010,13 +1003,9 @@ movimento sono le \emph{lacune}, più lente rispetto agli elettroni.
 Il phototransistor è caratterizzato da una corrente di base
 \emph{``photo-generated''}\footnote{In questo caso la corrente di base è
   sostituita dall'intensità luminosa.}. Il resto dei parametri di lavoro
-sono gli stessi un un normale BJT.
-
-\[
+sono gli stessi un un normale BJT. \[
 I_C = k \cdot P_{L}
-\]
-
-dove \(P_L\) è la potente luminosa.\newline È importante che il
+\] dove \(P_L\) è la potente luminosa.\newline È importante che il
 dispositivo si trovi in regione attiva: per questo sarà inserito un
 resistore dal lato del collettore per evitare di andare in saturazione.
 
@@ -1074,6 +1063,8 @@ Possono essere realizzati in diverse modalità:
 
 Come per i transistor a giunzione, a seconda del drogaggio possiamo
 ottenere due tipologie diverse di transistor MOS: i nmos e i pmos.
+\newline In particolare, sono dispositivi \emph{controllati in
+tensione}.
 
 \subsection{N-Mos}\label{n-mos}
 
@@ -1116,7 +1107,7 @@ ottenere due tipologie diverse di transistor MOS: i nmos e i pmos.
 \node [font=\Large] at (20,4) {$I_S$};
 \draw [->, >=Stealth] (19.5,4.75) .. controls (18.75,5) and (18.75,5.25) .. (18.25,6) ;
 \draw [->, >=Stealth] (17.75,6) -- (17.75,5);
-\node [font=\Large] at (17,4.5) {Terminale di controllo};
+\node [font=\Large] at (17,4.5) {Terminale di controll o};
 \end{circuitikz}
 }%
 
@@ -1124,7 +1115,9 @@ ottenere due tipologie diverse di transistor MOS: i nmos e i pmos.
 \caption{Transistor N-MOS}
 \end{figure}
 
-\printbibliography[heading=bibintoc]
+È da notare come solitamente il metallo utilizzato sia l'alluminio,
+anche se a volte può essere del silicio molto drogato. L'ossido, invece,
+è ossido di silicio.
 
 \appendix
 
