@@ -747,13 +747,10 @@ dove $P_L$ è la potente luminosa.\newline
 
 ## I transistor MOS
 
-I **MOSFET** (*Metal Oxide Semiconductor Field Effect Transistor*) sono una tipologia di transistor appartenente
-ai transistor ad **effetto di campo**.
+I **MOSFET** (*Metal Oxide Semiconductor Field Effect Transistor*) sono una tipologia di transistor appartenente ai transistor ad **effetto di campo**.
 
 \begin{mybox2}{\emph{I transistor ad effetto di campo}}
-I transistor ad effetto di campo sono caratterizzati dalla possibilità di controllare la
-\textbf{conduttività elettrica del dispostitivo}, ovvero la quantità di corrente elettrica
-che attraversa il dispositivo stesso, attraverso la formazione di un \emph{campo elettrico}
+I transistor ad effetto di campo sono caratterizzati dalla possibilità di controllare la \textbf{conduttività elettrica del dispostitivo}, ovvero la quantità di corrente elettrica che attraversa il dispositivo stesso, attraverso la formazione di un \emph{campo elettrico}
 all'interno di esso. \newline
 Possono essere realizzati in diverse modalità: 
 \begin{enumerate}
@@ -762,6 +759,8 @@ Possono essere realizzati in diverse modalità:
 \item MOSFET: il più comune.
 \end{enumerate}
 \end{mybox2}
+
+I MOS sono strutturati con più *strati di materiali sovrapposti*: metallo, ossido di silicio $(\ce{SiO_2})$ e del silicio, o di tipo $p$ o di tipo $n$. Si utilizza l'ossido come un *isolante*, non permettendo quindi il passaggio di cariche elettriche tra il metallo ed il semiconduttore.
 
 Come per i transistor a giunzione, a seconda del drogaggio possiamo ottenere due tipologie diverse di transistor MOS: i nmos e i pmos. \newline
 In particolare, sono dispositivi *controllati in tensione*.
@@ -805,9 +804,9 @@ In particolare, sono dispositivi *controllati in tensione*.
 \node [font=\Large] at (22.25,4.5) {Source $\sim$ E};
 \node [font=\Large] at (20.5,7.75) {$I_D$};
 \node [font=\Large] at (20,4) {$I_S$};
-\draw [->, >=Stealth] (19.5,4.75) .. controls (18.75,5) and (18.75,5.25) .. (18.25,6) ;
+\draw [->, >=Stealth] (19.5,4.75) .. controls (18.75,5) and (18.75,5.25) .. (18.25,6)node[midway, right] {$V_{GS}$};
 \draw [->, >=Stealth] (17.75,6) -- (17.75,5);
-\node [font=\Large] at (17,4.5) {Terminale di controll o};
+\node [font=\Large] at (17,4.5) {Terminale di controllo};
 \end{circuitikz}
 }%
 
@@ -816,7 +815,8 @@ In particolare, sono dispositivi *controllati in tensione*.
 \end{figure}
 
 È da notare come solitamente il metallo utilizzato sia l'alluminio, anche se a volte può essere del silicio molto drogato.
-L'ossido, invece, è ossido di silicio.
+L'ossido, invece, è ossido di silicio.\newline
+In generale qualsiasi MOSFET (quindi anche un N-MOS) ha tre terminali: ***source, gate e drain***
 
 \appendix
 
