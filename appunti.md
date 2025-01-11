@@ -750,7 +750,7 @@ dove $P_L$ è la potente luminosa.\newline
 I **MOSFET** (*Metal Oxide Semiconductor Field Effect Transistor*) sono una tipologia di transistor appartenente ai transistor ad **effetto di campo**.
 
 \begin{mybox2}{\emph{I transistor ad effetto di campo}}
-I transistor ad effetto di campo sono caratterizzati dalla possibilità di controllare la \textbf{conduttività elettrica del dispostitivo}, ovvero la quantità di corrente elettrica che attraversa il dispositivo stesso, attraverso la formazione di un \emph{campo elettrico}
+I transistor ad effetto di campo sono caratterizzati dalla possibilità di controllare la \textbf{conduttività elettrica del dispositivo}, ovvero la quantità di corrente elettrica che attraversa il dispositivo stesso, attraverso la formazione di un \emph{campo elettrico}
 all'interno di esso. \newline
 Possono essere realizzati in diverse modalità: 
 \begin{enumerate}
@@ -791,7 +791,7 @@ In particolare, sono dispositivi *controllati in tensione*.
 \draw (20,8.5) to[Tnmos, transistors/scale=1.02] (20,4.5);
 \draw  (20.25,6.5) circle (1cm);
 \draw [<->, >=Stealth] (12,5.75) -- (16,5.75);
-\draw [->, >=Stealth] (21.75,5.25) .. controls (22.5,6.5) and (22.25,7.25) .. (21.75,7.75) ;
+\draw [->, >=Stealth] (21.75,5.25) .. controls (22.5,6.5) and (22.25,7.25) .. (21.75,7.75)  node[midway, right] {$V_{CE}$};
 \draw [->, >=Stealth] (20,8.5) -- (20,7.5);
 \draw [->, >=Stealth] (21,6.5) -- (20.5,6.5);
 \draw [->, >=Stealth] (18.5,6.25) -- (19.25,6.25);
@@ -800,13 +800,15 @@ In particolare, sono dispositivi *controllati in tensione*.
 \draw [->, >=Stealth] (20,5.5) -- (20,4.75);
 \draw [short] (20,4.5) -- (21,4.5);
 \node [font=\Large] at (17.75,6.25) {Gate};
-\node [font=\Large] at (20,8.75) {Drain $\sim$ C};
-\node [font=\Large] at (22.25,4.5) {Source $\sim$ E};
+\node [font=\Large] at (20,8.75) {Drain $\sim$ D};
+\node [font=\Large] at (22.25,4.5) {Source $\sim$ S};
 \node [font=\Large] at (20.5,7.75) {$I_D$};
 \node [font=\Large] at (20,4) {$I_S$};
 \draw [->, >=Stealth] (19.5,4.75) .. controls (18.75,5) and (18.75,5.25) .. (18.25,6)node[midway, right] {$V_{GS}$};
 \draw [->, >=Stealth] (17.75,6) -- (17.75,5);
 \node [font=\Large] at (17,4.5) {Terminale di controllo};
+
+\node[font=\large, text=blue] at (5.5, 6.75) {- - Canale - -}; 
 \end{circuitikz}
 }%
 
