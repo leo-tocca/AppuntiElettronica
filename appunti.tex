@@ -210,7 +210,7 @@ Collegando un blocco drogato tipo p ed uno tipo n abbiamo
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[scale=1.75]
+\begin{tikzpicture}[scale=1.5]
     \draw[very thick](-2,0)--(2,0)--(2,1)--(-2,1)--(-2,0);
     \draw[very thick](0,0)--(0,1);
     \draw[thick](0.5,0)--(0.5,1);
@@ -300,7 +300,7 @@ della regione di svuotamento entro il semiconduttore drogato p e drogato
 n.
 
 \begin{figure}[H]
-\includegraphics[height=0.6\textwidth, width=!]{immagini/2.png}
+\includegraphics[height=0.5\textwidth, width=!]{immagini/2.png}
 \centering
 \caption{Grafici relativi al potenziale, al campo elettrico e alla carica nella giunzione pn}
 \label{fig:1.3}
@@ -334,9 +334,8 @@ Il simbolo circuitale della giunzione p-n, detta
 \end{figure}
 
 dove a sinistra abbiamo un \textbf{anodo} A (dal greco \emph{salita}), e
-a destra un \textbf{catodo} K (dal greco \emph{discesa}).
-
-Sia la zone p che la zona n sono munite di un contatto elettrico (detto
+a destra un \textbf{catodo} K (dal greco \emph{discesa}).\newline Sia la
+zone p che la zona n sono munite di un contatto elettrico (detto
 \textbf{reoforo}), in modo tale che sia possibile applicarvi una
 tensione.
 
@@ -453,10 +452,9 @@ Il fenomeno del breakdown è dovuto a:
 
 Solitamente il processo del breakdown è irreversibile, tranne per i diodi Zener, i quali sono ideati per andare in breakdown.
 \end{mybox2}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{immagini/iv_pn.png} % replace with your image file
+    \includegraphics[width=0.5\textwidth]{immagini/iv_pn.png} % replace with your image file
     \caption{Una tipica caratteristica I-V di un diodo a giunzione PN}
     \label{fig:caratteristica_pn}
 \end{figure}
@@ -1072,6 +1070,9 @@ tensione}.
 
 \subsection{N-Mos}\label{n-mos}
 
+Nell'N-MOS (a canale \(P\)), il silicio è di tipo \(n\): il drogaggio
+\(n+\) favorisce il contatto ohmico con l'alluminio.
+
 \begin{figure}[H]
 \centering
 \resizebox{0.7\textwidth}{!}{%
@@ -1124,7 +1125,79 @@ tensione}.
 È da notare come solitamente il metallo utilizzato sia l'alluminio,
 anche se a volte può essere del silicio molto drogato. L'ossido, invece,
 è ossido di silicio.\newline In generale qualsiasi MOSFET (quindi anche
-un N-MOS) ha tre terminali: \textbf{\emph{source, gate e drain}}
+un N-MOS) ha tre terminali: \textbf{\emph{source}} (emettitore),
+\textbf{\emph{gate}} (base) e \textbf{\emph{drain}} (collettore).
+
+All'atto pratico si ha la corrente del gate sempre nulla (in regime
+continuo). L'ossido ha la funzione di isolante, inoltre la lastra è
+sottile \((\approx 10 nm)\), la quale \emph{blocca} il passaggio di
+corrente dal gate al blocco sottostante, formando una struttura di un
+\emph{condensatore a facce piane}.
+
+Uno dei pregi dei transistor di tipo \emph{MOS} è il \textbf{consumo}:
+un BJT ha un consumo di energia \emph{costante} nel tempo (dal momento
+che deve mantenere la polarizzazione), mente un transistor MOS consuma
+solo durante le \emph{transizioni}.
+
+Come detto in precedenza la struttura di un transistor N-MOS è simile ad
+un condensatore, dove le piastre sono il gate, mentre la piastra sotto è
+l'ossido. Applicando una tensione positiva in GS (tra il gate e il
+source, \(V_{GS}>0\)), si accumulano sopra e sotto l'ossido delle
+cariche (che saranno positive \emph{sopra} e negative \emph{sotto}).
+Queste cariche andranno a riempire alcune lacune presenti sotto
+l'ossido, creando così un \emph{depletion layer}.
+
+Come in un condensatore, al crescere della tensione \(V_{GS}\) aumenta
+anche l'accumulo delle cariche; superata una certa
+\textbf{\emph{tensione di soglia}} \(V_{T}\) \((V_{GS}>V_T)\), le
+cariche accumulate hanno riempito tutte le lacune, ed iniziano ad
+accumularsi sotto l'ossido: così facendo si va creare una regione
+caratterizzata da una \textbf{carica elettrica libera}, che collega S a
+G.
+
+Come il BJT, anche con un transistor N-Mos si hanno diverse
+\textbf{\emph{working regions}}:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\emph{Cutoff}}: il dispositivo è \textbf{spento}, in quanto
+  \(V_{GS}<V_T\); si ha quindi corrente \emph{nulla}, come un
+  interruttore \emph{aperto} \((i_D)=0\);
+\item
+  \textbf{\emph{Linear}}: il dispositivo è in \textbf{conduzione}
+  \(V_{GS}>V_T\); non ha ancora raggiunto la massima corrente (di
+  saturazione, \(i_D<i_{D-sat}\)). Esiste allora un \emph{rapporto di
+  proporzionalità} \(i_D \propto V_{DS}\); il rapporto tra i due è detto
+  \textbf{\emph{resistenza di canale}}.
+\item
+  \textbf{\emph{Saturation}}: il dispositivo è \textbf{acceso}
+  \(V_{GS}>V_T\), ma ha \emph{saturato}\footnote{Ha raggiunto la massima
+    corrente.} la corrente \((i_D=I_{sat})\). Questo è dovuto alla
+  tensione di D; all'aumentare della tensione \(V_{DS}\) con la tensione
+  \(V_GS\) fissata, oltre una certa soglia non otteniamo un aumento di
+  corrente, dal momento che il drain D attira più elettroni di quanti ne
+  inserisca S. Indichiamo le caratteristiche di un Mos con due grafici:
+\end{itemize}
+
+TODO INSERIRE GRAFICI
+
+Come accennato prima abbiamo a che fare con un generatore di corrente
+\emph{governato in tensione}, in particolare dalla \(V_{DS}\), quella
+tra drain e source: \[
+i_{D}= \left\{ \begin{array}{cl}
+K[2(V_{GS}-V_{T})V_{DS}-V^{2}_{DS})] & : \ V_{DS} \leq V_{GS} - V_{T} \\
+i_{D-sat}=k(V_{GS}-V_{T}) & : \ V_{DS} \geq V_{GS} - V_{T}
+\end{array} \right.
+\] La prima equazione raffigura una \emph{parabola} che ha come
+parametro la tensione \(V_{DS}\): avrà il proprio vertice in
+\(V_{GS}-V_{T}\). \[
+K=\frac{1}{2}\mu\:C_{ox}\frac{W}{L}
+\] Nel parametro \(K,\:\mu\) dovrebbe essere la
+\emph{mobilità}\footnote{Quanto \emph{scorrono} facilmente le cariche al
+  suo interno.} del materiale, \(C_{ox}\) la capacità dell'ossido per
+unità di carica, mentre \(W\) rappresenta la larghezza della zona che va
+a costituire il canale, mentre \(L\) è la lunghezza.
 
 \appendix
 

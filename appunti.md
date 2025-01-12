@@ -122,10 +122,9 @@ dove $N_a$ indica il numero[^5] di ioni di tipo p:'positivo', mentre $N_d$ il nu
 [^5]: Oppure densità di ioni, o concentrazione...
 
 Collegando un blocco drogato tipo p ed uno tipo n abbiamo (idealmente)[^6]
-
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[scale=1.75]
+\begin{tikzpicture}[scale=1.5]
     \draw[very thick](-2,0)--(2,0)--(2,1)--(-2,1)--(-2,0);
     \draw[very thick](0,0)--(0,1);
     \draw[thick](0.5,0)--(0.5,1);
@@ -139,7 +138,6 @@ Collegando un blocco drogato tipo p ed uno tipo n abbiamo (idealmente)[^6]
 \end{tikzpicture}
 \caption{Giunzione pn}
 \end{figure}
-
 Il materiale quindi è separato in due zone _nettamente distinte_, senza alterazione della
 struttura cristallina all'interfaccia delle due zone. \newline
 L'abbondanza di lacune in p è, come sappiamo, corrispondente ad una carenza di elettroni, di cui n *abbonda*.
@@ -193,7 +191,7 @@ dove $x_p$ e $x_n$ sono rispettivamente le **larghezze** della regione di svuota
 il semiconduttore drogato p e drogato n.
 
 \begin{figure}[H]
-\includegraphics[height=0.6\textwidth, width=!]{immagini/2.png}
+\includegraphics[height=0.5\textwidth, width=!]{immagini/2.png}
 \centering
 \caption{Grafici relativi al potenziale, al campo elettrico e alla carica nella giunzione pn}
 \label{fig:1.3}
@@ -215,13 +213,10 @@ Il simbolo circuitale della giunzione p-n, detta **diodo**[^11] è
 \caption{Diodo}
 \end{centering}
 \end{figure}
-
-[^11]: Il diodo ideale è un dispositivo che lascia passare corrente solo in un senso, con resistenza nulla, e non
-lascia passare corrente nell’altro senso. Il diodo a giunzione approssima molto bene un diodo ideale, ed è l'elemento circuitale non lineare più importante.
+[^11]: Il diodo ideale è un dispositivo che lascia passare corrente solo in un senso, con resistenza nulla, e non lascia passare corrente nell’altro senso. Il diodo a giunzione approssima molto bene un diodo ideale, ed è l'elemento circuitale non lineare più importante.
 
 dove a sinistra abbiamo un **anodo** A (dal greco *salita*), e a destra un **catodo** K 
-(dal greco *discesa*).
-
+(dal greco *discesa*).\newline
 Sia la zone p che la zona n sono munite di un contatto elettrico (detto **reoforo**),
 in modo tale che sia possibile applicarvi una tensione.
 
@@ -277,7 +272,6 @@ In condizioni di polarizzazione diretta la corrente è trascurabile per tensioni
 Quando il diodo è in polarizzazione inversa, aumentando la tensione la corrente rimane costante finché
 non si raggiunge la cosiddetta **tensione di breakdown** (o di rottura). Una volta oltrepassata la corrente
 aumenta \colorbox{yellow}{(forse in questo caso \textit{diminuisce})} in maniera drastica a tensione praticamente costante.
-
 \begin{mybox2}{Il \emph{breakdown}}
 Il fenomeno del breakdown è dovuto a:
 \begin{enumerate}
@@ -292,10 +286,9 @@ Il fenomeno del breakdown è dovuto a:
 
 Solitamente il processo del breakdown è irreversibile, tranne per i diodi Zener, i quali sono ideati per andare in breakdown.
 \end{mybox2}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{immagini/iv_pn.png} % replace with your image file
+    \includegraphics[width=0.5\textwidth]{immagini/iv_pn.png} % replace with your image file
     \caption{Una tipica caratteristica I-V di un diodo a giunzione PN}
     \label{fig:caratteristica_pn}
 \end{figure}
@@ -767,6 +760,8 @@ In particolare, sono dispositivi *controllati in tensione*.
 
 ### N-Mos
 
+Nell'N-MOS (a canale $P$), il silicio è di tipo $n$: il drogaggio $n+$ favorisce il contatto ohmico con l'alluminio.
+
 \begin{figure}[H]
 \centering
 \resizebox{0.7\textwidth}{!}{%
@@ -818,7 +813,37 @@ In particolare, sono dispositivi *controllati in tensione*.
 
 È da notare come solitamente il metallo utilizzato sia l'alluminio, anche se a volte può essere del silicio molto drogato.
 L'ossido, invece, è ossido di silicio.\newline
-In generale qualsiasi MOSFET (quindi anche un N-MOS) ha tre terminali: ***source, gate e drain***
+In generale qualsiasi MOSFET (quindi anche un N-MOS) ha tre terminali: ***source*** (emettitore), ***gate*** (base) e ***drain*** (collettore).
+
+All'atto pratico si ha la corrente del gate sempre nulla (in regime continuo). L'ossido ha la funzione di isolante, inoltre la lastra è sottile $(\approx 10 nm)$, la quale *blocca* il passaggio di corrente dal gate al blocco sottostante, formando una struttura di un *condensatore a facce piane*.
+
+Uno dei pregi dei transistor di tipo *MOS* è il **consumo**: un BJT ha un consumo di energia *costante* nel tempo (dal momento che deve mantenere la polarizzazione), mente un transistor MOS consuma solo durante le *transizioni*.
+
+Come detto in precedenza la struttura di un transistor N-MOS è simile ad un condensatore, dove le piastre sono il gate, mentre la piastra sotto è l'ossido. Applicando una tensione positiva in GS (tra il gate e il source, $V_{GS}>0$), si accumulano sopra e sotto l'ossido delle cariche (che saranno positive *sopra* e negative *sotto*). Queste cariche andranno a riempire alcune lacune presenti sotto l'ossido, creando così un *depletion layer*.
+
+Come in un condensatore, al crescere della tensione $V_{GS}$ aumenta anche l'accumulo delle cariche; superata una certa ***tensione di soglia*** $V_{T}$ $(V_{GS}>V_T)$, le cariche accumulate hanno riempito tutte le lacune, ed iniziano ad accumularsi sotto l'ossido: così facendo si va creare una regione caratterizzata da una **carica elettrica libera**, che collega S a G.
+
+Come il BJT, anche con un transistor N-Mos si hanno diverse ***working regions***:
+
+- ***Cutoff***: il dispositivo è **spento**, in quanto $V_{GS}<V_T$; si ha quindi corrente *nulla*, come un interruttore *aperto* $(i_D)=0$;
+- ***Linear***: il dispositivo è in **conduzione** $V_{GS}>V_T$; non ha ancora raggiunto la massima corrente (di saturazione, $i_D<i_{D-sat}$). Esiste allora un *rapporto di proporzionalità* $i_D \propto V_{DS}$; il rapporto tra i due è detto ***resistenza di canale***.
+- ***Saturation***: il dispositivo è **acceso** $V_{GS}>V_T$, ma ha *saturato*[^26] la corrente $(i_D=I_{sat})$. Questo è dovuto alla tensione di D; all'aumentare della tensione $V_{DS}$ con la tensione $V_GS$ fissata, oltre una certa soglia non otteniamo un aumento di corrente, dal momento che il drain D attira più elettroni di quanti ne inserisca S.
+Indichiamo le caratteristiche di un Mos con due grafici:
+
+TODO INSERIRE GRAFICI
+
+Come accennato prima abbiamo a che fare con un generatore di corrente *governato in tensione*, in particolare dalla $V_{DS}$, quella tra drain e source:
+$$
+i_{D}= \left\{ \begin{array}{cl}
+K[2(V_{GS}-V_{T})V_{DS}-V^{2}_{DS})] & : \ V_{DS} \leq V_{GS} - V_{T} \\
+i_{D-sat}=k(V_{GS}-V_{T}) & : \ V_{DS} \geq V_{GS} - V_{T}
+\end{array} \right.
+$$
+La prima equazione raffigura una *parabola* che ha come parametro la tensione $V_{DS}$: avrà il proprio vertice in $V_{GS}-V_{T}$.
+$$
+K=\frac{1}{2}\mu\:C_{ox}\frac{W}{L}
+$$
+Nel parametro $K,\:\mu$ dovrebbe essere la *mobilità*[^27] del materiale, $C_{ox}$ la capacità dell'ossido per unità di carica, mentre $W$ rappresenta la larghezza della zona che va a costituire il canale, mentre $L$ è la lunghezza.
 
 \appendix
 
@@ -915,3 +940,7 @@ TODO capire come funziona tavola periodica
 [^24]: In inglese è **gain**.
 
 [^25]: In questo caso la corrente di base è sostituita dall'intensità luminosa. 
+
+[^26]: Ha raggiunto la massima corrente.
+
+[^27]: Quanto *scorrono* facilmente le cariche al suo interno.
