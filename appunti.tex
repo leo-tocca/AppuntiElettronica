@@ -129,10 +129,9 @@
 I semiconduttori sono i materiali con cui sono composti i circuiti
 integrati. Sono, come suggerisce il nome, materiali in cui il flusso di
 corrente \emph{non è libero} (non è un conduttore), ma è
-\textbf{presente} (non è un'isolante).
-
-In particolare, conducono in particolari situazioni. Quali sono però i
-materiali con queste condizioni?
+\textbf{presente} (non è un'isolante).\newline In particolare, conducono
+in particolari situazioni. Quali sono però i materiali con queste
+condizioni?
 
 \begin{itemize}
 \tightlist
@@ -180,13 +179,12 @@ quali si comportano come particelle cariche \emph{positivamente}, mentre
 nel secondo si ha un eccesso di elettroni liberi, determinando così una
 variazione della conducibilità elettrica intrinseca del materiale.
 \newline Non solo, sia le lacune che gli elettroni liberi sono quindi
-liberi di muoversi all'interno del semiconduttore!
-
-La qualità del semiconduttore è influenzata dal materiale usato (per
-esempio Ge è meglio del \ce{Si}, ma è più raro), che è a sua volta
-influenzato dal goal\footnote{(penso voglia dire ``obiettivo
-  perseguito'').} (elettronica digitale usa \ce{Si}, l'elettronica di
-potenza il \ce{GaN} o \ce{SiC}).
+liberi di muoversi all'interno del semiconduttore!\newline La qualità
+del semiconduttore è influenzata dal materiale usato (per esempio Ge è
+meglio del \ce{Si}, ma è più raro), che è a sua volta influenzato dal
+goal\footnote{(penso voglia dire ``obiettivo perseguito'').}
+(elettronica digitale usa \ce{Si}, l'elettronica di potenza il \ce{GaN}
+o \ce{SiC}).
 
 Vediamo ora degli elementi in silicio.
 
@@ -262,23 +260,7 @@ avviene in prossimità della giunzione, accanto a questa si svilupperà
 una regione \textbf{svuotata} di elettroni, con cariche fisse positive
 non compensate. \newline Analogamente nella zona p otterremo una zona
 svuotata dalle lacune e che comprende delle cariche fisse (in questo
-caso negative) non compensate. \newline Entrambe queste zone danno luogo
-alla \textbf{regione di svuotamento}\footnote{Svuotata di portatori
-  \textbf{mobili}} (o di carica spaziale, in inglese \emph{depletion
-layer}). Inoltre lo spostamento delle cariche crea a cavallo della
-giunzione un campo elettrico, con la zona n positiva rispetto alla zona
-p.~La presenza del campo elettrico comporta la presenza di una
-differenza di potenziale. Questa è anche detta \textbf{barriera di
-potenziale}\footnote{È possibile superarla, ma deve essere fornita una
-  differenza di potenziale \textbf{esterna}.}, in quanto si oppone ad
-un'ulterore diffusione ai portatori di carica soggetti alla spinta della
-diffusione (si oppone al movimento di elettroni nella regione p e lacune
-nella regione n). Una volta che la corrente di diffusione equivale la
-corrente di trascinamento\footnote{Detta anche corrente di deriva
-  (drift), in questo caso i portatori si muovono perché \textbf{spinti}
-  dal campo elettrico dovuto allo squilibrio di carica.} \(I_S\)
-raggiungiamo un \textbf{equilibrio} (dinamico): La presenza del campo
-elettrico comporta la presenza di una differenza di potenziale.
+caso negative) non compensate.
 
 \begin{figure}[H]
 \centering
@@ -292,8 +274,25 @@ elettrico comporta la presenza di una differenza di potenziale.
 \end{subfigure}
 \end{figure}
 
-In genere la regione di svuotamento non è simmetrica: la seguente
-equazione regola la larghezza della regione: \[
+Entrambe queste zone danno luogo alla \textbf{regione di
+svuotamento}\footnote{Svuotata di portatori \textbf{mobili}} (o di
+carica spaziale, in inglese \emph{depletion layer}). Inoltre lo
+spostamento delle cariche crea a cavallo della giunzione un campo
+elettrico, con la zona n positiva rispetto alla zona p.~La presenza del
+campo elettrico comporta la presenza di una differenza di potenziale.
+Questa è anche detta \textbf{barriera di potenziale}\footnote{È
+  possibile superarla, ma deve essere fornita una differenza di
+  potenziale \textbf{esterna}.}, in quanto si oppone ad un'ulterore
+diffusione ai portatori di carica soggetti alla spinta della diffusione
+(si oppone al movimento di elettroni nella regione p e lacune nella
+regione n). Una volta che la corrente di diffusione equivale la corrente
+di trascinamento\footnote{Detta anche corrente di deriva (drift), in
+  questo caso i portatori si muovono perché \textbf{spinti} dal campo
+  elettrico dovuto allo squilibrio di carica.} \(I_S\) raggiungiamo un
+\textbf{equilibrio} (dinamico): la presenza del campo elettrico comporta
+la presenza di una differenza di potenziale.\newline In genere la
+regione di svuotamento non è simmetrica: la seguente equazione regola la
+larghezza della regione: \[
 x_p N_A = x_N N_D
 \] dove \(x_p\) e \(x_n\) sono rispettivamente le \textbf{larghezze}
 della regione di svuotamento entro il semiconduttore drogato p e drogato
@@ -1182,13 +1181,13 @@ Come il BJT, anche con un transistor N-Mos si hanno diverse
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{assets/imgs/caratteristiche_NMOS.png}
+\includegraphics[width=0.65\linewidth,height=\textheight,keepaspectratio]{assets/imgs/caratteristiche_NMOS.png}
 \caption{Curve caratteristiche di un transistor N-MOS.}
 \end{figure}
 
 Come accennato prima abbiamo a che fare con un generatore di corrente
 \emph{governato in tensione}, in particolare dalla \(V_{DS}\), quella
-tra drain e source: \[
+tra drain e source. L'\emph{equazione della corrente è}: \[
 i_{D}= \left\{ \begin{array}{cl}
 K[2(V_{GS}-V_{T})V_{DS}-V^{2}_{DS})] & : \ V_{DS} \leq V_{GS} - V_{T} \\
 i_{D-sat}=k(V_{GS}-V_{T}) & : \ V_{DS} \geq V_{GS} - V_{T}
@@ -1201,7 +1200,68 @@ K=\frac{1}{2}\mu\:C_{ox}\frac{W}{L}
 \emph{mobilità}\footnote{Quanto \emph{scorrono} facilmente le cariche al
   suo interno.} del materiale, \(C_{ox}\) la capacità dell'ossido per
 unità di carica, mentre \(W\) rappresenta la larghezza della zona che va
-a costituire il canale, mentre \(L\) è la lunghezza.
+a costituire il canale, mentre \(L\) è la lunghezza. \[
+K\propto \mu \Rightarrow K_{n}\simeq 2K_{p}
+\]
+
+\subsection{P-MOS}\label{p-mos}
+
+È il dispositivo \textbf{\emph{complementare all'N-MOS}}.
+
+\begin{figure}[H]
+\centering
+\resizebox{0.7\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\LARGE]
+
+\draw[thick, fill=blue!20]   (0,7.25) rectangle (11,3.25); %rettangolo principale
+\draw[thick, fill=yellow!20]   (4,8.25) rectangle (7,7.25); %ossido
+\draw[thick, fill=red!20]   (2,7.25) rectangle (4,6.25); %n+
+\draw[thick, fill=red!60]   (4,9.25) rectangle (7,8.25); %metal gate
+\draw[thick, fill=red!20]   (7,7.25) rectangle  node {\LARGE p+} (9,6.25);%n+
+\node [font=\Large] at (5.5,5.25) {N};
+\node [font=\Large] at (3,6.75) {p+};
+\node [font=\Large] at (5.5,8.75) {Metal gate};
+\node [font=\Large] at (5.5,7.75) {Ossido di S};
+\node [font=\Large] at (3,8.5) {Source};
+\draw [short] (3,8.25) -- (3,7.25);
+\draw [short] (8,8.25) -- (8,7.25);
+\node [font=\Large] at (8,8.5) {Gate};
+\draw [short] (5.5,10.25) -- (5.5,9.25);
+\draw [<->, >=Stealth] (12,5.75) -- (15,5.75);
+\draw  (4,9.25) rectangle (7,8.25);
+\draw (18.75,7.5) to[Tpmos, transistors/scale=1.02] (18.75,4.5);
+\draw  (19.25,6) circle (1cm);
+\draw [->, >=Stealth] (20.5,6.5) .. controls (20.25,7.25) and (20.25,7.5) .. (19.5,7.5) node[pos=0.5,right, fill=white]{$V_{SG}$};
+\draw (19.75,6) to[short] (20.5,6);
+\draw [->, >=Stealth] (17.5,4.75) .. controls (17,6) and (17,6) .. (17.5,7) node[pos=0.5,left, fill=white]{$V_{SD}$};
+\node [font=\large] at (18.75,7.75) {$S$};
+\node [font=\large] at (20.75,6) {$G$};
+\node [font=\large] at (18.75,4.25) {$D$};
+\draw [->, >=Stealth] (18.25,8) -- (18.25,7)node[pos=0.5,left, fill=white]{I};
+\draw [->, >=Stealth] (20.5,5.5) -- (21.25,5.5)node[pos=0.5,below, fill=white]{I};
+\end{circuitikz}
+}%
+
+\label{fig:my_label}
+\caption{Transistor P-MOS}
+\end{figure}
+
+Valgono le stesse equazioni, ma le tensioni e le correnti sono
+\emph{opposte} (\(V_{GS}<0,V_{DS}>0,V_{t}<0\)).\newline Applicando al
+Ground una tensione negativa si accumulano cariche positive \emph{sotto
+l'ossido}: si formerà dunque un canale di lacune. Il guadagno (e quindi
+la corrente di uscita) sono \emph{minori}, in quanto le lacune sono
+portatori minoritari.
+
+Per valutare K dato delle curve è possibile risolvere il seguente
+sistema: \[
+\begin{cases}
+I_{D1}=K(V_{G1}-V_{t})^{2}\\
+I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\longrightarrow\begin{cases}\sqrt{I_{D1}}=\sqrt{K}(V_{G1}-V_{t})\\
+\sqrt{I_{D2}}=\sqrt{K}(V_{G2}-V_{t})
+\end{cases}
+\]
 
 \appendix
 

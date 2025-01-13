@@ -59,8 +59,7 @@ pandoc-latex-environment:
 
 I semiconduttori sono i materiali con cui sono composti i circuiti integrati.
 Sono, come suggerisce il nome, materiali in cui il flusso di corrente *non è 
-libero* (non è un conduttore), ma è **presente** (non è un'isolante).
-
+libero* (non è un conduttore), ma è **presente** (non è un'isolante).\newline
 In particolare, conducono in particolari situazioni. Quali sono però i
 materiali con queste condizioni?
 
@@ -92,20 +91,14 @@ il fosforo), o elementi della $3°$ colonna (tipo **p**, hanno 3 elettroni di va
 **accettori**, ad esempio il boro).\newline
 Tale discrepanza induce la formazione di livelli energetici aggiuntivi all'interno della banda 
 proibita[^2] o "gap" del semiconduttore. Nel primo caso si genera un eccesso di lacune, le quali
-si comportano come particelle cariche *positivamente*, mentre nel secondo si ha un eccesso di elettroni liberi,
-determinando così una variazione della conducibilità elettrica intrinseca del materiale. \newline
+si comportano come particelle cariche *positivamente*, mentre nel secondo si ha un eccesso di elettroni liberi, determinando così una variazione della conducibilità elettrica intrinseca del materiale. \newline
 Non solo, sia le lacune che gli elettroni liberi sono quindi liberi di muoversi all'interno del
-semiconduttore!
-
+semiconduttore!\newline
 La qualità del semiconduttore è influenzata dal materiale usato (per esempio Ge
 è meglio del \ce{Si}, ma è più raro), che è a sua volta influenzato dal goal[^3]
 (elettronica digitale usa \ce{Si}, l'elettronica di potenza il \ce{GaN} o \ce{SiC}).
 
 Vediamo ora degli elementi in silicio.
-
-[^1]: Assenza di elettroni dovuta alla **rottura** di un legame. È insieme all'elettrone, un portatore di carica nei semiconduttori.
-[^2]: Intervallo di energia interdetto agli elettroni, distanza tra la banda di valenza di conduzione (nei semiconduttori distanti $1\si{eV}$).
-[^3]: (penso voglia dire "obiettivo perseguito").
 
 ### Giunzione p-n
 
@@ -117,9 +110,6 @@ $$
 N_A = \frac{\# acceptors}{vol. unit} \text{ e } N_D=\frac{\# donors}{vol. unit}
 $$
 dove $N_a$ indica il numero[^5] di ioni di tipo p:'positivo', mentre $N_d$ il numero di ioni di tipo n:'negativo'.
-
-[^4]: Puro, quindi privo di un quantitativo significativo di drogaggio.
-[^5]: Oppure densità di ioni, o concentrazione...
 
 Collegando un blocco drogato tipo p ed uno tipo n abbiamo (idealmente)[^6]
 \begin{figure}[H]
@@ -138,6 +128,7 @@ Collegando un blocco drogato tipo p ed uno tipo n abbiamo (idealmente)[^6]
 \end{tikzpicture}
 \caption{Giunzione pn}
 \end{figure}
+
 Il materiale quindi è separato in due zone _nettamente distinte_, senza alterazione della
 struttura cristallina all'interfaccia delle due zone. \newline
 L'abbondanza di lacune in p è, come sappiamo, corrispondente ad una carenza di elettroni, di cui n *abbonda*.
@@ -151,26 +142,8 @@ detta anche _diffusione[^7] (elettrica)_ $I_D$ oppure anche _corrente di diffusi
 
 Tale fenomeno carica in modo *positivo* il semiconduttore drogato n (meno elettroni), e in modo *negativo*
 il semiconduttore drogato p (più elettroni). \newline
-Le lacune che si diffondono dalla regione/zona p alla n si ricombinano con gli elettroni liberi, *scomparendo*. Di conseguenza,
-il numero di elettroni liberi nella zona n *diminuisce*, quindi non saranno più neutralizzate alcune cariche fisse positive
-(atomi donatori). Dal momento che questa ricombinazione avviene in prossimità della giunzione, accanto a questa si svilupperà
-una regione **svuotata** di elettroni, con cariche fisse positive non compensate. \newline
-Analogamente nella zona p otterremo una zona svuotata dalle lacune e che comprende delle cariche fisse
-(in questo caso negative) non compensate. \newline
-Entrambe queste zone danno luogo alla **regione di svuotamento**[^8] (o di carica spaziale, in inglese *depletion layer*).
-Inoltre lo spostamento delle cariche crea a cavallo della giunzione un campo elettrico, con la zona n positiva rispetto
-alla zona p. La presenza del campo elettrico comporta la presenza di una differenza di potenziale.
-Questa è anche detta **barriera di potenziale**[^9], in quanto si oppone ad un'ulterore diffusione ai portatori di
-carica soggetti alla spinta della diffusione (si oppone al movimento di elettroni nella regione p
-e lacune nella regione n).
-Una volta che la corrente di diffusione equivale la corrente di trascinamento[^10] $I_S$ raggiungiamo un **equilibrio** (dinamico):
-La presenza del campo elettrico comporta la presenza di una differenza di potenziale.
-
-[^6]: Nella pratica parto da un blocco puro di silicio, per poi iniettare a *strati* il drogaggio.
-[^7]: Fenomeno che si ritrova in natura qualora vi sia uno squilibrio nella distribuzione nello spazio di particelle simili.
-[^8]: Svuotata di portatori **mobili**
-[^9]: È possibile superarla, ma deve essere fornita una differenza di potenziale **esterna**.
-[^10]: Detta anche corrente di deriva (drift), in questo caso i portatori si muovono perché **spinti** dal campo elettrico dovuto allo squilibrio di carica.
+Le lacune che si diffondono dalla regione/zona p alla n si ricombinano con gli elettroni liberi, *scomparendo*. Di conseguenza, il numero di elettroni liberi nella zona n *diminuisce*, quindi non saranno più neutralizzate alcune cariche fisse positive (atomi donatori). Dal momento che questa ricombinazione avviene in prossimità della giunzione, accanto a questa si svilupperà una regione **svuotata** di elettroni, con cariche fisse positive non compensate. \newline
+Analogamente nella zona p otterremo una zona svuotata dalle lacune e che comprende delle cariche fisse (in questo caso negative) non compensate.
  
 \begin{figure}[H]
 \centering
@@ -183,6 +156,12 @@ La presenza del campo elettrico comporta la presenza di una differenza di potenz
 \caption{Giunzione pn all'equilibrio}
 \end{subfigure}
 \end{figure}
+
+Entrambe queste zone danno luogo alla **regione di svuotamento**[^8] (o di carica spaziale, in inglese *depletion layer*).
+Inoltre lo spostamento delle cariche crea a cavallo della giunzione un campo elettrico, con la zona n positiva rispetto alla zona p. La presenza del campo elettrico comporta la presenza di una differenza di potenziale.
+Questa è anche detta **barriera di potenziale**[^9], in quanto si oppone ad un'ulterore diffusione ai portatori di carica soggetti alla spinta della diffusione (si oppone al movimento di elettroni nella regione p e lacune nella regione n).
+Una volta che la corrente di diffusione equivale la corrente di trascinamento[^10] $I_S$ raggiungiamo un **equilibrio** (dinamico):
+la presenza del campo elettrico comporta la presenza di una differenza di potenziale.\newline
 In genere la regione di svuotamento non è simmetrica: la seguente equazione regola la larghezza della regione:
 $$
 x_p N_A = x_N N_D
@@ -213,7 +192,6 @@ Il simbolo circuitale della giunzione p-n, detta **diodo**[^11] è
 \caption{Diodo}
 \end{centering}
 \end{figure}
-[^11]: Il diodo ideale è un dispositivo che lascia passare corrente solo in un senso, con resistenza nulla, e non lascia passare corrente nell’altro senso. Il diodo a giunzione approssima molto bene un diodo ideale, ed è l'elemento circuitale non lineare più importante.
 
 dove a sinistra abbiamo un **anodo** A (dal greco *salita*), e a destra un **catodo** K 
 (dal greco *discesa*).\newline
@@ -823,16 +801,16 @@ Come detto in precedenza la struttura di un transistor N-MOS è simile ad un con
 
 Come in un condensatore, al crescere della tensione $V_{GS}$ aumenta anche l'accumulo delle cariche; superata una certa ***tensione di soglia*** $V_{T}$ $(V_{GS}>V_T)$, le cariche accumulate hanno riempito tutte le lacune, ed iniziano ad accumularsi sotto l'ossido: così facendo si va creare una regione caratterizzata da una **carica elettrica libera**, che collega S a G.
 
-Come il BJT, anche con un transistor N-Mos si hanno diverse ***working regions***:
+Come il BJT, anche con un transistor N-MOS si hanno diverse ***working regions***:
 
 - ***Cutoff***: il dispositivo è **spento**, in quanto $V_{GS}<V_T$; si ha quindi corrente *nulla*, come un interruttore *aperto* $(i_D)=0$;
 - ***Linear***: il dispositivo è in **conduzione** $V_{GS}>V_T$; non ha ancora raggiunto la massima corrente (di saturazione, $i_D<i_{D-sat}$). Esiste allora un *rapporto di proporzionalità* $i_D \propto V_{DS}$; il rapporto tra i due è detto ***resistenza di canale***.
 - ***Saturation***: il dispositivo è **acceso** $V_{GS}>V_T$, ma ha *saturato*[^26] la corrente $(i_D=I_{sat})$. Questo è dovuto alla tensione di D; all'aumentare della tensione $V_{DS}$ con la tensione $V_GS$ fissata, oltre una certa soglia non otteniamo un aumento di corrente, dal momento che il drain D attira più elettroni di quanti ne inserisca S.
 Indichiamo le caratteristiche di un Mos con due grafici:
 
-![Curve caratteristiche di un transistor N-MOS.](assets/imgs/caratteristiche_NMOS.png){width=50%}
+![Curve caratteristiche di un transistor N-MOS.](assets/imgs/caratteristiche_NMOS.png){width=65%}
 
-Come accennato prima abbiamo a che fare con un generatore di corrente *governato in tensione*, in particolare dalla $V_{DS}$, quella tra drain e source:
+Come accennato prima abbiamo a che fare con un generatore di corrente *governato in tensione*, in particolare dalla $V_{DS}$, quella tra drain e source. L'*equazione della corrente è*:
 $$
 i_{D}= \left\{ \begin{array}{cl}
 K[2(V_{GS}-V_{T})V_{DS}-V^{2}_{DS})] & : \ V_{DS} \leq V_{GS} - V_{T} \\
@@ -844,6 +822,66 @@ $$
 K=\frac{1}{2}\mu\:C_{ox}\frac{W}{L}
 $$
 Nel parametro $K,\:\mu$ dovrebbe essere la *mobilità*[^27] del materiale, $C_{ox}$ la capacità dell'ossido per unità di carica, mentre $W$ rappresenta la larghezza della zona che va a costituire il canale, mentre $L$ è la lunghezza.
+$$
+K\propto \mu \Rightarrow K_{n}\simeq 2K_{p}
+$$
+All'aumentare della corrente il N-MOS si comporta come un resistore la cui resistenza è data
+da $R=\frac{\rho\cdot L}{s}$.
+
+### P-MOS
+
+È il dispositivo ***complementare all'N-MOS***.
+
+\begin{figure}[H]
+\centering
+\resizebox{0.7\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\LARGE]
+
+\draw[thick, fill=blue!20]   (0,7.25) rectangle (11,3.25); %rettangolo principale
+\draw[thick, fill=yellow!20]   (4,8.25) rectangle (7,7.25); %ossido
+\draw[thick, fill=red!20]   (2,7.25) rectangle (4,6.25); %n+
+\draw[thick, fill=red!60]   (4,9.25) rectangle (7,8.25); %metal gate
+\draw[thick, fill=red!20]   (7,7.25) rectangle  node {\LARGE p+} (9,6.25);%n+
+\node [font=\Large] at (5.5,5.25) {N};
+\node [font=\Large] at (3,6.75) {p+};
+\node [font=\Large] at (5.5,8.75) {Metal gate};
+\node [font=\Large] at (5.5,7.75) {Ossido di S};
+\node [font=\Large] at (3,8.5) {Source};
+\draw [short] (3,8.25) -- (3,7.25);
+\draw [short] (8,8.25) -- (8,7.25);
+\node [font=\Large] at (8,8.5) {Gate};
+\draw [short] (5.5,10.25) -- (5.5,9.25);
+\draw [<->, >=Stealth] (12,5.75) -- (15,5.75);
+\draw  (4,9.25) rectangle (7,8.25);
+\draw (18.75,7.5) to[Tpmos, transistors/scale=1.02] (18.75,4.5);
+\draw  (19.25,6) circle (1cm);
+\draw [->, >=Stealth] (20.5,6.5) .. controls (20.25,7.25) and (20.25,7.5) .. (19.5,7.5) node[pos=0.5,right, fill=white]{$V_{SG}$};
+\draw (19.75,6) to[short] (20.5,6);
+\draw [->, >=Stealth] (17.5,4.75) .. controls (17,6) and (17,6) .. (17.5,7) node[pos=0.5,left, fill=white]{$V_{SD}$};
+\node [font=\large] at (18.75,7.75) {$S$};
+\node [font=\large] at (20.75,6) {$G$};
+\node [font=\large] at (18.75,4.25) {$D$};
+\draw [->, >=Stealth] (18.25,8) -- (18.25,7)node[pos=0.5,left, fill=white]{I};
+\draw [->, >=Stealth] (20.5,5.5) -- (21.25,5.5)node[pos=0.5,below, fill=white]{I};
+\end{circuitikz}
+}%
+
+\label{fig:my_label}
+\caption{Transistor P-MOS}
+\end{figure}
+
+Valgono le stesse equazioni, ma le tensioni e le correnti sono *opposte* ($V_{GS}<0,V_{DS}>0,V_{t}<0$).\newline
+Applicando al Ground una tensione negativa si accumulano cariche positive *sotto l'ossido*: si formerà dunque un canale di lacune. Il guadagno (e quindi la corrente di uscita) sono *minori*, in quanto le lacune sono portatori minoritari.
+
+Per valutare K dato delle curve è possibile risolvere il seguente sistema:
+$$
+\begin{cases}
+I_{D1}=K(V_{G1}-V_{t})^{2}\\
+I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\longrightarrow\begin{cases}\sqrt{I_{D1}}=\sqrt{K}(V_{G1}-V_{t})\\
+\sqrt{I_{D2}}=\sqrt{K}(V_{G2}-V_{t})
+\end{cases}
+$$
 
 \appendix
 
@@ -912,6 +950,29 @@ TODO capire come funziona tavola periodica
 %%  Z list={5,7,13,14,15,31,32,33,49,51}]
 \end{comment}
 
+<!-- Elenco note a piè di pagina -->
+
+[^1]: Assenza di elettroni dovuta alla **rottura** di un legame. È insieme all'elettrone, un portatore di carica nei semiconduttori.
+
+[^2]: Intervallo di energia interdetto agli elettroni, distanza tra la banda di valenza di conduzione (nei semiconduttori distanti $1\si{eV}$).
+
+[^3]: (penso voglia dire "obiettivo perseguito").
+
+[^4]: Puro, quindi privo di un quantitativo significativo di drogaggio.
+
+[^5]: Oppure densità di ioni, o concentrazione...
+
+[^6]: Nella pratica parto da un blocco puro di silicio, per poi iniettare a *strati* il drogaggio.
+
+[^7]: Fenomeno che si ritrova in natura qualora vi sia uno squilibrio nella distribuzione nello spazio di particelle simili.
+
+[^8]: Svuotata di portatori **mobili**
+
+[^9]: È possibile superarla, ma deve essere fornita una differenza di potenziale **esterna**.
+
+[^10]: Detta anche corrente di deriva (drift), in questo caso i portatori si muovono perché **spinti** dal campo elettrico dovuto allo squilibrio di carica.
+
+[^11]: Il diodo ideale è un dispositivo che lascia passare corrente solo in un senso, con resistenza nulla, e non lascia passare corrente nell’altro senso. Il diodo a giunzione approssima molto bene un diodo ideale, ed è l'elemento circuitale non lineare più importante.
 
 [^12]: Per un aumento di corrente di un fattore mille è sufficiente un aumento di tensione pari a $\SI{0.8}{\volt}$. Infatti viene assunta $\SI{0.6}{\volt}$ come tensione di soglia e $\SI{0.8}{\volt}$ come tensione massima.
 
