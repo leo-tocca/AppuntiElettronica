@@ -830,7 +830,7 @@ Come il BJT, anche con un transistor N-Mos si hanno diverse ***working regions**
 - ***Saturation***: il dispositivo è **acceso** $V_{GS}>V_T$, ma ha *saturato*[^26] la corrente $(i_D=I_{sat})$. Questo è dovuto alla tensione di D; all'aumentare della tensione $V_{DS}$ con la tensione $V_GS$ fissata, oltre una certa soglia non otteniamo un aumento di corrente, dal momento che il drain D attira più elettroni di quanti ne inserisca S.
 Indichiamo le caratteristiche di un Mos con due grafici:
 
-TODO INSERIRE GRAFICI
+![Curve caratteristiche di un transistor N-MOS.](assets/imgs/caratteristiche_NMOS.png){width=50%}
 
 Come accennato prima abbiamo a che fare con un generatore di corrente *governato in tensione*, in particolare dalla $V_{DS}$, quella tra drain e source:
 $$
