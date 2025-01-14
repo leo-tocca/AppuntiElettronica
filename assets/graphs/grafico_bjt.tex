@@ -1,0 +1,57 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\begin{document}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+        axis lines=middle,
+        xlabel={$V_{CE}$},
+        ylabel={$I_C$},
+        ymin=0, ymax=6, % adjust as needed
+        xmin=0, xmax=6, % adjust as needed
+        domain=0:5,
+        samples=100,
+        ytick=\empty,
+        xtick=\empty,
+        width=10cm, height=8cm,
+        enlarge x limits=false,
+        enlarge y limits=false,
+        extra x ticks={1},
+        extra x tick labels={$V_{CE(\text{sat})}$},
+        extra y ticks={2.5},
+        extra y tick labels={$I_{C(\text{sat})}$},
+        axis line style={->}
+    ]
+
+    % Draw saturation region
+    \addplot [fill=green, fill opacity=0.2, draw=none, domain=0:1] {2} \closedcycle;
+    \node[rotate=90] at (axis cs:0.2,4) {Saturation Region};
+
+    % Draw cutoff region
+    \addplot[pattern=north east lines, pattern color=blue!50, draw=none, domain=1:5] {0} \closedcycle;
+    \node at (axis cs:4,0.5) {Cutoff Region};
+   	\fill[white] (0, 0.01) -- (1, 2) -- (1, 0.01) -- cycle;
+
+    % Draw curves for active region
+    %\addplot[thick, black] {3*x/(x+0.5)};
+    \addplot[thick, black] {2.5*x/(x+0.5)};
+    \addplot[thick, black] {2*x/(x+0.5)};
+    \addplot[thick, black] {1.5*x/(x+0.5)};
+    \addplot[thick, black] {x/(x+0.5)};
+
+    % Label the active region
+    \node[rotate=45] at (axis cs:2.5,1.75) {Active Region};
+
+    % Label currents for different base currents
+    \node[right] at (axis cs:4.25,2.45) {$I_{B} = I_{B_3} + I_{B_2}$};
+    \node[right] at (axis cs:4.25,2) {$I_{B} = I_{B_2} + I_{B_1}$};
+    \node[right] at (axis cs:4.25,1.52) {$I_{B} = I_{B_1} > 0$};
+    \node[right] at (axis cs:4.25,1.1) {$I_{B} = 0$};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Grafico BJT da completare}
+\end{figure}
+\end{document}

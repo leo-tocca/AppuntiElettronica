@@ -41,9 +41,9 @@ header-includes:
 					top=20mm,
 				}
             \tcbuselibrary{most}
-            \newtcolorbox[auto counter,number within=section]{mybox}[1]{colback=red!5!white, colframe=red!75!black,
+            \newtcolorbox[auto counter,number within=section]{redbox}[1]{colback=red!5!white, colframe=red!75!black,
             fonttitle=\bfseries, title={#1}}
-            \newtcolorbox[auto counter,number within=section]{mybox2}[1]{colback=green!5!white, colframe=green!75!black,
+            \newtcolorbox[auto counter,number within=section]{greenbox}[1]{colback=green!5!white, colframe=green!75!black,
             fonttitle=\bfseries, title={#1}}
             \newtcolorbox[auto counter,number within=section]{bluebox}[1]{colback=blue!5!white, colframe=blue!75!black,
             fonttitle=\bfseries, title={#1}}
@@ -65,20 +65,19 @@ materiali con queste condizioni?
 
 - *Elementi semiconduttori*: Silicio (\ce{Si}), Germanio (\ce{Ge}) (Carbonio (\ce{C}), ma composto)
 - *Elementi composti*: \ce{GaAs}, \ce{GaN} (Gallio-Arsenico/Azoto)
-In generale sono gli elementi della $14°$ colonna della tavola periodica o
+In generale sono gli elementi della $14\textdegree$ colonna della tavola periodica o
 composti a numero medio di elettroni liberi pari a 4 (dai 3 ai 4).
 
-\begin{mybox}{\emph{Silicio}}
+\begin{redbox}{\emph{Silicio}}
 Il silicio è il materiale semiconduttore sicuramente più diffuso. \newline
 Un atomo presenta 4 elettroni (detti di \emph{valenza}) nello strato più esterno,
-ma sua forma cristallina pura del silicio ogni atomo forma un legame covalente
-\footnote{legame chimico in cui due atomi mettono in comune delle coppie di elettroni.}
+ma sua forma cristallina pura del silicio ogni atomo forma un legame covalente\footnote{legame chimico in cui due atomi mettono in comune delle coppie di elettroni.}
 con i suoi vicini "più prossimi".
 Il cristallo di silicio puro ha inoltre una struttura cristallina matriciale,
 che blocca il passaggio di carica. \newline
 È da notare che all'aumentare della temperatura, qualche elettrone può rompere il legame
 e muoversi liberamente nel cristallo.
-\end{mybox}
+\end{redbox}
 
 Per dotare un materiale semiconduttore di conduttività *selettiva* è necessario
 *"drogare"* il materiale stesso.
@@ -86,8 +85,8 @@ Il drogaggio, quindi, va a **modificare** la concentrazione di elettroni e di *l
 attraverso questo inserimento di impurità sostituzionali (ovvero atomi di elementi diversi,
 i quali si sostituiscono ad alcuni degli atomi di silicio.) \newline
 In pratica andiamo ad  aggiungere, in piccole dosi, nel reticolo cristallino materiali della
-$5°$ colonna (drogaggio di tipo **n**, hanno 5 elettroni di valenza, sono detti **donatori**, ad esempio
-il fosforo), o elementi della $3°$ colonna (tipo **p**, hanno 3 elettroni di valenza e sono detti 
+$5\textdegree$ colonna (drogaggio di tipo **n**, hanno 5 elettroni di valenza, sono detti **donatori**, ad esempio
+il fosforo), o elementi della $3\textdegree$ colonna (tipo **p**, hanno 3 elettroni di valenza e sono detti 
 **accettori**, ad esempio il boro).\newline
 Tale discrepanza induce la formazione di livelli energetici aggiuntivi all'interno della banda 
 proibita[^2] o "gap" del semiconduttore. Nel primo caso si genera un eccesso di lacune, le quali
@@ -102,7 +101,7 @@ Vediamo ora degli elementi in silicio.
 
 ### Giunzione p-n
 
-Una giunzione pn (o p-n) si forma quando una del materiale semiconduttore intrinseco [^4] drogato con un drogaggio p (con
+Una giunzione pn (o p-n) si forma quando una del materiale semiconduttore intrinseco[^4] drogato con un drogaggio p (con
 una percentuale $N_{A}$, n. accettori) viene posta a contatto con altro materiale semiconduttore drogato con un drogaggio n
 (con una percentuale $N_{D}$, n. donatori). \newline
 La concentrazione di ioni dalle seguenti "formule":
@@ -250,7 +249,7 @@ In condizioni di polarizzazione diretta la corrente è trascurabile per tensioni
 Quando il diodo è in polarizzazione inversa, aumentando la tensione la corrente rimane costante finché
 non si raggiunge la cosiddetta **tensione di breakdown** (o di rottura). Una volta oltrepassata la corrente
 aumenta \colorbox{yellow}{(forse in questo caso \textit{diminuisce})} in maniera drastica a tensione praticamente costante.
-\begin{mybox2}{Il \emph{breakdown}}
+\begin{greenbox}{Il \emph{breakdown}}
 Il fenomeno del breakdown è dovuto a:
 \begin{enumerate}
 \item Effetto \emph{Zener}: prevalente per tensioni di breakdown inferiori alla decina di volt. Quando il diodo è polarizzato
@@ -263,7 +262,7 @@ Il fenomeno del breakdown è dovuto a:
 \end{enumerate}
 
 Solitamente il processo del breakdown è irreversibile, tranne per i diodi Zener, i quali sono ideati per andare in breakdown.
-\end{mybox2}
+\end{greenbox}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{immagini/iv_pn.png} % replace with your image file
@@ -501,9 +500,9 @@ Il transistor BJT è stato il primo transistor ad essere prodotto su larga scala
 I BJT sono un dispositivo a semiconduttore a **tre** terminali, realizzato tramite due giunzioni p-n. Sono **bipolari** in quanto il processo di conduzione coinvolge portatori di _entrambe le polarità_: quindi sia lacune che elettroni. \newline
 La realizzazione fisica consiste nell'utilizzo di tre strati di materiale semiconduttore, collegati ognuno ad un proprio terminale: abbiamo due strati esterni composti con lo stesso materiale drogante (**collettore** ed **emettitore**), ed un secondo strato posto tra gli altri due all'interno del quale viene introdotto un materiale drogante opposto (**base**). Così facendo otteniamo due giunzioni p-n: una base-emettitore ed una base-collettore.
 
-\begin{mybox}{\emph{Configurazione a diodi}}
+\begin{redbox}{\emph{Configurazione a diodi}}
 In generale un transistor BJT è \textbf{quasi equivalente }a porre due diodi in antiserie\footnote{Antiserie indica, per bipoli polarizzati, una connessione in serie (quindi un solo punto di contatto), in cui le polarità dei terminali vengono accoppiate per segni uguali}. In realtà è più vicina una configurazione di due giunzioni p-n poste l'una di seguito all'altra e orientate in senso inverso (ognuna delle quali con la propria regione di svuotamento). Questo perché per \emph{far funzionare} il transistor BJT è necessaria la presenza di un'\emph{unica} regione di base, che svolge un ruolo cruciale nel controllo della corrente. Quando si affiancano due diodi, l'interazione tra le loro giunzioni non riproduce le caratteristiche di amplificazione e controllo della corrente tipiche di un BJT, in quanto l'introduzione di un metallo nel circuito non permette la corretta gestione delle correnti e delle tensioni necessarie per il funzionamento del transistor: non vi è il campo elettrico necessario a far passare gli elettroni da un diodo all'altro passando per il filo metallico.
-\end{mybox}
+\end{redbox}
 
 È possibile realizzare la struttura in due diverse modalità:
 
@@ -580,58 +579,7 @@ In questo caso $V_{BE}<0$ e $V_{BC} > V_{\text{soglia}}$. Quindi gli elettroni s
 
 > Otteniamo un guadagno di corrente molto basso (tipicamente $\leq 1$)
 
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-    \begin{axis}[
-        axis lines=middle,
-        xlabel={$V_{CE}$},
-        ylabel={$I_C$},
-        ymin=0, ymax=6, % adjust as needed
-        xmin=0, xmax=6, % adjust as needed
-        domain=0:5,
-        samples=100,
-        ytick=\empty,
-        xtick=\empty,
-        width=10cm, height=8cm,
-        enlarge x limits=false,
-        enlarge y limits=false,
-        extra x ticks={1},
-        extra x tick labels={$V_{CE(\text{sat})}$},
-        extra y ticks={2.5},
-        extra y tick labels={$I_{C(\text{sat})}$},
-        axis line style={->}
-    ]
-
-    % Draw saturation region
-    \addplot [fill=green, fill opacity=0.2, draw=none, domain=0:1] {2} \closedcycle;
-    \node[rotate=90] at (axis cs:0.2,4) {Saturation Region};
-
-    % Draw cutoff region
-    \addplot[pattern=north east lines, pattern color=blue!50, draw=none, domain=1:5] {0} \closedcycle;
-    \node at (axis cs:4,0.5) {Cutoff Region};
-   	\fill[white] (0, 0.01) -- (1, 2) -- (1, 0.01) -- cycle;
-
-    % Draw curves for active region
-    %\addplot[thick, black] {3*x/(x+0.5)};
-    \addplot[thick, black] {2.5*x/(x+0.5)};
-    \addplot[thick, black] {2*x/(x+0.5)};
-    \addplot[thick, black] {1.5*x/(x+0.5)};
-    \addplot[thick, black] {x/(x+0.5)};
-
-    % Label the active region
-    \node[rotate=45] at (axis cs:2.5,1.75) {Active Region};
-
-    % Label currents for different base currents
-    \node[right] at (axis cs:4.25,2.45) {$I_{B} = I_{B_3} + I_{B_2}$};
-    \node[right] at (axis cs:4.25,2) {$I_{B} = I_{B_2} + I_{B_1}$};
-    \node[right] at (axis cs:4.25,1.52) {$I_{B} = I_{B_1} > 0$};
-    \node[right] at (axis cs:4.25,1.1) {$I_{B} = 0$};
-
-\end{axis}
-\end{tikzpicture}
-\caption{Grafico BJT da completare}
-\end{figure}
+![Curva BJT.](assets/imgs/curva_bjt_npn.png){width=70%}
 
 In questo grafico sono rappresentate delle curve che riportano gli andamenti di $I_C$ in funzione di $V_{CE}$ con $I_B$.
 
@@ -720,7 +668,7 @@ dove $P_L$ è la potente luminosa.\newline
 
 I **MOSFET** (*Metal Oxide Semiconductor Field Effect Transistor*) sono una tipologia di transistor appartenente ai transistor ad **effetto di campo**.
 
-\begin{mybox2}{\emph{I transistor ad effetto di campo}}
+\begin{greenbox}{\emph{I transistor ad effetto di campo}}
 I transistor ad effetto di campo sono caratterizzati dalla possibilità di controllare la \textbf{conduttività elettrica del dispositivo}, ovvero la quantità di corrente elettrica che attraversa il dispositivo stesso, attraverso la formazione di un \emph{campo elettrico}
 all'interno di esso. \newline
 Possono essere realizzati in diverse modalità: 
@@ -729,7 +677,7 @@ Possono essere realizzati in diverse modalità:
 \item MESFET: abbreviazione di Metal Semiconductor FET realizzato tramite una giunzione Schottky raddrizzante metallo-semiconduttore; 
 \item MOSFET: il più comune.
 \end{enumerate}
-\end{mybox2}
+\end{greenbox}
 
 I MOS sono strutturati con più *strati di materiali sovrapposti*: metallo, ossido di silicio $(\ce{SiO_2})$ e del silicio, o di tipo $p$ o di tipo $n$. Si utilizza l'ossido come un *isolante*, non permettendo quindi il passaggio di cariche elettriche tra il metallo ed il semiconduttore.
 
@@ -738,7 +686,7 @@ In particolare, sono dispositivi *controllati in tensione*.
 
 ### N-Mos
 
-Nell'N-MOS (a canale $P$), il silicio è di tipo $n$: il drogaggio $n+$ favorisce il contatto ohmico con l'alluminio.
+Nell'N-MOS (a canale $P$), il silicio è di tipo $n$: il drogaggio $n+$ favorisce il contatto ohmico[^26] con l'alluminio. Le definizioni delle correnti e delle tensioni equivalgono quelle dei transistor NPN.
 
 \begin{figure}[H]
 \centering
@@ -786,14 +734,13 @@ Nell'N-MOS (a canale $P$), il silicio è di tipo $n$: il drogaggio $n+$ favorisc
 }%
 
 \label{fig:my_label}
-\caption{Transistor N-MOS}
+\caption{Sezione di un transistor N-MOS.}
 \end{figure}
 
-È da notare come solitamente il metallo utilizzato sia l'alluminio, anche se a volte può essere del silicio molto drogato.
-L'ossido, invece, è ossido di silicio.\newline
+È da notare come solitamente il metallo utilizzato sia l'alluminio, anche se a volte può essere del silicio molto drogato. L'ossido, invece, è ossido di silicio.\newline
 In generale qualsiasi MOSFET (quindi anche un N-MOS) ha tre terminali: ***source*** (emettitore), ***gate*** (base) e ***drain*** (collettore).
 
-All'atto pratico si ha la corrente del gate sempre nulla (in regime continuo). L'ossido ha la funzione di isolante, inoltre la lastra è sottile $(\approx 10 nm)$, la quale *blocca* il passaggio di corrente dal gate al blocco sottostante, formando una struttura di un *condensatore a facce piane*.
+All'atto pratico si ha la corrente del gate sempre **nulla** (in regime continuo). L'ossido ha la funzione di isolante, inoltre la lastra (di metallo) è sottile $(\approx 10 nm)$, la quale *blocca* il passaggio di corrente dal gate al blocco sottostante, formando una struttura di un *condensatore a facce piane*.
 
 Uno dei pregi dei transistor di tipo *MOS* è il **consumo**: un BJT ha un consumo di energia *costante* nel tempo (dal momento che deve mantenere la polarizzazione), mente un transistor MOS consuma solo durante le *transizioni*.
 
@@ -805,7 +752,7 @@ Come il BJT, anche con un transistor N-MOS si hanno diverse ***working regions**
 
 - ***Cutoff***: il dispositivo è **spento**, in quanto $V_{GS}<V_T$; si ha quindi corrente *nulla*, come un interruttore *aperto* $(i_D)=0$;
 - ***Linear***: il dispositivo è in **conduzione** $V_{GS}>V_T$; non ha ancora raggiunto la massima corrente (di saturazione, $i_D<i_{D-sat}$). Esiste allora un *rapporto di proporzionalità* $i_D \propto V_{DS}$; il rapporto tra i due è detto ***resistenza di canale***.
-- ***Saturation***: il dispositivo è **acceso** $V_{GS}>V_T$, ma ha *saturato*[^26] la corrente $(i_D=I_{sat})$. Questo è dovuto alla tensione di D; all'aumentare della tensione $V_{DS}$ con la tensione $V_GS$ fissata, oltre una certa soglia non otteniamo un aumento di corrente, dal momento che il drain D attira più elettroni di quanti ne inserisca S.
+- ***Saturation***: il dispositivo è **acceso** $V_{GS}>V_T$, ma ha *saturato*[^27] la corrente $(i_D=I_{sat})$. Questo è dovuto alla tensione di D; all'aumentare della tensione $V_{DS}$ con la tensione $V_GS$ fissata, oltre una certa soglia non otteniamo un aumento di corrente, dal momento che il drain D attira più elettroni di quanti ne inserisca S.
 Indichiamo le caratteristiche di un Mos con due grafici:
 
 ![Curve caratteristiche di un transistor N-MOS.](assets/imgs/caratteristiche_NMOS.png){width=65%}
@@ -821,12 +768,14 @@ La prima equazione raffigura una *parabola* che ha come parametro la tensione $V
 $$
 K=\frac{1}{2}\mu\:C_{ox}\frac{W}{L}
 $$
-Nel parametro $K,\:\mu$ dovrebbe essere la *mobilità*[^27] del materiale, $C_{ox}$ la capacità dell'ossido per unità di carica, mentre $W$ rappresenta la larghezza della zona che va a costituire il canale, mentre $L$ è la lunghezza.
+Nel parametro $K,\:\mu$ dovrebbe essere la *mobilità*[^28] del materiale, $C_{ox}$ la capacità dell'ossido per unità di carica, mentre $W$ rappresenta la larghezza della zona che va a costituire il canale, mentre $L$ è la lunghezza.
 $$
 K\propto \mu \Rightarrow K_{n}\simeq 2K_{p}
 $$
 All'aumentare della corrente il N-MOS si comporta come un resistore la cui resistenza è data
 da $R=\frac{\rho\cdot L}{s}$.
+
+![Vista di un transistor N-MOS dall'alto.](assets/imgs/nmos_dall_alto.png){width=50%}
 
 ### P-MOS
 
@@ -851,12 +800,13 @@ da $R=\frac{\rho\cdot L}{s}$.
 \draw [short] (3,8.25) -- (3,7.25);
 \draw [short] (8,8.25) -- (8,7.25);
 \node [font=\Large] at (8,8.5) {Gate};
+\node [font=\Large] at (5.5,10.5) {Drain};
 \draw [short] (5.5,10.25) -- (5.5,9.25);
 \draw [<->, >=Stealth] (12,5.75) -- (15,5.75);
 \draw  (4,9.25) rectangle (7,8.25);
-\draw (18.75,7.5) to[Tpmos, transistors/scale=1.02] (18.75,4.5);
-\draw  (19.25,6) circle (1cm);
-\draw [->, >=Stealth] (20.5,6.5) .. controls (20.25,7.25) and (20.25,7.5) .. (19.5,7.5) node[pos=0.5,right, fill=white]{$V_{SG}$};
+\draw (18.75,7.5) to[Tpmos, transistors/scale=1.5] (18.75,4.5);
+\draw  (19.25,6) circle (1.1cm);
+\draw [->, >=Stealth] (20.75,6.75) .. controls (20.5,7.5) and (20.5,7.75) .. (19.75,7.75) node[pos=0.5,right, fill=white]{$V_{SG}$};
 \draw (19.75,6) to[short] (20.5,6);
 \draw [->, >=Stealth] (17.5,4.75) .. controls (17,6) and (17,6) .. (17.5,7) node[pos=0.5,left, fill=white]{$V_{SD}$};
 \node [font=\large] at (18.75,7.75) {$S$};
@@ -868,11 +818,11 @@ da $R=\frac{\rho\cdot L}{s}$.
 }%
 
 \label{fig:my_label}
-\caption{Transistor P-MOS}
+\caption{Sezione di un transistor P-MOS}
 \end{figure}
 
 Valgono le stesse equazioni, ma le tensioni e le correnti sono *opposte* ($V_{GS}<0,V_{DS}>0,V_{t}<0$).\newline
-Applicando al Ground una tensione negativa si accumulano cariche positive *sotto l'ossido*: si formerà dunque un canale di lacune. Il guadagno (e quindi la corrente di uscita) sono *minori*, in quanto le lacune sono portatori minoritari.
+Applicando al Ground una tensione negativa si accumulano cariche positive *sotto l'ossido*: si formerà dunque un canale di lacune. Il guadagno (e quindi la corrente di uscita) sono *minori*, in quanto le lacune sono portatori minoritari (come per i transistor BJT, in quanto $k_n\approx 2k_p$).
 
 Per valutare K dato delle curve è possibile risolvere il seguente sistema:
 $$
@@ -882,6 +832,60 @@ I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\longrightarrow\begin{cases}\sqrt{I_{D1}}=\
 \sqrt{I_{D2}}=\sqrt{K}(V_{G2}-V_{t})
 \end{cases}
 $$
+
+### Real N-MOS
+
+All'apparenza il transistor N-MOS sembra un dispositivo *simmetrico*, ma non lo è. Infatti in precedenza abbiamo assunto la tensione $V_{DS}>0$ perché polarizzando la S viene polarizzato anche il blocco P[^29] sottostante: in questo modo si viene a formare un ***body diode*** tra l'emettitore ed il collettore.
+\begin{redbox}{Body diode}
+Il \textbf{body diode} sono diodi \textbf{\emph{intrinseci}} per qualsiasi transistor ad effetto di campo. Nelle applicazioni FET a canale N, la corrente scorre tipicamente dal drain alla source a causa della polarità del body diode. Anche se non è stato indotto un canale, la corrente può comunque fluire dalla source al drain attraverso la connessione in cortocircuito source-body e il diodo body-drain. Per questo motivo, un tipico FET a canale N non può bloccare il flusso di corrente dalla sorgente al drain.
+\end{redbox}
+Nel nostro caso è essenzialmente una giunzione p-n *parassita* in cui passa la corrente invece che nel canale.
+
+
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \resizebox{0.6\textwidth}{!}{ % Ridimensiona la figura al 80% della larghezza
+      \begin{circuitikz}
+        \tikzstyle{every node}=[font=\LARGE]
+        \draw  (1,7.25) rectangle (10,3.25);
+        \draw  (4,8.25) rectangle (7,7.25);
+        \draw  (2,7.25) rectangle (4,6.25);
+        \draw  (7,7.25) rectangle  node {\LARGE n+} (9,6.25);
+        \node [font=\Large] at (5.5,5.25) {P};
+        \node [font=\Large] at (3,6.75) {n+};
+        \node [font=\Large] at (5.5,8.75) {Metal gate};
+        \node [font=\Large] at (5.5,7.75) {Ossido di S};
+        \node [font=\Large] at (3,8.5) {Source};
+        \draw [short] (3,8.25) -- (3,7.25);
+        \draw [short] (8,8.25) -- (8,7.25);
+        \node [font=\Large] at (8,8.5) {Gate};
+        \draw [short] (5.5,10.25) -- (5.5,9.25);
+        \node [font=\Large] at (5.5,10.5) {Drain};
+        \draw  (4,9.25) rectangle (7,8.25);
+        \draw (5.5,3.25) to[D] (8,6.25);
+      \end{circuitikz}
+    }
+    \caption{Presenza nel real N-MOS del body diode}
+  \end{minipage}
+  \hspace{1cm}
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \begin{circuitikz}
+      \draw (0,0) node[nigfete](M1){};
+      \draw (M1.G) -- (-1,0) node[left]{Gate};
+      \draw (M1.D) -- (0,1.2) node[above]{Drain};
+      \draw (M1.S) -- (0,-1.2) node[below]{Source};
+      \draw (1,-1) to[diode] (1,1);
+      \draw (0,-1) to[short] (1,-1);
+      \draw (0,1) to[short] (1,1);
+    \end{circuitikz}
+    \caption{Schema circuitale del real N-MOS}
+  \end{minipage}
+\end{figure}
+
+Se $V_{DS}<0$ il diodo in questione è in *forward bias*, e la corrente $i_D$ non dipende più dal gate[^30]. Per evitarlo il drain dovrebbe essere positivo rispetto al source.
 
 \appendix
 
@@ -1002,6 +1006,12 @@ TODO capire come funziona tavola periodica
 
 [^25]: In questo caso la corrente di base è sostituita dall'intensità luminosa. 
 
-[^26]: Ha raggiunto la massima corrente.
+[^26]: Un *contatto ohmico* è una giunzione elettrica tra un metallo e un semiconduttore che non ha proprietà rettificanti (non trasforma un segnale alternato in uno continuo). La caratteristica principale è avere una curva corrente-tensione $I-V$ lineare, come prevista dalla legge di Ohm.
 
-[^27]: Quanto *scorrono* facilmente le cariche al suo interno.
+[^27]: Ha raggiunto la massima corrente.
+
+[^28]: Quanto *scorrono* facilmente le cariche al suo interno.
+
+[^29]: O n se in un P-MOS.
+
+[^30]: Nel transistore P-MOS accade se la tensione tra drain e source $V_{DS}>0$
