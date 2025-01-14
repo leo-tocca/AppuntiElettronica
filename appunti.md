@@ -887,7 +887,70 @@ Nel nostro caso è essenzialmente una giunzione p-n *parassita* in cui passa la 
 
 Se $V_{DS}<0$ il diodo in questione è in *forward bias*, e la corrente $i_D$ non dipende più dal gate[^30]. Per evitarlo il drain dovrebbe essere positivo rispetto al source.
 
-\appendix
+# Digital Logic Circuits (circuiti a logica digitale)
+
+Servono per trasferire e processare informazioni, funzionano realizzando operazioni *booleane* su dati booleani.
+
+## Operatori logici (booleani)
+
+- **Not** (negazione)
+
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    % Porta NOT con A e $\overline{A}$
+    \begin{circuitikz}
+      \node [not port](O1) at (0,0) {};    % Porta NOT
+      \node at (-1, 0) {A};                 
+      \node at (1, 0) {$\overline{A}$};     
+    \end{circuitikz}
+    \caption{Simbolo circuitale di NOT con A e $\overline{A}$}
+  \end{minipage}%
+  \hspace{0.5cm} % Spazio tra le due sottofigure
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    % Tabella di verità per NOT senza l'ambiente table
+    \begin{tabular}{ll}
+      A & $\overline{A}$ \\
+      0 & 1              \\
+      1 & 0             
+    \end{tabular}
+    \caption{Tabella di verità per NOT}
+  \end{minipage}
+\end{figure}
+
+- **And**
+
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    % Porta AND con A e B
+    \begin{circuitikz}
+      \node [and port](O1) at (0,0) {};    % Porta AND
+      \node at (-2, 0.25) {A};                % A a sinistra
+      \node at (-2, -0.3) {B};                 % B a destra
+      \node at (0.75, 0) {A+B};                 % B a destra
+    \end{circuitikz}
+    \caption{Simbolo circuitale di AND con A e B}
+  \end{minipage}%
+  \hspace{0.5cm} % Spazio tra le due sottofigure
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    % Tabella di verità per AND
+    \begin{tabular}{lll}
+    A & B & A+B \\
+    0 & 0 & 0   \\
+    1 & 0 & 0   \\
+    0 & 1 & 0   \\
+    1 & 1 & 1  
+    \end{tabular}
+    \caption{Tabella di verità per AND}
+  \end{minipage}
+\end{figure}
+
+
 
 # Esercizi
 
