@@ -92,11 +92,11 @@
                   top=20mm,
               }
           \tcbuselibrary{most}
-          \newtcolorbox[auto counter,number within=section]{redbox}[1]{colback=red!5!white, colframe=red!75!black,
+          \newtcolorbox{redbox}[1]{colback=red!5!white, colframe=red!75!black,
           fonttitle=\bfseries, title={#1}}
-          \newtcolorbox[auto counter,number within=section]{greenbox}[1]{colback=green!5!white, colframe=green!75!black,
+          \newtcolorbox{greenbox}[1]{colback=green!5!white, colframe=green!75!black,
           fonttitle=\bfseries, title={#1}}
-          \newtcolorbox[auto counter,number within=section]{bluebox}[1]{colback=blue!5!white, colframe=blue!75!black,
+          \newtcolorbox{bluebox}[1]{colback=blue!5!white, colframe=blue!75!black,
           fonttitle=\bfseries, title={#1}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -1300,7 +1300,14 @@ digitale)}\label{digital-logic-circuits-circuiti-a-logica-digitale}
 Servono per trasferire e processare informazioni, funzionano realizzando
 operazioni \emph{booleane} su dati booleani.
 
-\section{Operatori logici (booleani)}\label{operatori-logici-booleani}
+\section{Famiglie logiche}\label{famiglie-logiche}
+
+\begin{redbox}{Definizione: famiglie logiche}
+Una \textbf{famiglia logica} è un insieme di dispositivi elettronici i quali, se connessi tra di loro in modo opportuno, permettono di realizzare una qualsiasi funzione logica. Queste sono funzioni che definiscono lo stato di un'uscita per ogni possibile configurazione degli stati.
+\end{redbox}
+
+\subsection{Operatori logici
+(booleani)}\label{operatori-logici-booleani}
 
 \begin{itemize}
 \tightlist
@@ -1357,7 +1364,7 @@ operazioni \emph{booleane} su dati booleani.
   \begin{minipage}{0.45\textwidth}
     \centering
     % Tabella di verità per AND
-    \begin{tabular}{l|l|l}
+    \begin{tabular}{c|c|c}
     A & B & A+B  \\ 
     \hline
     0 & 0 & 0    \\
@@ -1393,7 +1400,7 @@ operazioni \emph{booleane} su dati booleani.
   \begin{minipage}{0.45\textwidth}
     \centering
     % Tabella di verità per AND
-    \begin{tabular}{l|l|l}
+    \begin{tabular}{c|c|c}
     A & B & A+B  \\ 
     \hline
     0 & 0 & 0    \\
@@ -1414,11 +1421,289 @@ esprimere queste due porte logiche in \emph{termini reciproci}. Le leggi
 sono le seguenti \begin{align*}
 \tag{1}A+B=\overline{\overline{A}\cdot\overline{B}}&\Longrightarrow \overline{A+B}=\overline{A}\cdot\overline{B} \\
 \tag{2}A\cdot B=\overline{\overline{A}+\overline{B}}&\Longrightarrow\overline{A\cdot B}=\overline{A}+\overline{B}
-\end{align*}
+\end{align*} A parole:
 
-\begin{bluebox}{Osservazione}
+\begin{itemize}
+\tightlist
+\item
+  La legge \((1)\) dice che effettuare la negazione dell'operazione di
+  AND tra due ingressi equivale all'OR tra la negazione dei due singoli
+  ingressi;
+\item
+  Allo stesso modo la legge numero \((2)\) ci dice che la negazione
+  dell'operazione OR tra i due ingressi equivale alla somma tra gli
+  stessi ingressi negati singolarmente.
+\end{itemize}
 
+A questo punto possiamo ricavare due porte:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{NAND}: o ``NOT AND'', è un dispositivo complementare alla
+  porta AND. Per le leggi di Morgan un NAND equivale all'operazione di
+  OR tra due ingressi negati.
+
+  \begin{figure}[h!]
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    % Porta NAND con A e B
+    \begin{circuitikz}
+      \node [nand port](O1) at (0,0) {};    % Porta NAND
+      \node at (-2, 0.25) {A};                % A a sinistra
+      \node at (-2, -0.3) {B};                % B a destra
+      \node at (0.75, 0) {$\overline{A\cdot B}$}; % Etichetta per NAND
+    \end{circuitikz}
+    \caption{Simbolo circuitale di NAND con A e B}
+  \end{minipage}%
+  \hspace{0.5cm} % Spazio tra le due sottofigure
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    % Tabella di verità per NAND
+    \begin{tabular}{c|c|c|c|c|c}
+    A & B & $\overline{A}$ & $\overline{B}$ & A $\cdot$ B & $\overline{A\cdot B}$ \\ 
+    \hline
+    0 & 0 & 1 & 1 & 0 & 1    \\
+    1 & 0 & 0 & 1 & 0 & 1    \\
+    0 & 1 & 1 & 0 & 0 & 1    \\
+    1 & 1 & 0 & 0 & 1 & 0   
+    \end{tabular}
+    \caption{Tabella di verità per NAND}
+  \end{minipage}
+  \end{figure}
+\item
+  \textbf{NOR}: o ``NOT OR'', è il dispositivo complementare alla porta
+  OR. Sempre per le leggi di Morgan un NOR equivale all'operazione AND
+  fra due ingressi negati
+\end{itemize}
+
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    % Porta NOR con A e B
+    \begin{circuitikz}
+      \node [nor port](O1) at (0,0) {};    % Porta NOR
+      \node at (-2, 0.25) {A};                % A a sinistra
+      \node at (-2, -0.3) {B};                % B a destra
+      \node at (0.75, 0) {A + B};             % Etichetta per NOR
+    \end{circuitikz}
+    \caption{Simbolo circuitale di NOR con A e B}
+  \end{minipage}%
+  \hspace{0.5cm} % Spazio tra le due sottofigure
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    % Tabella di verità per NOR con A, B, A negato, B negato, A AND B e A NOR B
+    \begin{tabular}{c|c|c|c|c|c}
+    A & B & $\overline{A}$ & $\overline{B}$ & A + B & $\overline{A + B}$ \\ 
+    \hline
+    0 & 0 & 1 & 1 & 0 & 1    \\
+    1 & 0 & 0 & 1 & 1 & 0    \\
+    0 & 1 & 1 & 0 & 1 & 0    \\
+    1 & 1 & 0 & 0 & 1 & 0   
+    \end{tabular}
+    \caption{Tabella di verità per NOR}
+  \end{minipage}
+\end{figure}
+
+\begin{bluebox}{Osservazione: \emph{completezza} della famiglia logica}
+Una famiglia logica si dice \emph{\textbf{completa}} quando tra i suoi dispositivi è presente la porta NOT ed una tra la porta AND o la porta OR. In particolare è possibile realizzare, con le porte NAND e NOR, tutte le porte precedenti: in questo modo quindi \emph{\textbf{si possono realizzare tutti i circuiti con una singola porta!}}
 \end{bluebox}
+
+\begin{itemize}
+\tightlist
+\item
+  Esempi:
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.45\textwidth}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\large]
+\draw (4,15) to[short] (4.75,15);
+\draw (4,14.5) to[short] (4.75,14.5);
+\draw (4.75,15) node[ieeestd nand port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (7,14.75);
+\draw (4,15) to[short] (3,15);
+\draw (3.5,15) to[short] (3.5,14.5);
+\draw (3.5,14.5) to[short] (4,14.5);
+\node [font=\large] at (2.5,15) {$A$};
+\node [font=\large] at (8,14.75) {$\overline{A \cdot A} = \overline{A}$};
+\end{circuitikz}
+}
+\caption{Porta NOT con NAND}
+\label{not_nand}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\large]
+\draw (4,15) to[short] (4.75,15);
+\draw (4,14.5) to[short] (4.75,14.5);
+\draw (4.75,15) node[ieeestd nor port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (7,14.75);
+\draw (4,15) to[short] (3,15);
+\draw (3.5,15) to[short] (3.5,14.5);
+\draw (3.5,14.5) to[short] (4,14.5);
+\node [font=\large] at (2.5,15) {$A$};
+\node [font=\large] at (8,14.75) {$\overline{A + A} = \overline{A}$};
+\end{circuitikz}
+}
+\caption{Porta NOT con NOR}
+\label{not_nor}
+\end{subfigure}
+\caption{Rappresentazioni della porta NOT.}
+\label{fig:not}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.45\textwidth}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\normalsize]
+\draw (1,19.25) to[short] (1.25,19.25);
+\draw (1,18.75) to[short] (1.25,18.75);
+\draw (1.25,19.25) node[ieeestd nand port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (3,19);
+\draw (3,19) to[short] (4,19);
+\draw (5,19.25) to[short] (5.25,19.25);
+\node [font=\normalsize] at (3.75,19.2) {$A\cdot B$};
+\draw (5,18.75) to[short] (5.25,18.75);
+\draw (5.25,19.25) node[ieeestd nand port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (7,19);
+\draw (4.5,19.25) to[short] (5,19.25);
+\draw (4.5,18.75) to[short] (5,18.75);
+\draw (4,19) to[short] (4.5,19);
+\draw (4.5,18.75) to[short] (4.5,19.25);
+\node [font=\normalsize] at (0.75,19.25) {A};
+\node [font=\normalsize] at (0.75,18.75) {B};
+\node [font=\normalsize] at (9.5,19) {$\overline{\overline{AB} \cdot \overline{AB}} = AB + AB = AB$};
+\end{circuitikz}
+}
+\caption{Porta AND con NAND}
+\label{and_nand}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\normalsize]
+
+\draw (0,32.5) to[short] (0.25,32.5);
+\draw (0,32) to[short] (0.25,32);
+\draw (0.25,32.5) node[ieeestd nor port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (2,32.25);
+\draw (0,30.5) to[short] (0.25,30.5);
+\draw (0,30) to[short] (0.25,30);
+\draw (0.25,30.5) node[ieeestd nor port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (2,30.25);
+\draw (-1,32.5) to[short] (0,32.5);
+\draw (-0.5,32.5) to[short] (-0.5,32);
+\draw (-0.5,32) to[short] (0,32);
+\draw (-1,30.5) to[short] (0,30.5);
+\draw (-0.5,30.5) to[short] (-0.5,30);
+\draw (-0.5,30) to[short] (0,30);
+\draw (3,31.5) to[short] (3.25,31.5);
+\draw (3,31) to[short] (3.25,31);
+\draw (3.25,31.5) node[ieeestd nor port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (5,31.25);
+\draw (2,32.25) to[short] (2.5,32.25);
+\draw (2.5,32.25) to[short] (2.5,31.5);
+\draw (2.5,31.5) to[short] (3,31.5);
+\draw (2,30.25) to[short] (2.5,30.25);
+\draw (2.5,31) to[short] (2.5,30.25);
+\draw (2.5,31) to[short] (3,31);
+\node [font=\normalsize] at (-1.2,32.5) {A};
+\node [font=\normalsize] at (-1.2,30.5) {B};
+\node [font=\normalsize] at (3,31.75) {$\overline{A}$};
+\node [font=\normalsize] at (3,30.75) {$\overline{B}$};
+\node [font=\normalsize] at (6.5,31.25) {$\overline{(\overline{A}+\overline{B})}=A\cdot B$};
+\end{circuitikz}
+}
+\caption{Porta AND con NOR}
+\label{and_nor}
+\end{subfigure}
+\caption{Rappresentazioni della porta AND.}
+\label{fig:and}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.45\textwidth}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\normalsize]
+\draw (0,34.5) to[short] (0.25,34.5);
+\draw (0,34) to[short] (0.25,34);
+\draw (0.25,34.5) node[ieeestd nand port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (2,34.25);
+\draw (0,32.5) to[short] (0.25,32.5);
+\draw (0,32) to[short] (0.25,32);
+\draw (0.25,32.5) node[ieeestd nand port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (2,32.25);
+\draw (3,33.5) to[short] (3.25,33.5);
+\draw (3,33) to[short] (3.25,33);
+\draw (3.25,33.5) node[ieeestd nand port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (5,33.25);
+\draw (2,34.25) to[short] (2.5,34.25);
+\draw (2.5,34.25) to[short] (2.5,33.5);
+\draw (2.5,33.5) to[short] (3,33.5);
+\draw (2,32.25) to[short] (2.5,32.25);
+\draw (2.5,33) to[short] (2.5,32.25);
+\draw (2.5,33) to[short] (3,33);
+\draw (-0.5,34.5) to[short] (0.25,34.5);
+\draw (-0.25,34.5) to[short] (-0.25,34);
+\draw (-0.25,34) to[short] (0.25,34);
+\draw (-0.5,32.5) to[short] (0,32.5);
+\draw (-0.25,32.5) to[short] (-0.25,32);
+\draw (-0.25,32) to[short] (0.25,32);
+\node [font=\normalsize] at (-0.75,34.5) {$A$};
+\node [font=\normalsize] at (-0.75,32.5) {$B$};
+\node [font=\normalsize] at (2.25,34.5) {$\overline{A}$};
+\node [font=\normalsize] at (2.25,32) {$\overline{B}$};
+\node [font=\normalsize] at (6.5,33.25) {$\overline{\overline{A}\cdot\overline{B}}=A+B$};
+\end{circuitikz}
+}
+\caption{Porta OR con NAND}
+\label{or_nand}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\normalsize]
+\draw (1,3.5) to[short] (1.25,3.5);
+\draw (1,3) to[short] (1.25,3);
+\draw (1.25,3.5) node[ieeestd nor port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (3,3.25);
+\draw (5,3.5) to[short] (5.25,3.5);
+\draw (5,3) to[short] (5.25,3);
+\draw (5.25,3.5) node[ieeestd nor port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (7,3.25);
+\draw (3,3.25) to[short] (4,3.25);
+\draw (4,3.25) to[short] (4.5,3.25);
+\draw (5,3) to[short] (4.5,3);
+\draw (4.5,3) to[short] (4.5,3.5);
+\draw (4.5,3.5) to[short] (5,3.5);
+\node [font=\normalsize] at (0.75,3.75) {$A$};
+\node [font=\normalsize] at (0.75,3) {$B$};
+\node [font=\normalsize] at (3.75,3.5) {$\overline{A+B}$};
+\node [font=\normalsize] at (9.4,3.25) {$(\overline{\overline{A}+\overline{B}})=\overline{\overline{A+B}}=A+B$};
+\end{circuitikz}
+}
+\caption{Porta OR con NOR}
+\label{or_nor}
+\end{subfigure}
+\caption{Rappresentazioni della porta OR.}
+\label{fig:or}
+\end{figure}
+
+In elettronica, lo stato logico \(0\) è associato ad una \emph{bassa
+tensione}, mentre lo stato \(1\) è associato ad un'\emph{alta tensione}.
+
+\section{Famiglie logiche: parametri
+statici}\label{famiglie-logiche-parametri-statici}
+
+Sono misurati con il circuito ``fermo'', senza commutazioni.
 
 \chapter{Esercizi}\label{esercizi}
 
