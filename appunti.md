@@ -893,7 +893,7 @@ Servono per trasferire e processare informazioni, funzionano realizzando operazi
 
 ## Operatori logici (booleani)
 
-- **Not** (negazione)
+- **Not** (negazione): restituisce il bit negato.
 
 \begin{figure}[h!]
   \centering
@@ -911,8 +911,8 @@ Servono per trasferire e processare informazioni, funzionano realizzando operazi
   \begin{minipage}{0.45\textwidth}
     \centering
     % Tabella di verità per NOT senza l'ambiente table
-    \begin{tabular}{ll}
-      A & $\overline{A}$ \\
+    \begin{tabular}{l|l}
+      A & $\overline{A}$ \\ \hline
       0 & 1              \\
       1 & 0             
     \end{tabular}
@@ -920,7 +920,7 @@ Servono per trasferire e processare informazioni, funzionano realizzando operazi
   \end{minipage}
 \end{figure}
 
-- **And**
+- **And** (prodotto logico): restituisce vero se *entrambi i bit sono veri*.
 
 \begin{figure}[h!]
   \centering
@@ -931,6 +931,37 @@ Servono per trasferire e processare informazioni, funzionano realizzando operazi
       \node [and port](O1) at (0,0) {};    % Porta AND
       \node at (-2, 0.25) {A};                % A a sinistra
       \node at (-2, -0.3) {B};                 % B a destra
+      \node at (0.75, 0) {A$\cdot$B};                 % B a destra
+    \end{circuitikz}
+    \caption{Simbolo circuitale di AND con A e B}
+  \end{minipage}%
+  \hspace{0.5cm} % Spazio tra le due sottofigure
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    % Tabella di verità per AND
+    \begin{tabular}{l|l|l}
+    A & B & A+B  \\ 
+    \hline
+    0 & 0 & 0    \\
+    1 & 0 & 0    \\
+    0 & 1 & 0    \\
+    1 & 1 & 1   
+    \end{tabular}
+    \caption{Tabella di verità per AND}
+  \end{minipage}
+\end{figure}
+
+- **OR** (somma logica): restituisce vero se *almeno un bit è vero*.
+
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    % Porta AND con A e B
+    \begin{circuitikz}
+      \node [or port](O1) at (0,0) {};    % Porta OR
+      \node at (-2, 0.25) {A};                % A a sinistra
+      \node at (-2, -0.3) {B};                 % B a destra
       \node at (0.75, 0) {A+B};                 % B a destra
     \end{circuitikz}
     \caption{Simbolo circuitale di AND con A e B}
@@ -939,16 +970,30 @@ Servono per trasferire e processare informazioni, funzionano realizzando operazi
   \begin{minipage}{0.45\textwidth}
     \centering
     % Tabella di verità per AND
-    \begin{tabular}{lll}
-    A & B & A+B \\
-    0 & 0 & 0   \\
-    1 & 0 & 0   \\
-    0 & 1 & 0   \\
-    1 & 1 & 1  
+    \begin{tabular}{l|l|l}
+    A & B & A+B  \\ 
+    \hline
+    0 & 0 & 0    \\
+    1 & 0 & 1    \\
+    0 & 1 & 1    \\
+    1 & 1 & 1   
     \end{tabular}
     \caption{Tabella di verità per AND}
   \end{minipage}
 \end{figure}
+
+### Leggi (o teoremi) di de Morgan
+
+Servono a stabilire relazioni di equivalenza tra la congiunzione (AND) e la disgiunzione (OR) logica: attraverso la negazione (NOT) è possibile esprimere queste due porte logiche in *termini reciproci*. Le leggi sono le seguenti
+\begin{align*}
+\tag{1}A+B=\overline{\overline{A}\cdot\overline{B}}&\Longrightarrow \overline{A+B}=\overline{A}\cdot\overline{B} \\
+\tag{2}A\cdot B=\overline{\overline{A}+\overline{B}}&\Longrightarrow\overline{A\cdot B}=\overline{A}+\overline{B}
+\end{align*}
+
+\begin{bluebox}{Osservazione}
+
+\end{bluebox}
+
 
 
 
