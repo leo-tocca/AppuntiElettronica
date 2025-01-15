@@ -989,6 +989,10 @@ Servono a stabilire relazioni di equivalenza tra la congiunzione (AND) e la disg
 \tag{1}A+B=\overline{\overline{A}\cdot\overline{B}}&\Longrightarrow \overline{A+B}=\overline{A}\cdot\overline{B} \\
 \tag{2}A\cdot B=\overline{\overline{A}+\overline{B}}&\Longrightarrow\overline{A\cdot B}=\overline{A}+\overline{B}
 \end{align*}
+A parole:
+
+- La legge $(1)$ dice che effettuare la negazione dell'operazione di AND tra due bit equivale all'OR tra la negazione dei due singoli bit;
+- Allo stesso modo la legge numero $(2)$ ci dice che la negazione dell'operazione OR tra due vit equivale 
 
 \begin{bluebox}{Osservazione}
 
