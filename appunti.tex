@@ -1791,18 +1791,74 @@ Da queste grandezze ne derivano altre 3:
 \setcounter{enumi}{3}
 \tightlist
 \item
-  \textbf{Noise Margin}: resilienza del circuito al rumore; quanto
-  disturbo può ricevere \emph{senza influire sul suo comportamento}: \[
+  \textbf{Noise Margin}\footnote{Più è alto meglio è; \emph{higher
+    better}.}: resilienza del circuito al rumore; quanto disturbo può
+  ricevere \emph{senza influire sul suo comportamento}. È la quantità
+  cui il segnale eccede la soglia minima \(V_{iH}\) e \(V_{iL}\): \[
    NM=\min(NM_{H}, NM_{L}); \quad NM_{H}=V_{oH}-V_{iH}; \quad NM_{L}=V_{iL}-V_{oL}
    \]
+
+  \begin{bluebox}{Osservazione}
+  $NM_{H}$ e $NM_{L}$ devono essere \textbf{positivi}, per cui è necessario che le tensioni siano:
+  $$
+  V_{oH}>V_{iH};\quad V_{iL}>V_{oL}
+  $$
+  \end{bluebox}
+\item
+  \textbf{Fan-out}\footnote{Più è alto meglio è; \emph{higher better}.}:
+  rappresenta il \textbf{\emph{massimo numero di porte d'ingresso}}
+  collegabili ad un'uscita senza \emph{comprometterne la logica}, ovvero
+  quanti ne può pilotare (dipende da \(I_{i\:L/H}\));
+\item
+  \textbf{Static power}\footnote{Più bassa è meglio è; lower better.}:
+  rappresenta la \textbf{\emph{potenza assorbita in condizioni
+  statiche}}. È pari alla media tra le potenze assorbite con un'uscita
+  alta/bassa; \[
+   P=\frac{(P_{H}+P_{L})}{2}
+   \] dove \(P_H = V_{cc}\cdot i_H\) e \(P_L=V_{cc}\cdot i_L\).
 \end{enumerate}
 
-\begin{bluebox}{Osservazione}
-$NM_{H}$ e $NM_{L}$ devono essere \textbf{positivi}, per cui è necessario che le tensioni siano:
-$$
-V_{oH}>V_{iH};\quad V_{iL}>V_{oL}
-$$
-\end{bluebox}
+\section{\texorpdfstring{Famiglie logiche: parametri
+\emph{dinamici}.}{Famiglie logiche: parametri dinamici.}}\label{famiglie-logiche-parametri-dinamici.}
+
+I parametri precedenti devono essere misurati in condizioni
+\emph{statiche}, mentre questi si misurano \textbf{\emph{al momento di
+una commutazione di stato}}.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  \textbf{Ritardo/tempo di propagazione} (propagation delay): indicato
+  con \(t_{pHL}\) e \(t_{pLH}\), rappresenta in quanto tempo un cambio
+  in ingresso è \emph{percepito} dall'uscita. È fondamentale che sia
+  \textbf{basso}: ad esempio con \(10\:ns\) siamo vincolati a processi
+  con frequenza massima di \(100\) MHz;
+\item
+  \textbf{Energia di commutazione} (Switching power): indica l'energia
+  impiegata per commutare uno stato, essa cresce \emph{linearmente} con
+  la velocità del circuito (lower better);
+\item
+  \textbf{Prodotto ritardo-potenza} (Delay-Power product): è il prodotto
+  tra il ritardo di propagazione e la potenza dissipata nel circuito;
+  serve per \emph{bilanciare} le prime due, le quali sono tra loro
+  discordi (lower better).
+\end{enumerate}
+
+\section{RTL (Resistor-Transistor
+Logic)}\label{rtl-resistor-transistor-logic}
+
+È una famiglia di porte logiche \emph{che usano i transistor} per
+realizzare le porte:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{NOT}: Corrisponde ad un transistor con una resistenza di base
+  \(R_B\) e una resistenza di collettore \(R_C\); il dispositivo si
+  comporta come un \emph{invertitore}. Infatti se la tensione in
+  ingresso \(V_{in}\) è alta la tensione in uscita \(V_{out}\)
+\end{itemize}
 
 \chapter{Esercizi}\label{esercizi}
 

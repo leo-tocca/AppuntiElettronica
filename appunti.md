@@ -1296,17 +1296,36 @@ Inoltre un qualsiasi valore di tensione di ingresso compreso tra $\left[\mathrm{
 
 Da queste grandezze ne derivano altre 3:
 
-4) **Noise Margin**: resilienza del circuito al rumore; quanto disturbo può ricevere *senza influire sul suo comportamento*:
+4) **Noise Margin**[^32]: resilienza del circuito al rumore; quanto disturbo può ricevere *senza influire sul suo comportamento*. È la quantità cui il segnale eccede la soglia minima $V_{iH}$ e
+$V_{iL}$:
     $$
     NM=\min(NM_{H}, NM_{L}); \quad NM_{H}=V_{oH}-V_{iH}; \quad NM_{L}=V_{iL}-V_{oL}
     $$
-
 \begin{bluebox}{Osservazione}
 $NM_{H}$ e $NM_{L}$ devono essere \textbf{positivi}, per cui è necessario che le tensioni siano:
 $$
 V_{oH}>V_{iH};\quad V_{iL}>V_{oL}
 $$
 \end{bluebox}
+5) **Fan-out**[^32]: rappresenta il ***massimo numero di porte d'ingresso*** collegabili ad un'uscita senza *comprometterne la logica*, ovvero quanti ne può pilotare (dipende da $I_{i\:L/H}$);
+6) **Static power**[^33]: rappresenta la ***potenza assorbita in condizioni statiche***. È pari alla media tra le potenze assorbite con un'uscita alta/bassa;
+    $$
+    P=\frac{(P_{H}+P_{L})}{2}
+    $$
+dove $P_H = V_{cc}\cdot i_H$ e $P_L=V_{cc}\cdot i_L$.    
+
+## Famiglie logiche: parametri *dinamici*.
+I parametri precedenti devono essere misurati in condizioni *statiche*, mentre questi si misurano ***al momento di una commutazione di stato***.
+
+1) **Ritardo/tempo di propagazione** (propagation delay): indicato con $t_{pHL}$ e $t_{pLH}$, rappresenta in quanto tempo un cambio in ingresso è *percepito* dall'uscita. È fondamentale che sia **basso**: ad esempio con $10\:ns$ siamo vincolati a processi con frequenza massima di $100$ MHz;
+2) **Energia di commutazione** (Switching power): indica l'energia impiegata per commutare uno stato, essa cresce *linearmente* con la velocità del circuito (lower better);
+3) **Prodotto ritardo-potenza** (Delay-Power product): è il prodotto tra il ritardo di propagazione e la potenza dissipata nel circuito; serve per *bilanciare* le prime due, le quali sono tra loro discordi (lower better).
+
+## RTL (Resistor-Transistor Logic)
+È una famiglia di porte logiche *che usano i transistor* per realizzare le porte:
+
+- **NOT**: Corrisponde ad un transistor con una resistenza di base $R_B$ e una resistenza di collettore $R_C$; il dispositivo si comporta come un *invertitore*. Infatti se la tensione in ingresso $V_{in}$ è alta la tensione in uscita $V_{out}$
+
 
 # Esercizi
 
@@ -1436,3 +1455,7 @@ TODO capire come funziona tavola periodica
 [^30]: Nel transistore P-MOS accade se la tensione tra drain e source $V_{DS}>0$
 
 [^31]: La porta successiva potrà riconoscerlo.
+
+[^32]: Più è alto meglio è; *higher better*.
+
+[^33]: Più bassa è meglio è; lower better.

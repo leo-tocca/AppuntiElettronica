@@ -1,0 +1,184 @@
+[
+    {
+        "type": "node",
+        "id": "node_ieeestd-not-port",
+        "position": {
+            "x": 33.144,
+            "y": -188.976
+        }
+    },
+    {
+        "type": "node",
+        "id": "node_notcirc",
+        "position": {
+            "x": 110.126,
+            "y": -188.977
+        },
+        "label": {
+            "value": "IN",
+            "anchor": "default",
+            "position": "west",
+            "distance": "0.12cm"
+        }
+    },
+    {
+        "type": "path",
+        "id": "path_american-resistor",
+        "start": {
+            "x": 226.772,
+            "y": -188.976
+        },
+        "end": {
+            "x": 113.386,
+            "y": -188.977
+        },
+        "label": {
+            "value": "RB =450\\ohm",
+            "otherSide": true,
+            "distance": "0.12cm"
+        }
+    },
+    {
+        "type": "node",
+        "id": "node_sground",
+        "position": {
+            "x": 264.567,
+            "y": -103.937
+        },
+        "label": {
+            "value": "0",
+            "anchor": "default",
+            "position": "default",
+            "distance": "0.12cm"
+        }
+    },
+    {
+        "type": "node",
+        "id": "node_npn",
+        "position": {
+            "x": 264.567,
+            "y": -188.976
+        },
+        "label": {
+            "value": "Q1",
+            "anchor": "default",
+            "position": "northwest",
+            "distance": "-0.44cm"
+        }
+    },
+    {
+        "type": "wire",
+        "start": {
+            "x": 232.819,
+            "y": -188.976
+        },
+        "segments": [
+            {
+                "position": {
+                    "x": 236.22,
+                    "y": -188.976
+                },
+                "direction": "-|"
+            },
+            {
+                "position": {
+                    "x": 226.772,
+                    "y": -188.976
+                },
+                "direction": "-|"
+            }
+        ]
+    },
+    {
+        "type": "wire",
+        "start": {
+            "x": 264.567,
+            "y": -159.874
+        },
+        "segments": [
+            {
+                "position": {
+                    "x": 264.567,
+                    "y": -103.937
+                },
+                "direction": "-|"
+            }
+        ]
+    },
+    {
+        "type": "path",
+        "id": "path_american-resistor",
+        "start": {
+            "x": 264.567,
+            "y": -302.362
+        },
+        "end": {
+            "x": 264.567,
+            "y": -218.078
+        },
+        "label": {
+            "value": "RC=640\\ohm",
+            "distance": "0.12cm"
+        }
+    },
+    {
+        "type": "wire",
+        "start": {
+            "x": 264.567,
+            "y": -340.157
+        },
+        "segments": [
+            {
+                "position": {
+                    "x": 264.567,
+                    "y": -302.362
+                },
+                "direction": "-|"
+            }
+        ]
+    },
+    {
+        "type": "node",
+        "id": "node_notcirc",
+        "position": {
+            "x": 264.567,
+            "y": -340.157
+        },
+        "label": {
+            "value": "5V",
+            "anchor": "default",
+            "position": "north",
+            "distance": "0.12cm"
+        }
+    },
+    {
+        "type": "wire",
+        "start": {
+            "x": 264.567,
+            "y": -218.078
+        },
+        "segments": [
+            {
+                "position": {
+                    "x": 340.157,
+                    "y": -217.323
+                },
+                "direction": "-|"
+            }
+        ]
+    },
+    {
+        "type": "node",
+        "id": "node_notcirc",
+        "position": {
+            "x": 340.157,
+            "y": -217.323
+        },
+        "label": {
+            "value": "OUT",
+            "anchor": "default",
+            "position": "east",
+            "distance": "0.12cm"
+        }
+    }
+]
