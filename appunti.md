@@ -47,6 +47,8 @@ header-includes:
             fonttitle=\bfseries, title={#1}}
             \newtcolorbox{bluebox}[1]{colback=blue!5!white, colframe=blue!75!black,
             fonttitle=\bfseries, title={#1}}
+             \newtcolorbox{orangebox}[1]{colback=orange!5!white, colframe=orange!75!black,
+            fonttitle=\bfseries, title={#1}}
     ```
 pandoc-latex-environment:
   tcolorbox: [box]
@@ -1255,7 +1257,56 @@ In elettronica, lo stato logico $0$ è associato ad una *bassa tensione*, mentre
 
 Sono misurati con il circuito "fermo", senza commutazioni.
 
+1) **Tensione di ingresso**: discrimina il valore *logico* in base alla tensione d'ingresso, quindi come questa sia *interpretata*:
+    - $V_{iL} \doteq$ è il massimo valore di tensione in ingresso associabile allo $0$ logico (stato negativo);
+    - $V_{iH} \doteq$ è il minimo valore di tensione in ingresso associato allo $1$ logico (stato positivo).
+2) **Tensione di uscita**: indica come interpretare i valori rilevati all'uscita di un circuito:
+    - $V_{oL} \doteq$ è il massimo valore di tensione in uscita prodotto[^31] da uno $0$ logico;
+    - $V_{oH} \doteq$ è il minimo valore in uscita prodotto da un $1$ logico.
 
+\begin{orangebox}{Nota}
+Per evitare ambiguità devono valere:
+$$
+V_{iL}\leq V_{iH}; \quad V_{oL}\leq V_{oH}
+$$
+Idealmente tutti i valori in ingresso \emph{corrispondono} ai valori in uscita. Tuttavia questo non è possibile, a causa di possibili variazioni ambientali e/o nel processo di costruzione. Si usano quindi dei valori $V_{i/o L}$ più bassi dei $V_{i/oH}$, statisticamente \emph{certi}, i quali considerano anche le possibili oscillazioni dei valori. \newline
+Inoltre un qualsiasi valore di tensione di ingresso compreso tra $\left[\mathrm{V}_{\mathrm{iL-max}},\mathrm{V}_{\mathrm{iH-min}}\right]$ non potrà essere riconosciuto dalla porta come 1 logico o come 0 logico: si dice che sono valori nella \emph{\textbf{regione di indeterminazione}}.\newline Allo stesso modo, un qualsiasi valore di tensione di uscita compreso nell'intervallo $[\mathrm{V}_{\mathrm{oL-max}},\mathrm{V}_{\mathrm{oH-min}}]$ potrà essere riconosciuto con 1 logico o come 0 logico da una porta posta immediatamente in cascata.
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{0.3\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\small]
+% Disegna le linee orizzontali
+\draw [short] (0,2) -- (4,2);
+\draw [short] (0,0) -- (4,0);
+% Colora la zona tra le due linee orizzontali
+\fill[blue, opacity=0.2] (0,0) rectangle (4,2);
+% Aggiungi le etichette
+\node [font=\footnotesize] at (2,1) {\textit{Regione di Indeterminazione}};
+\node [font=\normalsize] at (4.5,2) {$V_{iH}$};
+\node [font=\normalsize] at (4.5,0) {$V_{iL}$};
+\end{circuitikz}
+}%
+\end{minipage}
+\end{orangebox}
+
+3) **Corrente assorbita**:
+    - $I_{iH}$: corrente assorbita in ingresso quando viene applicato il valore logico alto;
+    - $I_{iL}$: corrente assorbita in ingresso quando viene applicato il valore logico basso.
+
+Da queste grandezze ne derivano altre 3:
+
+4) **Noise Margin**: resilienza del circuito al rumore; quanto disturbo può ricevere *senza influire sul suo comportamento*:
+    $$
+    NM=\min(NM_{H}, NM_{L}); \quad NM_{H}=V_{oH}-V_{iH}; \quad NM_{L}=V_{iL}-V_{oL}
+    $$
+
+\begin{bluebox}{Osservazione}
+$NM_{H}$ e $NM_{L}$ devono essere \textbf{positivi}, per cui è necessario che le tensioni siano:
+$$
+V_{oH}>V_{iH};\quad V_{iL}>V_{oL}
+$$
+\end{bluebox}
 
 # Esercizi
 
@@ -1383,3 +1434,5 @@ TODO capire come funziona tavola periodica
 [^29]: O n se in un P-MOS.
 
 [^30]: Nel transistore P-MOS accade se la tensione tra drain e source $V_{DS}>0$
+
+[^31]: La porta successiva potrà riconoscerlo.
