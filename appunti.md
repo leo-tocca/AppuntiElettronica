@@ -1326,6 +1326,7 @@ I parametri precedenti devono essere misurati in condizioni *statiche*, mentre q
 
 - **NOT**: Corrisponde ad un transistor con una resistenza di base $R_B$ e una resistenza di collettore $R_C$; il dispositivo si comporta come un *invertitore*. Infatti se la tensione in ingresso $V_{in}$ è alta la tensione in uscita $V_{out}$
 
+![Porta NOT realizzata con RTL.](assets/imgs/rtl_not.png){width=50%}
 
 # Esercizi
 
