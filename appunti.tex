@@ -1848,8 +1848,10 @@ una commutazione di stato}}.
 \section{RTL (Resistor-Transistor
 Logic)}\label{rtl-resistor-transistor-logic}
 
-È una famiglia di porte logiche \emph{che usano i transistor} per
-realizzare le porte:
+È una famiglia di porte logiche \emph{che usano i transistor BJT} e
+resistenze per realizzare le porte. Il sistema è obsoleto a causa del
+suo fan-in limitato (al massimo 3 ingressi). Alcuni esempi di porte
+sono:
 
 \begin{itemize}
 \tightlist
@@ -1860,10 +1862,88 @@ realizzare le porte:
   ingresso \(V_{in}\) è alta la tensione in uscita \(V_{out}\)
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{assets/imgs/rtl_not.png}
+\resizebox{0.5\textwidth}{!}{%
+\begin{circuitikz}[american]
+    % Resistor RB
+    
+    \draw node[american not port] at (1, 5) {};
+    \draw [R=,a={$R_B$}, l={$450\:\Omega$}] (6, 5) to (3, 5);
+
+    % Ground node
+    \draw node[ground] (N1) at (7, 2.75) {} node[anchor=south west] at (N1.north east) {$0$};
+
+    % Transistor Q1
+    \draw node[npn] (N2) at (7, 5) {} node[anchor=south east] at ([xshift=0.56cm, yshift=-0.56cm]N2.north west) {$Q1$};
+
+    % Connect the nodes
+    \draw (6.16, 5) -- (6.25, 5) -- (6, 5); % Simplified
+    \draw (7, 4.23) -- (7, 2.75); % Simplified
+
+    % Resistor RC
+    \draw (7, 8) to[R, a=$R_C$,l=$640\:\Omega$] (7, 5.77);
+
+    % Connection for 5V
+    \draw (7, 9) -- (7, 8); % Simplified
+
+    % Connection from Q1 to output
+    \draw (7, 5.77) -- (9, 5.75); % Simplified
+
+    % Input node
+    \draw node[ocirc] (N3) at (3, 5) {} node[anchor=east] at (N3.west) {$IN$};
+
+    % Output node
+    \draw node[ocirc] (N4) at (9, 5.77) {} node[anchor=west] at (N4.text) {$OUT$};
+
+    % 5V node
+    \draw node[ocirc] (N5) at (7, 9) {} node[anchor=south] at (N5.north) {$5V$};
+    \draw[->, >=Stealth] (6, 7.5) -- (6, 6.25) node[pos=0.5, left] {$i$};
+    \draw node[circ] at (7, 5.77) {};
+    \draw[->, >=Stealth](7.25, 5.5) -- (7.25, 4.75) node[pos=0.5, right]{$i_{C}$};
+\end{circuitikz}}
 \caption{Porta NOT realizzata con RTL.}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Se la tensione in ingresso \(V_{in}\) è \emph{bassa}, la corrente
+  \(i_C\) è nulla e la corrente \(i\) va tutta in OUT.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Se la tensione in ingresso \(V_{in}\) è \emph{alta}, si ha che
+    \(i_{C}\leq\)
+  \end{itemize}
+\item
+  \textbf{NOR}:
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.7\textwidth}{!}{%
+\begin{circuitikz}[american]
+    % Paths, nodes and wires:
+    \draw node[american nor port] at (1.386, 5.47) {};
+    \draw (8.16, 5.5) to[R,l={$R_B$},a={$450\:\Omega$}] (4, 5.5);
+    \draw node[npn] (N1) at (9, 5.5) {} node[anchor=south east] at ([xshift=0.51cm, yshift=-0.51cm]N1.north west){$Q_1$};
+    \draw (10, 5.5) to[R, l={$R_B$},a={$450\:\Omega$}] (14.16, 5.5);
+    \draw node[npn] (N2) at (15, 5.5) {} node[anchor=south east] at ([xshift=0.49cm, yshift=-0.49cm]N2.north west){$Q_2$};
+    \draw[draw] (9, 7) -| (9, 6.25) -| (9, 7) -- (17, 7);
+    \draw[crossing={}](15, 6.27) to (15, 7.75);
+    \draw (15, 10) to [R,a={$R_C$},l={$640\:\Omega$}] (15, 7.75);
+    \draw node[ground] at (9, 4) {};
+    \draw node[ground] at (15, 4) {};
+    \draw[draw] (9, 4.73) -| (9, 4);
+    \draw[draw] (15, 4.75) -| (15, 4);
+    \draw node[ocirc] (N3) at (4, 5.5) {} node[anchor=east] at (N3.west){$IN-A$};
+    \draw node[ocirc] (N4) at (17, 7) {} node[anchor=west] at (N4.east){$OUT=\overline{A+B}$};
+    \draw node[ocirc] (N5) at (15, 10) {} node[anchor=south] at (N5.north){$5V$};
+    \draw node[ocirc] (N6) at (10, 5.5) {} node[anchor=north] at ([yshift=-0.07cm]N6.south){$IN-B$};
+\end{circuitikz}}
+\caption{Porta NOR realizzata con RTL.}
 \end{figure}
 
 \chapter{Esercizi}\label{esercizi}
