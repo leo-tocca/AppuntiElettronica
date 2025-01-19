@@ -668,7 +668,7 @@ dove $P_L$ è la potente luminosa.\newline
 
 ## I transistor MOS
 
-I **MOSFET** (*Metal Oxide Semiconductor Field Effect Transistor*) sono una tipologia di transistor appartenente ai transistor ad **effetto di campo**.
+I **MOSFET** (*Metal Oxide Semiconductor Field Effect Transistor*) sono una tipologia di transistor appartenente ai transistor ad **effetto di campo**: non si basano sulle proprietà delle giunzioni p-n.
 
 \begin{greenbox}{\emph{I transistor ad effetto di campo}}
 I transistor ad effetto di campo sono caratterizzati dalla possibilità di controllare la \textbf{conduttività elettrica del dispositivo}, ovvero la quantità di corrente elettrica che attraversa il dispositivo stesso, attraverso la formazione di un \emph{campo elettrico}
@@ -681,12 +681,13 @@ Possono essere realizzati in diverse modalità:
 \end{enumerate}
 \end{greenbox}
 
-I MOS sono strutturati con più *strati di materiali sovrapposti*: metallo, ossido di silicio $(\ce{SiO_2})$ e del silicio, o di tipo $p$ o di tipo $n$. Si utilizza l'ossido come un *isolante*, non permettendo quindi il passaggio di cariche elettriche tra il metallo ed il semiconduttore.
+I MOS sono strutturati con più *strati di materiali sovrapposti*: metallo, ossido di silicio $(\ce{SiO_2})$ e del silicio, o di tipo $p$ o di tipo $n$. Si utilizza l'ossido come un *isolante*, non permettendo quindi il passaggio di cariche elettriche tra il metallo ed il semiconduttore.\newline
+Uno dei pregi dei transistor di tipo *MOS* è il **consumo**: un BJT ha un consumo di energia *costante* nel tempo (dal momento che deve mantenere la polarizzazione), mentre un transistor MOS consuma solo durante le *transizioni*.
 
 Come per i transistor a giunzione, a seconda del drogaggio possiamo ottenere due tipologie diverse di transistor MOS: i nmos e i pmos. \newline
 In particolare, sono dispositivi *controllati in tensione*.
 
-### N-Mos
+### N-MOS
 
 Nell'N-MOS (a canale $P$), il silicio è di tipo $n$: il drogaggio $n+$ favorisce il contatto ohmico[^26] con l'alluminio. Le definizioni delle correnti e delle tensioni equivalgono quelle dei transistor NPN.
 
@@ -708,9 +709,9 @@ Nell'N-MOS (a canale $P$), il silicio è di tipo $n$: il drogaggio $n+$ favorisc
 \node [font=\Large] at (3,8.5) {Source};
 \draw [short] (3,8.25) -- (3,7.25);
 \draw [short] (8,8.25) -- (8,7.25);
-\node [font=\Large] at (8,8.5) {Gate};
+\node [font=\Large] at (8,8.5) {Drain};
 \draw [short] (5.5,10.25) -- (5.5,9.25);
-\node [font=\Large] at (5.5,10.5) {Drain};
+\node [font=\Large] at (5.5,10.5) {Gate};
 \draw (20,8.5) to[Tnmos, transistors/scale=1.02] (20,4.5);
 \draw  (20.25,6.5) circle (1cm);
 \draw [<->, >=Stealth] (12,5.75) -- (16,5.75);
@@ -740,49 +741,49 @@ Nell'N-MOS (a canale $P$), il silicio è di tipo $n$: il drogaggio $n+$ favorisc
 \end{figure}
 
 È da notare come solitamente il metallo utilizzato sia l'alluminio, anche se a volte può essere del silicio molto drogato. L'ossido, invece, è ossido di silicio.\newline
-In generale qualsiasi MOSFET (quindi anche un N-MOS) ha tre terminali: ***source*** (emettitore), ***gate*** (base) e ***drain*** (collettore).
+In generale qualsiasi MOSFET (quindi anche un N-MOS) ha tre terminali: ***source*** (emettitore), ***gate*** (base) e ***drain*** (collettore)[^27].
 
-All'atto pratico si ha la corrente del gate sempre **nulla** (in regime continuo). L'ossido ha la funzione di isolante, inoltre la lastra (di metallo) è sottile $(\approx 10 nm)$, la quale *blocca* il passaggio di corrente dal gate al blocco sottostante, formando una struttura di un *condensatore a facce piane*.
-
-Uno dei pregi dei transistor di tipo *MOS* è il **consumo**: un BJT ha un consumo di energia *costante* nel tempo (dal momento che deve mantenere la polarizzazione), mente un transistor MOS consuma solo durante le *transizioni*.
-
-Come detto in precedenza la struttura di un transistor N-MOS è simile ad un condensatore, dove le piastre sono il gate, mentre la piastra sotto è l'ossido. Applicando una tensione positiva in GS (tra il gate e il source, $V_{GS}>0$), si accumulano sopra e sotto l'ossido delle cariche (che saranno positive *sopra* e negative *sotto*). Queste cariche andranno a riempire alcune lacune presenti sotto l'ossido, creando così un *depletion layer*.
-
-Come in un condensatore, al crescere della tensione $V_{GS}$ aumenta anche l'accumulo delle cariche; superata una certa ***tensione di soglia*** $V_{T}$ $(V_{GS}>V_T)$, le cariche accumulate hanno riempito tutte le lacune, ed iniziano ad accumularsi sotto l'ossido: così facendo si va creare una regione caratterizzata da una **carica elettrica libera**, che collega S a G.
+All'atto pratico si ha la corrente del gate sempre **nulla** (in regime continuo; essenzialmente solo col potenziale "fermo": $i_{G}=\frac{dV}{dt}\cdot C$). L'ossido ha la funzione di isolante, inoltre la lastra (di metallo) è sottile $(\approx 10 nm)$, la quale *blocca*[^28] il passaggio di corrente dal gate al blocco sottostante, formando una struttura di un *condensatore a facce piane*.\newline
+Come detto in precedenza la struttura di un transistor N-MOS è simile ad un condensatore, dove le piastre sono il gate, mentre la piastra sotto è l'ossido. Applicando quindi una tensione positiva in GS (tra il gate e il source, $V_{GS}>0$), si accumulano sopra e sotto l'ossido delle cariche (che saranno positive *sopra*, quindi sul gate, e negative *sotto*). Queste cariche andranno a riempire alcune lacune presenti sotto l'ossido, creando così un *depletion layer*.\newline
+Come in un condensatore, al crescere della tensione $V_{GS}$ aumenta anche l'accumulo delle cariche; superata una certa ***tensione di soglia*** $V_{T}$ $(V_{GS}>V_T)$, le cariche accumulate hanno riempito tutte le lacune, ed iniziano ad accumularsi sotto l'ossido: così facendo si va creare una regione caratterizzata da una **carica elettrica libera**, che collega S a G. Questa regione è essenzialmente un ***canale*** conduttivo[^29], dove può passare della corrente.
 
 Come il BJT, anche con un transistor N-MOS si hanno diverse ***working regions***:
 
-- ***Cutoff***: il dispositivo è **spento**, in quanto $V_{GS}<V_T$; si ha quindi corrente *nulla*, come un interruttore *aperto* $(i_D)=0$;
-- ***Linear***: il dispositivo è in **conduzione** $V_{GS}>V_T$; non ha ancora raggiunto la massima corrente (di saturazione, $i_D<i_{D-sat}$). Esiste allora un *rapporto di proporzionalità* $i_D \propto V_{DS}$; il rapporto tra i due è detto ***resistenza di canale***.
-- ***Saturation***: il dispositivo è **acceso** $V_{GS}>V_T$, ma ha *saturato*[^27] la corrente $(i_D=I_{sat})$. Questo è dovuto alla tensione di D; all'aumentare della tensione $V_{DS}$ con la tensione $V_GS$ fissata, oltre una certa soglia non otteniamo un aumento di corrente, dal momento che il drain D attira più elettroni di quanti ne inserisca S.
-Indichiamo le caratteristiche di un Mos con due grafici:
+- ***Cutoff***: il dispositivo è **spento**, in quanto $V_{GS}<V_T$; si ha quindi corrente *nulla* su drain/source, come un interruttore *aperto* $(i_D)=0$;
+- ***Linear***: il dispositivo è in **conduzione** $V_{GS}>V_T$; non ha ancora raggiunto la massima corrente (di saturazione, $i_D<i_{D-sat}$). Esiste allora un *rapporto di proporzionalità* $i_D \propto \frac{V_{DS}}{R_{DS}}$; il rapporto tra i due è detto ***resistenza di canale*** ($R_{DS}$) e dipende dalla tensione di Gate. Infatti il dispositivo in questa regione si comporta come un resistore. In questa regione vi è un numero sufficiente di elettroni per far comportare il dispositivo in modo proporzionale, approssimandolo ad un resistore.
+- ***Saturation***: il dispositivo è **acceso** $V_{GS}>V_T$, ma ha *saturato*[^30] la corrente $(i_D=I_{sat})$. Questo è dovuto alla tensione di Gate; all'aumentare della tensione $V_{GS}$ , oltre una certa soglia non otteniamo un aumento di corrente, dal momento che il drain D attira più elettroni di quanti ne inserisca S.
+Indichiamo le caratteristiche di un MOS con due grafici:
 
 ![Curve caratteristiche di un transistor N-MOS.](assets/imgs/caratteristiche_NMOS.png){width=65%}
 
-Come accennato prima abbiamo a che fare con un generatore di corrente *governato in tensione*, in particolare dalla $V_{DS}$, quella tra drain e source. L'*equazione della corrente è*:
+Come accennato prima abbiamo a che fare con un generatore di corrente *governato in tensione*, in particolare dalla $V_{DS}$, quella tra drain e source. L'*equazione della corrente (di Drain) è*:
 $$
 i_{D}= \left\{ \begin{array}{cl}
 K[2(V_{GS}-V_{T})V_{DS}-V^{2}_{DS})] & : \ V_{DS} \leq V_{GS} - V_{T} \\
 i_{D-sat}=k(V_{GS}-V_{T}) & : \ V_{DS} \geq V_{GS} - V_{T}
 \end{array} \right.
 $$
-La prima equazione raffigura una *parabola* che ha come parametro la tensione $V_{DS}$: avrà il proprio vertice in $V_{GS}-V_{T}$.
+La prima equazione raffigura una *parabola* che ha come parametro la tensione $V_{DS}$: avrà il proprio vertice in $V_{GS}-V_{T}$. La seconda equazione (che vale nel momento in cui viene raggiunto il vertice della parabola) determina la corrente di saturazione, e diventa una **costante**, con un coefficiente di proporzionalità:
 $$
 K=\frac{1}{2}\mu\:C_{ox}\frac{W}{L}
 $$
-Nel parametro $K,\:\mu$ dovrebbe essere la *mobilità*[^28] del materiale, $C_{ox}$ la capacità dell'ossido per unità di carica, mentre $W$ rappresenta la larghezza della zona che va a costituire il canale, mentre $L$ è la lunghezza.
+dove in $K$, abbiamo più parametri: $mu$ dovrebbe essere la *mobilità*[^31] del materiale, $C_{ox}$ la capacità dell'ossido per unità di carica[^32], mentre $W$ rappresenta la larghezza della zona che va a costituire il canale, mentre $L$ è la lunghezza.
 $$
 K\propto \mu \Rightarrow K_{n}\simeq 2K_{p}
 $$
 All'aumentare della corrente il N-MOS si comporta come un resistore la cui resistenza è data
-da $R=\frac{\rho\cdot L}{s}$.
+da $R=\frac{\rho\cdot L}{s}=\frac{\rho\cdot L}{W\cdot h}$. Posso quindi riscrivere la costante:
+$$
+K=\frac{h}{\rho}\cdot\frac{W}{L}
+$$
+dove la prima parte rappresenta la parte "tecnologica", mentre la seconda è la parte "geometrica" su cui posso agire per *tarare* la risposta di $I_D$ rispetto a $V_{DS}$. Inoltre la lunghezza $L$ determina la distanza tra Drain e Source e di conseguenza la lunghezza del canale: questo è il parametro che va a determinare la tensione massima tra Source e Drain prima di rompere il dispositivo. Questo perché applicando una certa tensione $V_{DS}$ la quale sviluppa un campo elettrico e quanto sono più lontani i terminali quanto più basso è il campo elettrico, e quindi il MOSFET potrà reggere tensioni più alte, e viceversa.\newline
+Come nei BJT, una volta superata la cosiddetta tensione di breakdown il dispositivo si rompe; questa tensione è proporzionale al canale.
 
 ![Vista di un transistor N-MOS dall'alto.](assets/imgs/nmos_dall_alto.png){width=50%}
 
 ### P-MOS
 
-È il dispositivo ***complementare all'N-MOS***.
-
+È il dispositivo ***complementare all'N-MOS***. 
 \begin{figure}[H]
 \centering
 \resizebox{0.7\textwidth}{!}{%
@@ -823,26 +824,38 @@ da $R=\frac{\rho\cdot L}{s}$.
 \caption{Sezione di un transistor P-MOS}
 \end{figure}
 
-Valgono le stesse equazioni, ma le tensioni e le correnti sono *opposte* ($V_{GS}<0,V_{DS}>0,V_{t}<0$).\newline
-Applicando al Ground una tensione negativa si accumulano cariche positive *sotto l'ossido*: si formerà dunque un canale di lacune. Il guadagno (e quindi la corrente di uscita) sono *minori*, in quanto le lacune sono portatori minoritari (come per i transistor BJT, in quanto $k_n\approx 2k_p$).
+Valgono le stesse equazioni, ma le tensioni e le correnti sono *opposte* ($V_{GS}<0,V_{DS}<0,V_{t}<0$).\newline
+Applicando al Ground una tensione negativa si accumulano cariche positive *sotto l'ossido*: si formerà dunque un canale di lacune. Il Drain sarà considerato negativo rispetto al Source.
+
+Il guadagno (e quindi la corrente di uscita) sono *minori*, in quanto le lacune sono portatori minoritari (come per i transistor BJT, in quanto $k_n\approx 2k_p$), le quali andranno a formare il canale di conduzione.
+
+Le equazioni delle curve sono le stesse dell'N-MOS.
 
 Per valutare K dato delle curve è possibile risolvere il seguente sistema:
 $$
 \begin{cases}
-I_{D1}=K(V_{G1}-V_{t})^{2}\\
-I_{D2}=K(V_{G2}-V_{t})^{2}\end{cases}\longrightarrow\begin{cases}\sqrt{I_{D1}}=\sqrt{K}(V_{G1}-V_{t})\\
-\sqrt{I_{D2}}=\sqrt{K}(V_{G2}-V_{t})
+I_{D1}=K(V_{GS}-V_{t})^{2}\\
+I_{D2}=K(V_{GS}-V_{t})^{2}\end{cases}\longrightarrow\begin{cases}\sqrt{I_{DS}}=\sqrt{K}(V_{GS}-V_{t})\\
+\sqrt{I_{DS}}=\sqrt{K}(V_{GS}-V_{t})
 \end{cases}
 $$
 
+\begin{bluebox}{Riepilogo dei transistor MOS}
+I MOS hanno le seguenti regioni:
+\begin{enumerate}
+\item Quando la tensione di Gate è inferiore alla tensione di soglia ($V_{G}<V_{th}$ entrambe in valore assoluto), siamo in \emph{cutoff}: non abbiamo portatori nel canale. Siamo in interdizione ed il dispositivo è spento e non passa corrente tra source e drain;
+\item Nella regione \emph{lineare}, in cui ci troviamo superando la tensione di soglia per piccole tensioni di drain, la (curva) caratteristica della corrente è \emph{parabolica}: inizialmente si potrebbe approssimare con una retta (da qui lineare). La pendenza di quest'ultima mi indica la resistenza del canale, tant'è che il dispositivo viene detto \emph{\textbf{resistore controllato in tensione}} (di Gate)! Sono inversamente proporzionali.
+\item Una volta raggiunto il vertice della parabola ci troviamo nella regione detta \emph{di saturazione} la corrente diventa \textbf{costante} e sempre dipendente dalla tensione di Gate: il transistor è un generatore di corrente controllato in tensione.
+\end{enumerate}
+\end{bluebox}
+
 ### Real N-MOS
 
-All'apparenza il transistor N-MOS sembra un dispositivo *simmetrico*, ma non lo è. Infatti in precedenza abbiamo assunto la tensione $V_{DS}>0$ perché polarizzando la S viene polarizzato anche il blocco P[^29] sottostante: in questo modo si viene a formare un ***body diode*** tra l'emettitore ed il collettore.
-\begin{redbox}{Body diode}
-Il \textbf{body diode} sono diodi \textbf{\emph{intrinseci}} per qualsiasi transistor ad effetto di campo. Nelle applicazioni FET a canale N, la corrente scorre tipicamente dal drain alla source a causa della polarità del body diode. Anche se non è stato indotto un canale, la corrente può comunque fluire dalla source al drain attraverso la connessione in cortocircuito source-body e il diodo body-drain. Per questo motivo, un tipico FET a canale N non può bloccare il flusso di corrente dalla sorgente al drain.
+All'apparenza il transistor N-MOS sembra un dispositivo *simmetrico*, ma non lo è. Infatti in precedenza abbiamo assunto la tensione $V_{DS}>0$ perché polarizzando la S viene polarizzato anche il blocco P[^33] sottostante: in questo modo si viene a formare un ***body diode*** tra l'emettitore ed il collettore. In sostanza si va a *cortocircuitare* (viene metallizzato) Source con la regione di tipo P: rimane la giunzione tra P e il Drain.
+\begin{redbox}{Body diode} 
+Il \textbf{body diode} (o di bulk) sono diodi \textbf{\emph{intrinseci}} per qualsiasi transistor ad effetto di campo. Nelle applicazioni FET a canale N, la corrente scorre tipicamente dal drain alla source a causa della polarità del body diode. Anche se non è stato indotto un canale, la corrente può comunque fluire dalla source al drain attraverso la connessione in cortocircuito source-body e il diodo body-drain. Per questo motivo, un tipico FET a canale N non può bloccare il flusso di corrente dalla sorgente al drain.
 \end{redbox}
 Nel nostro caso è essenzialmente una giunzione p-n *parassita* in cui passa la corrente invece che nel canale.
-
 
 \begin{figure}[h!]
   \centering
@@ -887,14 +900,9 @@ Nel nostro caso è essenzialmente una giunzione p-n *parassita* in cui passa la 
   \end{minipage}
 \end{figure}
 
-Se $V_{DS}<0$ il diodo in questione è in *forward bias*, e la corrente $i_D$ non dipende più dal gate[^30]. Per evitarlo il drain dovrebbe essere positivo rispetto al source.
+Se $V_{DS}<0$ il diodo in questione è in *forward bias*, e la corrente $i_D$ non dipende più dal gate[^34]: non abbiamo quindi più il controllo sul dispositivo, perché la corrente scorre nel diodo indipendentemente dalla tensione applicata sul Gate. Per evitarlo la tensione di Drain dovrebbe essere maggiore rispetto a quella di Source.
 
-\begin{bluebox}{Riepilogo dei transistor MOS}
-I MOS hanno le seguenti regioni:
-\begin{enumerate}
-\item Quando la tensione di Gate è inferiore alla tensione di soglia ($V_{G}<V_{th}$ entrambe in valore assoluto), siamo in \emph{cutoff}: non abbiamo portatori nel canale. Siamo in interdizione ed il dispositivo è spento e non passa niente tra source e drain;
-\end{enumerate}
-\end{bluebox}
+Il P-MOS reale funziona al contrario.
 
 # Digital Logic Circuits (circuiti a logica digitale)
 
@@ -1268,7 +1276,7 @@ Sono misurati con il circuito "fermo", senza commutazioni.
     - $V_{iL} \doteq$ è il massimo valore di tensione in ingresso associabile allo $0$ logico (stato negativo);
     - $V_{iH} \doteq$ è il minimo valore di tensione in ingresso associato allo $1$ logico (stato positivo).
 2) **Tensione di uscita**: indica come interpretare i valori rilevati all'uscita di un circuito:
-    - $V_{oL} \doteq$ è il massimo valore di tensione in uscita prodotto[^31] da uno $0$ logico;
+    - $V_{oL} \doteq$ è il massimo valore di tensione in uscita prodotto[^35] da uno $0$ logico;
     - $V_{oH} \doteq$ è il minimo valore in uscita prodotto da un $1$ logico.
 
 \begin{orangebox}{Nota}
@@ -1303,7 +1311,7 @@ Inoltre un qualsiasi valore di tensione di ingresso compreso tra $\left[\mathrm{
 
 Da queste grandezze ne derivano altre 3:
 
-4) **Noise Margin**[^32]: resilienza del circuito al rumore; quanto disturbo può ricevere *senza influire sul suo comportamento*. È la quantità cui il segnale eccede la soglia minima $V_{iH}$ e
+4) **Noise Margin**[^36]: resilienza del circuito al rumore; quanto disturbo può ricevere *senza influire sul suo comportamento*. È la quantità cui il segnale eccede la soglia minima $V_{iH}$ e
 $V_{iL}$:
     $$
     NM=\min(NM_{H}, NM_{L}); \quad NM_{H}=V_{oH}-V_{iH}; \quad NM_{L}=V_{iL}-V_{oL}
@@ -1314,8 +1322,8 @@ $$
 V_{oH}>V_{iH};\quad V_{iL}>V_{oL}
 $$
 \end{bluebox}
-5) **Fan-out**[^32]: rappresenta il ***massimo numero di porte d'ingresso*** collegabili ad un'uscita senza *comprometterne la logica*, ovvero quanti ne può pilotare (dipende da $I_{i\:L/H}$);
-6) **Static power**[^33]: rappresenta la ***potenza assorbita in condizioni statiche***. È pari alla media tra le potenze assorbite con un'uscita alta/bassa;
+5) **Fan-out**[^36]: rappresenta il ***massimo numero di porte d'ingresso*** collegabili ad un'uscita senza *comprometterne la logica*, ovvero quanti ne può pilotare (dipende da $I_{i\:L/H}$);
+6) **Static power**[^37]: rappresenta la ***potenza assorbita in condizioni statiche***. È pari alla media tra le potenze assorbite con un'uscita alta/bassa;
     $$
     P=\frac{(P_{H}+P_{L})}{2}
     $$
@@ -1470,6 +1478,9 @@ TODO capire come funziona tavola periodica
 %%  Z list={5,7,13,14,15,31,32,33,49,51}]
 \end{comment}
 
+## Corrente nel N-MOS
+A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in pratica due giunzioni p-n tra la base e il source oppure con il drain: quindi è come se ci fossero due diodi contrapposti. Infatti ciò spiega il perché in prima approssimazione non scorre corrente tra Source e Drain (in condizione di quiete).
+
 <!-- Elenco note a piè di pagina -->
 
 [^1]: Assenza di elettroni dovuta alla **rottura** di un legame. È insieme all'elettrone, un portatore di carica nei semiconduttori.
@@ -1524,16 +1535,24 @@ TODO capire come funziona tavola periodica
 
 [^26]: Un *contatto ohmico* è una giunzione elettrica tra un metallo e un semiconduttore che non ha proprietà rettificanti (non trasforma un segnale alternato in uno continuo). La caratteristica principale è avere una curva corrente-tensione $I-V$ lineare, come prevista dalla legge di Ohm.
 
-[^27]: Ha raggiunto la massima corrente.
+[^27]: Di solito la regione di silicio drogato più grande (ad esempio la regione p nel N-MOS), viene detta *bulk*.
 
-[^28]: Quanto *scorrono* facilmente le cariche al suo interno.
+[^28]: Infatti anche per quanto riguarda lo schema del circuito il gate è isolato rispetto agli altri due terminali.
 
-[^29]: O n se in un P-MOS.
+[^29]: Inizialmente la sua proprietà principale è quella di "essere una resistenza".
 
-[^30]: Nel transistore P-MOS accade se la tensione tra drain e source $V_{DS}>0$
+[^30]: Ha raggiunto la massima corrente.
 
-[^31]: La porta successiva potrà riconoscerlo.
+[^31]: Quanto *scorrono* facilmente le cariche al suo interno.
 
-[^32]: Più è alto meglio è; *higher better*.
+[^32]: Più è maggiore più ha possibilità di spostare cariche.
 
-[^33]: Più bassa è meglio è; lower better.
+[^33]: O $n$ se in un P-MOS.
+
+[^34]: Nel transistore P-MOS accade se la tensione tra drain e source $V_{DS}>0$
+
+[^35]: La porta successiva potrà riconoscerlo.
+
+[^36]: Più è alto meglio è; *higher better*.
+
+[^37]: Più bassa è meglio è; lower better.
