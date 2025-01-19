@@ -630,7 +630,7 @@ di lavoro sono gli stessi un un normale BJT.
 $$
 I_C = k \cdot P_{L}
 $$
-dove $P_L$ è la potente luminosa.\newline
+dove $P_L$ è la potenza luminosa.\newline
 È importante che il dispositivo si trovi in regione attiva: per questo sarà inserito un resistore dal lato del collettore per evitare di andare in saturazione.
 
 \begin{figure}[H]
@@ -906,7 +906,7 @@ Il P-MOS reale funziona al contrario.
 
 # Digital Logic Circuits (circuiti a logica digitale)
 
-Servono per trasferire e processare informazioni, funzionano realizzando operazioni *booleane* su dati booleani.
+Servono per trasferire e processare informazioni tra dispositivi **senza modificare i valori**, funzionano realizzando operazioni *booleane* su dati booleani.
 
 ## Famiglie logiche
 
@@ -1004,6 +1004,8 @@ Una \textbf{famiglia logica} è un insieme di dispositivi elettronici i quali, s
     \caption{Tabella di verità per AND}
   \end{minipage}
 \end{figure}
+
+Concatenando queste porte logiche è possibile costruire una *qualsiasi operazione logica complessa*.
 
 ### Leggi (o teoremi) di de Morgan
 
