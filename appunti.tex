@@ -79,7 +79,7 @@
           \usepackage{tabularray}
           \usepackage{mathtools}
           \usepackage{siunitx}
-          \usepackage{tcolorbox}
+          \usepackage[most]{tcolorbox}
           \usepackage{geometry}
           \usepackage{array}
           \usepackage{caption}
@@ -98,7 +98,7 @@
           fonttitle=\bfseries, title={#1}}
           \newtcolorbox{bluebox}[1]{colback=blue!5!white, colframe=blue!75!black,
           fonttitle=\bfseries, title={#1}}
-           \newtcolorbox{orangebox}[1]{colback=orange!5!white, colframe=orange!75!black,
+          \newtcolorbox{orangebox}[1]{colback=orange!5!white, colframe=orange!75!black,
           fonttitle=\bfseries, title={#1}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -1296,6 +1296,13 @@ corrente \(i_D\) non dipende più dal gate\footnote{Nel transistore P-MOS
   accade se la tensione tra drain e source \(V_{DS}>0\)}. Per evitarlo
 il drain dovrebbe essere positivo rispetto al source.
 
+\begin{bluebox}{Riepilogo dei transistor MOS}
+I MOS hanno le seguenti regioni:
+\begin{enumerate}
+\item Quando la tensione di Gate è inferiore alla tensione di soglia ($V_{G}<V_{th}$ entrambe in valore assoluto), siamo in \emph{cutoff}: non abbiamo portatori nel canale. Siamo in interdizione ed il dispositivo è spento e non passa niente tra source e drain;
+\end{enumerate}
+\end{bluebox}
+
 \chapter{Digital Logic Circuits (circuiti a logica
 digitale)}\label{digital-logic-circuits-circuiti-a-logica-digitale}
 
@@ -1314,7 +1321,7 @@ Una \textbf{famiglia logica} è un insieme di dispositivi elettronici i quali, s
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Not} (negazione): restituisce il bit negato.
+  \textbf{NOT} (negazione): restituisce il bit negato.
 \end{itemize}
 
 \begin{figure}[h!]
@@ -1345,7 +1352,7 @@ Una \textbf{famiglia logica} è un insieme di dispositivi elettronici i quali, s
 \begin{itemize}
 \tightlist
 \item
-  \textbf{And} (prodotto logico): restituisce vero se \emph{entrambi i
+  \textbf{AND} (prodotto logico): restituisce vero se \emph{entrambi i
   bit sono veri}.
 \end{itemize}
 

@@ -28,7 +28,7 @@ header-includes:
             \usepackage{tabularray}
             \usepackage{mathtools}
             \usepackage{siunitx}
-            \usepackage{tcolorbox}
+            \usepackage[most]{tcolorbox}
             \usepackage{geometry}
             \usepackage{array}
             \usepackage{caption}
@@ -47,7 +47,7 @@ header-includes:
             fonttitle=\bfseries, title={#1}}
             \newtcolorbox{bluebox}[1]{colback=blue!5!white, colframe=blue!75!black,
             fonttitle=\bfseries, title={#1}}
-             \newtcolorbox{orangebox}[1]{colback=orange!5!white, colframe=orange!75!black,
+            \newtcolorbox{orangebox}[1]{colback=orange!5!white, colframe=orange!75!black,
             fonttitle=\bfseries, title={#1}}
     ```
 pandoc-latex-environment:
@@ -889,6 +889,13 @@ Nel nostro caso è essenzialmente una giunzione p-n *parassita* in cui passa la 
 
 Se $V_{DS}<0$ il diodo in questione è in *forward bias*, e la corrente $i_D$ non dipende più dal gate[^30]. Per evitarlo il drain dovrebbe essere positivo rispetto al source.
 
+\begin{bluebox}{Riepilogo dei transistor MOS}
+I MOS hanno le seguenti regioni:
+\begin{enumerate}
+\item Quando la tensione di Gate è inferiore alla tensione di soglia ($V_{G}<V_{th}$ entrambe in valore assoluto), siamo in \emph{cutoff}: non abbiamo portatori nel canale. Siamo in interdizione ed il dispositivo è spento e non passa niente tra source e drain;
+\end{enumerate}
+\end{bluebox}
+
 # Digital Logic Circuits (circuiti a logica digitale)
 
 Servono per trasferire e processare informazioni, funzionano realizzando operazioni *booleane* su dati booleani.
@@ -901,7 +908,7 @@ Una \textbf{famiglia logica} è un insieme di dispositivi elettronici i quali, s
 
 ### Operatori logici (booleani)
 
-- **Not** (negazione): restituisce il bit negato.
+- **NOT** (negazione): restituisce il bit negato.
 
 \begin{figure}[h!]
   \centering
@@ -928,7 +935,7 @@ Una \textbf{famiglia logica} è un insieme di dispositivi elettronici i quali, s
   \end{minipage}
 \end{figure}
 
-- **And** (prodotto logico): restituisce vero se *entrambi i bit sono veri*.
+- **AND** (prodotto logico): restituisce vero se *entrambi i bit sono veri*.
 
 \begin{figure}[h!]
   \centering
