@@ -1081,13 +1081,11 @@ A questo punto possiamo ricavare due porte:
     \caption{Tabella di verità per NOR}
   \end{minipage}
 \end{figure}
-
 \begin{bluebox}{Osservazione: \emph{completezza} della famiglia logica}
 Una famiglia logica si dice \emph{\textbf{completa}} quando tra i suoi dispositivi è presente la porta NOT ed una tra la porta AND o la porta OR. In particolare è possibile realizzare, con le porte NAND e NOR, tutte le porte precedenti: in questo modo quindi \emph{\textbf{si possono realizzare tutti i circuiti con una singola porta!}}
 \end{bluebox}
 
 - Esempi:
-
 \begin{figure}[H]
 \centering
 \begin{subfigure}{0.45\textwidth}
@@ -1199,7 +1197,6 @@ Una famiglia logica si dice \emph{\textbf{completa}} quando tra i suoi dispositi
 \caption{Rappresentazioni della porta AND.}
 \label{fig:and}
 \end{figure}
-
 \begin{figure}[H]
 \centering
 \begin{subfigure}{0.45\textwidth}
@@ -1267,16 +1264,16 @@ Una famiglia logica si dice \emph{\textbf{completa}} quando tra i suoi dispositi
 \caption{Rappresentazioni della porta OR.}
 \label{fig:or}
 \end{figure}
-
 In elettronica, lo stato logico $0$ è associato ad una *bassa tensione*, mentre lo stato $1$ è associato ad un'*alta tensione*.
 
-## Famiglie logiche: parametri statici 
+## Famiglie logiche: parametri statici
 
-Sono misurati con il circuito "fermo", senza commutazioni.
+Quando si tratta un segnale logico, ci si aspetta che esso sia ___ben definito___: in particolare deve essere ben chiaro quando il segnale è "alto" e quando è basso. Per ogni famiglia logica quindi esistono quindi una serie di parametri che ne definiscono il funzionamento. I seguenti parametri sono detti statici in quanto sono misurati con il circuito "fermo", senza commutazioni: non dipendono dal fatto che il segnale stia variando nel tempo.
 
 1) **Tensione di ingresso**: discrimina il valore *logico* in base alla tensione d'ingresso, quindi come questa sia *interpretata*:
-    - $V_{iL} \doteq$ è il massimo valore di tensione in ingresso associabile allo $0$ logico (stato negativo);
-    - $V_{iH} \doteq$ è il minimo valore di tensione in ingresso associato allo $1$ logico (stato positivo).
+    - $V_{iL} \doteq$ è il __massimo__ valore di tensione in ingresso che la famiglia logica rileva come _livello logico basso_ (oppure $0$ logico, stato negativo);
+    - $V_{iH} \doteq$ è il __minimo__ valore di tensione in ingresso che la famiglia logica (o l'integrato) percepisce come _livello logico alto_ (oppure $1$ logico, stato positivo).
+   
 2) **Tensione di uscita**: indica come interpretare i valori rilevati all'uscita di un circuito:
     - $V_{oL} \doteq$ è il massimo valore di tensione in uscita prodotto[^35] da uno $0$ logico;
     - $V_{oH} \doteq$ è il minimo valore in uscita prodotto da un $1$ logico.
@@ -1286,7 +1283,7 @@ Per evitare ambiguità devono valere:
 $$
 V_{iL}\leq V_{iH}; \quad V_{oL}\leq V_{oH}
 $$
-Idealmente tutti i valori in ingresso \emph{corrispondono} ai valori in uscita. Tuttavia questo non è possibile, a causa di possibili variazioni ambientali e/o nel processo di costruzione. Si usano quindi dei valori $V_{i/o L}$ più bassi dei $V_{i/oH}$, statisticamente \emph{certi}, i quali considerano anche le possibili oscillazioni dei valori. \newline
+Idealmente tutti i valori in ingresso \emph{corrispondono} ai valori in uscita. Tuttavia questo non è possibile, a causa di possibili variazioni ambientali e/o nel processo di costruzione. Si usano quindi dei valori $V_{i/o L}$ più bassi dei $V_{i/oH}$, statisticamente \emph{certi}, i quali considerano anche le possibili oscillazioni dei valori. Questo perché rispettando questi valori definiti del costruttore del circuito \newline
 Inoltre un qualsiasi valore di tensione di ingresso compreso tra $\left[\mathrm{V}_{\mathrm{iL-max}},\mathrm{V}_{\mathrm{iH-min}}\right]$ non potrà essere riconosciuto dalla porta come 1 logico o come 0 logico: si dice che sono valori nella \emph{\textbf{regione di indeterminazione}}.\newline Allo stesso modo, un qualsiasi valore di tensione di uscita compreso nell'intervallo $[\mathrm{V}_{\mathrm{oL-max}},\mathrm{V}_{\mathrm{oH-min}}]$ potrà essere riconosciuto con 1 logico o come 0 logico da una porta posta immediatamente in cascata.
 \begin{minipage}{\linewidth}
 \centering

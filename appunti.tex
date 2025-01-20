@@ -1561,7 +1561,6 @@ A questo punto possiamo ricavare due porte:
     \caption{Tabella di verità per NOR}
   \end{minipage}
 \end{figure}
-
 \begin{bluebox}{Osservazione: \emph{completezza} della famiglia logica}
 Una famiglia logica si dice \emph{\textbf{completa}} quando tra i suoi dispositivi è presente la porta NOT ed una tra la porta AND o la porta OR. In particolare è possibile realizzare, con le porte NAND e NOR, tutte le porte precedenti: in questo modo quindi \emph{\textbf{si possono realizzare tutti i circuiti con una singola porta!}}
 \end{bluebox}
@@ -1570,50 +1569,50 @@ Una famiglia logica si dice \emph{\textbf{completa}} quando tra i suoi dispositi
 \tightlist
 \item
   Esempi:
-\end{itemize}
 
-\begin{figure}[H]
-\centering
-\begin{subfigure}{0.45\textwidth}
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{circuitikz}
-\tikzstyle{every node}=[font=\large]
-\draw (4,15) to[short] (4.75,15);
-\draw (4,14.5) to[short] (4.75,14.5);
-\draw (4.75,15) node[ieeestd nand port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (7,14.75);
-\draw (4,15) to[short] (3,15);
-\draw (3.5,15) to[short] (3.5,14.5);
-\draw (3.5,14.5) to[short] (4,14.5);
-\node [font=\large] at (2.5,15) {$A$};
-\node [font=\large] at (8,14.75) {$\overline{A \cdot A} = \overline{A}$};
-\end{circuitikz}
-}
-\caption{Porta NOT con NAND}
-\label{not_nand}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.45\textwidth}
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{circuitikz}
-\tikzstyle{every node}=[font=\large]
-\draw (4,15) to[short] (4.75,15);
-\draw (4,14.5) to[short] (4.75,14.5);
-\draw (4.75,15) node[ieeestd nor port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (7,14.75);
-\draw (4,15) to[short] (3,15);
-\draw (3.5,15) to[short] (3.5,14.5);
-\draw (3.5,14.5) to[short] (4,14.5);
-\node [font=\large] at (2.5,15) {$A$};
-\node [font=\large] at (8,14.75) {$\overline{A + A} = \overline{A}$};
-\end{circuitikz}
-}
-\caption{Porta NOT con NOR}
-\label{not_nor}
-\end{subfigure}
-\caption{Rappresentazioni della porta NOT.}
-\label{fig:not}
-\end{figure}
+  \begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.45\textwidth}
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{circuitikz}
+  \tikzstyle{every node}=[font=\large]
+  \draw (4,15) to[short] (4.75,15);
+  \draw (4,14.5) to[short] (4.75,14.5);
+  \draw (4.75,15) node[ieeestd nand port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (7,14.75);
+  \draw (4,15) to[short] (3,15);
+  \draw (3.5,15) to[short] (3.5,14.5);
+  \draw (3.5,14.5) to[short] (4,14.5);
+  \node [font=\large] at (2.5,15) {$A$};
+  \node [font=\large] at (8,14.75) {$\overline{A \cdot A} = \overline{A}$};
+  \end{circuitikz}
+  }
+  \caption{Porta NOT con NAND}
+  \label{not_nand}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{circuitikz}
+  \tikzstyle{every node}=[font=\large]
+  \draw (4,15) to[short] (4.75,15);
+  \draw (4,14.5) to[short] (4.75,14.5);
+  \draw (4.75,15) node[ieeestd nor port, anchor=in 1, scale=0.89](port){} (port.out) to[short] (7,14.75);
+  \draw (4,15) to[short] (3,15);
+  \draw (3.5,15) to[short] (3.5,14.5);
+  \draw (3.5,14.5) to[short] (4,14.5);
+  \node [font=\large] at (2.5,15) {$A$};
+  \node [font=\large] at (8,14.75) {$\overline{A + A} = \overline{A}$};
+  \end{circuitikz}
+  }
+  \caption{Porta NOT con NOR}
+  \label{not_nor}
+  \end{subfigure}
+  \caption{Rappresentazioni della porta NOT.}
+  \label{fig:not}
+  \end{figure}
+\end{itemize}
 
 \begin{figure}[H]
 \centering
@@ -1683,7 +1682,6 @@ Una famiglia logica si dice \emph{\textbf{completa}} quando tra i suoi dispositi
 \caption{Rappresentazioni della porta AND.}
 \label{fig:and}
 \end{figure}
-
 \begin{figure}[H]
 \centering
 \begin{subfigure}{0.45\textwidth}
@@ -1758,7 +1756,13 @@ tensione}, mentre lo stato \(1\) è associato ad un'\emph{alta tensione}.
 \section{Famiglie logiche: parametri
 statici}\label{famiglie-logiche-parametri-statici}
 
-Sono misurati con il circuito ``fermo'', senza commutazioni.
+Quando si tratta un segnale logico, ci si aspetta che esso sia
+\textbf{\emph{ben definito}}: in particolare deve essere ben chiaro
+quando il segnale è ``alto'' e quando è basso. Per ogni famiglia logica
+quindi esistono quindi una serie di parametri che ne definiscono il
+funzionamento. I seguenti parametri sono detti statici in quanto sono
+misurati con il circuito ``fermo'', senza commutazioni: non dipendono
+dal fatto che il segnale stia variando nel tempo.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi})}
@@ -1771,11 +1775,13 @@ Sono misurati con il circuito ``fermo'', senza commutazioni.
   \begin{itemize}
   \tightlist
   \item
-    \(V_{iL} \doteq\) è il massimo valore di tensione in ingresso
-    associabile allo \(0\) logico (stato negativo);
+    \(V_{iL} \doteq\) è il \textbf{massimo} valore di tensione in
+    ingresso che la famiglia logica rileva come \emph{livello logico
+    basso} (oppure \(0\) logico, stato negativo);
   \item
-    \(V_{iH} \doteq\) è il minimo valore di tensione in ingresso
-    associato allo \(1\) logico (stato positivo).
+    \(V_{iH} \doteq\) è il \textbf{minimo} valore di tensione in
+    ingresso che la famiglia logica (o l'integrato) percepisce come
+    \emph{livello logico alto} (oppure \(1\) logico, stato positivo).
   \end{itemize}
 \item
   \textbf{Tensione di uscita}: indica come interpretare i valori
