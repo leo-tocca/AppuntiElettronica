@@ -1275,16 +1275,16 @@ Quando si tratta un segnale logico, ci si aspetta che esso sia ___ben definito__
     - $V_{iH} \doteq$ è il __minimo__ valore di tensione in ingresso che la famiglia logica (o l'integrato) percepisce come _livello logico alto_ (oppure $1$ logico, stato positivo).
    
 2) **Tensione di uscita**: indica come interpretare i valori rilevati all'uscita di un circuito:
-    - $V_{oL} \doteq$ è il massimo valore di tensione in uscita prodotto[^35] da uno $0$ logico;
-    - $V_{oH} \doteq$ è il minimo valore in uscita prodotto da un $1$ logico.
+    - $V_{oL} \doteq$ è il **massimo** valore della tensione in uscita da una porta logica[^35] dalla porta logica tale che, in base alle specifiche del prodotto, corrisponde ad un livello logico **basso** ($0$ logico);
+    - $V_{oH} \doteq$ è il **minimo** valore della tensione in uscita da una porta logica che in base alle specifiche del prodotto stabilisce un valore logico **alto** ($1$ logico).
 
-\begin{orangebox}{Nota}
+\begin{orangebox}{Nota: Regione di indeterminazione.}
 Per evitare ambiguità devono valere:
 $$
 V_{iL}\leq V_{iH}; \quad V_{oL}\leq V_{oH}
 $$
-Idealmente tutti i valori in ingresso \emph{corrispondono} ai valori in uscita. Tuttavia questo non è possibile, a causa di possibili variazioni ambientali e/o nel processo di costruzione. Si usano quindi dei valori $V_{i/o L}$ più bassi dei $V_{i/oH}$, statisticamente \emph{certi}, i quali considerano anche le possibili oscillazioni dei valori. Questo perché rispettando questi valori definiti del costruttore del circuito \newline
-Inoltre un qualsiasi valore di tensione di ingresso compreso tra $\left[\mathrm{V}_{\mathrm{iL-max}},\mathrm{V}_{\mathrm{iH-min}}\right]$ non potrà essere riconosciuto dalla porta come 1 logico o come 0 logico: si dice che sono valori nella \emph{\textbf{regione di indeterminazione}}.\newline Allo stesso modo, un qualsiasi valore di tensione di uscita compreso nell'intervallo $[\mathrm{V}_{\mathrm{oL-max}},\mathrm{V}_{\mathrm{oH-min}}]$ potrà essere riconosciuto con 1 logico o come 0 logico da una porta posta immediatamente in cascata.
+Idealmente tutti i valori in ingresso \emph{corrispondono} ai valori in uscita. Tuttavia questo non è possibile, a causa di possibili variazioni ambientali e/o nel processo di costruzione. Si usano quindi dei valori $V_{i/o L}$ più bassi dei $V_{i/oH}$, statisticamente \emph{certi}, i quali considerano anche le possibili oscillazioni dei valori. Questo perché rispettando questi valori definiti del costruttore del circuito in tutte le condizioni operative il segnale sarà interpretato/percepito \textbf{correttamente}. \newline
+Infatti sappiamo che un qualsiasi valore di tensione di ingresso compreso tra $\left[\mathrm{V}_{\mathrm{iL-max}},\mathrm{V}_{\mathrm{iH-min}}\right]$ non sappiamo quando potrà essere riconosciuto dalla porta come 1 logico o come 0 logico: si dice che sono valori nella \emph{\textbf{regione di indeterminazione}}. Inoltre, per una far sì che non ci siano errori di interpretazione è necessario che l'operazione di commutazione tra gli stati sia il più \emph{veloce} possibile, in quanto il valore in questi casi passa nella regione.\newline Allo stesso modo, un qualsiasi valore di tensione di uscita compreso nell'intervallo $[\mathrm{V}_{\mathrm{oL-max}},\mathrm{V}_{\mathrm{oH-min}}]$ non potrà essere riconosciuto con 1 logico o come 0 logico da una porta posta immediatamente in cascata.
 \begin{minipage}{\linewidth}
 \centering
 \resizebox{0.3\textwidth}{!}{%
@@ -1320,60 +1320,55 @@ $NM_{H}$ e $NM_{L}$ devono essere \textbf{positivi}, per cui è necessario che l
 $$
 V_{oH}>V_{iH};\quad V_{iL}>V_{oL}
 $$
+Maggiore è la differenza tra i valori (e quindi il Noise Margin), maggiore è il grado di "certezza" dell'interpretazione del segnale.
 \end{bluebox}
-5) **Fan-out**[^36]: rappresenta il ***massimo numero di porte d'ingresso*** collegabili ad un'uscita senza *comprometterne la logica*, ovvero quanti ne può pilotare (dipende da $I_{i\:L/H}$);
-6) **Static power**[^37]: rappresenta la ***potenza assorbita in condizioni statiche***. È pari alla media tra le potenze assorbite con un'uscita alta/bassa;
+5) **Fan-out**[^36]: rappresenta il ***massimo numero di porte d'ingresso*** che posso guidare/pilotare (collegabili ad un'uscita) mantenendo un valore logico *corretto* (dipende da $I_{i\:L},\:I_{i\:H}$);
+6) **Static power**[^37]: rappresenta la ***potenza assorbita (o dissipata) in condizioni statiche***. È pari alla media tra le potenze assorbite con un'uscita alta/bassa;
     $$
     P=\frac{(P_{H}+P_{L})}{2}
     $$
 dove $P_H = V_{cc}\cdot i_H$ e $P_L=V_{cc}\cdot i_L$.    
 
 ## Famiglie logiche: parametri *dinamici*.
-I parametri precedenti devono essere misurati in condizioni *statiche*, mentre questi si misurano ***al momento di una commutazione di stato***.
+I parametri precedenti devono essere misurati in condizioni *statiche*, mentre questi si misurano ***al momento di una commutazione di stato***[^38].
 
-1) **Ritardo/tempo di propagazione** (propagation delay): indicato con $t_{pHL}$ e $t_{pLH}$, rappresenta in quanto tempo un cambio in ingresso è *percepito* dall'uscita. È fondamentale che sia **basso**: ad esempio con $10\:ns$ siamo vincolati a processi con frequenza massima di $100$ MHz;
-2) **Energia di commutazione** (Switching power): indica l'energia impiegata per commutare uno stato, essa cresce *linearmente* con la velocità del circuito (lower better);
-3) **Prodotto ritardo-potenza** (Delay-Power product): è il prodotto tra il ritardo di propagazione e la potenza dissipata nel circuito; serve per *bilanciare* le prime due, le quali sono tra loro discordi (lower better).
+1) **Ritardo/tempo di propagazione** (propagation delay): indicato con $t_{p_{HL}}$ e $t_{p_{LH}}$, rappresenta in quanto tempo un cambio in ingresso è *percepito* (e riportato) dall'uscita. È fondamentale che sia **basso**: ad esempio con $10\:ns$ siamo vincolati a processi con frequenza massima di $100$ MHz; tra i due tempi di propagazione conta quello **più lento**, ovvero quello più penalizzante.
+2) **Energia di commutazione** (Switching power): indica l'energia impiegata (in Joule) per commutare uno stato, essa cresce *linearmente* con la velocità del circuito (lower better). Viene integrata per il tempo della commutazione;
+3) **Prodotto ritardo-potenza** (Delay-Power product): è il prodotto tra il ritardo di propagazione e la potenza dissipata nel circuito; serve per *bilanciare* le prime due, le quali sono tra loro discordi (lower better). A livello del design del circuito si può aumentare la potenza e di conseguenza diminuirà il ritardo di propagazione (a parità di circuito). La potenza dipende dalle resistenze, mentre il ritardo dalle capacità.
 
 ## RTL (Resistor-Transistor Logic)
 È una famiglia di porte logiche *che usano i transistor BJT* e resistenze per realizzare le porte. Il sistema è obsoleto a causa del suo fan-in limitato (al massimo 3 ingressi). Alcuni esempi di porte sono:
 
-- **NOT**: Corrisponde ad un transistor con una resistenza di base $R_B$ e una resistenza di collettore $R_C$; il dispositivo si comporta come un *invertitore*. Infatti se la tensione in ingresso $V_{in}$ è alta la tensione in uscita $V_{out}$
+- **NOT**: Corrisponde ad un transistor con una resistenza di base $R_B$ e una resistenza di collettore $R_C$, l'ingresso è collegato alla base del transistor; il dispositivo si comporta come un *invertitore*. Infatti se la tensione in ingresso $V_{in}$ è alta la tensione in uscita $V_{out}$. In questa configurazione, ovvero quando l'emettitore è collegato a massa, si parla di emettitore comune. 
+    - Se la tensione in ingresso $V_{in}$ è *bassa*, la corrente $i_C$ è nulla e la corrente $i$ va tutta in OUT.
+    - Se la tensione in ingresso $V_{in}$ è *alta*, si ha che $i_{C}\leq h_{fe}\cdot i_{B}$: la corrente non può andare tutta in uscita.
+
+    Un esempio *pratico*: se in ingresso, ovvero nella base, non abbiamo corrente $I_{B}=0$, il transistor sarà in **interdizione** e non passerà corrente, $I_{C}=0$. La tensione in uscita sarà di conseguenza $V_{out}=5V- R_{C}$. Se invece in ingresso abbiamo un ingresso alto (per esempio $5V$), posso ipotizzare che la giunzione base-emettitore sia polarizzata direttamente, che a cavallo tra la $R_B$ e la messa a terra ci siano $0,7V$ e che sulla resistenza si misuri $4,3V$. La corrente che entra in base è circa $10\:mA$: sappiamoi quindi che il transistor è in saturazione e quindi $V_{CE}=V_{CE-sat}=0,2V$.
 
 \begin{figure}[H]
 \centering
 \resizebox{0.5\textwidth}{!}{%
 \begin{circuitikz}[american]
     % Resistor RB
-    
 	\draw node[american not port] at (1, 5) {};
     \draw [R=,a={$R_B$}, l={$450\:\Omega$}] (6, 5) to (3, 5);
-
     % Ground node
     \draw node[ground] (N1) at (7, 2.75) {} node[anchor=south west] at (N1.north east) {$0$};
-
     % Transistor Q1
     \draw node[npn] (N2) at (7, 5) {} node[anchor=south east] at ([xshift=0.56cm, yshift=-0.56cm]N2.north west) {$Q1$};
-
     % Connect the nodes
     \draw (6.16, 5) -- (6.25, 5) -- (6, 5); % Simplified
     \draw (7, 4.23) -- (7, 2.75); % Simplified
-
     % Resistor RC
     \draw (7, 8) to[R, a=$R_C$,l=$640\:\Omega$] (7, 5.77);
-
     % Connection for 5V
     \draw (7, 9) -- (7, 8); % Simplified
-
     % Connection from Q1 to output
     \draw (7, 5.77) -- (9, 5.75); % Simplified
-
     % Input node
     \draw node[ocirc] (N3) at (3, 5) {} node[anchor=east] at (N3.west) {$IN$};
-
     % Output node
     \draw node[ocirc] (N4) at (9, 5.77) {} node[anchor=west] at (N4.text) {$OUT$};
-
     % 5V node
     \draw node[ocirc] (N5) at (7, 9) {} node[anchor=south] at (N5.north) {$5V$};
     \draw[->, >=Stealth] (6, 7.5) -- (6, 6.25) node[pos=0.5, left] {$i$};
@@ -1382,10 +1377,8 @@ I parametri precedenti devono essere misurati in condizioni *statiche*, mentre q
 \end{circuitikz}}
 \caption{Porta NOT realizzata con RTL.}
 \end{figure}
-    - Se la tensione in ingresso $V_{in}$ è *bassa*, la corrente $i_C$ è nulla e la corrente $i$ va tutta in OUT.
-    - Se la tensione in ingresso $V_{in}$ è *alta*, si ha che $i_{C}\leq$
 
-- **NOR**:
+- **NOR**: in questo caso mettiamo due stadi d'ingresso uguali, collegandoli alla stessa resistenza di collettore.
 
 \begin{figure}[H]
 \centering
@@ -1412,6 +1405,27 @@ I parametri precedenti devono essere misurati in condizioni *statiche*, mentre q
 \caption{Porta NOR realizzata con RTL.}
 \end{figure}
 
+### Analisi più approfondita della funzione di trasferimento della porta NOT
+
+Analizziamo il funzionamento della porta logica NOT:
+
+\begin{figure}[h] \centering \begin{subfigure}{.45\textwidth}
+\includegraphics[width=\textwidth]{assets/imgs/grafico_not_rtl.png}
+\caption{Grafico della porta NOT RTL.}
+\label{fig:subfig1} \end{subfigure}
+\hspace*{\fill}
+\begin{subfigure}{.45\textwidth}
+\includegraphics[width=\textwidth]{assets/imgs/ingrandimento_grafico_not.png}
+\caption{Ingrandimento tra $0,5 V$ e  $1V$} \label{fig:subfig2}
+\end{subfigure}
+\caption{Grafici sulla funzione di trasferimento} \label{fig:similarimages}
+\end{figure}
+
+Il primo grafico è il grafico della funzione di trasferimento della porta NOT. È **statico**, in quanto non è presente la variabile temporale. Sull'asse delle ascisse è presente la tensione in ingresso, mentre sulle ordinate è presente la tensione di uscita. \newline
+Sappiamo dal grafico che esso rappresenta la porta NOT in quanto se l'ingresso è basso, l'uscita è alta e viceversa (sopra certi valori). In una zona tra gli $0,5V$ e $0,7V$ si ha la commutazione.\newline
+Il secondo grafico è un ingrandimento del primo, viene evidenziata la zona della commutazione: a $600mV$ viene definito il punto in cui la giunzione base emettitore si accende. Ciò significa che si sta accendendo anche il transistor (sta iniziando a polarizzarsi), quindi scorre corrente in base e di conseguenza anche sulla resistenza di collettore, e la tensione (del collettore) in uscita diminuisce (drasticamente). Quindi dai $700mV$ il transistor è in saturazione, ma vogliamo dare alla tensione in ingresso minimo $750mV$. Abbiamo quindi trovato $V_{iH}$ e $V_{iL}$.
+La tensione in uscita $V_{oL}$ è semplice trovarla sugli $\approx 0,2V = V_{CE-sat}$, mentre $V_{oH}$ è più particolare, perché senza nessun carico è pari a $5V$. \newline
+Analizzando i parametri dinamici osserviamo che il noise margin è particolarmente basso, dovuto alla differenza tra i valori bassi
 # Esercizi
 
 \begin{bluebox}{Le leggi di Kirchoff}
@@ -1479,6 +1493,10 @@ TODO capire come funziona tavola periodica
 
 ## Corrente nel N-MOS
 A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in pratica due giunzioni p-n tra la base e il source oppure con il drain: quindi è come se ci fossero due diodi contrapposti. Infatti ciò spiega il perché in prima approssimazione non scorre corrente tra Source e Drain (in condizione di quiete).
+
+## Termini
+
+- $V_{cc}$: è la tensione di alimentazione positiva che fornisce energia a un circuito elettronico associata al collettore; sta per "Voltage at the Common Collector" (tensione al collettore comune), che è il punto di riferimento per le tensioni di alimentazione nei circuiti a transistor bipolari (BJT).
 
 <!-- Elenco note a piè di pagina -->
 
@@ -1555,3 +1573,5 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 [^36]: Più è alto meglio è; *higher better*.
 
 [^37]: Più bassa è meglio è; lower better.
+
+[^38]: Quindi la porta logica cambia dallo stato alto al basso o viceversa.
