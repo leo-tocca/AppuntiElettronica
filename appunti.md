@@ -14,6 +14,7 @@ header-includes:
   ```{=latex}
             \usepackage{cancel}
             \usepackage{comment}
+            \usepackage{standalone}
             \usepackage{float}
             \usepackage{multirow}
             \usepackage{subcaption}
@@ -1339,11 +1340,7 @@ I parametri precedenti devono essere misurati in condizioni *statiche*, mentre q
 ## RTL (Resistor-Transistor Logic)
 È una famiglia di porte logiche *che usano i transistor BJT* e resistenze per realizzare le porte. Il sistema è obsoleto a causa del suo fan-in limitato (al massimo 3 ingressi). Alcuni esempi di porte sono:
 
-- **NOT**: Corrisponde ad un transistor con una resistenza di base $R_B$ e una resistenza di collettore $R_C$, l'ingresso è collegato alla base del transistor; il dispositivo si comporta come un *invertitore*. Infatti se la tensione in ingresso $V_{in}$ è alta la tensione in uscita $V_{out}$. In questa configurazione, ovvero quando l'emettitore è collegato a massa, si parla di emettitore comune. 
-    - Se la tensione in ingresso $V_{in}$ è *bassa*, la corrente $i_C$ è nulla e la corrente $i$ va tutta in OUT.
-    - Se la tensione in ingresso $V_{in}$ è *alta*, si ha che $i_{C}\leq h_{fe}\cdot i_{B}$: la corrente non può andare tutta in uscita.
-
-    Un esempio *pratico*: se in ingresso, ovvero nella base, non abbiamo corrente $I_{B}=0$, il transistor sarà in **interdizione** e non passerà corrente, $I_{C}=0$. La tensione in uscita sarà di conseguenza $V_{out}=5V- R_{C}$. Se invece in ingresso abbiamo un ingresso alto (per esempio $5V$), posso ipotizzare che la giunzione base-emettitore sia polarizzata direttamente, che a cavallo tra la $R_B$ e la messa a terra ci siano $0,7V$ e che sulla resistenza si misuri $4,3V$. La corrente che entra in base è circa $10\:mA$: sappiamoi quindi che il transistor è in saturazione e quindi $V_{CE}=V_{CE-sat}=0,2V$.
+- **NOT**: Corrisponde ad un transistor con una resistenza di base $R_B$ e una resistenza di collettore $R_C$, l'ingresso è collegato alla base del transistor; il dispositivo si comporta come un *invertitore*. In questa configurazione, ovvero quando l'emettitore è collegato a massa, si parla di emettitore comune. 
 
 \begin{figure}[H]
 \centering
@@ -1405,9 +1402,38 @@ I parametri precedenti devono essere misurati in condizioni *statiche*, mentre q
 \caption{Porta NOR realizzata con RTL.}
 \end{figure}
 
-### Analisi più approfondita della funzione di trasferimento della porta NOT
+#### Lista parametri RTL
 
-Analizziamo il funzionamento della porta logica NOT:
+1) Statici:
+	* $V_{iH} = 0.75V, V_{iL} = 0.6V$ 
+	* $I_{iH} @ V_{iH} = 150 \mu A, I_{iH} @ 5V = 9.5mA$: la $@$ indica che viene stabilita la corrente $I_{iH}$ con la tensione $V_{H}$ stabilita.
+	* $I_{iL} \simeq 0$: è circa zero se l'ingresso è basso, in quanto la giunzione BE è spenta:
+	* $V_{oH} = 5V$: (no load condition, ___senza carico___, ovveor se non si collega nulla) 
+	* $V_{oL} = 0.2V$: pari alla tensione di saturazione
+	$$
+	\text{Per valutare } I_{iH} = \left\{ \begin{array}{cl}
+	V_{iH} & =\ V_{IN} = 0,75 V \text{ e } V_{BE}\simeq 0,6V\\
+	I_{iH} & =\ I_{B} \text{ e } I_{B}\cdot R_{B}+V_{BE}=V_{IN}\\
+	\end{array} \right.
+	$$
+    Il range d'ingresso va dai $5V$ alla tensione $V_{iH}=0,75V$, con $5=V$ tensione di alimentazione della porta.
+2) Dinamici:
+	* $NM_{H} = 4.25V, NM_{L} = 0.4V \to NM = 0.4V$
+	* Fan-out: 33
+	* $P_{L} = 5V\times 7.5mA (Rc) = 37.5mW, P_{H} = 0, P =18mW$ 
+	* $t_{pHL}$ e $t_{pH}$ veloci per merito della resistenza in base (si tratta di qualche nS) 
+	* $DP$ = 5nS\times 18mW = 90pJ$
+	* Il fanout si calcola facendo: $(V_{CC}-V_{iH})/R_{C}=n\times I_{iH}($@$V_{iH})$.
+
+### Funzione di trasferimento della porta NOT
+
+Analizziamo il funzionamento della porta logica NOT. 
+
+- Se la tensione in ingresso $V_{in}$ è *bassa*, la corrente $i_C$ è nulla e la corrente $i$ va tutta in OUT.
+- Se la tensione in ingresso $V_{in}$ è *alta*, si ha che $i_{C}\leq h_{fe}\cdot i_{B}$: la corrente non può andare tutta in uscita.
+
+Analizzando il circuito inserendo dei valori: se nell'ingresso, ovvero nella base, non abbiamo corrente (quindi $I_{B}=0$), il transistor sarà in **interdizione** (in cutoff) e non passerà corrente, $I_{C}=0$. La tensione in uscita sarà di conseguenza $V_{out}=5V- R_{C}$.\newline
+Se invece in ingresso abbiamo una tensione in ingresso alta (per esempio $5V$), posso ipotizzare che la giunzione base-emettitore sia polarizzata direttamente e che quindi a cavallo tra la $R_B$ e la messa a terra ci siano $0,7V$, mentre che sulla resistenza si misura $4,3V$. La corrente che entra in base è circa $10\:mA$: di conseguenza il transistor è in __saturazione__ e quindi $V_{CE}=V_{CE-sat}=0,2V$[^39].
 
 \begin{figure}[h] \centering \begin{subfigure}{.45\textwidth}
 \includegraphics[width=\textwidth]{assets/imgs/grafico_not_rtl.png}
@@ -1418,14 +1444,32 @@ Analizziamo il funzionamento della porta logica NOT:
 \includegraphics[width=\textwidth]{assets/imgs/ingrandimento_grafico_not.png}
 \caption{Ingrandimento tra $0,5 V$ e  $1V$} \label{fig:subfig2}
 \end{subfigure}
-\caption{Grafici sulla funzione di trasferimento} \label{fig:similarimages}
+\caption{Grafici sulla funzione di trasferimento} \label{fig:grafici rtl_not}
 \end{figure}
 
-Il primo grafico è il grafico della funzione di trasferimento della porta NOT. È **statico**, in quanto non è presente la variabile temporale. Sull'asse delle ascisse è presente la tensione in ingresso, mentre sulle ordinate è presente la tensione di uscita. \newline
+Bisogna però stabilire se la famiglia logica sia "buona" o meno tramite i valori di $V_{iH}$ e $V_{iL}$. Per far ciò utilizziamo un simulatore di circuiti elettrici, all'interno del quale sono inseriti sia i parametri che la descrizione del circuito stesso e farne un grafico. Il primo rappresenta della funzione di trasferimento della porta NOT, ottenuto. Il grafico si dice **statico**, in quanto non è presente la variabile temporale. Sull'asse delle ascisse è presente la tensione in ingresso, mentre sulle ordinate è presente la tensione di uscita. \newline
 Sappiamo dal grafico che esso rappresenta la porta NOT in quanto se l'ingresso è basso, l'uscita è alta e viceversa (sopra certi valori). In una zona tra gli $0,5V$ e $0,7V$ si ha la commutazione.\newline
 Il secondo grafico è un ingrandimento del primo, viene evidenziata la zona della commutazione: a $600mV$ viene definito il punto in cui la giunzione base emettitore si accende. Ciò significa che si sta accendendo anche il transistor (sta iniziando a polarizzarsi), quindi scorre corrente in base e di conseguenza anche sulla resistenza di collettore, e la tensione (del collettore) in uscita diminuisce (drasticamente). Quindi dai $700mV$ il transistor è in saturazione, ma vogliamo dare alla tensione in ingresso minimo $750mV$. Abbiamo quindi trovato $V_{iH}$ e $V_{iL}$.
 La tensione in uscita $V_{oL}$ è semplice trovarla sugli $\approx 0,2V = V_{CE-sat}$, mentre $V_{oH}$ è più particolare, perché senza nessun carico è pari a $5V$. \newline
-Analizzando i parametri dinamici osserviamo che il noise margin è particolarmente basso, dovuto alla differenza tra i valori bassi
+Osserviamo inoltre che il noise margin è particolarmente basso, dovuto alla differenza tra i valori delle tensioni associati agli stati logici bassi.
+
+#### Calcolo del Fan-out
+
+Sappiamo che all'uscita di un transistor si possono collegare più ingressi: potenzialmente un numero $n$
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/fanout_rtl.tex}}
+    \caption{Uscita per calcolo fanout: da un transistor si collegano n ingressi, composti da una resistenza ed una giunzione base-emettitore}
+\end{figure}
+
+* Se vogliamo un valore _alto_ su $V_{OUT}$, questo deve essere pari (condizione limite) alla tensione $V_{iH}=0,75V$.
+$$
+
+$$
+
+
+
 # Esercizi
 
 \begin{bluebox}{Le leggi di Kirchoff}
@@ -1575,3 +1619,5 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 [^37]: Più bassa è meglio è; lower better.
 
 [^38]: Quindi la porta logica cambia dallo stato alto al basso o viceversa.
+
+[^39]: Se non torna rileggere parte BJT.

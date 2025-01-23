@@ -1,0 +1,27 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{circuitikz}
+
+\begin{document}
+\begin{circuitikz}
+	% Paths, nodes and wires:
+	\draw (2, 10) to[american resistor] (2, 7);
+	\draw node[npn] at (2, 6.23) {};
+	\draw[-latex] (2, 7) -- (5, 7);
+	\node[shape=rectangle, draw, line width=1pt, inner sep=0, minimum width=-0.035cm, minimum height=-0.035cm] at (4.75, 7.5){};
+	\node[shape=rectangle, inner sep=0, minimum width=0.634cm, minimum height=0.134cm](Rect1) at (4.875, 7.375){} node[anchor=center] at (Rect1.center){$I_{out}$};
+	\draw node[circ] (N1) at (3.5, 7) {} node[anchor=north] at (N1.south){$V_{out}$};
+	\draw (5, 7) -- (6, 7);
+	\draw (6, 10) -| (6, 7) -| (6, 10);
+	\draw (6, 10) to[american resistor] (9, 10);
+	\draw (6, 8) to[american resistor] (9, 8);
+	\draw (6, 6.25) to[american resistor] (9, 6.25);
+	\draw (6, 7) -- (6, 6.25);
+	\draw node[ground] at (2, 5.46) {};
+	\draw[dash pattern={on 1.6pt off 1.6pt}] (6, 6.25) -| (6, 4);
+	\draw node[npn, xscale=0.8, yscale=0.8] (N2) at (9.672, 10) {} node[anchor=west] at (N2.east){$1$};
+	\draw node[npn, xscale=0.8, yscale=0.8] (N3) at (9.672, 8) {} node[anchor=west] at (N3.text){$2$};
+	\draw node[npn, xscale=0.8, yscale=0.8] (N4) at (9.672, 6.25) {} node[anchor=west] at (N4.text){$3$};
+	\draw (6, 4) to[american resistor] (9, 4);
+	\draw node[npn, xscale=0.8, yscale=0.8] (N5) at (9.672, 4) {} node[anchor=west] at (N5.text){$n$};
+\end{circuitikz}
+\end{document}
