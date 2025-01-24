@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+	% Paths, nodes and wires:
+	\draw (2, 11) to[american resistor, l_={$\text{RPU}$}, label distance=0.02cm] (2.014, 8.075);
+	\draw node[npn, xscale=1.22, yscale=1.22] (N1) at (6.025, 7) {} node[anchor=south east] at ([xshift=0.62cm, yshift=-0.62cm]N1.north west){$Q2$};
+	\draw (3, 7) -- (5, 7);
+	\draw (6, 11) to[american resistor, l_={$\text{R}_{\text{C}}$}, label distance=0.02cm] (6.025, 7.939);
+	\draw (6, 8) -- (7, 8);
+	\draw (6.025, 6.061) |- (6, 5);
+	\draw node[ground, xscale=1.2, yscale=1.2] (N2) at (6.025, 5) {} node[anchor=north west] at ([xshift=-0.1cm, yshift=0.1cm]N2.south east){$0$};
+	\draw node[ocirc] (N3) at (7, 8) {} node[anchor=west] at (N3.east){$OUT$};
+	\draw node[ocirc] (N4) at (6, 11) {} node[anchor=south] at (N4.north){$5V$};
+	\draw node[ocirc] (N5) at (2, 11) {} node[anchor=south] at (N5.north){$5V$};
+	\node[shape=rectangle, inner sep=0, minimum width=0.715cm, minimum height=0.465cm](Rect1) at (2.625, 9.5){} node[anchor=center] at (Rect1.center){$4k\Omega$};
+	\node[shape=rectangle, inner sep=0, minimum width=0.715cm, minimum height=0.465cm](Rect2) at (6.75, 9.5){} node[anchor=center] at (Rect2.center){$1,6k\Omega$};
+	\draw (2.014, 8.075) to[empty diode] (2.014, 7.075);
+	\draw (2.014, 7.075) |- (3, 7);
+	\draw[-stealth] (1.5, 7.5) -| (1.5, 6.75) -- (2.5, 6.75);
+	\node[shape=rectangle, inner sep=0, minimum width=0.965cm, minimum height=0.465cm](Rect3) at (1.75, 6.25){} node[anchor=center] at (Rect3.center){$i_{Q1}$};
+\end{tikzpicture}

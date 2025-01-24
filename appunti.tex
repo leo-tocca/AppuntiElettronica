@@ -2191,8 +2191,89 @@ L'ultimo parametro dinamico è il \emph{Delay-power product}:
 
 \begin{redbox}{Osservazione}
 Se incrementiamo la resistenza di base (aumentando da $450\Omega$) \emph{diminuisce la potenza ma aumenta il tempo}.\newline
-Tuttavia i valori scelti per le resistenza ottimizzano le prestazioni di tutta la famiglia logia RTL.
+Tuttavia i valori scelti per le resistenza ottimizzano le prestazioni di tutta la famiglia logica RTL.
 \end{redbox}
+\begin{orangebox}{Problemi della famiglia RTL}
+Uno dei problemi principali della famiglia logia RTL è il fatto che lo stadio d'ingresso formato da una resistenza e dalla giunzione base-emettitore assorbe molta corrente in un verso e non ne assorbe nell'altro.
+\end{orangebox}
+
+\section{TTL
+(transistor-transistor-logic)}\label{ttl-transistor-transistor-logic}
+
+È una famiglia logica successiva alla famiglia RTL, ed è più
+\emph{evoluta}: le porte logiche in questo caso sono realizzati
+utilizzando una \textbf{\emph{coppia di transistori}}:
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.4\textwidth}{!}{\input{assets/graphs/basic_not.tex}}
+    \caption{Porta NOT "semplice" in TTL.}
+\end{figure}
+
+\subsubsection{\texorpdfstring{Porta \textbf{Basic
+NOT}:}{Porta Basic NOT:}}\label{porta-basic-not}
+
+Durante le transizioni dallo stato basso ad alto i portatori minoritari
+presenti in Q2 vengono rimossi dal transistor Q1; se l'ingresso della
+porta logica è \textbf{basso/spento} (ad esempio la tensione in ingresso
+\(V_{in}=0,2V\)) la giunzione base-emettitore Q1 sarà accesa (grazie
+alla resistenza RPU, resistenza di pull-up, che porta i \(5V\) in
+ingresso) e quindi scorre della corrente in base nel transistor Q1. La
+giunzione può essere in regione attiva diretta oppure in saturazione:
+tuttavia per essere in regione attiva dovrebbe esserci un ingresso di
+corrente nel collettore di Q1, ma in condizioni stazionarie ciò non
+accade perché per la disposizione del transistor Q2 non scorre corrente
+verso il collettore, quindi Q1 si trova in saturazione. Di conseguenza
+la tensione sulla base del transistor Q2 (= tensione di collettore di
+Q1) sarà pari a \(V_{in}+0,2V=0,2V\), che è troppo \emph{bassa} per
+accendere il transistor Q2: per questo motivo tutta la corrente andrà in
+uscita.
+
+\begin{greenbox}{Memo}
+La giunzione base-collettore è anch'essa assimilabile ad un diodo, per cui ha il suo massimo potenziale a $\approx 0,7V$
+\end{greenbox}
+
+A causa delle oscillazioni dei valori la tensione in \(V_{B}=0-0,75V\),
+mentre la tensione sul collettore \(V_{C}=0-1,5V\). Se invece abbiamo un
+ingresso alto (tensione in ingresso \(V_{in}=5V\)), Q1 si troverà in
+regione attiva inversa, con gain quasi nullo.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.4\textwidth}{!}{\input{assets/graphs/basic_not_v2.tex}}
+    \caption{Porta NOT "semplice" con Q1 diodo.}
+\end{figure}
+
+Q1 diventa assimilabile ad un diodo, mandando tutta la corrente verso la
+base del transistor Q2: in questo modo essa va in saturazione, ottenendo
+un'uscita bassa (come nella porta NOT nella logica RTL). È da notare che
+attraverso Q1 la corrente di scarica di Q2 viene aumentata
+considerevolmente e di conseguenza si potrà spegnere velocemente: la
+transizione dell'uscita da basso ad altro è molto veloce.
+
+\begin{redbox}{In sintesi:}
+\begin{itemize}
+\item Transizioni dallo stato basso ad alto \emph{veloci}, dato che il transistor Q1 aiuta a smaltire le cariche minoritarie immagazzinate da Q2;
+\item L'uscita deve comunque essere tirata verso l'alto\footnote{Aumentare la tensione o portare un segnale verso un valore più alto.} da $R_C$
+\item L'ingresso assorbe corrente sole se basso, ed è in funzione di $RPU$
+\end{itemize}
+\end{redbox}
+
+\subsubsection{Enhanced NOT}\label{enhanced-not}
+
+Viene disegnato un nuovo circuito per migliorare le prestazioni: in
+particolare l'uscita, se positiva, non è governata dal transistor, ma
+dalla resistenza di collettore.\newline Consideriamo quindi un circuito
+migliorato:
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/enhanced_not.tex}}
+    \caption{Enhanced NOT.}
+\end{figure}
+
+Genera due segnali \emph{complementari}: se il collettore è alto
+l'emettitore è basso e viceversa.
 
 \chapter{Esercizi}\label{esercizi}
 

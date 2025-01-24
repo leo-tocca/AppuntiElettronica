@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	% Paths, nodes and wires:
+	\draw node[pnp, rotate=-90, xscale=1.28, yscale=1.28] (N1) at (2.014, 7) {} node[anchor=north] at (N1.text){$Q1$};
+	\draw (2, 11) to[american resistor, l_={$\text{RPU}$}, label distance=0.02cm] (2.014, 8.075);
+	\draw node[npn, xscale=1.22, yscale=1.22] (N2) at (6.025, 7) {} node[anchor=south east] at ([xshift=0.62cm, yshift=-0.62cm]N2.north west){$Q2$};
+	\draw (3, 7) -- (5, 7);
+	\draw (6, 11) to[american resistor, l_={$\text{R}_{\text{C}}$}, label distance=0.02cm] (6.025, 7.939);
+	\draw (6, 8) -- (7, 8);
+	\draw (6.025, 6.061) |- (6, 5);
+	\draw node[ground, xscale=1.2, yscale=1.2] (N3) at (6.025, 5) {} node[anchor=north west] at ([xshift=-0.1cm, yshift=0.1cm]N3.south east){$0$};
+	\draw node[ocirc] (N4) at (7, 8) {} node[anchor=west] at (N4.east){$OUT$};
+	\draw node[ocirc] (N5) at (1.029, 7) {} node[anchor=east] at (N5.west){$IN$};
+	\draw node[ocirc] (N6) at (6, 11) {} node[anchor=south] at (N6.north){$5V$};
+	\draw node[ocirc] (N7) at (2, 11) {} node[anchor=south] at (N7.north){$5V$};
+	\node[shape=rectangle, inner sep=0, minimum width=0.715cm, minimum height=0.465cm](Rect1) at (2.625, 9.5){} node[anchor=center] at (Rect1.center){$4k\Omega$};
+	\node[shape=rectangle, inner sep=0, minimum width=0.715cm, minimum height=0.465cm](Rect2) at (6.75, 9.5){} node[anchor=center] at (Rect2.center){$1,6k\Omega$};
+	\node[shape=rectangle, inner sep=0, minimum width=0.465cm, minimum height=0.215cm](Rect3) at (2.25, 7.75){} node[anchor=center] at (Rect3.center){$\text{B}$};
+	\node[shape=rectangle, inner sep=0, minimum width=0.215cm, minimum height=0.215cm](Rect4) at (1.375, 6.75){} node[anchor=center] at (Rect4.center){$\text{E}$};
+	\node[shape=rectangle, inner sep=0, minimum width=0.215cm, minimum height=0.215cm](Rect5) at (3, 6.75){} node[anchor=center] at (Rect5.center){$\text{C}$};
+	\node[shape=rectangle, inner sep=0, minimum width=0.465cm, minimum height=0.061cm](Rect6) at (5, 6.75){} node[anchor=center] at (Rect6.center){$\text{B}$};
+	\node[shape=rectangle, inner sep=0, minimum width=0.465cm, minimum height=0.061cm](Rect7) at (6.25, 6.298){} node[anchor=center] at (Rect7.center){$\text{E}$};
+	\node[shape=rectangle, inner sep=0, minimum width=0.215cm, minimum height=0.215cm](Rect8) at (5.75, 7.75){} node[anchor=center] at (Rect8.center){$\text{C}$};
+\end{tikzpicture}
