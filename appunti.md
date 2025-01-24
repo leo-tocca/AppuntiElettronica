@@ -1463,11 +1463,45 @@ Sappiamo che all'uscita di un transistor si possono collegare più ingressi: pot
     \caption{Uscita per calcolo fanout: da un transistor si collegano n ingressi, composti da una resistenza ed una giunzione base-emettitore}
 \end{figure}
 
-* Se vogliamo un valore _alto_ su $V_{OUT}$, questo deve essere pari (condizione limite) alla tensione $V_{iH}=0,75V$.
-$$
+* Se vogliamo un valore _alto_ su $V_{OUT}$, questo deve essere pari (condizione limite) alla tensione $V_{iH}=0,75V$. Inoltre:
+\begin{align*}
+\left. \begin{array}{l} 
+V_{RC}=5-0,75 \: V=4,25 V \\
+R_{C}=640\Omega
+\end{array} \right\} 
+\Longrightarrow 
+I_{out}=\frac{4,25V}{640\Omega}=6,6\:mA \\
+I_{iH}@0,75V=150\:\mu A \Longrightarrow \frac{6,6\:mA}{150\:\mu A}=44 \text{ porte logiche.}
+\end{align*}
+che rispetto al valore espresso sul datasheet, ovvero 33, è maggiore. Tuttavia si utilizza quest'ultimo valore al fine di lasciare un po' di margine al circuito (considerando $I_H=200\mu A$)
+* Per avere un valore _basso_ su $V_{out}$: se l'uscita bassa con corrente $I_{iL}\simeq 0$, teoricamente non vi è un limite sul numero di porte logiche.
 
-$$
+#### Calcolo della potenza statica
+- Potenza dissipata se l'uscita è _bassa_:
+\begin{align*}
+\left. \begin{array}{l} 
+V_{RC}=5-0,2 \: V=4,8 V \\
+i_{C}=\frac{4,8\:V}{640\Omega}=7,5\:mA
+\end{array} \right\} 
+\Longrightarrow 
+P_{L}=5\:V\cdot 7,5\:mA=37,5\:mW
+\end{align*}
+- Potenza dissipata se l'uscita è _alta_:
+\begin{align*}
+V_{out}=5\:V\Longrightarrow V_{RC}=0\Longrightarrow I_{C}=0\Longrightarrow P_{H}=0\:mW
+\end{align*}
+Si considera carico ___nullo___: la porta non è collegata ad altre porte.
 
+#### Tempi di propagazione:
+- $t_{p_{HL}}$ è pari al tempo necessario a polarizzare la giunzione p-n: pochi nS;
+- $t_{p_{LH}}$ è pari al tempo necessario a rimuovere i portatori minoritari dalla base, ovvero il tempo necessario a spegnere la giunzione p-n: pochi nS;
+
+L'ultimo parametro dinamico è il _Delay-power product_: $DP=5\:ns\cdot 18\:mW=90\:pJ$
+
+\begin{redbox}{Osservazione}
+Se incrementiamo la resistenza di base (aumentando da $450\Omega$) \emph{diminuisce la potenza ma aumenta il tempo}.\newline
+Tuttavia i valori scelti per le resistenza ottimizzano le prestazioni di tutta la famiglia logia RTL.
+\end{redbox}
 
 
 # Esercizi
