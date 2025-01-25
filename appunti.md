@@ -1519,6 +1519,9 @@ Durante le transizioni dallo stato basso ad alto i portatori minoritari presenti
 \begin{greenbox}{Memo}
 La giunzione base-collettore è anch'essa assimilabile ad un diodo, per cui ha il suo massimo potenziale a $\approx 0,7V$
 \end{greenbox}
+Quando l'ingresso è a 5V, il transistor entra in regione attiva inversa, caratterizzata da un guadagno molto basso. Di conseguenza, nel collettore fluisce quasi esclusivamente la corrente di base.
+Con questa famiglia logica, il problema dell'assorbimento di corrente si manifesta principalmente quando il transistor viene acceso. Tuttavia, tale assorbimento è inferiore poiché il transistor opera già in saturazione. Inoltre, questo comportamento rende la porta più prevedibile nel funzionamento.
+
 A causa delle oscillazioni dei valori la tensione in $V_{B}=0-0,75V$, mentre la tensione sul collettore $V_{C}=0-1,5V$. Se invece abbiamo un ingresso alto (tensione in ingresso $V_{in}=5V$), Q1 si troverà in regione attiva inversa, con gain quasi nullo.
 \begin{figure}[H]
     \centering
@@ -1542,7 +1545,57 @@ Consideriamo quindi un circuito migliorato:
     \resizebox{0.5\textwidth}{!}{\input{assets/graphs/enhanced_not.tex}}
     \caption{Enhanced NOT.}
 \end{figure}
-Genera due segnali _complementari_: se il collettore è alto l'emettitore è basso e viceversa.
+Il sottocircuito ___phase splitter__ si occupa di generare due segnali _complementari_: se il collettore è alto l'emettitore è basso e viceversa.
+
+Il funzionamento di questo circuito è un'estensione della porta logica NOT base: il transistor Q3 pilota l'uscita in modo tale che soltanto uno dei due transistor Q2 e Q4 sia acceso!
+\begin{bluebox}{Caratteristiche della porta logica Enhanced Not}
+\begin{itemize}
+\item Q4 "tira su" la (tensione di ) uscita \emph{rapidamente}. Tuttavia, come visto in precedenza un transistor si spegne molto più lentamente di quanto si accenda: esiste quindi la possibilità che il transistor Q4 si accenda \emph{\textbf{prima}} che si spenga Q2 (questo viene detto fenomeno di \emph{cross-conduction}). Per evitarlo si rallenta l'accensione di Q4 ponendo una resistenza di collettore $R_C$.
+\item Come spiegato nel punto precedente, il transistor Q2 si spegne più lentamente (commutazione tra L e H), perché non c'è più Q1 ad assorbire. Per limitare il problema di utilizza una resistenza di \emph{pull-down} RPD.
+\end{itemize}
+\end{bluebox}
+Analizziamo il grafico di funzionamento della porta NOT, dove sull'asse delle ascisse abbiamo la tensione in ingresso, mentre sull'asse delle ordinate abbiamo la tensione in uscita:
+
+![Grafico porta enhanced NOT.](assets/imgs/enhanced_not.png){width=50%}
+
+Il porta si trova nella __regione lineare__ tra gli $0,6$ e gli $1,2V$: Q3 si sta accendendo, sulla seconda resistenza di pull-up RPU' cade un potenziale proporzionale alla corrente che Q3 inizia a far scorrere. Tale caduta si riflette sul transistor Q4. Dopodiché subito dopo $1,2V$ si ha una ripida caduta di tensione causata dall'accensione del transistor Q2.\newline
+Si può osservare come in uscita non otteniamo mai una tensione pari a $5V$: questo a causa delle cadute di potenziale sul transistor Q4 e sul diodo D1.\newline
+Tuttavia questo circuito non è ancora il migliore possibile, in quanto vorremmo delle funzioni che siano più "ripide". Per ovviare a ciò si aggiunge un altro sottocircuito al _phase splitter_ e al _totem pole_: il sottocircuito ___active pull-down___.
+
+#### Standard NOT
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/standard_not.tex}}
+    \caption{Enhanced NOT.}
+\end{figure}
+Il sottocircuito active pull-down (APD) è _attivo_ perché sostituisce la resistenza di pull down, che era passiva. Infatti una tensione nel punto P accende il transistor Q5, che fa da  "pozzo". Il fatto di essere un "componente attivo" implica inoltre altre due cose:
+
+1) È più rapido a spegnere il transistor Q2 al momento opportuno;
+2) Sincronizza, al momento dell'accensione del circuito, l'accensione dei transistor Q2 e Q3 e lo spegnimento di Q4: infatti il transistor Q5 viene detto _sincronizzatore_. Esso si accende insieme a Q2 e sottrae corrente alla base di Q4.
+
+Tutto ciò rende il grafico _più ripido_:
+
+![Grafico di trasferimento della porta Standard NOT in TTL.](assets/imgs/standard_not.png){width=50%}
+
+L'aggiunta di un nuovo transistor si è rivelata una scelta eccellente, poiché questa porta non solo è più veloce rispetto alla versione enhanced, ma consuma anche meno energia. Questo miglioramento è dovuto al fatto che, nell'intervallo di tempo tra il momento in cui l'input passa a 0 e l'output sale a 1 (circa 10 ns), il circuito assorbe corrente. Grazie al transistor aggiunto, questa finestra temporale è stata quasi dimezzata, riducendo significativamente il consumo di corrente. La resistenza RC da $130\Omega$ serve per ridurre la corrente che passa quando, durante la commutazione, sia Q2 che Q4 sono chiusi e quindi la corrente va verso la massa.
+
+#### Parametri TTL
+- $V_{iH}=1,35V, \qquad V_{iL}=1,1V$
+- $I_{iH}\sim 1,5\mu A, \qquad I_{iL}=1\mu A$
+- $V_{oH}=3,75V, \qquad V_{oL}=0,2V$
+- \begin{flalign*}
+&\begin{aligned}
+&\left. \begin{array}{l} 
+P_{L}=5V(\underbrace{0,7mA}_{R_{PU}}+\underbrace{2,5mA}_{R_{PU}'})=16mW \\
+P_{L}=5V(\underbrace{1mA}_{R_{PU}})=5mW
+\end{array} \right\} 
+\Longrightarrow 
+P=11,5mW
+\end{aligned}&&
+\end{flalign*}
+
+\appendix
 
 # Esercizi
 
@@ -1565,6 +1618,7 @@ Genera due segnali _complementari_: se il collettore è alto l'emettitore è bas
 \end{circuitikz}
 \end{figure}
 
+\appendix
 
 # Varie 
 
@@ -1615,6 +1669,26 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 ## Termini
 
 - $V_{cc}$: è la tensione di alimentazione positiva che fornisce energia a un circuito elettronico associata al collettore; sta per "Voltage at the Common Collector" (tensione al collettore comune), che è il punto di riferimento per le tensioni di alimentazione nei circuiti a transistor bipolari (BJT).
+- Le ___resistenze di pull-up e pull-down___ sono usate nei circuiti logici elettronici per garantire che gli ingressi di un sistema logico stabilito siano a livelli logici previsti se i dispositivi esterni sono scollegati o ad alta impedenza. Essi possono essere utilizzati anche a livello di interfaccia tra due diversi tipi di dispositivi logici, possibilmente operanti a diverse tensioni di alimentazione. 
+ \begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Uscita del segnale/interruttore}                      & \textbf{Interruttore aperto}                                   & \textbf{Interruttore chiuso}                                                   \\ 
+        \hline
+        \textbf{Con resistore di pull-up}                             & Tensione di alimentazione positiva / segnale alto              & Tensione di massa / segnale basso                                              \\ 
+        \hline
+        \textbf{Con resistore di pull-down}                           & Tensione di massa / segnale basso                              & Tensione di alimentazione positiva / segnale alto                              \\ 
+        \hline
+        \textbf{Senza resistore di pull-up o pull-down}               & Tensione/segno indeterminato                                   & Tensione/segno dell'ingresso dell'interruttore                                 \\
+        \hline
+        \end{tabular}
+    }
+    \caption{Tabella di comportamento del segnale dell'interruttore con vari resistori}
+\end{table}
+
+
 
 <!-- Elenco note a piè di pagina -->
 

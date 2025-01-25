@@ -16,6 +16,7 @@
 	\node[shape=rectangle, inner sep=0, minimum width=0.715cm, minimum height=0.465cm](Rect2) at (6.75, 9.5){} node[anchor=center] at (Rect2.center){$1,6k\Omega$};
 	\draw node[npn, xscale=1.22, yscale=1.22] (N8) at (6, 7) {} node[anchor=south east] at ([xshift=0.62cm, yshift=-0.62cm]N8.north west){$Q3$};
 	\draw (6, 5) to[american resistor, l_={$\text{RPD}$}, label distance=0.02cm] (6, 3);
+	\node[shape=rectangle, inner sep=0, minimum width=0.465cm, minimum height=0.465cm](Rect6) at (6.55, 4){} node[anchor=center] at (Rect6.center){$1k\Omega$};
 	\draw node[npn, xscale=1.22, yscale=1.22] (N9) at (9.525, 8) {} node[anchor=west] at ([xshift=-0.02cm]N9.east){$Q4$};
 	\draw (9.525, 7.061) to[empty diode, l={$\text{D1}$}, label distance=0.02cm,/tikz/circuitikz/bipoles/length=0.980cm] (9.525, 5.892);
 	\draw (6, 6.061) -- (6, 5) -- (8.5, 5);
@@ -24,7 +25,7 @@
 	\node[shape=rectangle, inner sep=0, minimum width=0.715cm, minimum height=0.465cm](Rect3) at (10.25, 10){} node[anchor=center] at (Rect3.center){$130\Omega$};
 	\draw node[ocirc] (N10) at (9.5, 11) {} node[anchor=south] at (N10.north){$5V$};
 	\draw node[ground, xscale=1.2, yscale=1.2] (N11) at (6, 3) {} node[anchor=north west] at ([xshift=-0.1cm, yshift=0.1cm]N11.south east){$0$};
-	\draw[draw={rgb,255:red,97;green,53;blue,131}, line width=3pt] (5, 2.5) -| (5, 2) -- (7, 2) -| (7, 2.5);
+	\draw[draw={rgb,255:red,46;green,194;blue,126}, line width=1.1pt] (4.75, 12) -- (4.75, 2) -- (7.25, 2) -- (7.25, 12) -- (4.75, 12);
 	\draw[draw={rgb,255:red,26;green,95;blue,180}, line width=3pt] (8.5, 2.5) -| (8.5, 2) -- (10.5, 2) -| (10.5, 2.5);
 	\node[shape=rectangle, inner sep=0, minimum width=1.965cm, minimum height=0.715cm](Rect4) at (6, 1.375){} node[anchor=center] at (Rect4.center){$\text{Phase Splitter}$};
 	\node[shape=rectangle, line width=0pt, inner sep=0, minimum width=2cm, minimum height=0.75cm](Rect5) at (9.5, 1.375){} node[anchor=center] at (Rect5.center){$\text{Totem Pole}$};
