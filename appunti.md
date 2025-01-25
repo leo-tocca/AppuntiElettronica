@@ -1584,6 +1584,7 @@ L'aggiunta di un nuovo transistor si è rivelata una scelta eccellente, poiché 
 - $V_{iH}=1,35V, \qquad V_{iL}=1,1V$
 - $I_{iH}\sim 1,5\mu A, \qquad I_{iL}=1\mu A$
 - $V_{oH}=3,75V, \qquad V_{oL}=0,2V$
+- $NM_H = 2.4V, NM_L : 0.9V \to NM = 0.9V$
 - \begin{flalign*}
 &\begin{aligned}
 &\left. \begin{array}{l} 
@@ -1594,6 +1595,23 @@ P_{L}=5V(\underbrace{1mA}_{R_{PU}})=5mW
 P=11,5mW
 \end{aligned}&&
 \end{flalign*}
+- $t_{p_{HL}} \sim t_{p_{HL}} \sim 5 nS, \quad PD=5nS\cdot 11,5 mW=57,5 pJ$ 
+
+#### Ulteriori porte logiche in TTL
+Per realizzare tutte le funzioni è tuttavia necessario implementare almeno la porta NAND oppure la porta NOR. Tra le due la più semplice è la prima, che è uguale alla standard NOT, tranne per la presenza di un transistor __multi-emettitore__.
+\begin{figure}[H]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/nand_ttl.tex}}
+    \caption{NAND in logica TTL.}
+\end{figure}
+L'ingresso è _polarizzato positivo_ solo nel caso in cui lo siano sia A che B (A=B=1 spegne l'uscita). È molto semplice da utilizzare in circuiti integrati.
+
+#### Analisi dinamica TTL NOT
+Analizziamo cosa succede sull'uscita __durante le commutazioni__:
+
+- $V_i$
+
+
 
 \appendix
 
