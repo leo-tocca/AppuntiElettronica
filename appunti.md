@@ -517,7 +517,7 @@ I transistor npn sono usati più frequentemente. Inoltre le regole ed i risultat
 ### Il BJT npn
 
 Un BJT npn è formato da due sezioni di tipo n (emettitore e collettore), e da una di tipo p. 
-Di fondamentale importanza per la fabbricazione di un BJT è lo _spessore della base_. Infatti deve essere il più **sottile** possibile, senza fare un corto circuito tra le regioni del collettore e dell emettitore.
+Di fondamentale importanza per la fabbricazione di un BJT è lo _spessore della base_. Infatti deve essere il più **sottile** possibile, senza ottenere un corto circuito tra le regioni del collettore e dell emettitore.
 
 In base alle polarizzazioni applicate alle giunzioni base-collettore e base-emettitore, otteniamo 4 **regioni di funzionamento** del transistor BJT:
 
@@ -1605,13 +1605,48 @@ Per realizzare tutte le funzioni è tuttavia necessario implementare almeno la p
     \caption{NAND in logica TTL.}
 \end{figure}
 L'ingresso è _polarizzato positivo_ solo nel caso in cui lo siano sia A che B (A=B=1 spegne l'uscita). È molto semplice da utilizzare in circuiti integrati.
+\begin{orangebox}{Funzionamento}
+Il funzionamento della porta è il seguente: il primo dei due emettitori che collego alla terra
+spegne il circuito a destra e quindi passa la corrente "da sopra". Se invece sono entrambi su
+$Q_{3},Q_{5},Q_{2}$ sono accesi e quindi l'uscita è giù.
+\end{orangebox}
 
-#### Analisi dinamica TTL NOT
+
+#### Analisi dinamica TTL porta NOT
 Analizziamo cosa succede sull'uscita __durante le commutazioni__:
 
-- $V_i$
+- ***Commutazione H-L (Alto $\to$ Basso)***
+    * Da:
+        - Q4 in regione attiva;
+        - Q1 in saturazione;
+    * A:
+        - Q2, Q3, Q5 in saturazione (si devono *accendere*);
+        - Q4 spento;
+        - Q1 in regione attiva inversa[^40];
+    
+    Mettere alto l'ingresso (tensione in ingresso $V_{in}$ alta) porta il transistor Q1 nella sua regione attiva inversa, causando l'accensione dei transistor Q2, Q3, Q5. A loro volta essi contribuiscono a spegnere il transistor Q4, e di conseguenza con esso anche l'uscita. È una commutazione veloce ($\sim 2nS$), i tre transistor si accendono velocemente e Q4 passa velocemente in regione attiva inversa.
 
+- ***Commutazione L-H (Basso $\to$ Alto)***
+    * Da:
+        - Q2, Q3, Q5 in saturazione;
+    * A:
+        - Q1 in saturazione;
+        - Q4 in regione attiva;
 
+    È più difficile rispetto alla commutazione H-L. Quando la tensione in ingresso è pari ad un livello logico basso, il transistor Q1 prima di passare alla regione di saturazione passa dalla regione attiva diretta (a causa delle cariche accumulate sulla base del transistor Q3), svuotando così Q3, che si spegnerà.\newline
+    Ora Q4 si può accendere, mentre il transistor Q2 deve essere spento: questa azione è svolta o dalla resistenza di pull-down o dall'*active pull-down* se presente. Infatti la presenza o meno del sottocircuito APD gioca un ruolo chiave nello spegnimento del transistor.
+
+##### Assenza sottocircuito active pull-down
+Il transistor Q1 svuota la base del transistor Q3, il quale si spegne. Quando ciò accade la corrente si sposta verso Q4, il quale si accende e tenta di "alzare - tirare su" l'uscita. Tuttavia Q2 deve ancora spegnersi, dal momento che era in saturazione. Una svolta spento Q2, l'uscita è libera di salire. \newline
+Vi è un periodo di tempo in cui sono accesi sia lo stato alto che lo stato basso; inoltre ho un assorbimento di corrente per tutto l'intervallo tempo in cui il transistor Q2 non si è ancora spento, comportando un maggior consumo di potenza.
+
+![Grafico commutazione porta NOT in TTL senza la presenza dell'APD.](assets/imgs/commutazione_l_h_no_apd.png){width=50%}
+
+##### Presenza sotto circuito active pull-down
+Il funzionamento dei transistor Q2, Q3, Q5 è sincronizzato sia in accensione che in spegnimento ed in quest'ultima fase anche _velocizzato_. Il transistor Q1 svuota sempre la base di Q3, il quale si spegne. Il tempo necessario al transistor Q2 per spegnersi è molto inferiore grazie alla presenza di Q5, il quale è un _carico attivo_ e "tira" corrente molto velocemente. \newline
+Il picco di corrente in questo caso è più limitato ed ho quindi un minor consumo di potenza.
+
+![Grafico commutazione L-H porta NOT con APD.](assets/imgs/commutazione_l_h_apd.png){width=50%}
 
 \appendix
 
@@ -1787,3 +1822,5 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 [^38]: Quindi la porta logica cambia dallo stato alto al basso o viceversa.
 
 [^39]: Se non torna rileggere parte BJT.
+
+[^40]: Q4 e Q1 si devono spegnere.
