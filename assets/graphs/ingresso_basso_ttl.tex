@@ -1,0 +1,9 @@
+\begin{tikzpicture}
+	% Paths, nodes and wires:
+	\draw node[npn, rotate=-90, xscale=1.25, yscale=1.25] (N1) at (3, 6) {} node[anchor=north] at (N1.text){$Q1$};
+	\draw node[circ] at (4, 6) {};
+	\draw node[npn, xscale=1.25, yscale=1.25] (N2) at (5.05, 6) {} node[anchor=west] at (N2.text){$Q3$};
+	\draw[-stealth] (4, 6) -| (4, 8);
+	\node[shape=rectangle, inner sep=0, minimum width=2.965cm, minimum height=0.965cm] at (4, 8.75){} node [anchor=center, align=center, text width=2.577cm, inner sep=5.5pt] at (4, 8.75){$1,4V$,  dalla carica accumulata};
+	\node[shape=rectangle, inner sep=0, minimum width=0.965cm, minimum height=0.465cm](Rect1) at (1.5, 6){} node[anchor=center] at (Rect1.center){$Low$};
+\end{tikzpicture}

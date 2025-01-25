@@ -1379,7 +1379,7 @@ I parametri precedenti devono essere misurati in condizioni *statiche*, mentre q
 
 \begin{figure}[H]
 \centering
-\resizebox{0.7\textwidth}{!}{%
+\resizebox{1\textwidth}{!}{%
 \begin{circuitikz}[american]
 	% Paths, nodes and wires:
 	\draw node[american nor port] at (1.386, 5.47) {};
@@ -1421,7 +1421,7 @@ I parametri precedenti devono essere misurati in condizioni *statiche*, mentre q
 	* $NM_{H} = 4.25V, NM_{L} = 0.4V \to NM = 0.4V$
 	* Fan-out: 33
 	* $P_{L} = 5V\times 7.5mA (Rc) = 37.5mW, P_{H} = 0, P =18mW$ 
-	* $t_{pHL}$ e $t_{pH}$ veloci per merito della resistenza in base (si tratta di qualche nS) 
+	* $t_{pHL}$ e $t_{pLH}$ veloci per merito della resistenza in base (si tratta di qualche nS) 
 	* $DP$ = 5nS\times 18mW = 90pJ$
 	* Il fanout si calcola facendo: $(V_{CC}-V_{iH})/R_{C}=n\times I_{iH}($@$V_{iH})$.
 
@@ -1510,7 +1510,7 @@ Uno dei problemi principali della famiglia logia RTL è il fatto che lo stadio d
 È una famiglia logica successiva alla famiglia RTL, ed è più _evoluta_: le porte logiche in questo caso sono realizzati utilizzando una ___coppia di transistori___:
 \begin{figure}[H]
     \centering
-    \resizebox{0.4\textwidth}{!}{\input{assets/graphs/basic_not.tex}}
+    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/basic_not.tex}}
     \caption{Porta NOT "semplice" in TTL.}
 \end{figure}
 
@@ -1525,7 +1525,7 @@ Con questa famiglia logica, il problema dell'assorbimento di corrente si manifes
 A causa delle oscillazioni dei valori la tensione in $V_{B}=0-0,75V$, mentre la tensione sul collettore $V_{C}=0-1,5V$. Se invece abbiamo un ingresso alto (tensione in ingresso $V_{in}=5V$), Q1 si troverà in regione attiva inversa, con gain quasi nullo.
 \begin{figure}[H]
     \centering
-    \resizebox{0.4\textwidth}{!}{\input{assets/graphs/basic_not_v2.tex}}
+    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/basic_not_v2.tex}}
     \caption{Porta NOT "semplice" con Q1 diodo.}
 \end{figure}
 Q1 diventa assimilabile ad un diodo, mandando tutta la corrente verso la base del transistor Q2: in questo modo essa va in saturazione, ottenendo un'uscita bassa (come nella porta NOT nella logica RTL). È da notare che attraverso Q1 la corrente di scarica di Q2 viene aumentata considerevolmente e di conseguenza si potrà spegnere velocemente: la transizione dell'uscita da basso ad altro è molto veloce.
@@ -1542,10 +1542,10 @@ Viene disegnato un nuovo circuito per migliorare le prestazioni: in particolare 
 Consideriamo quindi un circuito migliorato:
 \begin{figure}[H]
     \centering
-    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/enhanced_not.tex}}
+    \resizebox{0.6\textwidth}{!}{\input{assets/graphs/enhanced_not.tex}}
     \caption{Enhanced NOT.}
 \end{figure}
-Il sottocircuito ___phase splitter__ si occupa di generare due segnali _complementari_: se il collettore è alto l'emettitore è basso e viceversa.
+Il sottocircuito ___phase splitter___ si occupa di generare due segnali _complementari_: se il collettore è alto l'emettitore è basso e viceversa.
 
 Il funzionamento di questo circuito è un'estensione della porta logica NOT base: il transistor Q3 pilota l'uscita in modo tale che soltanto uno dei due transistor Q2 e Q4 sia acceso!
 \begin{bluebox}{Caratteristiche della porta logica Enhanced Not}
@@ -1556,7 +1556,7 @@ Il funzionamento di questo circuito è un'estensione della porta logica NOT base
 \end{bluebox}
 Analizziamo il grafico di funzionamento della porta NOT, dove sull'asse delle ascisse abbiamo la tensione in ingresso, mentre sull'asse delle ordinate abbiamo la tensione in uscita:
 
-![Grafico porta enhanced NOT.](assets/imgs/enhanced_not.png){width=50%}
+![Grafico porta enhanced NOT.](assets/imgs/enhanced_not.png){width=60%}
 
 Il porta si trova nella __regione lineare__ tra gli $0,6$ e gli $1,2V$: Q3 si sta accendendo, sulla seconda resistenza di pull-up RPU' cade un potenziale proporzionale alla corrente che Q3 inizia a far scorrere. Tale caduta si riflette sul transistor Q4. Dopodiché subito dopo $1,2V$ si ha una ripida caduta di tensione causata dall'accensione del transistor Q2.\newline
 Si può osservare come in uscita non otteniamo mai una tensione pari a $5V$: questo a causa delle cadute di potenziale sul transistor Q4 e sul diodo D1.\newline
@@ -1566,8 +1566,8 @@ Tuttavia questo circuito non è ancora il migliore possibile, in quanto vorremmo
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/standard_not.tex}}
-    \caption{Enhanced NOT.}
+    \resizebox{0.8\textwidth}{!}{\input{assets/graphs/standard_not.tex}}
+    \caption{Standard NOT.}
 \end{figure}
 Il sottocircuito active pull-down (APD) è _attivo_ perché sostituisce la resistenza di pull down, che era passiva. Infatti una tensione nel punto P accende il transistor Q5, che fa da  "pozzo". Il fatto di essere un "componente attivo" implica inoltre altre due cose:
 
@@ -1576,7 +1576,7 @@ Il sottocircuito active pull-down (APD) è _attivo_ perché sostituisce la resis
 
 Tutto ciò rende il grafico _più ripido_:
 
-![Grafico di trasferimento della porta Standard NOT in TTL.](assets/imgs/standard_not.png){width=50%}
+![Grafico di trasferimento della porta Standard NOT in TTL.](assets/imgs/standard_not.png){width=60%}
 
 L'aggiunta di un nuovo transistor si è rivelata una scelta eccellente, poiché questa porta non solo è più veloce rispetto alla versione enhanced, ma consuma anche meno energia. Questo miglioramento è dovuto al fatto che, nell'intervallo di tempo tra il momento in cui l'input passa a 0 e l'output sale a 1 (circa 10 ns), il circuito assorbe corrente. Grazie al transistor aggiunto, questa finestra temporale è stata quasi dimezzata, riducendo significativamente il consumo di corrente. La resistenza RC da $130\Omega$ serve per ridurre la corrente che passa quando, durante la commutazione, sia Q2 che Q4 sono chiusi e quindi la corrente va verso la massa.
 
@@ -1624,7 +1624,9 @@ Analizziamo cosa succede sull'uscita __durante le commutazioni__:
         - Q4 spento;
         - Q1 in regione attiva inversa[^40];
     
-    Mettere alto l'ingresso (tensione in ingresso $V_{in}$ alta) porta il transistor Q1 nella sua regione attiva inversa, causando l'accensione dei transistor Q2, Q3, Q5. A loro volta essi contribuiscono a spegnere il transistor Q4, e di conseguenza con esso anche l'uscita. È una commutazione veloce ($\sim 2nS$), i tre transistor si accendono velocemente e Q4 passa velocemente in regione attiva inversa.
+    Mettere alto l'ingresso (tensione in ingresso $V_{in}$ alta) porta il transistor Q1 nella sua regione attiva inversa, causando l'accensione dei transistor Q2, Q3, Q5. A loro volta essi contribuiscono a spegnere il transistor Q4, e di conseguenza con esso anche l'uscita. È una commutazione veloce ($\sim 2nS$), i tre transistor si accendono velocemente e Q4 passa velocemente in regione attiva inversa[^41].
+
+![Grafico commutazione H-L.](assets/imgs/grafico_commutazione_h_l.png){width=60%}
 
 - ***Commutazione L-H (Basso $\to$ Alto)***
     * Da:
@@ -1633,31 +1635,43 @@ Analizziamo cosa succede sull'uscita __durante le commutazioni__:
         - Q1 in saturazione;
         - Q4 in regione attiva;
 
-    È più difficile rispetto alla commutazione H-L. Quando la tensione in ingresso è pari ad un livello logico basso, il transistor Q1 prima di passare alla regione di saturazione passa dalla regione attiva diretta (a causa delle cariche accumulate sulla base del transistor Q3), svuotando così Q3, che si spegnerà.\newline
-    Ora Q4 si può accendere, mentre il transistor Q2 deve essere spento: questa azione è svolta o dalla resistenza di pull-down o dall'*active pull-down* se presente. Infatti la presenza o meno del sottocircuito APD gioca un ruolo chiave nello spegnimento del transistor.
+    È più difficile rispetto alla commutazione H-L. Quando la tensione in ingresso è pari ad un livello logico basso, il transistor Q1 prima di passare alla regione di saturazione passa dalla regione attiva diretta (a causa delle cariche accumulate sulla base del transistor Q3), svuotando così Q3, che si spegnerà.
+
+    \begin{figure}[H]
+    \centering
+    \resizebox{0.25\textwidth}{!}{\input{assets/graphs/ingresso_basso_ttl.tex}}
+    \caption{Ingresso basso TTL.}
+    \end{figure}
+
+    Ora Q4 si può accendere, mentre il transistor Q2 deve essere spento[^42]: questa azione è svolta o dalla resistenza di pull-down o dall'*active pull-down* se presente. Infatti la presenza o meno del sottocircuito APD gioca un ruolo chiave nello spegnimento del transistor.
 
 ##### Assenza sottocircuito active pull-down
+Siamo nel caso in cui vi è solo una resistenza di pull-down. La commutazione tra lo stato basso e lo stato alto avviene in un tempo compreso tra i 10 e i 12 nS. \newline
 Il transistor Q1 svuota la base del transistor Q3, il quale si spegne. Quando ciò accade la corrente si sposta verso Q4, il quale si accende e tenta di "alzare - tirare su" l'uscita. Tuttavia Q2 deve ancora spegnersi, dal momento che era in saturazione. Una svolta spento Q2, l'uscita è libera di salire. \newline
-Vi è un periodo di tempo in cui sono accesi sia lo stato alto che lo stato basso; inoltre ho un assorbimento di corrente per tutto l'intervallo tempo in cui il transistor Q2 non si è ancora spento, comportando un maggior consumo di potenza.
+Vi è un periodo di tempo in cui sono accesi sia lo stato alto che lo stato basso; inoltre ho un assorbimento di corrente per tutto l'intervallo tempo in cui il transistor Q2 non si è ancora spento (ovvero in quell'arco di tempo in cui il segnale **non** sta commutando), comportando un maggior consumo di potenza. Ciò è dovuto dall'accensione di Q4 e da Q2 non ancora spento, a causa della cross-conduction.
 
-![Grafico commutazione porta NOT in TTL senza la presenza dell'APD.](assets/imgs/commutazione_l_h_no_apd.png){width=50%}
+![Grafico commutazione porta NOT in TTL senza la presenza dell'APD.](assets/imgs/commutazione_l_h_no_apd.png){width=60%}
+
+![Grafico della corrente porta NOT senza APD.](assets/imgs/corrente_no_apd.png){width=60%}
 
 ##### Presenza sotto circuito active pull-down
 Il funzionamento dei transistor Q2, Q3, Q5 è sincronizzato sia in accensione che in spegnimento ed in quest'ultima fase anche _velocizzato_. Il transistor Q1 svuota sempre la base di Q3, il quale si spegne. Il tempo necessario al transistor Q2 per spegnersi è molto inferiore grazie alla presenza di Q5, il quale è un _carico attivo_ e "tira" corrente molto velocemente. \newline
-Il picco di corrente in questo caso è più limitato ed ho quindi un minor consumo di potenza.
+Il picco di corrente in questo caso ha una durata più limitata (non più $\sim 10nS$) ed ho quindi un minor consumo di potenza.
 
-![Grafico commutazione L-H porta NOT con APD.](assets/imgs/commutazione_l_h_apd.png){width=50%}
+![Grafico commutazione L-H porta NOT con APD.](assets/imgs/commutazione_l_h_apd.png){width=60%}
+
+![Grafico assorbimento corrente in presenza di APD.](assets/imgs/corrente_apd.png){width=60%}
+
+## MOS logic cell - Porte logiche MOS
+Questa famiglia logica non usa più transitor bipolari, ma passa ai MOSFET: in questo caso si utilizzando i MOSFET ___ad arricchimento___, come descritti nel paragrafo a loro dedicato. Tuttavia esistono anche i MOSFET ___a svuotamento___, i quali funzionano in modo inverso, in quanto il canale è già presente e si va ad applicare una corrente per rimuoverlo.
+
+### CMOS - Complementary MOS
+Andiamo ora a descrivere una famiglia detta ___Complementary MOS___ o CMOS, questo perché vengono utilizzati entrambe le tipologie di transistor ad effetto di campo, sia quelle a canale n sia quelle a canale P. Un vantaggio nell'utilizzo di transistor MOS per realizzare porte logiche è la possibilità di realizzare dispositivi molto compatti e che consumano meno rispetto alle precedenti famiglie logiche.
+
 
 \appendix
 
 # Esercizi
-
-\begin{bluebox}{Le leggi di Kirchoff}
-\begin{enumerate}
-\item \emph{Legge di Kirchoff alle correnti}: la somma delle correnti in un nodo è pari a 0.
-\item \emph{Legge di Kirchoff alle tensioni}: la somma delle tensioni lungo un percorso chiuso è pari a0.
-\end{enumerate}
-\end{bluebox}
 
 ## Esercizi capitolo 1
 
@@ -1671,9 +1685,14 @@ Il picco di corrente in questo caso è più limitato ed ho quindi un minor consu
 \end{circuitikz}
 \end{figure}
 
-\appendix
+# Varie
 
-# Varie 
+\begin{bluebox}{Le leggi di Kirchoff}
+\begin{enumerate}
+\item \emph{Legge di Kirchoff alle correnti}: la somma delle correnti in un nodo è pari a 0.
+\item \emph{Legge di Kirchoff alle tensioni}: la somma delle tensioni lungo un percorso chiuso è pari a0.
+\end{enumerate}
+\end{bluebox}
 
 ## Semiconduttori e bande
 
@@ -1824,3 +1843,7 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 [^39]: Se non torna rileggere parte BJT.
 
 [^40]: Q4 e Q1 si devono spegnere.
+
+[^41]: Si spegne più velocemente proprio perché **non è in saturazione**!
+
+[^42]: Va svuotato dalle cariche!
