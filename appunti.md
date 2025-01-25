@@ -1668,6 +1668,20 @@ Questa famiglia logica non usa più transitor bipolari, ma passa ai MOSFET: in q
 ### CMOS - Complementary MOS
 Andiamo ora a descrivere una famiglia detta ___Complementary MOS___ o CMOS, questo perché vengono utilizzati entrambe le tipologie di transistor ad effetto di campo, sia quelle a canale n sia quelle a canale P. Un vantaggio nell'utilizzo di transistor MOS per realizzare porte logiche è la possibilità di realizzare dispositivi molto compatti e che consumano meno rispetto alle precedenti famiglie logiche.
 
+Le equazioni che guidano la corrente sono:
+
+
+#### CMOS - NOT
+\begin{figure}[H]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/cmos_not.tex}}
+    \caption{Porta NOT in logica CMOS.}
+\end{figure}
+
+Possiamo quindi apprezzare la _simmetria del circuito_, che contribuisce a semplificarne la gestione.
+
+In base al valore del segnale in ingresso $v_{i}$ il circuito equivale alla configurazione sulla destra della figura con:
+
 
 \appendix
 
