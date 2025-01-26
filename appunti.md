@@ -768,7 +768,7 @@ La prima equazione raffigura una *parabola* che ha come parametro la tensione $V
 $$
 K=\frac{1}{2}\mu\:C_{ox}\frac{W}{L}
 $$
-dove in $K$, abbiamo più parametri: $mu$ dovrebbe essere la *mobilità*[^31] del materiale, $C_{ox}$ la capacità dell'ossido per unità di carica[^32], mentre $W$ rappresenta la larghezza della zona che va a costituire il canale, mentre $L$ è la lunghezza.
+dove in $K$, abbiamo più parametri: $\mu$ dovrebbe essere la *mobilità*[^31] del materiale, $C_{ox}$ la capacità dell'ossido per unità di carica[^32], mentre $W$ rappresenta la larghezza della zona che va a costituire il canale, mentre $L$ è la lunghezza.
 $$
 K\propto \mu \Rightarrow K_{n}\simeq 2K_{p}
 $$
@@ -1684,13 +1684,48 @@ Le equazioni che guidano la corrente sono:
 
 Possiamo quindi apprezzare la _simmetria del circuito_, che contribuisce a semplificarne la gestione.
 
+Solitamente vogliamo che i dispositivi digitali lavorino nella regione lineare (i MOS) e in saturazione (i BJT). Nel caso dei MOS, quando sono in regione lineare funzionano come se fossero delle resistenze connesse ad un interruttore (l’interruttore si apre quando il CMOS è interdetto).
+
 In base al valore del segnale in ingresso $v_{i}$ il circuito equivale alla configurazione sulla destra della figura con:
 
 - Con ingresso _basso_, l'interruttore $S_P$ è chiuso, mentre è aperto l'altro $S_N$, quindi entra la tensione $V_{DD}$. Il valore del segnale in uscita è quindi _alto_.
 - Con l'ingresso _alto_, l'interruttore $S_P$ è aperto, invece l'interruttore $S_N$ è chiuso, il quale è collegato a terra. In uscita abbiamo quindi un segnale _basso_.
 
-Per tracciare la _caratteristica_, ovvero il grafico che pone in relazione la tensione in ingresso e quella in uscita, devo porre l'ipotesi che la corrente sul drain del transistor N-MOS sia la stessa che c'è sul drain sul transistor P-MOS, $i_{DP}=i_{DN}$.
+Per tracciare la _caratteristica_[^43], ovvero il grafico che pone in relazione la tensione in ingresso e quella in uscita, devo porre l'ipotesi che la corrente sul drain del transistor N-MOS sia la stessa che c'è sul drain sul transistor P-MOS, $i_{DP}=i_{DN}$. Questo viene *garantito* dal fatto che in conduzioni statiche la corrente di gate e quindi $i_{iH}/i_{iL}\sim 0$; inoltre l'ingresso è collegato direttamente al gate, il quale è fisicamente separato dal circuito. Sempre in condizioni statiche abbiamo che le correnti di drain dei due transistor si equivalgono: sia in uscita che in ingresso sono entrambe pari a zero. \newline
+Sappiamo che per la tensione d'ingresso a 0 otteniamo in uscita $V_{DD}$, e per la tensione d'ingresso con valore $V_{DD}$ ottengo 0 in uscita. Di conseguenza sappiamo anche che:
+\begin{align*}
+V_{DS_{n}}&=V_{out}\\
+V_{GS_{n}}&=V_{in}\\
+V_{DS_{p}}&= V_{DD}-V_{out}\\
+V_{GS_{p}}&=V_{DD}-V_{in}
+\end{align*}
+Se volessi rappresentare l'andamento della corrente del P-MOS, possiamo notare come $V_{DS_{p}}$ vada nel verso opposto di $V_{DS_{n}}$: sapendo che tra i due transistor deve passare la stessa corrente si trova l'intersezione tra le due curve della corrente dei MOS, con una particolare condizione.
+A questo punto metto a sistema le equazioni dei due MOS:
+\begin{align*}
+I_D&=K[2(V_{GS}-V_t)V_{DS}-V_{DS}^2] \\
+K_{P}&=\frac{1}{2}\mu_{P}C_{ox}\frac{W_{P}}{L_{P}}\\
+K_{N}&=\frac{1}{2}\mu_{N}C_{ox}\frac{W_{N}}{L_{N}}
+\end{align*}
 
+![Caratteristica di trasferimento della tensione dell'inverter CMOS quando $K_{P}$ e $K_{n}$  sono uguali.](assets/imgs/curva_cmos_not_tensione.png){width=40%}
+
+Ponendo infatti che le due costanti $K_{P}$ per il P-MOS e $K_{N}$ per l'N-MOS si equivalgano ottengo che le due rispettive equazioni della corrente di drain siano **uguali**! L'unica differenza è che una parte da $0$ e cresce positivamente verso $V_{DD}$ e l'altra parte dalla $V_{DD}$ e diminuisce verso zero: sono l'una il complementare dell'altra.\newline
+Il grafico quindi diventa **anti-simmetrica[^44] rispetto al centro** (che si trova in $\frac{V_{DD}}{2}$). Ciò è un risultato _desiderato_, in quanto il parametro del _Noise Margin_ nel caso in cui il funzionamento del dispositivo è esattamente simmetrico il margine di rumore alto ___sarà uguale___ al margine di rumore basso, quindi ottimizzo le risorse della porta logica.
+
+Andando più nel dettaglio si possono identificare diversi punti: alcuni tra i più importanti sono quelli dove __la pendenza è pari ad 1 (in valore assoluto)__, che è dove solitamente si prendono i valori della tensione in ingresso:
+\begin{align*}
+V_{iH}&=\frac{1}{8}[5V_{DD}-2V_{t}]\\
+V_{iL}&=\frac{1}{8}[3V_{DD}2V_{t}]
+\end{align*}
+Gli altri parametri sono i seguenti
+\begin{align*}
+V_{oH}&=V_{DD}\\V_{oL}&=0\\NM_{L}&=NM_{H}=NM=V_{iL}
+\end{align*}
+Per quanto riguarda la tensione in uscita "alta" e "bassa", sapendo che non scorre corrente staticamente in questa porta logica e per come abbiamo strutturato il circuito (vedi versione con le resistenze per ogni singolo MOS), la tensione di uscita è pari a quella presente in ingresso, __perché non vi è caduta di tensione sulle resistenze__! Per i margini di rumore basta utilizzare le equazioni delle tensioni in ingresso ed otteniamo i valori.
+
+Se si volesse massimizzare il margine di rumore si potrebbe andare ad intervenire sulla formula per fare in modo che i due valori si avvicinino fino a diventare uguali in $\frac{V_{DD}}{2}$. Ma si può modificare solo alzando la tensione di soglia $V_{t}$, che dovrà essere anche lei posizionata nel mezzo; tuttavia ciò sarebbe erroneo, perché renderebbe la curva meno ripida, e di conseguenza la transazione sarebbe meno rapida/brusca/ripida. Questo accade se separo le tensioni, prendendo una tensione di soglia più bassa di $\frac{V_{DD}}{2}$. Solitamente abbiamo $V_{iH}\sim\frac{2}{3}V_{DD},\:V_{iL}\sim\frac{1}{3}V_{DD}$. Un altro motivo per cui non vogliamo che la tensione di soglia sia nel mezzo è perché in quel caso scorre una corrente nel circuito.
+
+Nel caso dei CMOS il parametro della tensione di alimentazione è lasciato abbastanza libero! Niente ci obbliga ad avere una determinata tensione, a differenza della famiglia TTL la quale è legata alla tensione di soglia della giunzione p-n, che ricordiamo essere pari a $0,7V$. Un vantaggio che deriva dalla possibilità di selezionare tensioni più basse se necessario è quello della __riduzione della dimensione dei dispositivi__! A tensioni più basse posso formare dei MOS con un canale più corto, posso inserirne di più nello stesso spazio.
 
 \appendix
 
@@ -1702,7 +1737,7 @@ Per tracciare la _caratteristica_, ovvero il grafico che pone in relazione la te
 \centering
 \begin{circuitikz}[american]
 \draw[V={}](2.0,-2.5)to(2.0,-5.5);
-\draw[D={}](2.0,-2.5)to(6.5,-2.5);
+\draw[D={}](2.0,-2.5)to(6.5,-2.5); 
 \draw[R={}](6.5,-2.5)to(6.5,-5.5);
 \draw[short={}](2.0,-5.5)to(6.5,-5.5);
 \end{circuitikz}
@@ -1870,3 +1905,7 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 [^41]: Si spegne più velocemente proprio perché **non è in saturazione**!
 
 [^42]: Va svuotato dalle cariche!
+
+[^43]: Funzione di trasferimento ingresso-uscita.
+
+[^44]: Ricordo che ciò è dovuto all'uguaglianza delle due equazioni.
