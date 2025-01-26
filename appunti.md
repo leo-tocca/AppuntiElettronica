@@ -1669,7 +1669,11 @@ Questa famiglia logica non usa più transitor bipolari, ma passa ai MOSFET: in q
 Andiamo ora a descrivere una famiglia detta ___Complementary MOS___ o CMOS, questo perché vengono utilizzati entrambe le tipologie di transistor ad effetto di campo, sia quelle a canale n sia quelle a canale P. Un vantaggio nell'utilizzo di transistor MOS per realizzare porte logiche è la possibilità di realizzare dispositivi molto compatti e che consumano meno rispetto alle precedenti famiglie logiche.
 
 Le equazioni che guidano la corrente sono:
-
+\begin{align*}
+ I_D&=K[2(V_{GS}-V_t)V_{DS}-V_{DS}^2] \\
+ I_{Dsat}&=K(V_{GS}-V_t)^2@V_{DS}\geq V_{GS}-V_t \\
+ K&=\frac{1}{2}\mu C_{ox}\frac{W}{L}
+\end{align*}
 
 #### CMOS - NOT
 \begin{figure}[H]
@@ -1681,6 +1685,11 @@ Le equazioni che guidano la corrente sono:
 Possiamo quindi apprezzare la _simmetria del circuito_, che contribuisce a semplificarne la gestione.
 
 In base al valore del segnale in ingresso $v_{i}$ il circuito equivale alla configurazione sulla destra della figura con:
+
+- Con ingresso _basso_, l'interruttore $S_P$ è chiuso, mentre è aperto l'altro $S_N$, quindi entra la tensione $V_{DD}$. Il valore del segnale in uscita è quindi _alto_.
+- Con l'ingresso _alto_, l'interruttore $S_P$ è aperto, invece l'interruttore $S_N$ è chiuso, il quale è collegato a terra. In uscita abbiamo quindi un segnale _basso_.
+
+Per tracciare la _caratteristica_, ovvero il grafico che pone in relazione la tensione in ingresso e quella in uscita, devo porre l'ipotesi che la corrente sul drain del transistor N-MOS sia la stessa che c'è sul drain sul transistor P-MOS, $i_{DP}=i_{DN}$.
 
 
 \appendix
