@@ -1,0 +1,22 @@
+\begin{circuitikz}[american]
+\ctikzset{tripoles/mos style/arrows}
+	% Paths, nodes and wires:
+	\draw node[pmos] at (4, 8.25) {};
+	\draw node[pmos] at (4, 6.25) {};
+	\draw node[nmos] at (3, 4.23) {};
+	\draw node[nmos] (N1) at (5.5, 4.23) {} node[anchor=east] at (N1.west){$V_{B}$};
+	\draw[-stealth] (4, 9) -| (4, 9.5);
+	\draw (3, 5) -- (7, 5);
+	\draw (4, 7.5) -| (4, 7);
+	\draw (4, 5.5) -| (4, 5);
+	\draw node[circ] (N2) at (3.02, 6.25) {} node[anchor=east] at (N2.west){$V_{B}$};
+	\draw node[circ] (N3) at (3.02, 8.25) {} node[anchor=east] at (N3.west){$V_{A}$};
+	\draw node[circ] at (4, 5) {};
+	\draw node[circ] at (5.5, 5) {};
+	\draw node[circ] (N4) at (2.02, 4.23) {} node[anchor=east] at (N4.west){$V_{A}$};
+	\draw node[circ] at (4.52, 4.23) {};
+	\draw node[circ] (N5) at (7, 5) {} node[anchor=west] at (N5.east){$V_{OUT}$};
+	\draw node[ground] at (3, 3.46) {};
+	\draw node[ground] at (5.5, 3.46) {};
+	\node[shape=rectangle, inner sep=0, minimum width=0.965cm, minimum height=0.465cm](Rect1) at (4, 9.75){} node[anchor=center] at (Rect1.center){$+V_{DD}$};
+\end{circuitikz}

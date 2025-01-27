@@ -1707,7 +1707,7 @@ K_{P}&=\frac{1}{2}\mu_{P}C_{ox}\frac{W_{P}}{L_{P}}\\
 K_{N}&=\frac{1}{2}\mu_{N}C_{ox}\frac{W_{N}}{L_{N}}
 \end{align*}
 
-![Caratteristica di trasferimento della tensione dell'inverter CMOS quando $K_{P}$ e $K_{n}$  sono uguali.](assets/imgs/curva_cmos_not_tensione.png){width=40%}
+![Caratteristica di trasferimento della tensione dell'inverter CMOS quando $K_{P}$ e $K_{n}$  sono uguali.](assets/imgs/curva_cmos_not_tensione.png){width=45%}
 
 Ponendo infatti che le due costanti $K_{P}$ per il P-MOS e $K_{N}$ per l'N-MOS si equivalgano ottengo che le due rispettive equazioni della corrente di drain siano **uguali**! L'unica differenza è che una parte da $0$ e cresce positivamente verso $V_{DD}$ e l'altra parte dalla $V_{DD}$ e diminuisce verso zero: sono l'una il complementare dell'altra.\newline
 Il grafico quindi diventa **anti-simmetrica[^44] rispetto al centro** (che si trova in $\frac{V_{DD}}{2}$). Ciò è un risultato _desiderato_, in quanto il parametro del _Noise Margin_ nel caso in cui il funzionamento del dispositivo è esattamente simmetrico il margine di rumore alto ___sarà uguale___ al margine di rumore basso, quindi ottimizzo le risorse della porta logica.
@@ -1717,6 +1717,8 @@ Andando più nel dettaglio si possono identificare diversi punti: alcuni tra i p
 V_{iH}&=\frac{1}{8}[5V_{DD}-2V_{t}]\\
 V_{iL}&=\frac{1}{8}[3V_{DD}2V_{t}]
 \end{align*}
+
+#### Parametri statici e dinamici CMOS
 Gli altri parametri sono i seguenti
 \begin{align*}
 V_{oH}&=V_{DD}\\V_{oL}&=0\\NM_{L}&=NM_{H}=NM=V_{iL}
@@ -1726,6 +1728,91 @@ Per quanto riguarda la tensione in uscita "alta" e "bassa", sapendo che non scor
 Se si volesse massimizzare il margine di rumore si potrebbe andare ad intervenire sulla formula per fare in modo che i due valori si avvicinino fino a diventare uguali in $\frac{V_{DD}}{2}$. Ma si può modificare solo alzando la tensione di soglia $V_{t}$, che dovrà essere anche lei posizionata nel mezzo; tuttavia ciò sarebbe erroneo, perché renderebbe la curva meno ripida, e di conseguenza la transazione sarebbe meno rapida/brusca/ripida. Questo accade se separo le tensioni, prendendo una tensione di soglia più bassa di $\frac{V_{DD}}{2}$. Solitamente abbiamo $V_{iH}\sim\frac{2}{3}V_{DD},\:V_{iL}\sim\frac{1}{3}V_{DD}$. Un altro motivo per cui non vogliamo che la tensione di soglia sia nel mezzo è perché in quel caso scorre una corrente nel circuito.
 
 Nel caso dei CMOS il parametro della tensione di alimentazione è lasciato abbastanza libero! Niente ci obbliga ad avere una determinata tensione, a differenza della famiglia TTL la quale è legata alla tensione di soglia della giunzione p-n, che ricordiamo essere pari a $0,7V$. Un vantaggio che deriva dalla possibilità di selezionare tensioni più basse se necessario è quello della __riduzione della dimensione dei dispositivi__! A tensioni più basse posso formare dei MOS con un canale più corto, posso inserirne di più nello stesso spazio.
+
+### Altre porte logiche
+
+#### CMOS NOR
+
+Per realizzare questa porta logica si utilizzano 4 MOSFET:
+\begin{figure}[H] 
+\centering
+\begin{subfigure}{.45\textwidth}
+\input{assets/graphs/cmos_nor.tex}
+\caption{NOR in logica CMOS.}
+\label{fig:subfig1}
+\end{subfigure}
+\hspace*{\fill}
+\begin{subfigure}{.45\textwidth}
+\centering
+\begin{tabular}{c|c|c}
+A & B & A+B  \\ 
+\hline
+0 & 0 & 1    \\
+1 & 0 & 0    \\
+0 & 1 & 0    \\
+1 & 1 & 0   
+\end{tabular}
+\caption{Tabella di verità della porta NOR.}
+\label{fig:subfig2}\vfill
+\end{subfigure}
+\caption{Porta NOR in CMOS}
+\end{figure}
+
+\begin{redbox}{Comportamento NOR-CMOS}
+Se l'ingresso delle tensioni $V_A$ o $V_{B}$ posto nella parte bassa del circuito ha valore alto, il ramo superiore viene \emph{spento} (il ramo è costituito da due MOS in serie, per cui se ne spegne uno si spengono entrambi). In altre parole, basta che uno dei sue transistor N-MOS (posti in parallelo) abbia un valore alto in ingresso per portare l'uscita a massa.
+\newline
+Invece, per quanto riguarda il lato superiore\footnote{Gli ingressi A e B sono collegati, se è chiuso l'interruttore sotto sarà aperto sopra!}, se \textbf{entrambi} i P-MOS sono accesi, ovvero entrambi gli ingressi sono collegati a massa otteniamo in uscita la tensione di alimentazione $V_{DD}$!
+\end{redbox}
+
+#### CMOS NAND
+
+\begin{figure}[H] 
+\centering
+\begin{subfigure}{.45\textwidth}
+\input{assets/graphs/cmos_nand.tex}
+\caption{NAND in logica CMOS.}
+\label{fig:subfig1}
+\end{subfigure}
+\hspace*{\fill}
+\begin{subfigure}{.45\textwidth}
+\centering
+\begin{tabular}{c|c|c}
+A & B & A+B  \\ 
+\hline
+0 & 0 & 1    \\
+1 & 0 & 1    \\
+0 & 1 & 1    \\
+1 & 1 & 0   
+\end{tabular}
+\caption{Tabella di verità della porta NAND.}
+\label{fig:subfig2}\vfill
+\end{subfigure}
+\caption{Porta NOR in CMOS}
+\end{figure}
+
+\begin{orangebox}{Comportamento NAND-CMOS}
+È una porta \emph{complementare} alla NOR, sempre composta da 4 transistor MOSFET. In questa porta logica però abbiamo i due P-MOS in parallelo e i due N-MOS in serie! Infatti la porta NAND restituirà il valore 0 solo se entrambi gli ingressi sono alti\footnote{Transistor N-MOS entrambi spenti.}! Altrimenti se almeno un ingresso è spento almeno un transistor a canale P sarà acceso, portando in uscita la tensione di alimentazione (alta).
+\end{orangebox}
+
+Ecco un confronto tra TTL e CMOS:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|>{\centering\hspace{0pt}}m{0.444\linewidth}|>{\centering\arraybackslash\hspace{0pt}}m{0.458\linewidth}|}
+\multicolumn{1}{>{\centering\hspace{0pt}}m{0.444\linewidth}|}{TTL}                      & \multicolumn{1}{>{\centering\arraybackslash\hspace{0pt}}m{0.458\linewidth}}{CMOS}                              \\ 
+\hhline{|==|}
+A causa delle giunzioni p-n ha un'alimentazione fissa pari a 5V\footnote{Ne esistono alcune a 3.3V}                                                                        & Alimentazione variabile \par{}(la porta può essere alimentata con tensioni anche diverse rispetto a quelle per la quale è stata progettata)                            \\ 
+\hline
+$V_i:0.9V-1.4V$\par{}~(i valori commerciali sono $0.8V-2V$)\par{} Le tensioni sono fisse perché è definito dal basso, senza partire dai 5V in alimentazione.           & $V_i:\frac{1}{3}V_{DD}-\frac{2}{3}V_{DD}$, \par{} tendono a \emph{scalare con la tensione di alimentazione}                                                                          \\ 
+\hline
+$V_{oL}:0.2V$ transistor in saturazione a massa.\par{}$V_{oH}:3.6V$ diodo, trans. e resistenza $R_{C}$ in serie, circa 3.3V & $V_{oL}:$ resistenza del canale NMOS \par{}$V_{oH}$ resistenza del canale PMOS \par{}(circa 10$\Omega$ ciascuna)  \par{}sono simmetriche l'una rispetto all'altra.:w
+\\ 
+\hline
+bias (di polarizzazione) currents (che circolano) e input currents \par{}contribuiscono alla dissipazione della potenza     & corrente assorbita pari a 0 (in condizione statica, quando segnale è logico)\par{}~(a volte capita di avere consumo statico purtroppo)  \\
+\hline
+\end{tabular}
+\end{table}
+
 
 \appendix
 
