@@ -1851,6 +1851,61 @@ Esiste una versione dell'inverter compatibile con la famiglia TTL.
 
 ![BiCMOS inverter compatibile con TTL.](assets/imgs/bicmos_ttl_inverter.png){width=50%}
 
+# Logica combinatoria "contro" logica sequenziale
+
+Le funzioni logiche si dividono in due categorie:
+
+- ***combinatorie***;
+- ___sequenziali___.
+
+## Logica combinatoria
+Una funzione logica può essere definita come:
+$$
+y=f(x)
+$$
+dove $x$ può essere anche un vettore. Viene utilizzata con l'algebra booleana. Per esempio definiamo la funzione AND come:
+$$
+and(x_{1},x_{2})=x_{1}\cdot x_{2}, x_{1},x_{2}\in\{0,1\}
+$$
+con $0$ che assume il significato di valore logico _basso_ e $1$ di valore logico _alto_.
+
+\begin{redbox}{Osservazione}
+Possiamo quindi dire che per logica combinatoria si intende una funzione logica $f$ che applicata ad un certo ingresso $x$ restituisce un risultato $y$. \newline
+\textbf{La funzione \emph{non} cambia nel tempo (è una funzione statica) e non ha memoria.}
+\end{redbox}
+
+## Logica Sequenziale
+Viene definita come una funzione logica che ___evolve__ in step temporali. Di solito viene descritta da funzioni combinatorie quali:
+\begin{align*}
+y_{n}&=f_{1}(x,M_{n})\\
+M_{n+1}&=f_{2}(x_{n},M_{n})
+\end{align*}
+$f_{1}$ e $f_{2}$ sono funzioni combinatorie, mentre $M_{n}$ è lo stato all'istante $n$, ovvero la memoria del sistema. $M_{n+1}$ definisce la variazione dello stato al variare dell'ingresso e dallo stato attuale. Il segnale _sincronizzato_ con cui il sistema scandisce il passaggio da $n$ a $n+1$ viene detto **clock**; per ogni istante da esso scandito viene aggiornata la memoria $M_{n}$.
+
+Una caratteristica della logica sequenziale è che a ingressi uguali (in istanti di tempo diversi) possono corrispondere uscite diverse.
+
+\begin{bluebox}{Esempio: contatore up sincrono con segnale \emph{enable}.}
+\begin{itemize}
+\item Ingresso: $X=E$ (1 bit)
+\item Uscita: $Y_{n}=M_{n}$
+\item Stato: $M_{n+1}=M_{n}+E_{n}$
+\end{itemize}
+Per valori di ingresso uguali varia l'uscita (è una rete non combinatoria).
+
+\begin{minipage}[t]{0.6\linewidth}
+\vspace*{0pt}
+\centering
+\includegraphics[width=0.6\textwidth]{assets/imgs/contatore_up.png}
+\captionof{figure}{Contatore UP: il sommatore rappresenta la parte combinatoria della rete.}
+\label{fig:fig1}
+\end{minipage}
+\end{bluebox}
+
+### Elementi di memoria
+L'elemento di memoria più diffuso è il flip-flop di tipo D o delay. È un dispositivo che permette il passaggio del dato sul _fronte_ del clock; dopodiché il dato memorizzato rimane stabilmente fisso indipendentemente dal valore che assume il bit D ___fino al successivo fronte di clock positivo___
+
+
+
 \appendix
 
 # Esercizi
