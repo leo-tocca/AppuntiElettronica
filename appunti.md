@@ -18,6 +18,7 @@ header-includes:
             \usepackage{float}
             \usepackage{multirow}
             \usepackage{subcaption}
+            \usepackage{tablefootnote}
             \usepackage{svg}
             \usepackage{tikz}
             \usetikzlibrary{patterns}
@@ -1663,7 +1664,7 @@ Il picco di corrente in questo caso ha una durata più limitata (non più $\sim 
 ![Grafico assorbimento corrente in presenza di APD.](assets/imgs/corrente_apd.png){width=60%}
 
 ## MOS logic cell - Porte logiche MOS
-Questa famiglia logica non usa più transitor bipolari, ma passa ai MOSFET: in questo caso si utilizzando i MOSFET ___ad arricchimento___, come descritti nel paragrafo a loro dedicato. Tuttavia esistono anche i MOSFET ___a svuotamento___, i quali funzionano in modo inverso, in quanto il canale è già presente e si va ad applicare una corrente per rimuoverlo.
+Questa famiglia logica non usa più transistor bipolari, ma passa ai MOSFET: in questo caso si utilizzando i MOSFET ___ad arricchimento___, come descritti nel paragrafo a loro dedicato. Tuttavia esistono anche i MOSFET ___a svuotamento___, i quali funzionano in modo inverso, in quanto il canale è già presente e si va ad applicare una corrente per rimuoverlo.
 
 ### CMOS - Complementary MOS
 Andiamo ora a descrivere una famiglia detta ___Complementary MOS___ o CMOS, questo perché vengono utilizzati entrambe le tipologie di transistor ad effetto di campo, sia quelle a canale n sia quelle a canale P. Un vantaggio nell'utilizzo di transistor MOS per realizzare porte logiche è la possibilità di realizzare dispositivi molto compatti e che consumano meno rispetto alle precedenti famiglie logiche.
@@ -1801,11 +1802,11 @@ Ecco un confronto tra TTL e CMOS:
 \begin{tabular}{|>{\centering\hspace{0pt}}m{0.444\linewidth}|>{\centering\arraybackslash\hspace{0pt}}m{0.458\linewidth}|}
 \multicolumn{1}{>{\centering\hspace{0pt}}m{0.444\linewidth}|}{TTL}                      & \multicolumn{1}{>{\centering\arraybackslash\hspace{0pt}}m{0.458\linewidth}}{CMOS}                              \\ 
 \hhline{|==|}
-A causa delle giunzioni p-n ha un'alimentazione fissa pari a 5V\footnote{Ne esistono alcune a 3.3V}                                                                        & Alimentazione variabile \par{}(la porta può essere alimentata con tensioni anche diverse rispetto a quelle per la quale è stata progettata)                            \\ 
+A causa delle giunzioni p-n ha un'alimentazione fissa pari a 5V\tablefootnote{Ne esistono alcune a 3.3V}                                                                        & Alimentazione variabile \par{}(la porta può essere alimentata con tensioni anche diverse rispetto a quelle per la quale è stata progettata)                            \\ 
 \hline
 $V_i:0.9V-1.4V$\par{}~(i valori commerciali sono $0.8V-2V$)\par{} Le tensioni sono fisse perché è definito dal basso, senza partire dai 5V in alimentazione.           & $V_i:\frac{1}{3}V_{DD}-\frac{2}{3}V_{DD}$, \par{} tendono a \emph{scalare con la tensione di alimentazione}                                                                          \\ 
 \hline
-$V_{oL}:0.2V$ transistor in saturazione a massa.\par{}$V_{oH}:3.6V$ diodo, trans. e resistenza $R_{C}$ in serie, circa 3.3V & $V_{oL}:$ resistenza del canale NMOS \par{}$V_{oH}$ resistenza del canale PMOS \par{}(circa 10$\Omega$ ciascuna)  \par{}sono simmetriche l'una rispetto all'altra.:w
+$V_{oL}:0.2V$ transistor in saturazione a massa.\par{}$V_{oH}:3.6V$ diodo, trans. e resistenza $R_{C}$ in serie, circa 3.3V & $V_{oL}:$ resistenza del canale NMOS \par{}$V_{oH}$ resistenza del canale PMOS \par{}(circa 10$\Omega$ ciascuna)  \par{}sono simmetriche l'una rispetto all'altra. Tollera quindi $10-20mA$
 \\ 
 \hline
 bias (di polarizzazione) currents (che circolano) e input currents \par{}contribuiscono alla dissipazione della potenza     & corrente assorbita pari a 0 (in condizione statica, quando segnale è logico)\par{}~(a volte capita di avere consumo statico purtroppo)  \\
@@ -1813,6 +1814,42 @@ bias (di polarizzazione) currents (che circolano) e input currents \par{}contrib
 \end{tabular}
 \end{table}
 
+\begin{bluebox}{Osservazione}
+I dispositivi TTL possono guidare correnti elevate! Questo grazie all'uso dei transistor BJT, i quali hanno capacità di uscita (in termine di corrente) nettamente superiori, nell'ordine dei $60-80mA$ quando si trovano in saturazione.
+\newline
+Il motivo per cui i CMOS non sono così "efficienti" sullo stadio di uscita è il fatto che questa tipologia di transistor lavora sulla \emph{superficie del silicio}, mentre nel processo bipolare lo attraversano.
+\end{bluebox}
+
+### Bi-CMOS
+È una famiglia logica *ibrida*, in quanto integra sullo stesso chip sia transistor a tecnologia CMOS che BJT: in questo modo otteniamo una tecnologia con:
+
+- i vantaggi della famiglia CMOS, ovvero l'_alta integrabilità ed il basso consumo di energia statica_;
+- i vantaggi dei transistor, e quindi dei circuiti, bipolari, ovvero quello di _guidare correnti elevate in uscita_!
+
+Da un punto di vista _realizzativo_ è possibile suddividere nuovamente i circuiti Bi-CMOS in:
+    
+- compatibili con i dispositivi CMOS, i quali hanno una tensione di alimentazione $V_{DD}$$ tra i $3,3V$ e i $2,5V$;
+- compatibili con i dispositivi TTL, che invece avranno una tensione di alimentazione di $5V$.
+
+Ciò dipenderà dai valori di $V_{iH}, V_{iL}$ e $V_{oH}, V_{oL}$ scelti.
+
+![Inverter realizzato in logica Bi-CMOS, compatbile con CMOS.](assets/imgs/bicmos_inverter.png){width=40%}
+
+Questo circuito in figura, che realizza un inverter, oltre ad avere lo stadio d'uscita composto da due transistor NPN, ha un ingresso di tipo CMOS, dato che è fatto in modo molto simile ad una porta CMOS ed anche l'uscita è compatibile CMOS eccetto per il fatto della caduta di tensione sull'NPN Q1, che produrrà una tensione in uscita (in caso di segnale alto in uscita) pari a $V_{out}=V_{DD}-V_{be-Q1}$
+
+\begin{redbox}{Funzionamento del circuito}
+Quando la tensione in ingresso $V_{in}$ è pari ad un segnale alto, in uscita otterremo un segale basso. In questo caso il transistor NPN Q1 sarà spento (si trova in interdizione), mentre l'NPN Q2 viene acceso dall'N-MOS N1, il quale essendo \emph{chiuso} è riconducibile alla sua resistenza di canale.
+\newline
+Quando il segnale in ingresso è basso, otterremo in uscita un valore alto. Questo perché si chiude il transistor Nd2, si spengono Q2 e N1: l'uscita è quindi governata dal transistor Q1, il quale è in regione attiva diretta. Quindi:
+$$
+V_{o}=V_{DD}-0,7
+$$
+A livello dinamico le transizioni sono rapide, grazie ai transistor Nd1 e Nd2, i quali svuotano i BJT Q1 e Q2.
+\end{redbox}
+
+Esiste una versione dell'inverter compatibile con la famiglia TTL.
+
+![BiCMOS inverter compatibile con TTL.](assets/imgs/bicmos_ttl_inverter.png){width=50%}
 
 \appendix
 
