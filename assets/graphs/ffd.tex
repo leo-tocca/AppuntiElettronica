@@ -1,0 +1,13 @@
+\tikzset{flipflop DD/.style={flipflop,
+flipflop def={t1=D, t3={CLK}, t6=Q, t4={\ctikztextnot{Q}},  c3=1},
+}}
+
+\begin{circuitikz}
+\draw (0,0) node[flipflop DD, dot on notQ] (DFF) {}
+(DFF.pin 3) node[left] {CLK}
+(DFF.pin 1) node[left] {D}
+(DFF.pin 6) node[right] {Q}
+(DFF.pin 4) node[right] {\ctikztextnot{Q}};
+\end{circuitikz}\tikzset{flipflop DD/.style={flipflop,
+flipflop def={t1=D, t3={\texttt{CLK}}, t6=Q, t4={\ctikztextnot{Q}}, nd=1, c3=1},
+}}

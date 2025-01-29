@@ -1,0 +1,11 @@
+\centering
+\begin{circuitikz} \draw
+(0,2) node[nand port] (NAND1) {}
+(1,2) node[anchor=east] {Q}
+(1,0) node[anchor=east] {\ctikztextnot{Q}}
+(0,0) node[nand port] (NAND2) {}
+(NAND1.in 1) node[anchor=east] {\ctikztextnot{S}}
+(NAND2.in 2) node[anchor=east] {\ctikztextnot{R}}
+(NAND1.out) -- ++(0,-0.5) -- ($(NAND2.in 1) +(0,0.5)$) -- (NAND2.in 1)
+(NAND2.out) -- ++(0,+0.5) -- ($(NAND1.in 2) +(0,-0.5)$)--(NAND1.in 2)
+;\end{circuitikz}

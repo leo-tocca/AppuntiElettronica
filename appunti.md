@@ -1875,7 +1875,7 @@ Possiamo quindi dire che per logica combinatoria si intende una funzione logica 
 \end{redbox}
 
 ## Logica Sequenziale
-Viene definita come una funzione logica che ___evolve__ in step temporali. Di solito viene descritta da funzioni combinatorie quali:
+Viene definita come una funzione logica che ___evolve___ in step temporali. Di solito viene descritta da funzioni combinatorie quali:
 \begin{align*}
 y_{n}&=f_{1}(x,M_{n})\\
 M_{n+1}&=f_{2}(x_{n},M_{n})
@@ -1891,18 +1891,66 @@ Una caratteristica della logica sequenziale è che a ingressi uguali (in istanti
 \item Stato: $M_{n+1}=M_{n}+E_{n}$
 \end{itemize}
 Per valori di ingresso uguali varia l'uscita (è una rete non combinatoria).
-
-\begin{minipage}[t]{0.6\linewidth}
+\begin{center}
+\begin{minipage}[c]{0.6\linewidth}
 \vspace*{0pt}
 \centering
 \includegraphics[width=0.6\textwidth]{assets/imgs/contatore_up.png}
 \captionof{figure}{Contatore UP: il sommatore rappresenta la parte combinatoria della rete.}
 \label{fig:fig1}
 \end{minipage}
+\end{center}
 \end{bluebox}
 
 ### Elementi di memoria
-L'elemento di memoria più diffuso è il flip-flop di tipo D o delay. È un dispositivo che permette il passaggio del dato sul _fronte_ del clock; dopodiché il dato memorizzato rimane stabilmente fisso indipendentemente dal valore che assume il bit D ___fino al successivo fronte di clock positivo___
+L'elemento di memoria più diffuso è il flip-flop di tipo D o delay. È un dispositivo che permette il passaggio del dato sul _fronte_[^45] del clock; dopodiché il dato memorizzato rimane stabilmente fisso indipendentemente dal valore che assume (legge) il bit D ___fino al successivo fronte di clock positivo___ (e quindi il bit Q sarà aggiornato). Il bit D rappresenta il dato in ingresso, il bit Q il dato in uscita. Il flip-flop D è costituito da porte tutte uguali, in questo caso sono delle NAND.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.2\textwidth}{!}{\input{assets/graphs/ffd.tex}}
+    \caption{Flip-flop di tipo D}
+\end{figure}
+
+![Flip flop D utilizzando latch SR](assets/imgs/ffd_latch_sr.png){width=50%}
+
+Per capire come funziona il flip-flop di tipo D andiamo a vedere come funziona il suo elemento base, ovvero il _latch SR_!
+
+#### Latch SR
+\begin{figure}[H] 
+\centering
+\begin{subfigure}{.45\textwidth}
+\input{assets/graphs/latch_sr_nand.tex}
+\caption{Latch SR utilizzando porte NAND.}
+\label{fig:sr_latch}
+\end{subfigure}
+\hspace*{\fill}
+\begin{subfigure}{.45\textwidth}
+\centering
+\begin{tabular}{ccccc} 
+\hline
+$\overline{S}$ & $\overline{R}$ & $Q_{new}$ & $\overline{Q_{new}}$ &  \\ 
+\hline
+1 & 1 & $Q_{old}$ & $\overline{Q_{old}}$ & hold \\
+0 & 1 & 1 & 0 & set \\
+1 & 0 & 0 & 1 & reset \\
+0 & 0 & 1 & 1 & combinazione proibita \\
+\hline
+\end{tabular}
+\caption{Tabella di verità del latch SR con $\overline{S}$ e $\overline{R}$ attivi bassi.}
+\label{tab:latch_sr}
+\vfill
+\end{subfigure}
+\caption{Latch SR}
+\end{figure}
+
+Il latch SR è un elemento formato da due porte NAND collegate in retro-azione. Gli ingressi sono il bit $S$, o Set, e $R$, Reset: il primo porta ad un valore alto il bit Q in uscita, mentre il secondo la porta a 0. In questa versione del circuito, realizzata tramite l'utilizzo di porte NAND, entrambi gli ingressi sono negati (detti anche "bassi attivi").
+
+- Nel caso $\overline{S}=1$ e $\overline{R}=1$ si dice che è in stato di "riposo", infatti _conserva l'ultimo stato valido_;
+- Se $\overline{S}=1, \overline{R}=0$, o viceversa $\overline{S}=0, \overline{R}=1$, domina il bit in ingresso posto a 0, portando la sua relativa uscita ad 1;
+- $\overline{S}=10$ e $\overline{R}=0$ è una configurazione ***impossibile/illegale***: a causa delle differenze tra gli elementi, se commutano sia Set che Reset quando sono entrambi posti a 0 non è determinato il valore di Q, che potrebbe essere sia 0 che 1. Allo stesso momento, se considero $Q$ e $\overline{Q}$ con valori opposti ed entrambe hanno valore 1 viene introdotto un errore[^46]. 
+
+
+
 
 
 
@@ -2088,3 +2136,7 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 [^43]: Funzione di trasferimento ingresso-uscita.
 
 [^44]: Ricordo che ciò è dovuto all'uguaglianza delle due equazioni.
+
+[^45]: Il fronte d'onda del clock è il momento in cui il segnale di clock cambia stato, passando da basso (0) ad alto (1) o viceversa. Si parla di "fronti di salita" quando il segnale passa da 0 a 1, mentre il "fronti di discesa" quando passa da 1 a 0.
+
+[^46]: È un'uscita illogica.
