@@ -1949,7 +1949,168 @@ Il latch SR è un elemento formato da due porte NAND collegate in retro-azione. 
 - Se $\overline{S}=1, \overline{R}=0$, o viceversa $\overline{S}=0, \overline{R}=1$, domina il bit in ingresso posto a 0, portando la sua relativa uscita ad 1;
 - $\overline{S}=10$ e $\overline{R}=0$ è una configurazione ***impossibile/illegale***: a causa delle differenze tra gli elementi, se commutano sia Set che Reset quando sono entrambi posti a 0 non è determinato il valore di Q, che potrebbe essere sia 0 che 1. Allo stesso momento, se considero $Q$ e $\overline{Q}$ con valori opposti ed entrambe hanno valore 1 viene introdotto un errore[^46]. 
 
+#### Analisi positive edge triggered flip-flop - flip-flop 
+Ritornando al circuito precedente completo, possiamo notare come esso sia _sensibile_ (alla variazione dell'ingresso?) sul fronte _positivo_ del clock. Di seguito abbiamo la tabella di verità del flip-flop, dove $\uparrow$ rappresenta il fronte positivo e la $x$ il _don't care_[^47]
+ 
+\begin{tabular}{ccccc}
+C & D & $Q_\text{new}$ & $\overline{Q_\text{new}}$ &  \\
+\hline
+0 & x & $Q_\text{old}$ & $Q_\text{old}$ & hold \\
+1 & x & $Q_\text{old}$ & $\overline{Q_\text{old}}$ & hold \\
+$\uparrow$ & 0 & 0 & 1 & reset \\
+$\uparrow$ & 1 & 1 & 0 & set
+\end{tabular}
 
+Da qui ricabiamo che:
+
+- quando il clock $C=0$ viene mantenuto il valore di Q anche in uscita;
+- quando siamo sul fronte positivo del clock e $D=0$, in uscita il bit $Q=0$: abbiamo quindi il Reset;
+- quando siamo sul fronte positivo del clock e $D=1$, in uscita avremo il bit impostato su un valore alto, $Q=1, ottenendo Set.$
+
+# Circuiti integrati commerciali (IC)
+Le funzionalità logiche precedentemente discusse sono implementate nelle seguenti modalità:
+
+- Comprando celle logiche di base, come delle porte AND, NAND, NOR, etc. o anche funzioni _accessorie_ come possono essere i buffer;
+- Si possono comprare anche direttamente delle ___logiche programmabili___, ad esempio FPGA (_Field Programmable Gate Array_): sono circuiti integrati _versatili_ la cui logica può essere programmata e riprogrammata andando a creare delle matrici di porte logiche, le quali combinate "producono" il circuito logico complesso più adatto alle proprie esigenze;
+- Altrimenti si possono utilizzare i cosiddetti ASIC (_Application Specific Integrated Circuit), che sono dei circuiti integrati sviluppati direttamente ad-hoc per applicazioni specifiche. È la categoria più costosa.
+
+Sappiamo che le logiche standard (di base) sono costruite tramite l'utilizzo di più famiglie logiche (TTL, MOS), e ciascuna di queste è andata a coprire le più disparate necessità in termini di velocità e/o consumo di potenza.\newline
+Nel passato infatti i sistemi digitali venivano realizzati utilizzando _molti circuiti integrati elementari_, ognuno dei quali andava ad eseguire una funzione specifica. Al giorno d'oggi sono stati rimpiazzati da un ___unico componente logico programmabile___ (PLD), come l'FPGA, che contiene al suo interno migliaia di porte logiche, flip-flop etc.\newline
+Le motivazioni principali che rendono sensato integrare più componenti in un singolo circuito sono:
+
+- ridurre le dimensioni totali utilizzate, in modo tale da ridurre le correnti/capacità _parassite_[^48];
+- aumentare la velocità di propagazione, grazie a tempi di propagazione ridotti.
+- minori consumi
+
+Le singole porte tipo buffer, registri e gate servono però a legare insieme più circuiti (anche incompatibili).
+
+Un circuito moderno possiede queste macro-componenti:
+
+1) logica programmabile:
+    - FPGA, linguaggio di basso livello per programmazione di porte logiche;
+    - micro controllori - $\mu C$;
+    - digital signal processors - dsp: processore più potente del microcontrollore e progettato specialmente al fine di elaborare segnali;
+2) glue logic: utilizzo di porte logiche per interconnettere componenti;
+3) Front-end ICs: circuiti integrati che si occupino di interfacciare l'intero circuito con l'esterno:
+    - interfacce digitali: funzioni di i/o;
+    - sistemi ibridi digitale/analogico: convertitori ADC o DAC;
+4) Sistemi di (sincronizzazione del) clock;
+5) Alimentazione e controllo della potenza;
+
+## Packaging dei circuiti integrati
+Il packaging[^49] è una parte molto importante dei circuiti integrati perché:
+
+- determina la quantità di area occupata;
+- cambia gli effetti parassiti a livello di package: più piccolo è il package, più piccole sono le interconnessioni, più piccole sarà l'induttanza e di conseguenza la "capacità/effetti" parassita;
+- più piccolo è il package e meno contatti si può mettere;
+\begin{redbox}{Riassunto}
+In definitiva il packaging degli ICs è molto importante perché determina lo spazio occupato e perché più grandi sono più soffrono gli effetti parassiti. Inoltre più piccolo è il package e migliori saranno le prestazioni
+\end{redbox}
+In base alla forma, la dimensione, l'utilizzo si possono distinguere più tipologia di package.
+
+### Dual-in-Line package (DIP)
+Una delle prime tipologia di packaging realizzate: è formato da un corpo di resina con intorno dei _piedini_ (che sono through-hole, ovvero che passano attraverso la scheda) distanti l'uno dall'altro circa un decimo di pollice o $2,54\:cm$. Sono molto grandi, perché le macchine che si occupavano di assemblare i circuiti integrati non potevano lavorare con oggetti più piccoli. Tuttavia il chip di silicio rispetto al suo corpo in resina è molto più piccolo, ed è interconnesso tramite piccoli fili in oro ai piedini/pin: _ciò determina un aumento di effetti/componenti parassiti_!
+
+### Surface Mounted Devices (SMD)
+Tecnologia più recente rispetto ai DIP: ne "ereditano" la forma, ma ne riducono _drasticamente_ la distanza tra i pin  Infatti questa è massimo 50 mils[^50], pari a $1,27mm$. A parità di piedino occupano quindi fino a $\frac{1}{4}$ di volte l'area che occuperebbe un dispositivo DIP equivalente.\newline
+Una differenza rispetto ai DIP risiede nel fatto che i pin del dispositivo vanno appoggiati sulla superficie del dispositivo e saldati sulla zone apposite del PCV, senza farli prima passare dietro la scheda.
+
+### Ball Grid Array (BGA) e Land Grid Array (LGA)
+Questi dispositivi hanno i propri piedini su tutta la superficie: per quanto riguarda il BGA sono delle palline di stagno poste al di sotto del chip stesso. I contatti saranno realizzati con una griglia di pad posizionati al di sotto del componente, mettendo le schede in un forno ad alta temperatura che effettueranno la saldatura. La distanza tra le palline è ($1,27mm$-$0,04mm$). È difficile che ci siano problemi di cortocircuito\newline
+A parità di contatti si riesce ad ottenere una dimensione del chip molto piccola (aumento rapporto pin/area), con meno effetti parassiti e di conseguenza anche prestazioni maggiori.
+\newline
+I chip LGA invece hanno sotto il chip stesso tanti contatti in rame sottoposto a doratura lungo la superficie, invece dei pin, che si trovano direttamente sulla scheda madre.\newline
+Tra i principali vantaggi di questo tipo di connessione vi sono i minori costi produttivi, la possibilità di aumentare la densità dei pin e la superficie di contatto tra processore e socket, permettendo un flusso di corrente più stabile anche a frequenze elevate.
+
+### Bare die
+Una delle tecniche più avanzate (infatti viene usato con gli ASICs) consiste nel posizionare ed assemblare il circuito direttamente sul circuito stampato (o PCB) senza usare il packaging. Queste tecniche sono dette _bare die_ e sono utilizzate per risparmiare nella realizzazione di un numero elevatissimo di dispositivi uguali.
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/30.png}
+    \caption{[DIP: Dual In-line Package}
+  \end{subfigure}
+  \hspace{0.02\textwidth}
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/31.jpg}
+    \caption{SMD: Surface Mounted Device}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/32.jpg}
+    \caption{[BGA: Ball Grid Array}
+  \end{subfigure}
+  \hspace{0.02\textwidth}
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{immagini/33.jpg}
+    \caption{LGA: Land Grid Array]}
+\end{subfigure}
+\caption{Diverse tipologie di packaging.}
+\end{figure}
+
+## Famiglie logiche standard
+Abbiamo visto come sono fatte a livello _circuitale_ alcune famiglie logiche. Ora invece analizzeremo la loro organizzazione, le loro caratteristiche e cosa è presente sul mercato.
+
+Una prima distinzione può essere la tensione con la quale queste famiglie operano.
+
+### Famiglie logiche a $5V$
+Sono famiglie progettate per operare con una di tensione di alimentazione pari a $5V$: questo le ha rese superflue, a causa della mancanza di capacità di adattarsi a tensioni in ingresso (input) diverse.
+\begin{bluebox}{Tensioni in ingresso minori}
+Prendendo una porta logica a $5V$, se ne riduco la tensione nominale di utilizzo (per esempio fino a $3V$), allora la porta logica rallenta. Viceversa se creo famiglie che funzionano appositamente a tensione più basse ottengo una diminuzione dei tempi di propagazione.
+\end{bluebox}
+
+#### Famiglie bipolari
+All'interno di queste si distinguono:
+
+- TTL standard;
+- TTL L*S (_low power Schottky_): usano un transistor Schottky (ovvero una giunzione metallo-semiconduttore), che è più veloce;
+- ALS (advanced low power Schottky) usa la metà della potenza e velocità doppia;
+- F (fast): hanno la massima velocità, ma un alto consumo.
+
+Queste ultime due famiglie sono ancora esistenti ed usate: anche se solitamente sono device di tipo F che vengono utilizzati solo quando i CMOS equivalenti non sono disponibili, solitamente quando è necessario gestire correnti elevate in uscita.\newline
+Le famiglie _low-power_ venivano ottenute utilizzando resistenze di polarizzazione, riducendo la velocità.
+
+#### Famiglia CMOS
+Esistono per i CMOS le seguenti varianti:
+
+- AHC (Advanceed High-speed CMOS): viene utilizzato nella logica _generica_;
+- AC (Advamced CMOS): usato quando è necessario ottenere prestazioni elevate;
+
+\begin{redbox}{Osservazione 1}
+Ad oggi si tende ad utilizzare famiglie logiche con tensione di alimentazione da $3,3V$, le quali coprono la maggior parte della compatibilità. Nel resto dei casi vengono utilizzate famiglie logiche a basso voltaggio - bassa potenza.
+\end{redbox}
+
+\begin{bluebox}{Osservazione 2}
+Anche se le famiglie CMOS supportano diverse tensioni di alimentazione, impiegarne una diversa da quella di progettazione non è consigliato perché riduce le prestazioni rispetto a famiglie logiche progettate per tensioni d'ingresso minori in partenza.
+\end{bluebox}
+
+Ci sono anche CMOS "normali" alimentati tra i $5-15V$ ma sono molto delicati.
+
+### Famiglie a basso voltaggio - Bi-CMOS
+Sono famiglie più moderne. Tra queste abbiamo:
+
+- LV,LVC (Low Voltage CMOS) per un utilizzo generico ma possono funzionare a tensioni più alte;
+- ALVC, ALVC (Advanced Low Voltage CMOS), velocità massima/elevata ma la tensione deve essere $<3,3V$;
+- ALVT (Advanced Low Voltage BiCMOS), massime prestazioni e minimo consumo, si accende con $0,7V$.
+
+I Bi-CMOS sono usati raramente, per avere bassa impedenza di uscita, come per la gestione di bus ad alta velocità.
+
+### Acronimi
+Esiste uno standard per la nomenclatura degli ICs, in modo tale da identificare tramite il nome tutte le caratteristiche essenziali dell'integrato:
+
+1. sigla del produttore 
+2. 74 = circuiti commerciali, 54 = circuiti militari (la differenza è che i circuiti militari sono garantiti per funzionare anche in situazioni più estreme)
+3. famiglia logica (TTL/CMOS, 5V/LV,...)
+4. funzione che svolge (e quindi e possibile sapere anche che porte ci sono dentro, tipo AND/OR, counter,...)
+5. package 
+6. range di temperatura a cui lavora
+
+Esempio:
+
+$$\underbrace{SN}_{1}\underbrace{74}_{2}\underbrace{AC}_{3}\underbrace{00}_{4}-
+\underbrace{xxx}_{5}$$
+
+Tutte le informazioni necessarie di un circuito integrato sono presenti all'interno del suo datasheet.
 
 
 
@@ -2140,3 +2301,11 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 [^45]: Il fronte d'onda del clock è il momento in cui il segnale di clock cambia stato, passando da basso (0) ad alto (1) o viceversa. Si parla di "fronti di salita" quando il segnale passa da 0 a 1, mentre il "fronti di discesa" quando passa da 1 a 0.
 
 [^46]: È un'uscita illogica.
+
+[^47]: Non ci interessa quale valore assuma.
+
+[^48]: Sono effetti indesiderati sulla prestazione e funzionalità dei circuiti integrati causati dalle proprietà fisiche dei materiali, componenti ed interconnessioni nel layout
+
+[^49]: È il contenitore in cui viene racchiuso il chip (o die) del circuito integrato; quindi come viene organizzato.
+
+[^50]: 1 mils = 0,001 in
