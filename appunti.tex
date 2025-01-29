@@ -3300,10 +3300,10 @@ Esistono per i CMOS le seguenti varianti:
 \begin{itemize}
 \tightlist
 \item
-  AHC (Advanceed High-speed CMOS): viene utilizzato nella logica
+  AHC (Advanced High-speed CMOS): viene utilizzato nella logica
   \emph{generica};
 \item
-  AC (Advamced CMOS): usato quando è necessario ottenere prestazioni
+  AC (Advanced CMOS): usato quando è necessario ottenere prestazioni
   elevate;
 \end{itemize}
 
@@ -3372,6 +3372,142 @@ Esempio:
 
 Tutte le informazioni necessarie di un circuito integrato sono presenti
 all'interno del suo datasheet.
+
+\section{Comparazione di circuiti
+integrati}\label{comparazione-di-circuiti-integrati}
+
+La scelta di un integrato, oltre che a fattori ambientali (quali la
+scelta del numero minore possibile di famiglie logiche utilizzate) è
+influenzata dai seguenti fattori:
+
+\begin{itemize}
+\tightlist
+\item
+  velocità: sia quella di i/o (delay, riardo di propagazione) che la
+  frequenza massima di clock;
+\item
+  capacità di drive (guidare l'uscita): ovvero la capacità di erogare la
+  quantità \emph{adeguata} di corrente (fondamentale nella gestione di
+  bus) ad un dato carico;
+\item
+  consumo di corrente: soprattutto nei CMOS.
+\end{itemize}
+
+Ciascuna famiglia offre un compromesso tra queste caratteristiche. La
+velocità, in una certa famiglia, è strettamente legata (inversamente
+proporzionale) al consumo di potenza. Le famiglie BiCMOS il consumo di
+potenza è elevato (possono essere utilizzate in caso mi serva elevata
+corrente d'uscita).
+
+\subsection{Problemi di interconnessione (voltaggi e
+i/o)}\label{problemi-di-interconnessione-voltaggi-e-io}
+
+\subsubsection{Dare in ingresso un
+valore}\label{dare-in-ingresso-un-valore}
+
+L'ingresso di un circuito logico può essere visto come un interruttore,
+con valore logico 0/1. Assumiamo che il valore 1 sia pari alla
+\(V_{cc}\) (tensione alta) e che il valore 0 sia GND (tensione bassa).
+Bisogna capire come connettere il circuito al l'interruttore.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.2\linewidth,height=\textheight,keepaspectratio]{assets/imgs/ingresso_sbagliato.png}
+\caption{Sbagliato}
+\end{figure}
+
+Questo circuito è sbagliato, in quanto funziona bene solo quando
+l'interruttore è ``on'', ma quando è spento il terminale della porte è
+flottante, ovvero se l'interruttore è aperto lo stato logico
+\emph{oscilla}. È quindi buona norma usare degli ingressi
+\emph{completamente determinati}, con le seguenti configurazioni.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{assets/imgs/ingressi_corretti.png}
+\caption{Ingressi corretti.}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  possiamo aggiungere la resistenza se l'interruttore è aperto, in modo
+  tale che l'ingresso sia portato al valore della tensione di
+  alimentazione, riconosciuto quindi come valore alto. Se l'interruttore
+  si chiude passa a 0. Il valore della resistenza viene scelto in modo
+  tale che la corrente sia bassa;
+\item
+  altrimenti viene invertita la funzione logica, con lo stato on che
+  diventa \(V_{cc}\) e off \(0V\).
+\end{itemize}
+
+Entrambe le modalità sono equivalenti solo se l'integrato ha un ingresso
+ad alta impedenza (\(I_{in}\sim 0\), come nella famiglia CMOS. Si tende
+ad utilizzare la prima soluzione in quanto è equivalente allo
+(compatibile con lo) stadio di ingresso di un circuito TTL.\newline
+Prendendo per esempio l'ingresso della porta logica NOT TTL e gli
+forniamo un ingresso basso otteniamo \(I_{iL}\sim 1mA\). Nel circuito di
+tipo B otterremo una tensione notevole sulla resistenza: ipotizzandola
+di soli \(100\Omega\) la tensione in ingresso sarebbe comunque
+\(\sim 1V\), molto lontano dagli 0V ipotizzati. Ma non va bene neanche
+abbassare troppo il valore della resistenza in quanto aumenterebbe il
+consumo di corrente a switch chiuso.\newline Il circuito A funzione bene
+sia con un ingresso alto che con uno basso (anche se nei TTL la
+resistenza si può omettere, ma è bene usarla).
+
+\subsubsection{Pin inutilizzati}\label{pin-inutilizzati}
+
+Solitamente gli integrati implementano più volte la stessa funzione
+logica e quindi p logico supporre che non tutti i pin vengano
+utilizzati.
+
+Se è possibile ignorare i pin dello stadio di uscita, non possiamo
+trascurare i pin in ingresso soprattutto se essi sono ad alta impedenza
+come nel caso della famiglia CMOS. Infatti in questo caso del rumore
+elettronico potrebbe generare una corrente che per quanto piccola può
+comportare un potenziale (alto a causa della resistenza molto
+grande).\newline Avere tensioni \emph{intermedie} porta invece a
+prolungate situazioni di cross-conduction normalmente non previsto: come
+conseguenza si ha un maggiore consumo di corrente, oppure addirittura si
+rischia di bruciare direttamente tutto l'integrato.
+
+Per evitare tutto ciò i pin inutilizzati sono collegati o alla massa o
+all'alimentazione utilizzando resistenza di pull-down o pull-up. Per la
+famiglia TTL il discorso è diverso, perché è possibile lasciare aperto
+il pin, perché sarà il pull-up della base a forzare lo stato logico
+della base allo stato alto. È comunque indicato l'uso di una resistenza
+di pull-up in modo da avere se serve compatibilità con altre famiglie
+logiche.
+
+\subsubsection{Relazione
+tensioni-correnti}\label{relazione-tensioni-correnti}
+
+L'output di un circuito logico deve garantire che:
+
+\begin{itemize}
+\tightlist
+\item
+  la tensione di uscita\footnote{Output che guida un input.} deve essere
+  \emph{ammissibile} dall'integrato che fa da carico (l'uscita alta deve
+  essere letta come alta);
+\item
+  la corrente di uscita deve essere \emph{sufficiente} a far operare il
+  carico.
+\end{itemize}
+
+Lavorando con una sola famiglia logica garantisce queste due richieste,
+ma connettendo più famiglie tra loro necessita una verifica della
+compatibilità: il range dell'output \emph{garantito} è compreso nel
+range dell'input garantito: \begin{align*}
+V_{OHmin}&>V_{iHmin}\\V_{OLmax}&<V_{iLmax}
+\end{align*} Portando tutto in termini di Noise Margin devo utilizzare
+il \textbf{worst case design}: considero quindi i valori peggiori:
+\begin{align*}
+\mathrm{NMH} & =\mathrm{V}_{\mathrm{OHmin}}-\mathrm{V}_{\mathrm{IHmin}} \\
+\mathrm{NML} & =\mathrm{V}_{\mathrm{ILmax}}-\mathrm{V}_{\mathrm{OLmax}}
+\end{align*} Per quanto poco probabili garantiamo così un circuito più
+affidabile: infatti se tali condizioni non sono soddisfatte il circuito
+può non funzionare.
 
 \appendix
 

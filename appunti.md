@@ -2073,8 +2073,8 @@ Le famiglie _low-power_ venivano ottenute utilizzando resistenze di polarizzazio
 #### Famiglia CMOS
 Esistono per i CMOS le seguenti varianti:
 
-- AHC (Advanceed High-speed CMOS): viene utilizzato nella logica _generica_;
-- AC (Advamced CMOS): usato quando è necessario ottenere prestazioni elevate;
+- AHC (Advanced High-speed CMOS): viene utilizzato nella logica _generica_;
+- AC (Advanced CMOS): usato quando è necessario ottenere prestazioni elevate;
 
 \begin{redbox}{Osservazione 1}
 Ad oggi si tende ad utilizzare famiglie logiche con tensione di alimentazione da $3,3V$, le quali coprono la maggior parte della compatibilità. Nel resto dei casi vengono utilizzate famiglie logiche a basso voltaggio - bassa potenza.
@@ -2112,7 +2112,56 @@ $$\underbrace{SN}_{1}\underbrace{74}_{2}\underbrace{AC}_{3}\underbrace{00}_{4}-
 
 Tutte le informazioni necessarie di un circuito integrato sono presenti all'interno del suo datasheet.
 
+## Comparazione di circuiti integrati
+La scelta di un integrato, oltre che a fattori ambientali (quali la scelta del numero minore possibile di famiglie logiche utilizzate) è influenzata dai seguenti fattori:
 
+- velocità: sia quella di i/o (delay, riardo di propagazione) che la frequenza massima di clock;
+- capacità di drive (guidare l'uscita): ovvero la capacità di erogare la quantità _adeguata_ di corrente (fondamentale nella gestione di bus) ad un dato carico;
+- consumo di corrente: soprattutto nei CMOS.
+
+Ciascuna famiglia offre un compromesso tra queste caratteristiche. La velocità, in una certa famiglia, è strettamente legata (inversamente proporzionale) al consumo di potenza. Le famiglie BiCMOS il consumo di potenza è elevato (possono essere utilizzate in caso mi serva elevata corrente d’uscita).
+
+### Problemi di interconnessione (voltaggi e i/o)
+#### Dare in ingresso un valore
+L'ingresso di un circuito logico può essere visto come un interruttore, con valore logico 0/1. Assumiamo che il valore 1 sia pari alla $V_{cc}$ (tensione alta) e che il valore 0 sia GND (tensione bassa). Bisogna capire come connettere il circuito al l'interruttore.
+
+![Sbagliato](assets/imgs/ingresso_sbagliato.png){width=20%}
+
+Questo circuito è sbagliato, in quanto funziona bene solo quando l'interruttore è "on", ma quando è spento il terminale della porte è flottante, ovvero se l'interruttore è aperto lo stato logico _oscilla_. È quindi buona norma usare degli ingressi _completamente determinati_, con le seguenti configurazioni.
+
+![Ingressi corretti.](assets/imgs/ingressi_corretti.png){width=30%}
+
+- possiamo aggiungere la resistenza se l'interruttore è aperto, in modo tale che l'ingresso sia portato al valore della tensione di alimentazione, riconosciuto quindi come valore alto. Se l'interruttore si chiude passa a 0. Il valore della resistenza viene scelto in modo tale che la corrente sia bassa;
+- altrimenti viene invertita la funzione logica, con lo stato on che diventa $V_{cc}$ e off $0V$.
+
+Entrambe le modalità sono equivalenti solo se l'integrato ha un ingresso ad alta impedenza ($I_{in}\sim 0$, come nella famiglia CMOS. Si tende ad utilizzare la prima soluzione in quanto è equivalente allo (compatibile con lo) stadio di ingresso di un circuito TTL.\newline
+Prendendo per esempio l'ingresso della porta logica NOT TTL e gli forniamo un ingresso basso otteniamo $I_{iL}\sim 1mA$. Nel circuito di tipo B otterremo una tensione notevole sulla resistenza: ipotizzandola di soli $100\Omega$ la tensione in ingresso sarebbe comunque $\sim 1V$, molto lontano dagli 0V ipotizzati. Ma non va bene neanche abbassare troppo il valore della resistenza in quanto aumenterebbe il consumo di corrente a switch chiuso.\newline
+Il circuito A funzione bene sia con un ingresso alto che con uno basso (anche se nei TTL la resistenza si può omettere, ma è bene usarla).
+
+#### Pin inutilizzati
+Solitamente gli integrati implementano più volte la stessa funzione logica e quindi p logico supporre che non tutti i pin vengano utilizzati.
+
+Se è possibile ignorare i pin dello stadio di uscita, non possiamo trascurare i pin in ingresso soprattutto se essi sono ad alta impedenza come nel caso della famiglia CMOS. Infatti in questo caso del rumore elettronico potrebbe generare una corrente che per quanto piccola può comportare un potenziale (alto a causa della resistenza molto grande).\newline
+Avere tensioni _intermedie_ porta invece a prolungate situazioni di cross-conduction normalmente non previsto: come conseguenza si ha un maggiore consumo di corrente, oppure addirittura si rischia di bruciare direttamente tutto l'integrato.
+
+Per evitare tutto ciò i pin inutilizzati sono collegati o alla massa o all'alimentazione utilizzando resistenza di pull-down o pull-up. Per la famiglia TTL il discorso è diverso, perché è possibile lasciare aperto il pin, perché sarà il pull-up della base a forzare lo stato logico della base allo stato alto. È comunque indicato l'uso di una resistenza di pull-up in modo da avere se serve compatibilità con altre famiglie logiche.
+
+#### Relazione tensioni-correnti
+L'output di un circuito logico deve garantire che:
+
+- la tensione di uscita[^51] deve essere _ammissibile_ dall'integrato che fa da carico (l'uscita alta deve essere letta come alta);
+- la corrente di uscita deve essere _sufficiente_ a far operare il carico.
+
+Lavorando con una sola famiglia logica garantisce queste due richieste, ma connettendo più famiglie tra loro necessita una verifica della compatibilità: il range dell'output _garantito_ è compreso nel range dell'input garantito:
+\begin{align*}
+V_{OHmin}&>V_{iHmin}\\V_{OLmax}&<V_{iLmax}
+\end{align*}
+Portando tutto in termini di Noise Margin devo utilizzare il **worst case design**: considero quindi i valori peggiori:
+\begin{align*}
+\mathrm{NMH} & =\mathrm{V}_{\mathrm{OHmin}}-\mathrm{V}_{\mathrm{IHmin}} \\
+\mathrm{NML} & =\mathrm{V}_{\mathrm{ILmax}}-\mathrm{V}_{\mathrm{OLmax}}
+\end{align*}
+Per quanto poco probabili garantiamo così un circuito più affidabile: infatti se tali condizioni non sono soddisfatte il circuito può non funzionare.
 
 
 \appendix
@@ -2309,3 +2358,5 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 [^49]: È il contenitore in cui viene racchiuso il chip (o die) del circuito integrato; quindi come viene organizzato.
 
 [^50]: 1 mils = 0,001 in
+
+[^51]: Output che guida un input.
