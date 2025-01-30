@@ -2417,6 +2417,68 @@ In generale dipende alla scala microscopica dei circuiti, i quali sono talmente 
 I consumi vengono arginati limitando quando non necessaria la tensione di alimentazione e le frequenza, riducendo la potenza. In alternativa, se uno dei sotto componenti non sta venendo utilizzato posso bloccarne il clock ($f_0=0$, si dice _clock gating_) o se non serve per lunghi periodi di tempo tolgo l'alimentazione (sub system power partitioning).\newline
 Ulteriori alternative consistono nello __start and stop__ ed il __thermal throttling__, diminuendo il carico computazionale per mantenere la temperatura al di sotto del livello previsto.
 
+# Conversione Analogico-Digitale e Digitale-Analogico
+
+![Schema di una conversione di un segnale.](assets/imgs/convertitore_da.png){width=60%}
+
+I calcolatori, pur essendo sistemi digitali lavorano (anche) in un ambiente analogico: infatti i dati ricevuti dai trasduttori e inviati agli attuatori devono essere _tradotti_. I dati sia digitali che analogici infatti sono distinti per continuità:
+
+- _temporale_: i dati analogici sono continui nel tempo, i dati digitali sono campionati;
+- _nel valore_: i dati analogici possono assumere qualsiasi valore mentre i dati digitali sono quantizzati.
+
+![Campionamento e quantizzazione.](assets/imgs/camp_quant.png){width=70%}
+
+- Campionamento: il segnale continuo viene sostituito dai suoi valori in determinati istanti di tempo;
+- Quantizzazione: i campioni vengono sostituiti dai valori più vicini ai livelli di quantizzazione.
+
+La precisione della quantizzazione dipende dal _numero di bit usati_, chiamata __risoluzione__. $n$ bit possono rappresentare $2^{n}$ valori. La risoluzione è definita anche come il minimo valore che sono disposto a discriminare all'interno dei valori analogici all'interno.
+
+\begin{redbox}{Osservazione}
+Nel processo di conversione A/D e D/A la natura \emph{discreta} del segnale ha un ruolo fondamentale: i possibili valori relativi a specifici istanti temporali sono in numero finito e separati da uno \textbf{step size}.
+\end{redbox}
+
+#### Quantizzazione
+Un qualsiasi convertitore avrà un suo _range_, ovvero l'escursione massima che un segnale in input/output può avere. Sia $V_{fs}$ il range di tensione ammissibile (è la tensione di fondo scala) e $n$ la risoluzione. Possiamo avere diverse configurazioni:
+
+- _Valori positivi_ $(0\% V_{fs})$: possiamo utilizzare il formato binario "semplice";
+- _Valori a segno misto_: il binario semplice non è più idoneo. Si usa allora l'__offset binary__, dove si associa lo $0$ binario al valore più basso. Tuttavia questo formato non è più ideale in quanto lo $0$ binario e quello misurato non combaciano; inoltre la maggior parte dei calcolatori lavora in __complemento a 2__
+
+\begin{bluebox}{Nota}
+Per passare dall'offset binary al complemento a due e viceversa basta invertire il most significant bit (MSB).
+\end{bluebox}
+\begin{redbox}{Osservazione}
+il range ammissibile va \textbf{sfruttato al massimo}. Se la tensione in ingresso $V_{in}=\frac{V_{fs}}{2^{m}}$ è come se la risoluzione \emph{perdesse} $m$ bit.
+\end{redbox}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\hline
+$V_{in}$ & Binary & Offset Binary & 2's Complement \\ 
+\hline
+$V_{fs}/2$ & 111111 & 111111 & 011111 \\
+\hline
+$+dV$ & 000001 & 100001 & 000001 \\
+0 & 000000 & 100000 & 000000 \\
+$-dV$ & / & 011111 & 111111 \\
+\hline
+$-V_{fs}/2$ & / & 000000 & 100000
+\end{tabular}
+\caption{Confronto quantizzazione binario.}
+\end{table}
+
+## Convertitore D/A
+È il più semplice da realizzare in quanto l'input è già digitale, quindi prevedibile e noto; il suo output è ben definito.
+
+![Questo D/A converter non è ottimale perché richiede che i valori delle resistenze siano precisi e questi solitamente non lo sono.](immagini/41.png){width=40%}
+
+Il suo funzionamento è abbastanza semplice: in base allo stato degli interruttori (D,C,B,A) può arrivare da ciascuno di essi una corrente _scalata da diversi fattori_ (1 per D, 2 per C, 4 per B e 8 per A).
+
+
+
+
+
+
 \appendix
 
 # Esercizi
