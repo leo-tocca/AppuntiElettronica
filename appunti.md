@@ -1952,7 +1952,9 @@ Il latch SR è un elemento formato da due porte NAND collegate in retro-azione. 
 #### Analisi positive edge triggered flip-flop - flip-flop 
 Ritornando al circuito precedente completo, possiamo notare come esso sia _sensibile_ (alla variazione dell'ingresso?) sul fronte _positivo_ del clock. Di seguito abbiamo la tabella di verità del flip-flop, dove $\uparrow$ rappresenta il fronte positivo e la $x$ il _don't care_[^47]
  
-\begin{tabular}{ccccc}
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc|c}
 C & D & $Q_\text{new}$ & $\overline{Q_\text{new}}$ &  \\
 \hline
 0 & x & $Q_\text{old}$ & $Q_\text{old}$ & hold \\
@@ -1960,12 +1962,13 @@ C & D & $Q_\text{new}$ & $\overline{Q_\text{new}}$ &  \\
 $\uparrow$ & 0 & 0 & 1 & reset \\
 $\uparrow$ & 1 & 1 & 0 & set
 \end{tabular}
-
-Da qui ricabiamo che:
+\caption{Tabella di verità.}
+\end{table}
+Da qui ricaviamo che:
 
 - quando il clock $C=0$ viene mantenuto il valore di Q anche in uscita;
 - quando siamo sul fronte positivo del clock e $D=0$, in uscita il bit $Q=0$: abbiamo quindi il Reset;
-- quando siamo sul fronte positivo del clock e $D=1$, in uscita avremo il bit impostato su un valore alto, $Q=1, ottenendo Set.$
+- quando siamo sul fronte positivo del clock e $D=1$, in uscita avremo il bit impostato su un valore alto, $Q=1$, ottenendo Set.
 
 # Circuiti integrati commerciali (IC)
 Le funzionalità logiche precedentemente discusse sono implementate nelle seguenti modalità:
@@ -2142,33 +2145,32 @@ Il circuito A funzione bene sia con un ingresso alto che con uno basso (anche se
 Solitamente gli integrati implementano più volte la stessa funzione logica e quindi p logico supporre che non tutti i pin vengano utilizzati.
 
 Se è possibile ignorare i pin dello stadio di uscita, non possiamo trascurare i pin in ingresso soprattutto se essi sono ad alta impedenza come nel caso della famiglia CMOS. Infatti in questo caso del rumore elettronico potrebbe generare una corrente che per quanto piccola può comportare un potenziale (alto a causa della resistenza molto grande).\newline
-Avere tensioni _intermedie_ porta invece a prolungate situazioni di cross-conduction[^51] normalmente non previsto: come conseguenza si ha un maggiore consumo di corrente, oppure addirittura si rischia di bruciare direttamente tutto l'integrato.
+Avere tensioni _intermedie_ porta invece a prolungate situazioni di cross-conduction normalmente non previsto: come conseguenza si ha un maggiore consumo di corrente, oppure addirittura si rischia di bruciare direttamente tutto l'integrato.
 
-Per evitare tutto ciò i pin inutilizzati sono collegati o alla massa o all'alimentazione utilizzando resistenza di pull-down o pull-up. Per la famiglia TTL il discorso è diverso, perché è possibile lasciare aperto il pin, perché sarà la resistenza pull-up della base a forzare lo stato logico della base allo stato alto[^52]. È comunque indicato l'uso di una resistenza di pull-up in modo da avere se serve compatibilità con altre famiglie logiche.
+Per evitare tutto ciò i pin inutilizzati sono collegati o alla massa o all'alimentazione utilizzando resistenza di pull-down o pull-up. Per la famiglia TTL il discorso è diverso, perché è possibile lasciare aperto il pin, perché sarà il pull-up della base a forzare lo stato logico della base allo stato alto. È comunque indicato l'uso di una resistenza di pull-up in modo da avere se serve compatibilità con altre famiglie logiche.
 
 #### Relazione tensioni-correnti
 L'output di un circuito logico deve garantire che:
 
-- la tensione di uscita[^53] deve essere _ammissibile_ dall'integrato che fa da carico (l'uscita alta deve essere letta come alta);
+- la tensione di uscita[^51] deve essere _ammissibile_ dall'integrato che fa da carico (l'uscita alta deve essere letta come alta);
 - la corrente di uscita deve essere _sufficiente_ a far operare il carico.
 
-Lavorando con una sola famiglia logica garantisce queste due richieste, ma connettendo più famiglie tra loro necessita una verifica della compatibilità: il range dell'output _garantito_ è compreso nel range dell'input garantito (ammissibile):
+Lavorando con una sola famiglia logica garantisce queste due richieste, ma connettendo più famiglie tra loro necessita una verifica della compatibilità: il range dell'output _garantito_ è compreso nel range dell'input garantito:
 \begin{align*}
-V_{OHmin}&>V_{iHmin}\\V_{OLmax}&<V_{iLmax}
+V_{OH-min}&>V_{iH-min}\\V_{OL-max}&<V_{iL-max}
 \end{align*}
 Portando tutto in termini di Noise Margin devo utilizzare il **worst case design**: considero quindi i valori peggiori:
 \begin{align*}
-\mathrm{NMH} & =\mathrm{V}_{\mathrm{OHmin}}-\mathrm{V}_{\mathrm{IHmin}} \\
-\mathrm{NML} & =\mathrm{V}_{\mathrm{ILmax}}-\mathrm{V}_{\mathrm{OLmax}}
+\mathrm{NMH} & =\mathrm{V}_{\mathrm{OH-min}}-\mathrm{V}_{\mathrm{IH-min}} \\
+\mathrm{NML} & =\mathrm{V}_{\mathrm{IL-max}}-\mathrm{V}_{\mathrm{OL-max}}
 \end{align*}
-Per quanto poco probabili garantiamo così un circuito più affidabile: infatti se tali condizioni non sono soddisfatte il circuito può non funzionare.\newline
-Questi intervalli dipendono da vari fattori:
+Per quanto poco probabili garantiamo così un circuito più affidabile: infatti se tali condizioni non sono soddisfatte il circuito può non funzionare.
 
 - costruzione del circuito (drogaggio del semiconduttore, non particolarmente controllabile)
 - temperatura del circuito
 - $V_{cc}$
 
-Questi ultime dui sono controllabili. Non si può far affidamento sul valore tipico (valore medio di tutti i circuiti analizzati).
+Questi ultime due sono controllabili. Non si può far affidamento sul valore tipico (valore medio di tutti i circuiti analizzati).
 
 ##### Analisi compatibilità
 
@@ -2234,6 +2236,128 @@ Questo tipo di ragionamenti vanno eseguiti _conoscendo la composizione interna d
 \begin{orangebox}{Osservazione}
 I valori di $I_{oL-max}$ e $I_{oH-min}$ sono forniti dal costruttore!
 \end{orangebox}
+
+#### Caratteristiche dell'uscita
+È un grafico che rappresenta come varia la tensione di uscita al variare della corrente di uscita.
+
+Per i TTL:
+
+- se l'uscita è _alta_, la caratteristica è determinata dalla resistenza del collettore e dalla caduta (di tensione) della giunzione p-n;
+- se l'uscita è _bassa_, la caratteristica dipende dal transistor (con valore) basso in uscita, che è in saturazione.
+
+Per i CMOS:
+
+- se l'uscita è _alta_, la caratteristica è determinata dal P-MOS, di conseguenza dipende dalla resistenza di canale di quest'ultimo;
+- se l'uscita è _bassa_, la caratteristica dipende dal N-MOS e quindi dalla sua resistenza di canale;
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.4\textwidth}
+\includegraphics[width=\textwidth]{assets/imgs/output_ttl.png}
+\caption{Uscita TTL.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.4\textwidth}
+\includegraphics[width=\textwidth]{assets/imgs/output_cmos.png}
+\caption{Uscita CMOS.}
+\end{subfigure}
+\caption{Caratteristiche di uscita.}
+\end{figure}
+
+Si ottiene la seguente tabella delle massime correnti di uscita, ovvero quelle correnti che garantiscono le tensioni $V_{oH-min}$ e $V_{oL-max}$.
+\begin{table}
+\centering
+\begin{tabular}{l|cc}
+ & $I_OH$ max (mA) & $I_OL$ max (mA) \\ 
+\hline
+LS00 & -0,4 & +16 \\
+F00 & -1 & +20 \\
+F244 & -15 & +64 \\
+AHC00 & -8 & +8 \\
+LVC244 & -24 & +24
+\end{tabular}
+\caption{Tabella delle massime correnti di uscita}
+\end{table}
+Le righe della tabella rappresentano porte logiche realizzate in diverse famiglie: infatti non è solo quest'ultima a determinare la corrente di uscita, ma anche la funzione! Per esempio i buffer necessitano di una corrente maggiore rispetto ad una porta logica semplice. Possiamo inoltre notare che nelle ultime due righe abbiamo due dispositivi CMOS, caratterizzati dalla loro simmetria; il resto sono circuiti bipolari, i quali invece sono fortemente asimmetrici[^52]!
+
+\begin{bluebox}{Correnti in uscita TTL}
+Possiamo notare che non si usano delle uscite TTL per delle alte correnti in uscita, ma per delle basse correnti in entrata.\newline
+Ad esempio, per accendere un LED, visto che sono necessari $15mA$ non bisogna utilizzare un TTL in logica diretta, ma è necessario che il LED si accenda quando l'uscita è bassa!
+\begin{center}
+\begin{minipage}[c]{0.6\linewidth}
+\centering
+\includegraphics[width=0.6\textwidth]{assets/imgs/ttl_input_output.png}
+\captionof{figure}{Posizionamento TTL in output (A), e in input (B).}
+\end{minipage}
+\end{center}
+Riassumendo, data la forte asimmetria dei TTL che assorbono molta più corrente di quanta ne eroghi, si usano nel secondo modo: se l'uscita del TTL va verso massa, scorre una corrente.
+
+Anche se la famiglia TTL non è più molto usata è rimasta l'usanza di utilizzare i segnali di controllo \emph{attivi bassi} anche per famiglie come la CMOS.
+\end{bluebox}
+
+\begin{redbox}{Osservazioni}
+\begin{enumerate}
+\item all'aumentare della corrente la tensione si abbassa;
+\item l'andamento dipende dalla resistività
+\item nel datasheet sono riportati i valori delle tensioni $V_{oH}$ e $V_{oL}$ in corrispondenza di specifici valori di corrente $I_{oH}$ e $I_{oL}$ (corrente zero e massima);
+\item quando la corrente è significativa la caduta di tensione non è lineare, perché si cambia regione di funzionamento;
+\item più basso è il valore resistivo del carico e più è alta la corrente richiesta e maggiore sarà la caduta di tensione all'interno della porta fino ad un limite massimo oltre il quale si esce dalla specifica di funzionamento.
+\end{enumerate}
+\end{redbox}
+
+### Datasheet
+È il foglio che presenta tutte le specifiche di un circuito, come le sue funzionalità, o i packages disponibili. Contiene anche i seguenti parametri:
+
+1) ___Absolute maximum rating___: sono i valori massimi in assoluto di corrente (sia input che output) che si possono applicare al circuito integrato senza che esso si rompa. All'interno di questi valori l'IC non subisce danni permanenti, ma è sempre consigliato rimanere nell'ambito dei parametri raccomandati (vedi punto seguente).\newline I valori dati sono:
+    - $V_{cc},V_{in}, V_{out}$;
+    - corrente in ingresso ed in uscita (sui pin max?);
+    - temperatura di stoccaggio: va mantenuta anche quando il dispositivo è spento. Dipende dalla meccanica del dispositivo e dal materiale di cui è costituito: può soffrire contrazioni o espansione dei materiali stessi, degradazione, scioglimento del silicio o delle parti plastiche del package.
+2) ___Recommended operating conditions___: sono le condizioni raccomandate, per le quali è **garantito** il funzionamento del dispositivo. Vengono riportati i valori di:
+    - $V_{cc}$ minima e massima e altri valori sono riportati in corrispondenza degli intervalli di $V_{cc}$;
+    - Tensioni di input e output, sia minime che massime, $V_{iH}, \: V_{iL},\:I_{oH}\:, I_{oL}$
+    - temperatura minima e massima di funzionamento;
+3) ___Caratteristiche elettriche___ (statiche): forniscono informazioni su come variano le tensioni in uscita $V_{oH}$ e $V_{oL}$ in base alle correnti $I_{oH}$ e $I_{oL}$. Quest'ultime a loro volta variano in base alla resistenza di canale, che dipende a sua volta dalla tensione di alimentazione. Se $I_{oH}$ e $I_{oL}$ sono _basse_,$V_{oH}$ e $V_{oL}$ sono basse __indipendentemente da__ $V_{cc}$. Per quanto riguarda $V_{oH}$ viene riportato il valore minimo garantito, mentre $V_{oL}$ quello massimo garantito.\newline È riportato anche il valore tipico[^53] della capacità in ingresso, perché in genere la capacità del gate _non_ dipende dalla $V_{cc}$ e dalla temperatura in gran misura, e non è un parametro vincolante per la porta.
+    - Se la corrente $I_{oH}$ è massima è minimo $V_{oH}$ (2V, c'è una caduta di 1V), mentre se $I_{oL}$ è massima $V_{oL}$ è pari a 0,55V. Quindi vi è una caduta di tensione _diversa_ a parità di corrente e $V_{cc}$: comportamento _asimmetrico_, che dipende dalla resistenza;
+    - La corrente assorbita in ingresso dal MOSFET potrebbe non essere nulla ($\pm 5 \mu A$, corrente di perdita dovuta all'ossido), trascurabile rispetto anche ad una minima corrente (per esempio $100\mu A$);
+    - Durante il funzionamento viene assorbita una corrente $I_{cc}$ pari a $10\mu A$. Se $V_{C}\neq V_{cc}$ la corrente assorbita _aumenta_.
+4) ___Caratteristiche di commutazione___ (parametri dinamici): Si riporta in genere il _tempo di propagazione_ (differenza di tempo di variazione tra ingresso e uscita) in funzione della tensione di alimentazione. Nel caso visto la famiglia è stata ottimizzata per lavorare con una $V_{cc}=2,5V$ (tempo di propagazione minimo). Inoltre i test vengono eseguiti con determinati carichi.
+
+### Scariche elettrostatiche
+Sono fenomeni elettrostatici che avvengono quando vi è un trasferimento di carica (fino a $40kV$) tra due materiali conduttori posti a potenziale diverso. La scarica in genere avviene se l'umidità dell'aria è bassa ($<20%$, se fosse alta le cariche si disperderebbero)
+
+Queste scariche sono un problema per i circuiti integrati: toccando un pin di un circuito è possibile generare una piccola scarica di elettricità che potenzialmente può romperlo.
+
+Per risolvere questo problema è stato realizzato un modello dell'essere umano detto ___Human Body Model___:
+
+![Human Body Model.](immagini/40.png){width=40%}
+
+Si può dunque costruire un circuito di questo tipo, caricando il condensatore con una determinata tensione $V_{ESD}$[^54] e collegarlo ad il dispositivo da testare.\newline
+La scarica inizialmente arriva direttamente sui gate metallici, rompendola; con dei gate in silicio la resistenza del gate si mette in serie a quella "umana", diminuendo la corrente che scorre e mitigando il problema.\newline
+Sono stati fatti dei transistor con una tensione di breakdown più alta (che però comportano delle maggiori dimensioni).
+
+Si possono utilizzare dei diodi in ingresso/uscita: sono posti in serie e in alto collegati alla tensione di alimentazione, in basso collegati a terra.\newline
+Se in ingresso arriva una tensione maggiore di quella $V_{cc}$, il diodo in alto si polarizza e la corrente scorre verso la tensione $V_{cc}$, scaricandosi lì. Se in ingresso invece la tensione è minore di $V_{cc}$ si sarebbe scaricata in basso.\newline
+Bisogna notare come i diodi debbano essere sufficientemente robusti in modo tale da non rompersi, anche se una loro rotture sarebbe comportata da un'eccessiva tensione, in questo caso non presente.
+
+![Diodi scariche](assets/imgs/diodi_scariche.png){width=10%}
+
+#### Contromisure e protezioni
+I circuiti vengono forniti dal produttore in modo tale che siano di per sé protetti dalle scosse attraverso:
+
+- gate in polisilicone;
+- transistor con un'alta tensione $V_{breakdown}$;
+- diodi posti in input/output.
+
+A loro volta, chi utilizza i circuiti deve adottare misure preventive, quali:
+
+- Ambienti con umidità controllata, per evitare accumuli di cariche;
+- Utilizzare materiali antistatici (hanno un'elevata resistenza), contenitori che aiutano a _dissipare_ la carica;
+- Maneggiare dispositivi con la dovuta cura: operatori con dispositivi appositi per scaricare la carica a terra, camici e scarpe elettrodissipativi.
+
+#### Modelli e test
+Oltre al Human Body Model, sono stati ideati ulteriori modelli, quali il Machine model, perché anche sulle parti di macchina potrebbero esserci accumuli di cariche.\newline
+I testi eseguiti per le scariche elettriche sono riportati sul datasheet: viene evidenziato il valore della tensione supportata nell'Human Body Model e nel Machine Body Model: in quest'ultimo è presente una resistenza molto più bassa, con quindi una tensione supportata minore.\newline
+Viene riportata anche la tensione supportata se il circuito entra in contatto con un altro circuito.
 
 \appendix
 
