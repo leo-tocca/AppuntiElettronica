@@ -2176,7 +2176,7 @@ Questi ultime due sono controllabili. Non si può far affidamento sul valore tip
 
 Nella figura sotto andremo ad analizzare un grafico che mette a confronto le tensioni in uscita di una famiglia logica con le tensioni in ingresso per capire se sono compatibili l'una con l'altra: i rettangoli in chiaro rappresentano un intervallo _garantito in uscita_, i rettangoli scuri invece rappresentano un intervallo _ammissibile in input.\newline
 Il _valore tipico_ (indicato con una $\downarrow$) rappresenta il ___valore atteso di tensione___, calcolato attraverso la media tra i processi prodotti che lavorano a temperatura e a tensione standard $(T=25^{\textdegree},\:V=5.0V)$\newline
-Il _valore di soglia tipico_[^54] (indicato con una $\uparrow$) è un punto __ideale__ in cui avviene la commutazione del segnale dal valore basso al valore alto. In realtà la commutazione avviene all'interno di un intervallo che contiene questo valore: questo intervallo va __evitato__ in quanto al suo interno il segnale non è definito.
+Il _valore di soglia tipico_[^52] (indicato con una $\uparrow$) è un punto __ideale__ in cui avviene la commutazione del segnale dal valore basso al valore alto. In realtà la commutazione avviene all'interno di un intervallo che contiene questo valore: questo intervallo va __evitato__ in quanto al suo interno il segnale non è definito.
 
 \begin{figure}[H]
 \centering
@@ -2278,7 +2278,7 @@ LVC244 & -24 & +24
 \end{tabular}
 \caption{Tabella delle massime correnti di uscita}
 \end{table}
-Le righe della tabella rappresentano porte logiche realizzate in diverse famiglie: infatti non è solo quest'ultima a determinare la corrente di uscita, ma anche la funzione! Per esempio i buffer necessitano di una corrente maggiore rispetto ad una porta logica semplice. Possiamo inoltre notare che nelle ultime due righe abbiamo due dispositivi CMOS, caratterizzati dalla loro simmetria; il resto sono circuiti bipolari, i quali invece sono fortemente asimmetrici[^52]!
+Le righe della tabella rappresentano porte logiche realizzate in diverse famiglie: infatti non è solo quest'ultima a determinare la corrente di uscita, ma anche la funzione! Per esempio i buffer necessitano di una corrente maggiore rispetto ad una porta logica semplice. Possiamo inoltre notare che nelle ultime due righe abbiamo due dispositivi CMOS, caratterizzati dalla loro simmetria; il resto sono circuiti bipolari, i quali invece sono fortemente asimmetrici[^53]!
 
 \begin{bluebox}{Correnti in uscita TTL}
 Possiamo notare che non si usano delle uscite TTL per delle alte correnti in uscita, ma per delle basse correnti in entrata.\newline
@@ -2316,7 +2316,7 @@ Anche se la famiglia TTL non è più molto usata è rimasta l'usanza di utilizza
     - $V_{cc}$ minima e massima e altri valori sono riportati in corrispondenza degli intervalli di $V_{cc}$;
     - Tensioni di input e output, sia minime che massime, $V_{iH}, \: V_{iL},\:I_{oH}\:, I_{oL}$
     - temperatura minima e massima di funzionamento;
-3) ___Caratteristiche elettriche___ (statiche): forniscono informazioni su come variano le tensioni in uscita $V_{oH}$ e $V_{oL}$ in base alle correnti $I_{oH}$ e $I_{oL}$. Quest'ultime a loro volta variano in base alla resistenza di canale, che dipende a sua volta dalla tensione di alimentazione. Se $I_{oH}$ e $I_{oL}$ sono _basse_,$V_{oH}$ e $V_{oL}$ sono basse __indipendentemente da__ $V_{cc}$. Per quanto riguarda $V_{oH}$ viene riportato il valore minimo garantito, mentre $V_{oL}$ quello massimo garantito.\newline È riportato anche il valore tipico[^53] della capacità in ingresso, perché in genere la capacità del gate _non_ dipende dalla $V_{cc}$ e dalla temperatura in gran misura, e non è un parametro vincolante per la porta.
+3) ___Caratteristiche elettriche___ (statiche): forniscono informazioni su come variano le tensioni in uscita $V_{oH}$ e $V_{oL}$ in base alle correnti $I_{oH}$ e $I_{oL}$. Quest'ultime a loro volta variano in base alla resistenza di canale, che dipende a sua volta dalla tensione di alimentazione. Se $I_{oH}$ e $I_{oL}$ sono _basse_,$V_{oH}$ e $V_{oL}$ sono basse __indipendentemente da__ $V_{cc}$. Per quanto riguarda $V_{oH}$ viene riportato il valore minimo garantito, mentre $V_{oL}$ quello massimo garantito.\newline È riportato anche il valore tipico[^54] della capacità in ingresso, perché in genere la capacità del gate _non_ dipende dalla $V_{cc}$ e dalla temperatura in gran misura, e non è un parametro vincolante per la porta.
     - Se la corrente $I_{oH}$ è massima è minimo $V_{oH}$ (2V, c'è una caduta di 1V), mentre se $I_{oL}$ è massima $V_{oL}$ è pari a 0,55V. Quindi vi è una caduta di tensione _diversa_ a parità di corrente e $V_{cc}$: comportamento _asimmetrico_, che dipende dalla resistenza;
     - La corrente assorbita in ingresso dal MOSFET potrebbe non essere nulla ($\pm 5 \mu A$, corrente di perdita dovuta all'ossido), trascurabile rispetto anche ad una minima corrente (per esempio $100\mu A$);
     - Durante il funzionamento viene assorbita una corrente $I_{cc}$ pari a $10\mu A$. Se $V_{C}\neq V_{cc}$ la corrente assorbita _aumenta_.
@@ -2331,7 +2331,7 @@ Per risolvere questo problema è stato realizzato un modello dell'essere umano d
 
 ![Human Body Model.](immagini/40.png){width=40%}
 
-Si può dunque costruire un circuito di questo tipo, caricando il condensatore con una determinata tensione $V_{ESD}$[^54] e collegarlo ad il dispositivo da testare.\newline
+Si può dunque costruire un circuito di questo tipo, caricando il condensatore con una determinata tensione $V_{ESD}$[^52] e collegarlo ad il dispositivo da testare.\newline
 La scarica inizialmente arriva direttamente sui gate metallici, rompendola; con dei gate in silicio la resistenza del gate si mette in serie a quella "umana", diminuendo la corrente che scorre e mitigando il problema.\newline
 Sono stati fatti dei transistor con una tensione di breakdown più alta (che però comportano delle maggiori dimensioni).
 
@@ -2358,6 +2358,64 @@ A loro volta, chi utilizza i circuiti deve adottare misure preventive, quali:
 Oltre al Human Body Model, sono stati ideati ulteriori modelli, quali il Machine model, perché anche sulle parti di macchina potrebbero esserci accumuli di cariche.\newline
 I testi eseguiti per le scariche elettriche sono riportati sul datasheet: viene evidenziato il valore della tensione supportata nell'Human Body Model e nel Machine Body Model: in quest'ultimo è presente una resistenza molto più bassa, con quindi una tensione supportata minore.\newline
 Viene riportata anche la tensione supportata se il circuito entra in contatto con un altro circuito.
+
+## Consumo di potenza dinamico
+Vogliamo analizzare il consumo di potenza di un integrato al variare della sua frequenza di clock: vedremo come una maggiore frequenza comporta un numero maggiore di commutazioni e di conseguenza un maggior consumo di potenza dinamico.
+Consideriamo un _buffer_ (che rende in uscita il valore che è presente all'entrata) e variamo un solo bit del buffer.\newline
+Se la frequenza è pari a zero o è basse le famiglie bipolari consumano una potenza significativa, mentre le famiglie CMOS non consumano. La famiglia ibrida BiCMOS consumano un valore intermedio.\newline
+All'aumentare della frequenza il consumo delle famiglie CMOS cresce maggiormente rispetto a quello delle famiglie TTL.
+
+![Grafico consumo dinamico.](assets/imgs/consumo_dinamico.png){width=50%}
+\begin{redbox}{Osservazioni}
+\begin{itemize}
+\item I CMOS consumano meno a frequenze basse, mentre i TTL a frequenze più alte;
+\item Le famiglie più veloci hanno consumi più alti;
+\item Non tutte le famiglie CMOS consumano più energia di quelle bipolari ad alte frequenze.
+\end{itemize}
+\end{redbox}
+
+### Consumo di potenza nelle famiglie
+- TTL
+    - assorbimento potenza statica; dovuto alla corrente di polarizzazione dei transistor che scorrono anche se le tensioni sono statiche;
+    - assorbimento potenza dinamica: se la porta commuta lo stadio di uscita totem pole va in cross-conduction. L'assorbimento è proporzionale alla frequenza.
+
+- CMOS
+    - assorbimento __solo__ dinamico ed è usato soprattutto alla carica/scarica delle capacità parassite nel circuito (come i gate) e per i carichi esterni.\newline
+    Inoltre hanno un consumo più basso quei dispositivi progettati per lavorare ad una tensione più bassa.\newline
+    È dovuto a due fenomeni:
+        A) cross conduzione canale n e p in output al transistor: variando la tensione di ingresso la misura della tensione in uscita $V_{out}$ e della corrente $I_{cc}$ otteniamo i seguenti grafici:
+
+        ![Grafici](assets/imgs/grafici_invertitore.png){width=60%}
+
+        > In particolare la corrente è __massima__ quando la tensione in ingresso è pari a quella di soglia ($V_{in}=V_{th}$), dato che entrambi i transistor sono fortemente conduttivi!
+        B) capacità parassita: ipotizando di avere una tensione di alimentazione $V_{dd}$ ad onda quadra e frequenza $f_0$; dalla formula della potenza media:
+        $$
+        P=\frac{1}{T}\int_{0}^{T}i(t)\cdot V(t)dt
+        $$
+        Considero solo la corrente in fase di carica, in quando in fase di scarica ho potenza nulla:
+        $$
+        i(t)=C_{L}\frac{dv(t)}{dt}
+        $$
+        Ottengo allora:
+        $$
+        P=C_{pd}V_{dd}^{2}f_0
+        $$
+        Dove con il termine $C_{pd}$[^55] osservo che le famiglie più veloci hanno capacità maggiori e consumano di più; noto anche per famiglie a bassa tensione consumano poco; in generale la potenza è proporzionale alla frequenza.\newline
+        La capacità $C_{pd}$ è la _risultante_ di tutte le capacità parassite del circuito.
+
+#### Consumo di potenza in sistemi complessi.
+Il consumo di potenza in componenti complessi è in funzione di diversi parametri:
+
+- frequenza;
+- tensione di alimentazione, in modo quadratico;
+- correnti di perdita in circuiti piccoli i gate isolati ed i canali chiusi non lo sono effettivamente e quindi perdo corrente;
+- temperatura, aumentando aumenta la corrente di perdita;
+- complessità (numero di celle)
+
+In generale dipende alla scala microscopica dei circuiti, i quali sono talmente vicini e piccoli da non essere più isolati tra loro totalmente.
+
+I consumi vengono arginati limitando quando non necessaria la tensione di alimentazione e le frequenza, riducendo la potenza. In alternativa, se uno dei sotto componenti non sta venendo utilizzato posso bloccarne il clock ($f_0=0$, si dice _clock gating_) o se non serve per lunghi periodi di tempo tolgo l'alimentazione (sub system power partitioning).\newline
+Ulteriori alternative consistono nello __start and stop__ ed il __thermal throttling__, diminuendo il carico computazionale per mantenere la temperatura al di sotto del livello previsto.
 
 \appendix
 
@@ -2556,8 +2614,10 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 
 [^51]: che ricordiamo consistere nell'avere entrambi i MOS in conduzione.
 
-[^52]: Scorre della corrente dalla base al collettore forzando l'ingresso ad un valore alto.
+[^52]: Credo quello superato il quale il segnale si intende possedere un valore logico alto.
 
-[^53]: Output che guida un input.
+[^53]: Scorre della corrente dalla base al collettore forzando l'ingresso ad un valore alto.
 
-[^54]: Credo quello superato il quale il segnale si intende possedere un valore logico alto.
+[^54]: Output che guida un input.
+
+[^55]: _Power Dissipation capacitance_: capacità del condensatore equivalente, ovvero del condensatore che se sostituisse l'IC fornirebbe un consumo equivalente di potenza. 

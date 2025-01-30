@@ -3922,6 +3922,145 @@ quest'ultimo è presente una resistenza molto più bassa, con quindi una
 tensione supportata minore.\newline Viene riportata anche la tensione
 supportata se il circuito entra in contatto con un altro circuito.
 
+\section{Consumo di potenza dinamico}\label{consumo-di-potenza-dinamico}
+
+Vogliamo analizzare il consumo di potenza di un integrato al variare
+della sua frequenza di clock: vedremo come una maggiore frequenza
+comporta un numero maggiore di commutazioni e di conseguenza un maggior
+consumo di potenza dinamico. Consideriamo un \emph{buffer} (che rende in
+uscita il valore che è presente all'entrata) e variamo un solo bit del
+buffer.\newline Se la frequenza è pari a zero o è basse le famiglie
+bipolari consumano una potenza significativa, mentre le famiglie CMOS
+non consumano. La famiglia ibrida BiCMOS consumano un valore
+intermedio.\newline All'aumentare della frequenza il consumo delle
+famiglie CMOS cresce maggiormente rispetto a quello delle famiglie TTL.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{assets/imgs/consumo_dinamico.png}
+\caption{Grafico consumo dinamico.}
+\end{figure}
+
+\begin{redbox}{Osservazioni}
+\begin{itemize}
+\item I CMOS consumano meno a frequenze basse, mentre i TTL a frequenze più alte;
+\item Le famiglie più veloci hanno consumi più alti;
+\item Non tutte le famiglie CMOS consumano più energia di quelle bipolari ad alte frequenze.
+\end{itemize}
+\end{redbox}
+
+\subsection{Consumo di potenza nelle
+famiglie}\label{consumo-di-potenza-nelle-famiglie}
+
+\begin{itemize}
+\tightlist
+\item
+  TTL
+
+  \begin{itemize}
+  \tightlist
+  \item
+    assorbimento potenza statica; dovuto alla corrente di polarizzazione
+    dei transistor che scorrono anche se le tensioni sono statiche;
+  \item
+    assorbimento potenza dinamica: se la porta commuta lo stadio di
+    uscita totem pole va in cross-conduction. L'assorbimento è
+    proporzionale alla frequenza.
+  \end{itemize}
+\item
+  CMOS
+
+  \begin{itemize}
+  \tightlist
+  \item
+    assorbimento \textbf{solo} dinamico ed è usato soprattutto alla
+    carica/scarica delle capacità parassite nel circuito (come i gate) e
+    per i carichi esterni.\newline Inoltre hanno un consumo più basso
+    quei dispositivi progettati per lavorare ad una tensione più
+    bassa.\newline È dovuto a due fenomeni:
+
+    \begin{enumerate}
+    \def\labelenumi{\Alph{enumi})}
+    \tightlist
+    \item
+      cross conduzione canale n e p in output al transistor: variando la
+      tensione di ingresso la misura della tensione in uscita
+      \(V_{out}\) e della corrente \(I_{cc}\) otteniamo i seguenti
+      grafici:
+    \end{enumerate}
+
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth,height=\textheight,keepaspectratio]{assets/imgs/grafici_invertitore.png}
+    \caption{Grafici}
+    \end{figure}
+
+    \begin{quote}
+    In particolare la corrente è \textbf{massima} quando la tensione in
+    ingresso è pari a quella di soglia (\(V_{in}=V_{th}\)), dato che
+    entrambi i transistor sono fortemente conduttivi!
+    \end{quote}
+
+    \begin{enumerate}
+    \def\labelenumi{\Alph{enumi})}
+    \setcounter{enumi}{1}
+    \tightlist
+    \item
+      capacità parassita: ipotizando di avere una tensione di
+      alimentazione \(V_{dd}\) ad onda quadra e frequenza \(f_0\); dalla
+      formula della potenza media: \[
+        P=\frac{1}{T}\int_{0}^{T}i(t)\cdot V(t)dt
+        \] Considero solo la corrente in fase di carica, in quando in
+      fase di scarica ho potenza nulla: \[
+        i(t)=C_{L}\frac{dv(t)}{dt}
+        \] Ottengo allora: \[
+        P=C_{pd}V_{dd}^{2}f_0
+        \] Dove con il termine \(C_{pd}\)\footnote{\emph{Power
+        Dissipation capacitance}: capacità del condensatore equivalente,
+        ovvero del condensatore che se sostituisse l'IC fornirebbe un
+        consumo equivalente di potenza.} osservo che le famiglie più
+      veloci hanno capacità maggiori e consumano di più; noto anche per
+      famiglie a bassa tensione consumano poco; in generale la potenza è
+      proporzionale alla frequenza.\newline La capacità \(C_{pd}\) è la
+      \emph{risultante} di tutte le capacità parassite del circuito.
+    \end{enumerate}
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Consumo di potenza in sistemi
+complessi.}\label{consumo-di-potenza-in-sistemi-complessi.}
+
+Il consumo di potenza in componenti complessi è in funzione di diversi
+parametri:
+
+\begin{itemize}
+\tightlist
+\item
+  frequenza;
+\item
+  tensione di alimentazione, in modo quadratico;
+\item
+  correnti di perdita in circuiti piccoli i gate isolati ed i canali
+  chiusi non lo sono effettivamente e quindi perdo corrente;
+\item
+  temperatura, aumentando aumenta la corrente di perdita;
+\item
+  complessità (numero di celle)
+\end{itemize}
+
+In generale dipende alla scala microscopica dei circuiti, i quali sono
+talmente vicini e piccoli da non essere più isolati tra loro totalmente.
+
+I consumi vengono arginati limitando quando non necessaria la tensione
+di alimentazione e le frequenza, riducendo la potenza. In alternativa,
+se uno dei sotto componenti non sta venendo utilizzato posso bloccarne
+il clock (\(f_0=0\), si dice \emph{clock gating}) o se non serve per
+lunghi periodi di tempo tolgo l'alimentazione (sub system power
+partitioning).\newline Ulteriori alternative consistono nello
+\textbf{start and stop} ed il \textbf{thermal throttling}, diminuendo il
+carico computazionale per mantenere la temperatura al di sotto del
+livello previsto.
+
 \appendix
 
 \chapter{Esercizi}\label{esercizi}
