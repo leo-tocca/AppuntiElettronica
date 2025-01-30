@@ -2142,17 +2142,17 @@ Il circuito A funzione bene sia con un ingresso alto che con uno basso (anche se
 Solitamente gli integrati implementano più volte la stessa funzione logica e quindi p logico supporre che non tutti i pin vengano utilizzati.
 
 Se è possibile ignorare i pin dello stadio di uscita, non possiamo trascurare i pin in ingresso soprattutto se essi sono ad alta impedenza come nel caso della famiglia CMOS. Infatti in questo caso del rumore elettronico potrebbe generare una corrente che per quanto piccola può comportare un potenziale (alto a causa della resistenza molto grande).\newline
-Avere tensioni _intermedie_ porta invece a prolungate situazioni di cross-conduction normalmente non previsto: come conseguenza si ha un maggiore consumo di corrente, oppure addirittura si rischia di bruciare direttamente tutto l'integrato.
+Avere tensioni _intermedie_ porta invece a prolungate situazioni di cross-conduction[^51] normalmente non previsto: come conseguenza si ha un maggiore consumo di corrente, oppure addirittura si rischia di bruciare direttamente tutto l'integrato.
 
-Per evitare tutto ciò i pin inutilizzati sono collegati o alla massa o all'alimentazione utilizzando resistenza di pull-down o pull-up. Per la famiglia TTL il discorso è diverso, perché è possibile lasciare aperto il pin, perché sarà il pull-up della base a forzare lo stato logico della base allo stato alto. È comunque indicato l'uso di una resistenza di pull-up in modo da avere se serve compatibilità con altre famiglie logiche.
+Per evitare tutto ciò i pin inutilizzati sono collegati o alla massa o all'alimentazione utilizzando resistenza di pull-down o pull-up. Per la famiglia TTL il discorso è diverso, perché è possibile lasciare aperto il pin, perché sarà la resistenza pull-up della base a forzare lo stato logico della base allo stato alto[^52]. È comunque indicato l'uso di una resistenza di pull-up in modo da avere se serve compatibilità con altre famiglie logiche.
 
 #### Relazione tensioni-correnti
 L'output di un circuito logico deve garantire che:
 
-- la tensione di uscita[^51] deve essere _ammissibile_ dall'integrato che fa da carico (l'uscita alta deve essere letta come alta);
+- la tensione di uscita[^53] deve essere _ammissibile_ dall'integrato che fa da carico (l'uscita alta deve essere letta come alta);
 - la corrente di uscita deve essere _sufficiente_ a far operare il carico.
 
-Lavorando con una sola famiglia logica garantisce queste due richieste, ma connettendo più famiglie tra loro necessita una verifica della compatibilità: il range dell'output _garantito_ è compreso nel range dell'input garantito:
+Lavorando con una sola famiglia logica garantisce queste due richieste, ma connettendo più famiglie tra loro necessita una verifica della compatibilità: il range dell'output _garantito_ è compreso nel range dell'input garantito (ammissibile):
 \begin{align*}
 V_{OHmin}&>V_{iHmin}\\V_{OLmax}&<V_{iLmax}
 \end{align*}
@@ -2161,8 +2161,79 @@ Portando tutto in termini di Noise Margin devo utilizzare il **worst case design
 \mathrm{NMH} & =\mathrm{V}_{\mathrm{OHmin}}-\mathrm{V}_{\mathrm{IHmin}} \\
 \mathrm{NML} & =\mathrm{V}_{\mathrm{ILmax}}-\mathrm{V}_{\mathrm{OLmax}}
 \end{align*}
-Per quanto poco probabili garantiamo così un circuito più affidabile: infatti se tali condizioni non sono soddisfatte il circuito può non funzionare.
+Per quanto poco probabili garantiamo così un circuito più affidabile: infatti se tali condizioni non sono soddisfatte il circuito può non funzionare.\newline
+Questi intervalli dipendono da vari fattori:
 
+- costruzione del circuito (drogaggio del semiconduttore, non particolarmente controllabile)
+- temperatura del circuito
+- $V_{cc}$
+
+Questi ultime dui sono controllabili. Non si può far affidamento sul valore tipico (valore medio di tutti i circuiti analizzati).
+
+##### Analisi compatibilità
+
+Nella figura sotto andremo ad analizzare un grafico che mette a confronto le tensioni in uscita di una famiglia logica con le tensioni in ingresso per capire se sono compatibili l'una con l'altra: i rettangoli in chiaro rappresentano un intervallo _garantito in uscita_, i rettangoli scuri invece rappresentano un intervallo _ammissibile in input.\newline
+Il _valore tipico_ (indicato con una $\downarrow$) rappresenta il ___valore atteso di tensione___, calcolato attraverso la media tra i processi prodotti che lavorano a temperatura e a tensione standard $(T=25^{\textdegree},\:V=5.0V)$\newline
+Il _valore di soglia tipico_[^54] (indicato con una $\uparrow$) è un punto __ideale__ in cui avviene la commutazione del segnale dal valore basso al valore alto. In realtà la commutazione avviene all'interno di un intervallo che contiene questo valore: questo intervallo va __evitato__ in quanto al suo interno il segnale non è definito.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.3\textwidth}
+\includegraphics[width=\textwidth]{immagini/35.png}
+\caption{I range di I/O dipendono dal processo di produzione, temperatura attuale e $V_{CC}$.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.3\textwidth}
+\includegraphics[width=\textwidth]{assets/imgs/confronto_famiglie.png}
+\caption{Confronto compatibilità diverse famiglie logiche}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.3\textwidth}
+\includegraphics[width=\textwidth]{assets/imgs/legenda.png}
+\caption{Legenda.}
+\end{subfigure}
+\caption{Famiglie logiche e compatibilità}
+\end{figure}
+
+Tra le famiglie TTL e BiCMOS, la compatibilità è assicurata in quanto l'intervallo di uscita garantito è compreso nell'intervallo di ingresso ammissibile.
+
+Nota: l'ingresso modificato delle famiglie BiCMOS le rende compatibili con il TTL (anche se deve essere realizzata una caduta di tensione da 5V a 3V, dato che l'input è costituito da CMOS)!
+
+Possiamo analizzare la compatibilità anche utilizzando dei grafici _verticali_ della tensione:
+
+![Grafici in verticale. I valori riportati sono quelli _garantiti_!](immagini/36.png){width=50%}
+
+Da questo grafico possiamo evidenziare come la famiglia logica a 3,3V sulla destra, realizzata con CMOS, abbia soglie di valori identiche a quelle dei TTL (deriva dalla possibilità di far variare la tensione di soglia nei CMOS). Riassumendo:
+
+- CMOS $\to$ TTL: $V_{oH}>V_{iH}$ OK, $V_{oL}>V_{iL}$ OK:
+- TTL $\to$ CMOS: $V_{oH}<V_{iH}$ $\times$, $V_{oL}<V_{iL}$ OK: il suo funzionamento non è garantito.
+
+###### Soluzione compatibilità 5V CMOS-TTL
+Prendiamo per esempio una port logia NOT TTL che pilota a sua volta una porta logica NOT CMOS a 5V: non sussistono le condizioni di funzionamento, infatti:
+$$
+\text{TTL } 2,4V=V_{oH-min}>V_{iH-min}=3,5V (\text{ Per CMOS sono richiesti } 5V)
+$$
+Per risolvere questa incompatibilità si può introdurre una resistenza di pull-up $R_P$ tra il circuito con famiglia logica TTL e quello di famiglia logica CMOS. Riusciamo così, quando l'uscita TTL va alta a fornire corrente per sollevare l'ingresso del CMOS a 5V in un tempo ragionevole.\newline
+Dato che l'ingresso del CMOS è un condensatore (lo e assimilabile ad alta impedenza) si ha dunque un circuito RC, dove la costante di tempo per caricarlo è $\tau=R_{P}\cdot C$: affinché questa costante sia piccola, lo deve essere anche il valore della resistenza. Tuttavia questo valore non può essere nullo, altrimenti ciò potrebbe creare problemi nel momento in cui l'uscita del TTL è bassa.
+
+A questo punto sorge un'altra domanda: _come scegliere_ $\mathit{R_{P}}$?\newline
+La porta logica NOT realizzata in logica CMOS richiede $V_{O}>V_{iH-min}$ e che $I_{oH}=1mA@V_{iH-min}$, quindi
+$$
+V_{0}=5V-R\cdot I_{oH}>V_{iH-min}\to V_0=5V-R\cdot 1mA>3.5V\to R<1.5V/1mA\to \mathbf{R<1.5k}\Omega
+$$
+Ma la resistenza non può essere nemmeno troppo piccola, in quanto la corrente, dopo aver caricato la port NOT CMOS, scorre tutta sul circuito TTL e se cresce troppo manda il transistor in breakdown! Allora pongo i seguenti limiti di corrente:
+$$
+I_{oL}=\frac{5V-V_{iL-max}}{R_P}<I_{oL-max} (=10mA@V_{iL-max}) \to \mathbf{R_P > 0,4 k}\Omega
+$$
+Una volta rispettato questo "limite" si può scegliere il valore della resistenza $R_P$ in base alle esigenze: bisogna però ricordarsi che più grande è e meno corrente viene consumata, a costo di tempi di ricarica $\tau$ del NOT CMOS aumentati.
+
+![TTL con pull-up](immagini/37.png){width=40%}
+
+Questo tipo di ragionamenti vanno eseguiti _conoscendo la composizione interna dell'integrato_: ignorandola non avremmo potuto considerare la possibilità dell'esistenza di un valore minimo della resistenza di pull-up.
+
+\begin{orangebox}{Osservazione}
+I valori di $I_{oL-max}$ e $I_{oH-min}$ sono forniti dal costruttore!
+\end{orangebox}
 
 \appendix
 
@@ -2359,4 +2430,10 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 
 [^50]: 1 mils = 0,001 in
 
-[^51]: Output che guida un input.
+[^51]: che ricordiamo consistere nell'avere entrambi i MOS in conduzione.
+
+[^52]: Scorre della corrente dalla base al collettore forzando l'ingresso ad un valore alto.
+
+[^53]: Output che guida un input.
+
+[^54]: Credo quello superato il quale il segnale si intende possedere un valore logico alto.
