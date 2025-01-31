@@ -2475,9 +2475,60 @@ $-V_{fs}/2$ & / & 000000 & 100000
 Il suo funzionamento è abbastanza semplice: in base allo stato degli interruttori (D,C,B,A) può arrivare da ciascuno di essi una corrente _scalata da diversi fattori_ (1 per D, 2 per C, 4 per B e 8 per A).
 
 
+# Dispositivi digitali programmabili
+A differenza delle porte logiche, che eseguono sempre la stessa funzione, i dispositivi digitali _programmabili_ possono essere appunto programmati per eseguire determinate attività; inoltre ogni tipologia ha una diversa _complessità_. In ordine di capacità computazionale abbiamo:
 
+- Microcontrollori;
+- Microprocessori;
+- Digital Signal Processor (DSP);
+- Graphic Processing Unit (GPU);
+- Array di processori paralleli;
+- Complex Programmable Logic Devices (CPLD);
+- Field Programmable Gate Array (FPGA);
 
+In questo elenco passiamo dai microcontrollori/microprocessori a singolo core, costruiti per eseguire in modo _sequenziale_ codice macchina, poi a CPU e DSP multicore _coarse-grained_[^56] (da 6-8 core ciascuno), dove alcuni thread lavorano in parallelo in modo _indipendente_; passando invece a sistemi come i _Massively Parallel Processor Arrays_, essi lavorano con migliaia di thread in parallelo con core/processori più semplici delle CPU e sono utili quando si può dividere la computazione in tanti sottoproblemi indipendenti (tipo rendering video); infine arriviamo alle FPGA che sono composte da tantissime celle logiche programmabili dalla struttura _completamente arbitraria_, capaci di risolvere un qualsiasi problema specifico[^57].
 
+## Microprocessore
+All'interno di questo tipo di dispositivo troviamo un singolo _chip processing unit_. Non può funzionare da solo semplicemente collegandolo all'alimentazione, ma ha bisogno di ulteriore circuitistica all'esterno, quale:
+
+- RAM: contiene le istruzioni da eseguire;
+- DMA (Direct Memory Access) controller: si occupa dello spostamento dei dati dalla memoria in grandi quantità, facendo risparmiare tempo al processore. Infatti questo si occuperà di eseguire altre operazioni mentre il DMA svolge il trasferimento (si parallelizza le operazioni). Una volta completato il DMA sposta i dati prodotti dal processore alla memoria esterna;
+- UART (Universal Asynchronous Receiver-Transmitter): sistema di comunicazione _asincrono_, controlla le comunicazioni _seriali_, lanciando anche interruzioni al termine;
+- Interrupt controller (PIC): gestisce le interruzioni;
+- clock esterno.
+
+Tutte queste componenti un tempo erano chip esterni legati alla CPU tramite appositi bus. Oggi molte di queste funzioni sono direttamente integrate all'interno del chip della CPU, cioè sul silicio, ma all'interno sono comunque separate. La RAM ed il generatore di clock spesso sono ancora separate dalla CPU; memorizza alcuni GB ed è molto veloce. Solitamente oltre alla RAM è presente anche una memoria _permanente_ (HDD, SSD) più lenta della RAM.
+
+## Microcontrollore
+Come nel microprocessore è presente al suo interno un singolo chip processing unit, anche se molto più piccolo, semplice e con una potenza di calcolo notevolmente minore.\newline
+Un'altra differenza sostanziale è la possibilità di poter funzionare senza ulteriori circuiti esterni, dal momento che sono integrati al suo interno la DMA, il PIC (interrupt controller), la RAM (più piccola) e una memoria permanente (o semipermanente) di tipo FLASH. Sono disponibili anche ulteriori periferiche per comunicare con altri dispositivi all'esterno, tipo UART, convertitori A/D-D/A etc.\newline
+Il suo target di utilizzo è un sistema embedded, solitamente indipendente e svolge pochi calcoli.
+
+\begin{redbox}{Digressione sul clock}
+Un circuito che genera un clock \emph{statico} è:
+\begin{center}
+\begin{minipage}{0.6\linewidth}
+\centering
+\resizebox{0.6\textwidth}{!}{%
+\input{assets/graphs/static_clock.tex}}
+\captionof{figure}{Circuito che genera clock.}
+\end{minipage}
+\end{center}
+Si basa sulla carica e la scarica del condensatore, la quale avviene in un tempo $\tau=R\cdot C$, definendo quindi il periodo (e di conseguenza la frequenza).
+\end{redbox}
+
+### Requisiti
+Operando generalmente negli _ambienti __real-time___, vi è la necessità che la loro esecuzione del codice fornitogli sia __rapida e prevedibile__. Per ottenere questo requisito è necessario fare una scelta adeguata riguardo:
+
+- _l'architettura dei core_: in generale si preferisce la RISC (Reduced Instruction Set Computer), in quanto solitamente opera a frequenze maggiori ed ha un set di istruzioni di __durata definita__. Nell'architettura alternativa, la CISC (Complex...), la durata non è deterministica (e quindi non prevedibile) a causa della presenza delle interruzione che possono svuotare la _pipeline_, ovvero dove sono caricate le istruzioni;
+- l'architettura della _memoria_: solitamente si sceglie tra Harvard (due bus, uno per le istruzioni ed uno per i dati) e quella Von Neumann (un solo bus condiviso); si preferisce la prima sia in termini di velocità che di predicibilità.
+
+![Architetture di memoria a confronto](immagini/48.png ){width=40%}
+
+### Interfacciarsi con l'esterno
+Per comunicare con il mondo esterno (altre periferiche, etc.) il microcontrollore ha bisogno di elementi di i/o _semplici e parallelizzabili_:
+
+- __General Purpose I/O__ (GPIO): sono dei pin utilizzabili sia come ingresso che come uscita; ad ogni pin sono 
 
 \appendix
 
@@ -2683,3 +2734,7 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 [^54]: Output che guida un input.
 
 [^55]: _Power Dissipation capacitance_: capacità del condensatore equivalente, ovvero del condensatore che se sostituisse l'IC fornirebbe un consumo equivalente di potenza. 
+
+[^56]: Coarse-Grained multicore: "a grana grossa", core grandi e relativamente autonomi.
+
+[^57]: A differenza degli altri dispositivi non può essere programmata in C e ha bisogno di un linguaggio di descrizione hardware come VHDL o Verilog. Ne si guadagna ovviamente in flessibilità.

@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+	% Paths, nodes and wires:
+	\draw node[american not port] at (2.75, 7) {};
+	\draw (3.45, 7) to[american resistor, l={$R$}, label distance=0.02cm] (6, 7);
+	\draw node[american not port] (N1) at (7.8, 7) {} node[anchor=south west] at ([xshift=-0.48cm, yshift=-0.48cm]N1.north east){$clk$};
+	\draw node[circ] at (6, 7) {};
+	\draw node[circ] at (6.5, 7) {};
+	\draw (6, 7) |- (1, 6) -| (1, 7) -| (2.05, 7);
+	\draw (6, 7) -- (7.1, 7);
+	\draw (6.5, 5.5) to[capacitor, l={$C$}, label distance=0.02cm] (6.5, 4);
+	\draw (6.5, 7) -| (6.5, 5.5);
+\end{tikzpicture}

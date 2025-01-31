@@ -4171,6 +4171,145 @@ Il suo funzionamento è abbastanza semplice: in base allo stato degli
 interruttori (D,C,B,A) può arrivare da ciascuno di essi una corrente
 \emph{scalata da diversi fattori} (1 per D, 2 per C, 4 per B e 8 per A).
 
+\chapter{Dispositivi digitali
+programmabili}\label{dispositivi-digitali-programmabili}
+
+A differenza delle porte logiche, che eseguono sempre la stessa
+funzione, i dispositivi digitali \emph{programmabili} possono essere
+appunto programmati per eseguire determinate attività; inoltre ogni
+tipologia ha una diversa \emph{complessità}. In ordine di capacità
+computazionale abbiamo:
+
+\begin{itemize}
+\tightlist
+\item
+  Microcontrollori;
+\item
+  Microprocessori;
+\item
+  Digital Signal Processor (DSP);
+\item
+  Graphic Processing Unit (GPU);
+\item
+  Array di processori paralleli;
+\item
+  Complex Programmable Logic Devices (CPLD);
+\item
+  Field Programmable Gate Array (FPGA);
+\end{itemize}
+
+In questo elenco passiamo dai microcontrollori/microprocessori a singolo
+core, costruiti per eseguire in modo \emph{sequenziale} codice macchina,
+poi a CPU e DSP multicore \emph{coarse-grained}\footnote{Coarse-Grained
+  multicore: ``a grana grossa'', core grandi e relativamente autonomi.}
+(da 6-8 core ciascuno), dove alcuni thread lavorano in parallelo in modo
+\emph{indipendente}; passando invece a sistemi come i \emph{Massively
+Parallel Processor Arrays}, essi lavorano con migliaia di thread in
+parallelo con core/processori più semplici delle CPU e sono utili quando
+si può dividere la computazione in tanti sottoproblemi indipendenti
+(tipo rendering video); infine arriviamo alle FPGA che sono composte da
+tantissime celle logiche programmabili dalla struttura
+\emph{completamente arbitraria}, capaci di risolvere un qualsiasi
+problema specifico\footnote{A differenza degli altri dispositivi non può
+  essere programmata in C e ha bisogno di un linguaggio di descrizione
+  hardware come VHDL o Verilog. Ne si guadagna ovviamente in
+  flessibilità.}.
+
+\section{Microprocessore}\label{microprocessore}
+
+All'interno di questo tipo di dispositivo troviamo un singolo \emph{chip
+processing unit}. Non può funzionare da solo semplicemente collegandolo
+all'alimentazione, ma ha bisogno di ulteriore circuitistica all'esterno,
+quale:
+
+\begin{itemize}
+\tightlist
+\item
+  RAM: contiene le istruzioni da eseguire;
+\item
+  DMA (Direct Memory Access) controller: si occupa dello spostamento dei
+  dati dalla memoria in grandi quantità, facendo risparmiare tempo al
+  processore. Infatti questo si occuperà di eseguire altre operazioni
+  mentre il DMA svolge il trasferimento (si parallelizza le operazioni).
+  Una volta completato il DMA sposta i dati prodotti dal processore alla
+  memoria esterna;
+\item
+  UART (Universal Asynchronous Receiver-Transmitter): sistema di
+  comunicazione \emph{asincrono}, controlla le comunicazioni
+  \emph{seriali}, lanciando anche interruzioni al termine;
+\item
+  Interrupt controller (PIC): gestisce le interruzioni;
+\item
+  clock esterno.
+\end{itemize}
+
+Tutte queste componenti un tempo erano chip esterni legati alla CPU
+tramite appositi bus. Oggi molte di queste funzioni sono direttamente
+integrate all'interno del chip della CPU, cioè sul silicio, ma
+all'interno sono comunque separate. La RAM ed il generatore di clock
+spesso sono ancora separate dalla CPU; memorizza alcuni GB ed è molto
+veloce. Solitamente oltre alla RAM è presente anche una memoria
+\emph{permanente} (HDD, SSD) più lenta della RAM.
+
+\section{Microcontrollore}\label{microcontrollore}
+
+Come nel microprocessore è presente al suo interno un singolo chip
+processing unit, anche se molto più piccolo, semplice e con una potenza
+di calcolo notevolmente minore.\newline Un'altra differenza sostanziale
+è la possibilità di poter funzionare senza ulteriori circuiti esterni,
+dal momento che sono integrati al suo interno la DMA, il PIC (interrupt
+controller), la RAM (più piccola) e una memoria permanente (o
+semipermanente) di tipo FLASH. Sono disponibili anche ulteriori
+periferiche per comunicare con altri dispositivi all'esterno, tipo UART,
+convertitori A/D-D/A etc.\newline Il suo target di utilizzo è un sistema
+embedded, solitamente indipendente e svolge pochi calcoli.
+
+\begin{redbox}{Digressione sul clock}
+Un circuito che genera un clock \emph{statico} è:
+\begin{center}
+\begin{minipage}{0.6\linewidth}
+\centering
+\resizebox{0.6\textwidth}{!}{%
+\input{assets/graphs/static_clock.tex}}
+\captionof{figure}{Circuito che genera clock.}
+\end{minipage}
+\end{center}
+Si basa sulla carica e la scarica del condensatore, la quale avviene in un tempo $\tau=R\cdot C$, definendo quindi il periodo (e di conseguenza la frequenza).
+\end{redbox}
+
+\subsection{Requisiti}\label{requisiti}
+
+Operando generalmente negli \emph{ambienti \textbf{real-time}}, vi è la
+necessità che la loro esecuzione del codice fornitogli sia
+\textbf{rapida e prevedibile}. Per ottenere questo requisito è
+necessario fare una scelta adeguata riguardo:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{l'architettura dei core}: in generale si preferisce la RISC
+  (Reduced Instruction Set Computer), in quanto solitamente opera a
+  frequenze maggiori ed ha un set di istruzioni di \textbf{durata
+  definita}. Nell'architettura alternativa, la CISC (Complex\ldots), la
+  durata non è deterministica (e quindi non prevedibile) a causa della
+  presenza delle interruzione che possono svuotare la \emph{pipeline},
+  ovvero dove sono caricate le istruzioni;
+\item
+  l'architettura della \emph{memoria}: solitamente si sceglie tra
+  Harvard (due bus, uno per le istruzioni ed uno per i dati) e quella
+  Von Neumann (un solo bus condiviso); si preferisce la prima sia in
+  termini di velocità che di predicibilità.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\linewidth,height=\textheight,keepaspectratio]{immagini/48.png}
+\caption{Architetture di memoria a confronto}
+\end{figure}
+
+\subsection{Interfacciarsi con
+l'esterno}\label{interfacciarsi-con-lesterno}
+
 \appendix
 
 \chapter{Esercizi}\label{esercizi}
