@@ -2525,10 +2525,239 @@ Operando generalmente negli _ambienti __real-time___, vi è la necessità che la
 
 ![Architetture di memoria a confronto](immagini/48.png ){width=40%}
 
-### Interfacciarsi con l'esterno
+#### Interfacciarsi con l'esterno
 Per comunicare con il mondo esterno (altre periferiche, etc.) il microcontrollore ha bisogno di elementi di i/o _semplici e parallelizzabili_:
 
-- __General Purpose I/O__ (GPIO): sono dei pin utilizzabili sia come ingresso che come uscita; ad ogni pin sono 
+- __General Purpose I/O__ (GPIO): sono dei pin utilizzabili sia come ingresso che come uscita; ad ogni pin viene associato un registro che ne indica lo stato, uno di data out ed uno di data in
+    \begin{figure}[H]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/gpio.tex}}
+    \caption{Circuito GPIO.}
+    \end{figure} 
+    È inoltre utile che la GPIO sia _bit addressable_, ossia a pin pilotabili indipendentemente. Questo perché per modificare un $D_{out}$ richiede 3 operazioni atomiche (Read, modify e writr, nel mezzo ci sono due tempi $t_1$ e $t_2$), se in un intervallo di tempo $t$ viene lanciato un interrupt si può avere un inconsistenza dei dati. La soluzione è usare i registri BIT_SET o BIT_RESET dove viene scritta una parola con un bit a 1 nelle posizioni in cui si vuole settare a 1 o resettare a 0 i bit della porta in questione. In questo modo è possibile modificare i singoli pin senza dover conoscere tutto il contenuto della porta.\newline
+    La porta GPIO può essere usata per generare delle interrupt request (IRQ) al di fuori del ciclo main.
+- Periferiche di comunicazione (es. porta seriale): in grande quantità; molte dello stesso tipo o poche di tipi diversi;
+- _mixed signal peripherals_ (ADC/DAC): permettono al microcontrollore di interpretare le grandezze dei sensori (fotoresistenza da una tensione $V_{0}(light)$, il microcontrollore può invertire la funzione calcolando $light(V_{0})$).
+
+> Nota: Ad ogni ADc sono associati più ingressi AD multiplexati e convertiti sequenzialmente; la conversione di un canale carica la capacità parassita dell'ADC scaricandosi su un altro canale e convertendo un segnale sfasato. Si può evitare alternando conversioni \emph{utili} con la conversione di un canale a massa, che svuoterà la capacità.
+
+- _Interfacce di sistemi a controllo numerico (PWM)_: sono usate nei sistemi ad anello chiuso, sfruttando i valori letti.
+
+\begin{redbox}{Pulse Width Modulation}
+Supponiamo che il microcontrollore si occupi della gestione del motore di una ventola. Si può implementare in due modalità:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{logica lineare}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    al 50\% della velocità del motore abbiamo sia 5V sul motore che 5V
+    sul buffer, quindi abbiamo un consumo di potenza di 5W per muovere
+    il motore e viene dissipato il resto dei 5W di potenza sul buffer;
+  \item
+    al 100\% quasi tutta la potenza è utilizzata per muovere il motore,
+    minimizzando la dissipazione sul buffer;
+  \end{itemize}
+
+\begin{center}
+\begin{minipage}[c]{0.8\linewidth}
+\center\includegraphics[width=0.6\textwidth]{assets/imgs/linear_mode.png}
+\captionof{figure}{Controllo motore in logica lineare}
+\end{minipage}
+\end{center}
+    
+\item
+  \emph{modalità PWM}: generiamo quindi un segnale periodico di breve
+  periodo per gestire il motore;
+
+  \begin{itemize}
+  \tightlist
+  \item
+    al 50\% della velocità del motore il segnale PWM che lo controlla è
+    un segnale ad onda quadra al 50\% del duty cycle ed un ampiezza
+    (della tensione) che va da 0 ai 10V;
+  \item
+    al 100\% della velocità del motore il segnale PWM è sempre un
+    segnale ad onda quadra stavolta con un duty cycle al 10\% e
+    l'ampiezza sempre tra 0 e 10V;
+  \end{itemize}
+\end{itemize}
+
+\begin{center}
+\begin{minipage}[c]{0.8\linewidth}
+\center\includegraphics[width=0.6\textwidth]{assets/imgs/pwm_mode.png}
+\captionof{figure}{Controllo motore in PWM}
+\end{minipage}
+\end{center}
+
+
+Il segnale PWM guida il motore utilizzando il massimo voltaggio,
+massimizzando l'efficienza; mentre la modalità lineare è inefficiente,
+in quanto dissipa potenza nel buffer quando la velocità è inferiore al
+100\%. Questo perché i sistemi meccanici non sono sensibili a variazioni
+repentine (vede una corrente continua)!
+\end{redbox}
+
+Dovendo lavorare ad alte velocità è necessario che ci siano reazioni rapide ad eventi esterni quali gli interrupt: ciò talvolta è una richiesta troppo critica per essere implementata via software, che è troppo lento. Infatti si utilizzano gli _interrupt request_ (IRQ) hardware, riuscendo ad ottenere tempi di reazione dell'ordine dei $\mu S$: se la gestione è totalmente hardware anche $nS$.
+
+Un altro requisito dei microcontrollori è avere un'__impronta ridotta__: ovvero sia dimensioni ridotti che basso consumo (si parla anche di $\mu W$); solitamente dispositivi alimentati a batteria. Questo perché molto spesso i microcontrollori sono utilizzati in sistemi integrati.
+
+### Periferiche di comunicazione
+Si utilizzano per eseguire una comunicazione tra più dispositivi. I principali protocolli sono, in ordine crescente di complessità:
+
+- UART, SPI, $\text{I}^2\text{C}$;
+- CAN;
+- USB, ethernet.
+
+I protocolli presenti nelle prime due righe sono protocolli _di livello fisico_.
+
+#### Controller Area Network
+Soluzione pensata per avere un'alta resistenza al rumore elettrico ambientale
+\newline
+Il segnale è codificato in modo _differenziale_ usando due connessioni: CANH e CANL. Con questo protocollo un eventuale rumore altererebbe __entrambi__ i segnali, lasciando la differenza invariata.
+
+#### Universal Asynchronous Receiver-Transmitter
+Prevede due device, un __master__ che gestisca la comunicazione, ed uno __slave__, il quale possiede i seguenti pin:
+
+- _RX_: ingresso da collegare all'uscita dell'interlocutore;
+- _TX_: uscita da collegare all'ingresso dell'interlocutore;
+- _GND_ comune
+
+Si può notare come la UART non sia pensata per far comunicare più di due device, sebbene sia possibile con una configurazione a doppio anello.
+
+Dato che il protocollo è asincrono, i device devono avere lo stesso bitrate. La comunicazione avviene nelle seguenti fasi:
+
+0) idle, trasmetto lo stato alto (ad esempio con 3,3V);
+1) trasmetto il bit di start, che corrisponde allo stato basso;
+2) trasmetto n bit ($\sim$ 8) campionati dal destinatario, a metà _tempo di bit_ (commutazione) per minimizzare gli errori dovuti all'assenza di sincronia;
+3) trasmetto il bit di stop, che è alto, tornando in idle.
+
+Per funzionare il clock deve avere una tolleranza di massimo il 5%.
+
+#### Serial Peripheral Interface (SPI)
+Pensata per la comunicazione fra più dispositivi: si ha un dispositivo __master__, che da il clock di riferimento, e più slave, i quali sono attivi solo uno alla volta.\newline
+I pin sono:
+
+- SS (slave select) è un bit che indica se lo slave sia _attivo o meno_: un master ha tanti pin SS quanti sono gli slave;
+- MISO, MOSI (master input/output slave output/input), dove il master e lo slave si scambiano dati (abbiamo un _full-duplex_). In generale è un bus in uscita da uno shift-register (a multipli di 8 bit; internamente la comunicazione è _parallela_). Le connessioni avvengono tra porte _uguali_;
+- SCK (serial clock): usato dal master per governare il clock degli slave.
+
+Essendo sincrono opera a velocità maggiori: intorno ai 20 Mbits/s, con picchi fino a 50 Mbits/s. Nel caso in cui so di avere un singolo bit di dati e che trasmissione e ricezione sono sempre separate posso unire i segnali MISO, MOSI e SS.
+
+![SPI: Master con 3 slave.](assets/imgs/spi.jpg){width=30%}
+
+#### Inter-Integrated circuit (I$^2$C)
+È un protocollo sincrono, ed ha il pregio di utilizzare _solo sue fili_.\newline
+I dispositivi sono __open drain__: le resistenze di pull-up tirano su i bus, posti a massa all'attivazione dei MOSFET.
+
+![Schema di I2C](assets/imgs/I2C.jpg){width=50%}
+
+Dalla disposizione simmetrica si evince che qualsiasi dispositivo può ricoprire il ruolo del master. Inoltre per gestire le trasmissioni si associa ad ogni elemento un _indirizzo_ da 7 bit (quindi abbiamo massimo 128 dispositivi collegati.)
+
+![Schema di un dispositivo I2C](assets/imgs/i2c_device.jpg){width=50%}
+
+La comunicazione, detta __transazione__, avviene nelle seguenti fasi:
+
+1) il master apre la comunicazione con la configurazione di start (SCL=1 e SDA=$\downarrow$);
+2) il master manda i bit di indirizzo, specificando se vuole leggere o scrivere col bit di R/W;
+3) lo slave, ricevuto il messaggio, risponde con l'ACK;
+4) il master invia i bit da scrivere (8 bit) (oppure invia gli 8 bit letti);
+5) il destinatario risponde con l'ACK;
+6) il master segnala la fine della transazione con la configurazione di stop (SCL=1 e SDA=$\uparrow$). Se il master deve eseguire più transazioni può omettere questo passaggio ed il primo nella transazione successivo.
+
+Il grosso difetto I$^2$C è la lentezza, dovuta alle capacità parassite dei device, che insieme alle resistenza comportano un limite superiore alla frequenza di funzionamento, inferiore ad 1MHz.
+
+## Schede
+
+Le schede solitamente hanno il processore e basta. A volte hanno anche una parte per fare il
+debug del codice direttamente su di essa. Per esempio Arduino UNO è del primo tipo, la scheda
+che abbiamo in laboratorio (STM32) è del secondo.
+
+Poi esiste una porta (**porta JTAG**[^58]) che serve per accedere ai registri e alla memoria flash
+(quindi per caricare il programma là sopra) del microcontrollore. Questa porta può essere
+utilizzata anche per bloccare l'esecuzione del codice.
+
+Sulla scheda c'è un dispositivo che serve a bloccare ingressi e uscite al fine di evitare
+comportamenti strani in fase di accensione/spegnimento (perché la corrente passa da 0 al valore
+che deve assumere (o viceversa) e normalmente i dispositivi non sono garantiti che funzionino
+correttamente al di fuori dei valori presenti sul datasheet).
+
+Di default, all'accensione, le uscite della scheda non sono configurate. Per assicurarmi di
+non incorrere in comportamenti non desiderati è consigliabile aggiungere un pull up/pull down
+così anche da preservare il circuito (magari i mos si attivano e passa un sacco di corrente
+e poi si rompono).
+
+* Cortex-M4 (F4): è il microcontroller installato sulle schede che abbiamo in laboratorio.
+Utilizza architettura Harvard, e CISC, ha molte periferiche, consuma pochino (100$\mu$A/MHz)
+e ha l'unità floating point (FPU).
+
+La FPU è un modulo della CPU che permette di eseguire operazioni in virgola mobile senza
+utilizzare una libreria che le simuli (l'utilizzo della libreria è molto oneroso in termini
+di cicli di clock). La precisione della FPU è la precisione singola (32 bit). Non tutte le
+schede sono dotate di questo modulo (ad esempio Arduino UNO ne è sprovvisto). Per qualche
+motivo non è detto che il compilatore della nostra scheda utilizzi gli OPCODE floating point
+(bisogna stare attenti a quale usa).
+
+Su questa scheda non bisogna fare le divisioni perché manca il divisore hardware, quindi se
+dobbiamo dividere per delle costanti possiamo semplicemente moltiplicare per il suo reciproco,
+altrimenti calcolare una volta il reciproco del valore da dividere e poi utilizzare quello.
+
+Alcuni GPIO hanno delle funzioni specifiche in più (tipo PWM/ADC DAC).
+
+## Approfondimento sulla Cortex-M4
+
+L'oscillatore (clock) interno e fatto con un not, una resistenza e un condensatore. La
+precisione e dell'1% (10000 parti per milione) e la frequenza varia in base alla temperatura
+e all'alimentazione. Data la precisione bassa potrebbe interessare avere un oscillatore più
+preciso: in questo caso si prende un quarzo (la cui precisione va da 100ppm a molte meno ppm)
+e la cui frequenza va da 1 a 50MHz.
+
+Il segnale generato dal quarzo viene poi moltiplicato/diviso dal PLL.
+
+[image3.3]:immagini/50.png "Cortex M4"
+![Cortex M4][image3.3]{width=50%}
+
+* **GPIO**: "Dietro" ciascun GPIO ci sono due parti: una che gestisce l'ingresso e una che gestisce
+l'uscita. \newline
+L'uscita è composta da due CMOS. Noi ne dobbiamo usare solo 1. Spesso potrebbe essere utile
+avere una resistenza di pull up/pull down internamente (oppure un pull up esternamente, se
+necessito di maggiore precisione).
+Per evitare che il codice sia interrotto da un'interruzione in una zona critica non viene
+utilizzato l'output data register. \newline
+Al contrario si utilizza il bit set/reset register che e **interrupt safe**. \newline
+Quando voglio scrivere un 1 sull'ODR metto nella parte bassa del BSRR un 1 (e poi ci pensa lui
+a scriverlo nel ODR). Se invece voglio resettare un bit dell'ODR basta mettere un 1 nella parte
+alta del BSRR.
+
+### Interrupt controller
+
+Serve a interrompere il flusso di programma per gestire un altro flusso (ISR) e poi tornare a
+gestire il programma principale. L'interrupt controller reagisce a degli eventi.
+
+Su STM32 può essere **nested/vectored**:
+
+* nested vuol dire che le interazioni hanno una priorità e che durante l'esecuzione di una
+interruzione a bassa priorità può arrivare una interruzione a priorità maggiore che passa
+avanti.  
+* vettorizzato vuol dire che ci sono n sorgenti di interrupt e ciascuna è collegata
+ad una funzione che si trova elencata in una tabella delle interruzioni. Questa tecnica viene
+utilizzata se devono essere gestite tante interruzioni diverse.
+
+Gli usi tipici dell'interrupt controller sono:
+
+* gestione dei GPIO 
+* con i timer, ovvero viene generata una richiesta di interruzione dopo un
+tot specifico di tempo. I timer possono essere utilizzati per produrre segnali periodici utili
+per i sistemi di controllo (tipo PWM).
+
+[image3.4]:immagini/51.png "Il duty cycle è dato da $\frac{D}{T}=\delta$. Maggiore è la soglia, più tempo sta alta l’onda."
+[Il duty cycle è dato da $\frac{D}{T}=\delta$. Maggiore è la soglia, più tempo sta alta l’onda.][image3.4]{width=50%}
+Il contatore del timer non si ferma quando fermo l'esecuzione del programma (tipo con il debugger).
+
+NON SI FA DEBUG DI CIRCUITI DI POTENZA.
 
 \appendix
 
@@ -2738,3 +2967,5 @@ A differenza del transistor BJT, dove la base è comunque ristretta, abbiamo in 
 [^56]: Coarse-Grained multicore: "a grana grossa", core grandi e relativamente autonomi.
 
 [^57]: A differenza degli altri dispositivi non può essere programmata in C e ha bisogno di un linguaggio di descrizione hardware come VHDL o Verilog. Ne si guadagna ovviamente in flessibilità.
+
+[^58]: Joint Test Action Group.

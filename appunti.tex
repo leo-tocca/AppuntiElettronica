@@ -4307,8 +4307,414 @@ necessario fare una scelta adeguata riguardo:
 \caption{Architetture di memoria a confronto}
 \end{figure}
 
-\subsection{Interfacciarsi con
+\subsubsection{Interfacciarsi con
 l'esterno}\label{interfacciarsi-con-lesterno}
+
+Per comunicare con il mondo esterno (altre periferiche, etc.) il
+microcontrollore ha bisogno di elementi di i/o \emph{semplici e
+parallelizzabili}:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{General Purpose I/O} (GPIO): sono dei pin utilizzabili sia
+  come ingresso che come uscita; ad ogni pin viene associato un registro
+  che ne indica lo stato, uno di data out ed uno di data in
+
+  \begin{figure}[H]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{assets/graphs/gpio.tex}}
+    \caption{Circuito GPIO.}
+    \end{figure}
+
+  È inoltre utile che la GPIO sia \emph{bit addressable}, ossia a pin
+  pilotabili indipendentemente. Questo perché per modificare un
+  \(D_{out}\) richiede 3 operazioni atomiche (Read, modify e writr, nel
+  mezzo ci sono due tempi \(t_1\) e \(t_2\)), se in un intervallo di
+  tempo \(t\) viene lanciato un interrupt si può avere un inconsistenza
+  dei dati. La soluzione è usare i registri BIT\_SET o BIT\_RESET dove
+  viene scritta una parola con un bit a 1 nelle posizioni in cui si
+  vuole settare a 1 o resettare a 0 i bit della porta in questione. In
+  questo modo è possibile modificare i singoli pin senza dover conoscere
+  tutto il contenuto della porta.\newline La porta GPIO può essere usata
+  per generare delle interrupt request (IRQ) al di fuori del ciclo main.
+\item
+  Periferiche di comunicazione (es. porta seriale): in grande quantità;
+  molte dello stesso tipo o poche di tipi diversi;
+\item
+  \emph{mixed signal peripherals} (ADC/DAC): permettono al
+  microcontrollore di interpretare le grandezze dei sensori
+  (fotoresistenza da una tensione \(V_{0}(light)\), il microcontrollore
+  può invertire la funzione calcolando \(light(V_{0})\)).
+\end{itemize}
+
+\begin{quote}
+Nota: Ad ogni ADc sono associati più ingressi AD multiplexati e
+convertiti sequenzialmente; la conversione di un canale carica la
+capacità parassita dell'ADC scaricandosi su un altro canale e
+convertendo un segnale sfasato. Si può evitare alternando conversioni
+\emph{utili} con la conversione di un canale a massa, che svuoterà la
+capacità.
+\end{quote}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Interfacce di sistemi a controllo numerico (PWM)}: sono usate
+  nei sistemi ad anello chiuso, sfruttando i valori letti.
+\end{itemize}
+
+\begin{redbox}{Pulse Width Modulation}
+Supponiamo che il microcontrollore si occupi della gestione del motore di una ventola. Si può implementare in due modalità:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{logica lineare}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    al 50\% della velocità del motore abbiamo sia 5V sul motore che 5V
+    sul buffer, quindi abbiamo un consumo di potenza di 5W per muovere
+    il motore e viene dissipato il resto dei 5W di potenza sul buffer;
+  \item
+    al 100\% quasi tutta la potenza è utilizzata per muovere il motore,
+    minimizzando la dissipazione sul buffer;
+  \end{itemize}
+
+\begin{center}
+\begin{minipage}[c]{0.8\linewidth}
+\center\includegraphics[width=0.6\textwidth]{assets/imgs/linear_mode.png}
+\captionof{figure}{Controllo motore in logica lineare}
+\end{minipage}
+\end{center}
+    
+\item
+  \emph{modalità PWM}: generiamo quindi un segnale periodico di breve
+  periodo per gestire il motore;
+
+  \begin{itemize}
+  \tightlist
+  \item
+    al 50\% della velocità del motore il segnale PWM che lo controlla è
+    un segnale ad onda quadra al 50\% del duty cycle ed un ampiezza
+    (della tensione) che va da 0 ai 10V;
+  \item
+    al 100\% della velocità del motore il segnale PWM è sempre un
+    segnale ad onda quadra stavolta con un duty cycle al 10\% e
+    l'ampiezza sempre tra 0 e 10V;
+  \end{itemize}
+\end{itemize}
+
+\begin{center}
+\begin{minipage}[c]{0.8\linewidth}
+\center\includegraphics[width=0.6\textwidth]{assets/imgs/pwm_mode.png}
+\captionof{figure}{Controllo motore in PWM}
+\end{minipage}
+\end{center}
+
+
+Il segnale PWM guida il motore utilizzando il massimo voltaggio,
+massimizzando l'efficienza; mentre la modalità lineare è inefficiente,
+in quanto dissipa potenza nel buffer quando la velocità è inferiore al
+100\%. Questo perché i sistemi meccanici non sono sensibili a variazioni
+repentine (vede una corrente continua)!
+\end{redbox}
+
+Dovendo lavorare ad alte velocità è necessario che ci siano reazioni
+rapide ad eventi esterni quali gli interrupt: ciò talvolta è una
+richiesta troppo critica per essere implementata via software, che è
+troppo lento. Infatti si utilizzano gli \emph{interrupt request} (IRQ)
+hardware, riuscendo ad ottenere tempi di reazione dell'ordine dei
+\(\mu S\): se la gestione è totalmente hardware anche \(nS\).
+
+Un altro requisito dei microcontrollori è avere un'\textbf{impronta
+ridotta}: ovvero sia dimensioni ridotti che basso consumo (si parla
+anche di \(\mu W\)); solitamente dispositivi alimentati a batteria.
+Questo perché molto spesso i microcontrollori sono utilizzati in sistemi
+integrati.
+
+\subsection{Periferiche di
+comunicazione}\label{periferiche-di-comunicazione}
+
+Si utilizzano per eseguire una comunicazione tra più dispositivi. I
+principali protocolli sono, in ordine crescente di complessità:
+
+\begin{itemize}
+\tightlist
+\item
+  UART, SPI, \(\text{I}^2\text{C}\);
+\item
+  CAN;
+\item
+  USB, ethernet.
+\end{itemize}
+
+I protocolli presenti nelle prime due righe sono protocolli \emph{di
+livello fisico}.
+
+\subsubsection{Controller Area Network}\label{controller-area-network}
+
+Soluzione pensata per avere un'alta resistenza al rumore elettrico
+ambientale \newline Il segnale è codificato in modo \emph{differenziale}
+usando due connessioni: CANH e CANL. Con questo protocollo un eventuale
+rumore altererebbe \textbf{entrambi} i segnali, lasciando la differenza
+invariata.
+
+\subsubsection{Universal Asynchronous
+Receiver-Transmitter}\label{universal-asynchronous-receiver-transmitter}
+
+Prevede due device, un \textbf{master} che gestisca la comunicazione, ed
+uno \textbf{slave}, il quale possiede i seguenti pin:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{RX}: ingresso da collegare all'uscita dell'interlocutore;
+\item
+  \emph{TX}: uscita da collegare all'ingresso dell'interlocutore;
+\item
+  \emph{GND} comune
+\end{itemize}
+
+Si può notare come la UART non sia pensata per far comunicare più di due
+device, sebbene sia possibile con una configurazione a doppio anello.
+
+Dato che il protocollo è asincrono, i device devono avere lo stesso
+bitrate. La comunicazione avviene nelle seguenti fasi:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{-1}
+\tightlist
+\item
+  idle, trasmetto lo stato alto (ad esempio con 3,3V);
+\item
+  trasmetto il bit di start, che corrisponde allo stato basso;
+\item
+  trasmetto n bit (\(\sim\) 8) campionati dal destinatario, a metà
+  \emph{tempo di bit} (commutazione) per minimizzare gli errori dovuti
+  all'assenza di sincronia;
+\item
+  trasmetto il bit di stop, che è alto, tornando in idle.
+\end{enumerate}
+
+Per funzionare il clock deve avere una tolleranza di massimo il 5\%.
+
+\subsubsection{Serial Peripheral Interface
+(SPI)}\label{serial-peripheral-interface-spi}
+
+Pensata per la comunicazione fra più dispositivi: si ha un dispositivo
+\textbf{master}, che da il clock di riferimento, e più slave, i quali
+sono attivi solo uno alla volta.\newline I pin sono:
+
+\begin{itemize}
+\tightlist
+\item
+  SS (slave select) è un bit che indica se lo slave sia \emph{attivo o
+  meno}: un master ha tanti pin SS quanti sono gli slave;
+\item
+  MISO, MOSI (master input/output slave output/input), dove il master e
+  lo slave si scambiano dati (abbiamo un \emph{full-duplex}). In
+  generale è un bus in uscita da uno shift-register (a multipli di 8
+  bit; internamente la comunicazione è \emph{parallela}). Le connessioni
+  avvengono tra porte \emph{uguali};
+\item
+  SCK (serial clock): usato dal master per governare il clock degli
+  slave.
+\end{itemize}
+
+Essendo sincrono opera a velocità maggiori: intorno ai 20 Mbits/s, con
+picchi fino a 50 Mbits/s. Nel caso in cui so di avere un singolo bit di
+dati e che trasmissione e ricezione sono sempre separate posso unire i
+segnali MISO, MOSI e SS.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.3\linewidth,height=\textheight,keepaspectratio]{assets/imgs/spi.jpg}
+\caption{SPI: Master con 3 slave.}
+\end{figure}
+
+\subsubsection{\texorpdfstring{Inter-Integrated circuit
+(I\(^2\)C)}{Inter-Integrated circuit (I\^{}2C)}}\label{inter-integrated-circuit-i2c}
+
+È un protocollo sincrono, ed ha il pregio di utilizzare \emph{solo sue
+fili}.\newline I dispositivi sono \textbf{open drain}: le resistenze di
+pull-up tirano su i bus, posti a massa all'attivazione dei MOSFET.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{assets/imgs/I2C.jpg}
+\caption{Schema di I2C}
+\end{figure}
+
+Dalla disposizione simmetrica si evince che qualsiasi dispositivo può
+ricoprire il ruolo del master. Inoltre per gestire le trasmissioni si
+associa ad ogni elemento un \emph{indirizzo} da 7 bit (quindi abbiamo
+massimo 128 dispositivi collegati.)
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{assets/imgs/i2c_device.jpg}
+\caption{Schema di un dispositivo I2C}
+\end{figure}
+
+La comunicazione, detta \textbf{transazione}, avviene nelle seguenti
+fasi:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  il master apre la comunicazione con la configurazione di start (SCL=1
+  e SDA=\(\downarrow\));
+\item
+  il master manda i bit di indirizzo, specificando se vuole leggere o
+  scrivere col bit di R/W;
+\item
+  lo slave, ricevuto il messaggio, risponde con l'ACK;
+\item
+  il master invia i bit da scrivere (8 bit) (oppure invia gli 8 bit
+  letti);
+\item
+  il destinatario risponde con l'ACK;
+\item
+  il master segnala la fine della transazione con la configurazione di
+  stop (SCL=1 e SDA=\(\uparrow\)). Se il master deve eseguire più
+  transazioni può omettere questo passaggio ed il primo nella
+  transazione successivo.
+\end{enumerate}
+
+Il grosso difetto I\(^2\)C è la lentezza, dovuta alle capacità parassite
+dei device, che insieme alle resistenza comportano un limite superiore
+alla frequenza di funzionamento, inferiore ad 1MHz.
+
+\section{Schede}\label{schede}
+
+Le schede solitamente hanno il processore e basta. A volte hanno anche
+una parte per fare il debug del codice direttamente su di essa. Per
+esempio Arduino UNO è del primo tipo, la scheda che abbiamo in
+laboratorio (STM32) è del secondo.
+
+Poi esiste una porta (\textbf{porta JTAG}\footnote{Joint Test Action
+  Group.}) che serve per accedere ai registri e alla memoria flash
+(quindi per caricare il programma là sopra) del microcontrollore. Questa
+porta può essere utilizzata anche per bloccare l'esecuzione del codice.
+
+Sulla scheda c'è un dispositivo che serve a bloccare ingressi e uscite
+al fine di evitare comportamenti strani in fase di
+accensione/spegnimento (perché la corrente passa da 0 al valore che deve
+assumere (o viceversa) e normalmente i dispositivi non sono garantiti
+che funzionino correttamente al di fuori dei valori presenti sul
+datasheet).
+
+Di default, all'accensione, le uscite della scheda non sono configurate.
+Per assicurarmi di non incorrere in comportamenti non desiderati è
+consigliabile aggiungere un pull up/pull down così anche da preservare
+il circuito (magari i mos si attivano e passa un sacco di corrente e poi
+si rompono).
+
+\begin{itemize}
+\tightlist
+\item
+  Cortex-M4 (F4): è il microcontroller installato sulle schede che
+  abbiamo in laboratorio. Utilizza architettura Harvard, e CISC, ha
+  molte periferiche, consuma pochino (100\(\mu\)A/MHz) e ha l'unità
+  floating point (FPU).
+\end{itemize}
+
+La FPU è un modulo della CPU che permette di eseguire operazioni in
+virgola mobile senza utilizzare una libreria che le simuli (l'utilizzo
+della libreria è molto oneroso in termini di cicli di clock). La
+precisione della FPU è la precisione singola (32 bit). Non tutte le
+schede sono dotate di questo modulo (ad esempio Arduino UNO ne è
+sprovvisto). Per qualche motivo non è detto che il compilatore della
+nostra scheda utilizzi gli OPCODE floating point (bisogna stare attenti
+a quale usa).
+
+Su questa scheda non bisogna fare le divisioni perché manca il divisore
+hardware, quindi se dobbiamo dividere per delle costanti possiamo
+semplicemente moltiplicare per il suo reciproco, altrimenti calcolare
+una volta il reciproco del valore da dividere e poi utilizzare quello.
+
+Alcuni GPIO hanno delle funzioni specifiche in più (tipo PWM/ADC DAC).
+
+\section{Approfondimento sulla
+Cortex-M4}\label{approfondimento-sulla-cortex-m4}
+
+L'oscillatore (clock) interno e fatto con un not, una resistenza e un
+condensatore. La precisione e dell'1\% (10000 parti per milione) e la
+frequenza varia in base alla temperatura e all'alimentazione. Data la
+precisione bassa potrebbe interessare avere un oscillatore più preciso:
+in questo caso si prende un quarzo (la cui precisione va da 100ppm a
+molte meno ppm) e la cui frequenza va da 1 a 50MHz.
+
+Il segnale generato dal quarzo viene poi moltiplicato/diviso dal PLL.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{immagini/50.png}
+\caption{Cortex M4}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{GPIO}: ``Dietro'' ciascun GPIO ci sono due parti: una che
+  gestisce l'ingresso e una che gestisce l'uscita. \newline L'uscita è
+  composta da due CMOS. Noi ne dobbiamo usare solo 1. Spesso potrebbe
+  essere utile avere una resistenza di pull up/pull down internamente
+  (oppure un pull up esternamente, se necessito di maggiore precisione).
+  Per evitare che il codice sia interrotto da un'interruzione in una
+  zona critica non viene utilizzato l'output data register. \newline Al
+  contrario si utilizza il bit set/reset register che e
+  \textbf{interrupt safe}. \newline Quando voglio scrivere un 1 sull'ODR
+  metto nella parte bassa del BSRR un 1 (e poi ci pensa lui a scriverlo
+  nel ODR). Se invece voglio resettare un bit dell'ODR basta mettere un
+  1 nella parte alta del BSRR.
+\end{itemize}
+
+\subsection{Interrupt controller}\label{interrupt-controller}
+
+Serve a interrompere il flusso di programma per gestire un altro flusso
+(ISR) e poi tornare a gestire il programma principale. L'interrupt
+controller reagisce a degli eventi.
+
+Su STM32 può essere \textbf{nested/vectored}:
+
+\begin{itemize}
+\tightlist
+\item
+  nested vuol dire che le interazioni hanno una priorità e che durante
+  l'esecuzione di una interruzione a bassa priorità può arrivare una
+  interruzione a priorità maggiore che passa avanti.\\
+\item
+  vettorizzato vuol dire che ci sono n sorgenti di interrupt e ciascuna
+  è collegata ad una funzione che si trova elencata in una tabella delle
+  interruzioni. Questa tecnica viene utilizzata se devono essere gestite
+  tante interruzioni diverse.
+\end{itemize}
+
+Gli usi tipici dell'interrupt controller sono:
+
+\begin{itemize}
+\tightlist
+\item
+  gestione dei GPIO
+\item
+  con i timer, ovvero viene generata una richiesta di interruzione dopo
+  un tot specifico di tempo. I timer possono essere utilizzati per
+  produrre segnali periodici utili per i sistemi di controllo (tipo
+  PWM).
+\end{itemize}
+
+\href{immagini/51.png}{Il duty cycle è dato da \(\frac{D}{T}=\delta\).
+Maggiore è la soglia, più tempo sta alta l'onda.} Il contatore del timer
+non si ferma quando fermo l'esecuzione del programma (tipo con il
+debugger).
+
+NON SI FA DEBUG DI CIRCUITI DI POTENZA.
 
 \appendix
 
