@@ -2472,8 +2472,111 @@ $-V_{fs}/2$ & / & 000000 & 100000
 
 ![Questo D/A converter non è ottimale perché richiede che i valori delle resistenze siano precisi e questi solitamente non lo sono.](immagini/41.png){width=40%}
 
-Il suo funzionamento è abbastanza semplice: in base allo stato degli interruttori (D,C,B,A) può arrivare da ciascuno di essi una corrente _scalata da diversi fattori_ (1 per D, 2 per C, 4 per B e 8 per A).
+Il suo funzionamento è abbastanza semplice: in base allo stato degli interruttori (D,C,B,A) può arrivare da ciascuno di essi una corrente _scalata da diversi fattori_ (1 per D, 2 per C, 4 per B e 8 per A pari alle relative resistenze in entrata in $k\Omega$).
+Possiamo notare che lo stadio di uscita consiste in un amplificatore operazionale, che amplifica la differenza di tensione ai capi dei due terminali in ingresso: per cui la tensione in uscita $V_{out}=A(V^{+}-V^{-})$, con $A$ costante che determina il guadagno in tensione. Solitamente è un valore molto alto (dell'ordine di circa $10^5$) e ciò determina che la tensione in ingresso sia prossima a 0 se in uscita deve essere di circa 5V. Per comandare l'ingresso dell'amplificatore si esegue una _retroazione_, collegando l'uscita all'entrata negativa: grazie alla resistenza di retroazione sul polo negativo appare la stessa tensione che appare al polo positivo.\newline
+Tornando al circuito, proprio il polo positivo dell'amplificatore operazionale e posto a massa e quindi la tensione in ingresso al polo negativo $V_{x}=0$ e dato che la corrente su questo polo $i_{-}$ tutta la corrente fluisce sulla resistenze d'uscita:
+\begin{greenbox}{Esempio}
+Considerando un convertitore a 4 bit come quello in figura che ha il fondo di scala $V_{fs}=10V,\:\:D=5V,\:C=2,5V,\:B=1,25V,\:A=0,625V$ abbiamo:
+\begin{itemize}
+\item Output value $V_{out} = -5V(1 \cdot D + \frac{1}{2}\cdot C + \frac{1}{4}\cdot B + \frac{1}{8}\cdot A)$
+\item Full scale: $-5V (1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8}) = -9,375V$
+\item Passo di Quantizzazione (step) $\frac{9,375}{15} = 0.625V$
+\end{itemize}
+Per esempio con un input: ABCD=1000, $V_{out}= 0.625V$; mentre con un input: ABCD=0100 $V_{out} = 4.25V$
+\end{greenbox}
+Questo circuito per essere considerato _affidabile_ tuttavia deve sottostare ad alcune assunzioni:
 
+- La _tensione di riferimento_ deve essere _stabile_ altrimenti non lo sarà neanche l'uscita;
+- Il valore delle resistenze in se non è molto rilevante, però il rapporto dei valore fondamentale. $R_{out}=R_{MSB}$, inoltre ogni bit successivo deve avere resistenza _doppia_ rispetto al precedente. Al fine di _arginare_ gli errori dovuti ai processi produttivi è norma utilizzare soltanto resistenze del MSB poste in serie dove servono valori maggiori:
+- L'amplificatore operazionale deve essere _lineare_, garantendo le sue equazioni caratteristiche:
+- Gli switch devono essere di qualità alta: in particolare devono presentare una __resistenza parassita trascurabile__ rispetto a quella del MSB $R_{MSB}$.
+
+Tra queste assunzioni, al crescere di bit diventa difficile mantenere la seconda. Ad esempio con $N=10$ bit la resistenza del _least significant bit_ e circa $1M\Omega$, di conseguenza dovrei utilizzare $1024=2^{10}$ resistenze da $1k\Omega$ l'una e diventa probitivo.
+
+### Convertitore R-2R
+![Convertitore R-2R](immagini/42.png){width=60%}
+
+Il convertitore R-2R (o network) consiste in una rete tale che, considerando ogni singolo nodo partendo da sinistra, in ciascuno di questi nodi ___la corrente si divide in due parti uguali___ utilizzando un _partitore di tensione_. In questo modo invece di scalare le resistenze per potenze del due ogni singolo switch decide se mandare la frazione di corrente corrispondente verso massa in OUT1 scartandola, o sommandola in OUT2 mandandola verso l'op-amp che funge in questo caso da massa virtuale, portando poi in output il segnale tramite la resistenza R.\newline
+In base alla bontà del circuito viene fuori una funzione caratteristica ingresso-uscita differente, la quale __difficilmente è ideale, ovvero _lineare___!
+
+
+![Non linearità in R-2R](assets/imgs/Non-linearity-in-DAC.png){width=50%}
+
+
+Con queste informazioni possiamo definire due misure di errore:
+
+- _full-scale error_: il massimo errore tra i grafici (differenze tra i valori di output ideali e quelli ideali) espresso in percentuale di $V_{fs}$, quindi anche in bit;
+- _linearity error_: quanto si scosta un singolo step dal precedente, in pratica è la massima differenza tra gli steps ideali e quelli reali.
+
+\begin{redbox}{Riassuntino}
+Il segnale in uscita dal DAC è campionato e quantizzato. La risoluzione di quantizzazione corrisponde al numero di bit usati nel processo di conversione. Il tempo di campionamento, invece, corrisponde al tempo in cui viene avviata la conversione in analogico di un dato digitale.
+\end{redbox}
+\begin{bluebox}{Esempio: il sintetizzatore di forme d'onda}
+    Il contatore indirizza sequenzialmente 32k celle EPROM\footnote{Erasable Programmable Read Only Memory}: il registro ferma gli output, mantenendoli validi per l'intero intervallo di clock. A questo punto il DAC produce un segnale analogico per ogni intervallo di clock.
+\end{bluebox}
+
+\begin{figure}[H]
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{assets/imgs/synth.png}
+            \caption{Sincronizzatore}
+        \end{subfigure}%
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{assets/imgs/synth_signal.png} 
+            \caption{Segnale del sincronizzatore}
+        \end{subfigure}
+    \end{figure}
+
+## Convertitori Analogico-Digitale
+I convertitori analogico-digitali ADC moderni sono costruiti utilizzando i DAC. Anche con questa tipologia di convertitori e necessario utilizzare la massima tensione possibile, pena una _risoluzione effettiva __minore___ di quella nominale.
+
+In generale vogliamo stimare il segnale in ingresso, confrontandolo con l'uscita di un dispositivo DAC di una __sequenza nota__. Si usa allora un contatore ad $N$ bit il quale ad ogni colpo di clock incrementa la sequenza di 1
+
+### Digital Ramp ADC
+
+![Circuito Digital Ramp](immagini/43.png){width=50%}
+
+Si vuole convertire una tensione $V_A$ da analogica a digitale. Si utilizza un DAC per sintetizzare una tensione analogica da confrontare con la tensione $V_{A}$ tramite un comparatore: esso consiste in un op-amp che produce in uscita un valore o $0$ o $1$ a seconda che la tensione sia maggiore o minore della tensione $V_{AX}$ _sintetizzata_ dal DAC: se l'uscita (asserita alta) $\overline{\text{EOC}}=0$ allora la conversione si è conclusa.\newline
+Prima del DAC è presente un contatore che può essere resettato a 0 tramite un ingresso del circuito start; questo segnale guida anche una porta logica AND a tre ingressi, con un uscita $\overline{\text{EOC}}\cdot\text{CLK}\cdot\overline{\text{START}}$: in questo modo viene generata la tensione $V_{AX}$, incrementando in modo sequenziale la sequenza di N bit partendo da una di tutti 0 e generando una rampa di numeri digitali fino ad ottenere quello corretto.\newline
+Bisogna notare come quando $\overline{\text{EOC}}=0$ viene interrotto il clock e la parola digitale più vicina al valore analogico è ai piedi del contatore, collegato anche ad un un registro per poi essere restituiti in uscita.
+
+Questo circuito è tuttavia __lento__: nel caso peggiore, ovvero in cui la tensione in ingresso supera il quella di fondo di scala, la conversione necessita del massimo numero di cicli di clock, ovvero $2^{N}$. Con un ADC a 10bit e un clock di $100MHz$ ciò implica che possa riuscire ad eseguire solo $\frac{100M}{2^{10}}\sim 100k$ conversioni al secondo: il numero decresce in modo esponenziale all'aumentare dei bit. \newline
+Un altro problema deriva dalla durata della conversione, proporzionale alla tensione in entrata e e quindi non prevedibile.
+
+## ADC ad approssimazioni successive
+
+![Convertitore ADC ad approssimazioni successive](immagini/44.png){width=50%}
+
+Come nel convertitore precedente vi è un anello di retroazione, una parte logica ed un DAC. Ma la differenza principale sta nella funzione implementata nel blocco SAR (Successive Approximation Register): infatti viene utilizzato un metodo di bisezione nell'algoritmo di ricerca, dividendo ogni volta per due[^56] lo spazio del convertitore e stabilendo in quale regione si trovi la tensione in ingresso. Grazie a questo il tempo di ricerca _diminuisce_, diventando nel caso peggiore $\log_2(2^N)=N$. Il SAR inoltre tiene traccia delle approssimazioni successive, e quindi dell'intera parola digitale.
+\begin{redbox}{Funzionamento}
+Si parte con $V_C=0$ e si pone ad 1 il MSB che divide a metà lo spazio di conversione, sintetizzando quindi un valore analogico tramite il DAC pario a metà dinamica. Il convertitore ora stabilisce se la tensione $V_{C}>V_{I}$ in tal caso il bit posto ad uno vine rimesso a 0, altrimenti rimane inalterato.\newline
+Ciò accade per ogni bit: una volta analizzato esattamente $n$ bit il valore convertito si trova nel SAR e viene portato in uscita.\newline
+\emph{Il metodo converge esponenzialmente.}
+\end{redbox}
+Il tempo di conversione di questa tipologia di ADC è molto più breve, e ciò può essere sfruttato in due modi:
+
+- si può andare più veloci a parità di risoluzione (numero di bit):
+- a parità di tempo si può avere una maggiore risoluzione, ma aumentando il numero di bit aumenta anche la complessità delle logica, e di conseguenza anche il tempo di lavoro del DAC.
+
+## Flash ADC
+
+![Flash ADC](immagini/46.png){width=40%}
+![Come viene effettuato il campionamento](immagini/47.png){width=50%}
+\begin{figure}[!h]
+\begin{subfigure}[t]{0.4\textwidth}
+\caption{Flash ADC}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.6\textwidth}
+\caption{Come viene effettuato il campionamento}
+\end{subfigure}
+\end{figure}
+
+Contiene un DAC con $2^{N}$ uscite collegate e $2^N$ comparatori: a seconda del valore analogico alcuni comparatori avranno valore 1, altri 0. La sequenza binaria ottenuta viene trasformata in un numero digitale (priority encoder). Essenzialmente per ciascuna soglia un comparatore controlla se il valore l'ha superata, andando in input al priority encoder, che a sua volta restituisce un output associato alla più grande soglia superata.
+
+Il tempo di conversione dipende dal tempo di comparazione e da quello del priority encoder: infatti al crescere del numero di bit è sufficiente aumentare il numero di comparatori[^57], ma cambia il tempo del priority encoder, il quale ha $2^N -1$ ingressi. Per questo motivo, insieme alla complessità del priority encoder e dalla difficoltà nella realizzazione di tante resistenza/op-amp in serie nel DAC[^58], il Flash ADC avrà un numero di bit limitato: per ogni bit aggiuntivo __raddoppia__ la complessità  ed anche la dimensione fisica. Se il numero di bit varia tra gli 8 e 12, la frequenza vanno dalle decine alle centinaia di MHz, anche alcuni GHz.
 
 # Dispositivi digitali programmabili
 A differenza delle porte logiche, che eseguono sempre la stessa funzione, i dispositivi digitali _programmabili_ possono essere appunto programmati per eseguire determinate attività; inoltre ogni tipologia ha una diversa _complessità_. In ordine di capacità computazionale abbiamo:
